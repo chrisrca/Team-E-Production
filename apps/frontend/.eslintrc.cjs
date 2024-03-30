@@ -1,5 +1,5 @@
 module.exports = {
-  env: { browser: true, es2020: true },
+  env: { browser: true, es2020: true, node: true },
   extends: ["custom", "plugin:react-hooks/recommended"],
   root: true,
   parserOptions: { ecmaVersion: "ESNext", sourceType: "module" },
