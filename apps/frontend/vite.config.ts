@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import path from "path";
 import eslint from "vite-plugin-eslint";
 import * as process from "process";
 console.log(process.env.FRONTEND_PORT);
@@ -7,6 +8,9 @@ console.log(process.env.FRONTEND_PORT);
 export default defineConfig({
   resolve: {
     preserveSymlinks: true,
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
   server: {
     host: "0.0.0.0",
