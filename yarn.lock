@@ -1937,6 +1937,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^20.12.2":
+  version: 20.12.2
+  resolution: "@types/node@npm:20.12.2"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: f1f0ebfe475aefa183763b856e0023b81b76554196e8676a45b9fcfd1012cdd20d32adefb3c0330001c0011e074676603c34c24821a4924228250ea13a75da43
+  languageName: node
+  linkType: hard
+
 "@types/pg@npm:^8.10.1":
   version: 8.10.9
   resolution: "@types/pg@npm:8.10.9"
@@ -3562,6 +3571,7 @@ __metadata:
   resolution: "database@workspace:packages/database"
   dependencies:
     "@prisma/client": "npm:4.15.0"
+    "@types/node": "npm:^20.12.2"
     eslint: "npm:latest"
     eslint-config-custom: "workspace:*"
     prettier: "npm:latest"

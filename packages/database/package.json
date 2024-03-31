@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@prisma/client": "4.15.0",
+    "@types/node": "^20.12.2",
     "prisma": "4.15.0"
   }
 }
