@@ -1,9 +1,8 @@
 import "./index.css";
-import Login from "./components/Login.tsx";
+import { Login } from "./components";
 import LevelOne from "./components/Map-LevelOne.tsx";
 import FlowerService from "@/components/FlowerServiceRequest.tsx";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-//import NavMenu from "./components/NavMenu.tsx";
 import Hamburger from "./components/Hamburger.tsx";
 
 function App() {
