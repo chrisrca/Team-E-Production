@@ -1,4 +1,4 @@
-import "./output.css"; // THIS MUST BE CREATED USE COMMAND "npx tailwind -i ./src/index.css -o ./src/output.css --watch" WHILE IN FRONTEND FOLDER DURING DEVELOPMENT
+import "./index.css"; // THIS MUST BE CREATED USE COMMAND "npx tailwind -i ./src/index.css -o ./src/output.css --watch" WHILE IN FRONTEND FOLDER DURING DEVELOPMENT
 import Login from "./components/Login.tsx";
 import LevelOne from "./components/Map-LevelOne.tsx";
 import Welcome from "./components/Welcome.tsx";
@@ -17,6 +17,7 @@ function App() {
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/map" element={<LevelOne />} />
           <Route path="/flower-service" element={<FlowerService />} />
+          <Route path="/flower" element={<FlowerService />} />
         </Routes>
       </BrowserRouter>
     </div>
