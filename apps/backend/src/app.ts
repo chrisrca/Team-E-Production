@@ -3,6 +3,7 @@ import express, { Express, NextFunction, Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import exampleRoute from "./routes/exampleRoute";
+import runBFS from "./algos/BFS";
 
 const app: Express = express(); // Setup the backend
 
@@ -25,6 +26,8 @@ app.use("/healthcheck", (req, res) => {
   res.status(200).send();
 });
 // Don't delete above: MIDDLEWARE
+console.log(runBFS("GELEV00QL1", "WELEV00ML1"));
+
 app.use("/api/feedback", exampleRoute);
 
 /**
