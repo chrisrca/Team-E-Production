@@ -22,6 +22,7 @@ app.use(express.json()); // This processes requests as JSON
 app.use(express.urlencoded({ extended: false })); // URL parser
 app.use(cookieParser()); // Cookie parser
 
+app.use("/api/test", testRoute);
 // Setup routers. ALL ROUTERS MUST use /api as a start point, or they
 // won't be reached by the default proxy and prod setup
 app.use("/healthcheck", (req, res) => {
@@ -31,7 +32,6 @@ app.use("/healthcheck", (req, res) => {
 // app.use("/api/feedback", exampleRoute);
 // app.use("/api/path", pathRoute);
 // app.use("/api/locations", nodeRoute);
-app.use("/api/test", testRoute);
 
 /**
  * Catch all 404 errors, and forward them to the error handler

@@ -43,9 +43,9 @@ export default function NodeDisplay(props: { node: Node }) {
   return (
     <canvas
       ref={canvasRef}
-      width={200}
-      height={200}
-      className="absolute z-2 flex flex-col rounded-2"
+      width={1000}
+      height={1000}
+      className="absolute z-1000 flex flex-col rounded-2"
     />
   );
 }
