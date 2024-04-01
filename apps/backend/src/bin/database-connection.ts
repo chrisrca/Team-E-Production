@@ -134,15 +134,15 @@ async function processGraphData(): Promise<void> {
   saveEdgesToCSV(edgeList, "./src/data/processedEdges.csv");
 }
 
-async function generateAllOutput(): Promise<void> {
-  const result = await client.$queryRaw`SELECT * FROM node`;
-  console.log(result);
-  const result2 = await client.$queryRaw`SELECT * FROM edge`;
-  console.log(result2);
-}
+// async function generateAllOutput(): Promise<void> {
+//   const result = await client.$queryRaw`SELECT * FROM node`;
+//   console.log(result);
+//   const result2 = await client.$queryRaw`SELECT * FROM edge`;
+//   console.log(result2);
+// }
 
 processGraphData();
-generateAllOutput();
+//generateAllOutput();
 // Export the client
 export default client;
 
