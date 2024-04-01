@@ -1,6 +1,5 @@
 import * as fs from "fs";
-import { Node, Edge } from "./database-connection";
-
+import { Edge, Node } from "common/src/types";
 export function saveNodesToCSV(nodes: Node[], filename: string) {
   const headers =
     "nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName";
