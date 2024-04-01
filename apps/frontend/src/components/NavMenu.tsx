@@ -29,7 +29,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export default function NavMenu() {
   return (
-    <NavigationMenu className="flex bg-secondary w-full">
+    <NavigationMenu className="flex bg-secondary w-full top-bar fixed">
       <NavigationMenuList className="w-screen">
         <NavigationMenuLink>
           <Link to="/welcome">
