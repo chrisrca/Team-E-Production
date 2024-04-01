@@ -4,7 +4,7 @@ export default function Welcome() {
       <h1 className="text-black animate-in fade-in zoom-in">
         Welcome to our prototype!
       </h1>
-      <p className="text-yellow-500">
+      <p className="text-yellow-200">
         Use the navigation menu above to explore our website's functionality!
       </p>
     </div>

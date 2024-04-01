@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { Node, Edge } from "./index";
+import { Node, Edge } from "./database-connection";
 
 export function saveNodesToCSV(nodes: Node[], filename: string) {
   const headers =
