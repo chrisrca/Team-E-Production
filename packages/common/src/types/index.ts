@@ -1,6 +1,7 @@
 import { Node } from "./node";
 import { Edge } from "./edge";
 import { Coords } from "./coords";
-import { Path } from "./path";
+import { StartEnd } from "./start_end.ts";
+import { Test1 } from "./test.ts";
 
-export type { Node, Edge, Coords, Path };
+export type { Node, Edge, Coords, StartEnd, Test1 };

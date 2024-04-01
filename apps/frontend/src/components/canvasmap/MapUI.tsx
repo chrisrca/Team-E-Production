@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Path } from "common/src/types";
-import axios from "axios";
+// import { Path } from "common/src/types";
+// import axios from "axios";
 // import formInput, {FormInput} from "@/components/ui/formInput.tsx";
 
 export default function SearchBar() {
@@ -8,22 +8,22 @@ export default function SearchBar() {
   const [end, setEnd] = useState("");
 
   async function submit() {
-    const pathSent: Path = {
-      start: start,
-      end: end,
-    };
-    const res = await axios.post(
-      "/api/path",
-      { pathSent },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-    if (res.status == 200) {
-      console.log("success");
-    }
+    // const pathSent: Path = {
+    //   start: start,
+    //   end: end,
+    // };
+    // const res = await axios.post(
+    //   "/api/path",
+    //   { pathSent },
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   },
+    // );
+    // if (res.status == 200) {
+    //   console.log("success");
+    // }
     // console.log(`${start} gave the feedback of ${end}`);
     // const feedBackData: Path = {
     //   start: start,
