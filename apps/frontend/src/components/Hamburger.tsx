@@ -29,21 +29,14 @@ export default function Hamburger() {
             </Link>
           </SheetClose>
           <SheetClose asChild>
-            <div className="rounded hover:bg-gray-200 min-h-10">
-              <Link
-                to="/flower-service"
-                className="text-black hover:text-black"
-              >
-                Flower Service Request
-              </Link>
-            </div>
+            <Link to="/flower-service" className="text-black hover:text-black">
+              Flower Service Request
+            </Link>
           </SheetClose>
           <SheetClose asChild>
-            <div className="rounded hover:bg-gray-200 min-h-10">
-              <Link to="/map" className="text-black hover:text-black">
-                Maps
-              </Link>
-            </div>
+            <Link to="/map" className="text-black hover:text-black">
+              Maps
+            </Link>
           </SheetClose>
         </div>
       </SheetContent>
