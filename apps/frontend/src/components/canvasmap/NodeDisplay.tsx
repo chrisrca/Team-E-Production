@@ -1,7 +1,7 @@
-import { node } from "common/src/node.ts";
+import { Node } from "common/src/types";
 import React, { useRef, useEffect } from "react";
 
-export default function NodeDisplay(props: { node: node }) {
+export default function NodeDisplay(props: { node: Node }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -10,7 +10,13 @@ export default function NodeDisplay(props: { node: node }) {
       const context = canvas.getContext("2d");
       if (context) {
         context.beginPath();
-        context.arc(props.node.xCoord, props.node.yCoord, 50, 0, 2 * Math.PI);
+        context.arc(
+          props.node.coords.xcoord,
+          props.node.coords.ycoord,
+          50,
+          0,
+          2 * Math.PI,
+        );
         context.fill();
         context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -32,7 +38,7 @@ export default function NodeDisplay(props: { node: node }) {
       resizeCanvas();
       window.addEventListener("resize", resizeCanvas);
     }
-  }, [props.node.xCoord, props.node.yCoord]);
+  }, [props.node.coords.xcoord, props.node.coords.ycoord]);
 
   return (
     <canvas

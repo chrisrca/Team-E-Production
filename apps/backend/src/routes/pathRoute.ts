@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { Path } from "common/src/Path.ts";
+import { Path } from "common/src/types";
 
 const router: Router = express.Router();
 
