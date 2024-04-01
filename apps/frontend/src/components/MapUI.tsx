@@ -8,19 +8,35 @@ export default function SearchBar() {
   const [end, setEnd] = useState("");
 
   async function submit() {
-    console.log(`${start} gave the feedback of ${end}`);
-    const feedBackData: Path = {
+    const pathSent: Path = {
       start: start,
       end: end,
     };
-    const res = await axios.post("/api/feedback", feedBackData, {
-      headers: {
-        "content-type": "Application/json",
+    const res = await axios.post(
+      "/api/path",
+      { pathSent },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
     if (res.status == 200) {
-      console.log(res.data);
+      console.log("success");
     }
+    // console.log(`${start} gave the feedback of ${end}`);
+    // const feedBackData: Path = {
+    //   start: start,
+    //   end: end,
+    // };
+    // const res = await axios.post("/api/feedback", feedBackData, {
+    //   headers: {
+    //     "content-type": "Application/json",
+    //   },
+    // });
+    // if (res.status == 200) {
+    //   console.log(res.data);
+    // }
   }
 
   function clear() {
@@ -60,7 +76,9 @@ export default function SearchBar() {
           className={
             "border-2 w-32 px-5 py-2 rounded-3xl border-gray-400 drop-shadow-xl"
           }
-          onClick={submit}
+          onClick={() => {
+            submit().then().catch();
+          }}
         >
           Search
         </button>
