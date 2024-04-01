@@ -1,34 +1,12 @@
 import fs from "fs";
 import { PrismaClient } from "database";
 import { saveNodesToCSV, saveEdgesToCSV } from "./csvUtils";
-
+import { Node, Edge } from "common/src/types";
 // Create the prisma client, this automatically connects to the database
 const client = new PrismaClient();
 
-const edges: string = "../data/edges.csv";
-const nodes: string = "../data/nodes.csv";
-
-export interface Coords {
-  xcoord: number;
-  ycoord: number;
-}
-
-export interface Node {
-  nodeID: string;
-  coords: Coords;
-  floor: string;
-  building: string;
-  nodeType: string;
-  longName: string;
-  shortName: string;
-  edges: Edge[];
-}
-
-export interface Edge {
-  edgeID: string;
-  start: string;
-  end: string;
-}
+const edges: string = "./src/data/edges.csv";
+const nodes: string = "./src/data/nodes.csv";
 
 function createNodes(): Promise<Node[]> {
   return new Promise((resolve, reject) => {
@@ -98,26 +76,26 @@ function createEdges(): Promise<Edge[]> {
 }
 
 async function processGraphData(): Promise<void> {
-  try {
-    const nodeList: Node[] = await createNodes();
-    const edgeList: Edge[] = await createEdges();
+  const nodeList: Node[] = await createNodes();
+  const edgeList: Edge[] = await createEdges();
 
-    for (let i = 0; i < edgeList.length; i++) {
-      for (let j = 0; j < nodeList.length; j++) {
-        if (
-          nodeList[j].nodeID === edgeList[i].start ||
-          nodeList[j].nodeID === edgeList[i].end
-        ) {
-          if (!nodeList[j].edges.includes(edgeList[i])) {
-            nodeList[j].edges.push(edgeList[i]);
-          }
+  for (let i = 0; i < edgeList.length; i++) {
+    for (let j = 0; j < nodeList.length; j++) {
+      if (
+        nodeList[j].nodeID === edgeList[i].start ||
+        nodeList[j].nodeID === edgeList[i].end
+      ) {
+        if (!nodeList[j].edges.includes(edgeList[i])) {
+          nodeList[j].edges.push(edgeList[i]);
         }
       }
     }
-    //console.log(nodeList);
+  }
+  //console.log(nodeList);
 
-    // Process edges
-    for (const edge of edgeList) {
+  // Process edges
+  for (const edge of edgeList) {
+    try {
       await client.edge.create({
         data: {
           edgeID: edge.edgeID,
@@ -125,9 +103,13 @@ async function processGraphData(): Promise<void> {
           endNodeID: edge.end,
         },
       });
+    } catch (e) {
+      //console.log(`Edge with ID ${edge.edgeID} already exists. Skipping...`);
     }
+  }
 
-    for (const node of nodeList) {
+  for (const node of nodeList) {
+    try {
       await client.node.create({
         data: {
           nodeID: node.nodeID,
@@ -142,14 +124,14 @@ async function processGraphData(): Promise<void> {
           edges: "TBD",
         },
       });
+    } catch (e) {
+      //console.log(`Node with ID ${node.nodeID} already exists. Skipping...`);
     }
-
-    // After processing, save the nodes and edges to CSV files
-    saveNodesToCSV(nodeList, "./processedNodes.csv");
-    saveEdgesToCSV(edgeList, "./processedEdges.csv");
-  } catch (err) {
-    console.error("An error occurred:", err);
   }
+
+  // After processing, save the nodes and edges to CSV files
+  saveNodesToCSV(nodeList, "./src/data/processedNodes.csv");
+  saveEdgesToCSV(edgeList, "./src/data/processedEdges.csv");
 }
 
 async function generateAllOutput(): Promise<void> {
