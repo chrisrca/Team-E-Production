@@ -1,5 +1,5 @@
-import "./output.css"; // THIS MUST BE CREATED USE COMMAND "npx tailwind -i ./src/index.css -o ./src/output.css --watch" WHILE IN FRONTEND FOLDER DURING DEVELOPMENT
-import Login from "./components/Login.tsx";
+import "./index.css";
+import { Login } from "./components";
 import LevelOne from "./components/Map-LevelOne.tsx";
 import Welcome from "./components/Welcome.tsx";
 import FlowerService from "@/components/FlowerServiceRequest.tsx";
