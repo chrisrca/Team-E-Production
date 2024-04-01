@@ -2,6 +2,9 @@ import createError, { HttpError } from "http-errors";
 import express, { Express, NextFunction, Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
+import exampleRoute from "./routes/exampleRoute";
+import pathRoute from "./routes/pathRoute.ts";
+import nodeRoute from "./routes/nodeRoute.ts";
 
 const app: Express = express(); // Setup the backend
 
@@ -23,6 +26,10 @@ app.use(cookieParser()); // Cookie parser
 app.use("/healthcheck", (req, res) => {
   res.status(200).send();
 });
+// Don't delete above: MIDDLEWARE
+app.use("/api/feedback", exampleRoute);
+app.use("/api/path", pathRoute);
+app.use("/api/node", nodeRoute);
 
 /**
  * Catch all 404 errors, and forward them to the error handler
