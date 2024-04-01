@@ -7,6 +7,9 @@ import logger from "morgan";
 import testRoute from "./routes/testRoute.ts";
 // import nodeRoute from "./routes/nodeRoute.ts";
 //
+import exampleRoute from "./routes/exampleRoute";
+import runBFS from "./algos/BFS";
+
 const app: Express = express(); // Setup the backend
 
 // Setup generic middlewear
@@ -29,6 +32,9 @@ app.use("/healthcheck", (req, res) => {
   res.status(200).send();
 });
 // Don't delete above: MIDDLEWARE
+console.log(runBFS("GELEV00QL1", "WELEV00ML1"));
+
+app.use("/api/feedback", exampleRoute);
 // app.use("/api/feedback", exampleRoute);
 // app.use("/api/path", pathRoute);
 // app.use("/api/locations", nodeRoute);

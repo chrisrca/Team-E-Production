@@ -8,9 +8,9 @@ type Feedback = {
 
 router.post("/", async (req, res) => {
   const feedback: Feedback = req.body as Feedback;
-  res
-    .status(200)
-    .json({ message: feedback.name + " said: " + feedback.message });
+  res.status(200).json({
+    message: feedback.name + " said: " + feedback.message,
+  });
 });
 
 export default router;
