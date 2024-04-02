@@ -2,11 +2,9 @@ import createError, { HttpError } from "http-errors";
 import express, { Express, NextFunction, Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-// import exampleRoute from "./routes/exampleRoute";
-// import pathRoute from "./routes/pathRoute.ts";
-import testRoute from "./routes/testRoute.ts";
-// import nodeRoute from "./routes/nodeRoute.ts";
-//
+import nodeRoute from "./routes/nodeRoute";
+import runBFS from "./algos/BFS";
+
 const app: Express = express(); // Setup the backend
 
 // Setup generic middlewear
@@ -22,16 +20,15 @@ app.use(express.json()); // This processes requests as JSON
 app.use(express.urlencoded({ extended: false })); // URL parser
 app.use(cookieParser()); // Cookie parser
 
-app.use("/api/test", testRoute);
 // Setup routers. ALL ROUTERS MUST use /api as a start point, or they
 // won't be reached by the default proxy and prod setup
 app.use("/healthcheck", (req, res) => {
   res.status(200).send();
 });
 // Don't delete above: MIDDLEWARE
-// app.use("/api/feedback", exampleRoute);
-// app.use("/api/path", pathRoute);
-// app.use("/api/locations", nodeRoute);
+console.log(runBFS("GELEV00QL1", "WELEV00ML1"));
+
+app.use("/api/nodes", nodeRoute);
 
 /**
  * Catch all 404 errors, and forward them to the error handler
