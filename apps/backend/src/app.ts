@@ -4,6 +4,8 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import nodeRoute from "./routes/nodeRoute";
 import pathRoute from "./routes/pathRoute";
+import edgeRoute from "./routes/edgeRoute";
+import flowerRoute from "./routes/flowerRoute";
 
 const app: Express = express(); // Setup the backend
 
@@ -28,6 +30,8 @@ app.use("/healthcheck", (req, res) => {
 // Don't delete above: MIDDLEWARE
 app.use("/api/path", pathRoute);
 app.use("/api/nodes", nodeRoute);
+app.use("/api/edges", edgeRoute);
+app.use("/api/flower", flowerRoute);
 
 /**
  * Catch all 404 errors, and forward them to the error handler
