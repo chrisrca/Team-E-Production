@@ -1,28 +1,18 @@
-import express, { Router } from "express";
-import { Edge, Node } from "common/src/types";
-//import { client } from "./src/bin/database-connection";
+import client from "../bin/database-connection";
+import express, { Request, Response } from "express";
 
-const router: Router = express.Router();
+const router = express.Router();
 
-type NodeEdgeData = {
-  nodes: Node[];
-  edges: Edge[];
-};
+let nodes: string;
 
-const database: NodeEdgeData = {
-  nodes: [],
-  edges: [],
-};
+async function getNodesFromDB(): Promise<string> {
+  nodes = await client.$queryRaw`SELECT * FROM node`;
+  return nodes;
+}
 
-router.get("/:index", (req, res) => {
-  const index = parseInt(req.params.index);
-  if (index >= 0 && index < database.nodes.length) {
-    res.status(200).json(database.nodes[index]);
-  } else {
-    res.status(400).json({
-      message: "not a valid index",
-    });
-  }
+router.get("/", async (req: Request, res: Response) => {
+  const msg = await getNodesFromDB();
+  res.send(msg);
 });
 
 export default router;

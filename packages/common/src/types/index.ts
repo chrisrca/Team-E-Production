@@ -1,6 +1,8 @@
-import { Node } from "./node";
-import { Edge } from "./edge";
-import { Coords } from "./coords";
-import { Path } from "./path";
+import { DBParseNode } from "./dbparsenode.ts";
+import { DBNode } from "./dbnode.ts";
+import { Edge } from "./edge.ts";
+import { Coords } from "./coords.ts";
+import { StartEnd } from "./start_end.ts";
+import { Test1 } from "./test.ts";
 
-export type { Node, Edge, Coords, Path };
+export type { DBNode, DBParseNode, Edge, Coords, StartEnd, Test1 };
