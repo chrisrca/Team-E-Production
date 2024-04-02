@@ -1,27 +1,23 @@
 import express, { Router } from "express";
-import { Path } from "common/src/types";
+import runBFS from "../algos/BFS";
 
 const router: Router = express.Router();
-
-const database: Path[] = [];
-
-router.get("/:index", (req, res) => {
-  const index = parseInt(req.params.index);
-  if (index >= 0 && index < database.length) {
-    res.status(200).json(database[index]);
-  }
-  res.status(400).json({
-    message: "not a valid index",
+let path;
+router.get("/:start/:end", async (req, res) => {
+  const { start, end } = req.params;
+  path = await runBFS(start, end);
+  const simplifiedPath = path.map((node) => {
+    return {
+      nodeID: node.nodeID,
+      ycoord: node.coords.ycoord,
+      xcoord: node.coords.xcoord,
+      floor: node.floor,
+      building: node.building,
+      nodeType: node.nodeType,
+      longName: node.longName,
+      shortName: node.shortName,
+    };
   });
-});
-
-router.post("/", (req, res) => {
-  const path: Path = req.body();
-
-  database.push(path);
-
-  res.status(200).json({
-    message: "added db object",
-  });
+  res.send(simplifiedPath);
 });
 export default router;
