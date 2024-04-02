@@ -1,42 +1,32 @@
+import { DBNode } from "common/src/types";
 import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+  SelectItem,
+} from "../../components/ui/select";
+import { Button } from "../ui/button";
 // import { Path } from "common/src/types";
 // import axios from "axios";
 // import formInput, {FormInput} from "@/components/ui/formInput.tsx";
 
-export default function SearchBar() {
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+interface PathSetFunctionProps {
+  selection: DBNode[];
+  start: (start: string) => void;
+  end: (end: string) => void;
+}
+
+export default function SearchBar(PathFunctions: PathSetFunctionProps) {
+  const [startPath, setStart] = useState<string>("");
+  const [endPath, setEnd] = useState<string>("");
+
+  const choices = PathFunctions.selection;
 
   async function submit() {
-    // const pathSent: Path = {
-    //   start: start,
-    //   end: end,
-    // };
-    // const res = await axios.post(
-    //   "/api/path",
-    //   { pathSent },
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   },
-    // );
-    // if (res.status == 200) {
-    //   console.log("success");
-    // }
-    // console.log(`${start} gave the feedback of ${end}`);
-    // const feedBackData: Path = {
-    //   start: start,
-    //   end: end,
-    // };
-    // const res = await axios.post("/api/feedback", feedBackData, {
-    //   headers: {
-    //     "content-type": "Application/json",
-    //   },
-    // });
-    // if (res.status == 200) {
-    //   console.log(res.data);
-    // }
+    PathFunctions.start(startPath);
+    PathFunctions.end(endPath);
   }
 
   function clear() {
@@ -47,49 +37,55 @@ export default function SearchBar() {
   return (
     <div
       className={
-        "justify-items-center absolute z-10 text-2xl rounded-2xl p-10 flex flex-col gap-5 rounded-2 float-left top-0"
+        "ml-10 mt-10 justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"
       }
     >
-      <div className={"px-10 py-5 flex flex-col rounded-2 border-white"}>
-        <h1>Start</h1>
-        <input
-          value={start}
-          onChange={(e) => {
-            setStart(e.target.value);
-          }}
-          type={"text"}
-          className={"border-2 p-2 border-black rounded-2xl grow"}
-        />
+      <div className={"flex flex-col rounded-2 border-white drop-shadow-xl"}>
+        <Select onValueChange={(e) => setStart(e)} value={startPath}>
+          <SelectTrigger>
+            <SelectValue placeholder="Start Node" />
+          </SelectTrigger>
+          <SelectContent>
+            {choices.map((node, index) => (
+              <SelectItem key={index} value={node.nodeID}>
+                {node.nodeID}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
-      <div className={"px-10 py-5 flex flex-col rounded-2 border-white"}>
-        <h1>End</h1>
-        <input
-          value={end}
-          onChange={(e) => {
-            setEnd(e.target.value);
-          }}
-          className={"border-2 border-black p-2 rounded-2xl grow"}
-        />
+      <div
+        className={"py-5 flex flex-col rounded-2 border-white drop-shadow-xl"}
+      >
+        <Select onValueChange={(e) => setEnd(e)} value={endPath}>
+          <SelectTrigger>
+            <SelectValue placeholder="End Node" />
+          </SelectTrigger>
+          <SelectContent>
+            {choices.map((node, index) => (
+              <SelectItem key={index} value={node.nodeID}>
+                {node.nodeID}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
-      <div className={"grid grid-cols-2 justify-items-center"}>
-        <button
-          className={
-            "border-2 w-32 px-5 py-2 rounded-3xl border-gray-400 drop-shadow-xl"
-          }
+      <div className={"grid grid-cols-2 justify-items-center space-x-5"}>
+        <Button
+          className={"w-32 px-5 py-2 rounded-3xl drop-shadow-xl"}
           onClick={() => {
             submit().then().catch();
           }}
         >
           Search
-        </button>
-        <button
-          className={
-            "border-2 w-32 px-5 py-2 rounded-3xl border-gray-400 drop-shadow-xl"
-          }
+        </Button>
+        <Button
+          className={"w-32 px-5 py-2 rounded-3xl drop-shadow-xl"}
+          variant="destructive"
           onClick={clear}
         >
           Clear
-        </button>
+        </Button>
       </div>
     </div>
   );

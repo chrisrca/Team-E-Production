@@ -3,16 +3,19 @@ import { DBNode } from "common/src/types";
 
 interface CanvasMapProps {
   nodes: DBNode[];
+  path: DBNode[];
 }
 
 const CanvasMap = (nodes: CanvasMapProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const nodeData = nodes.nodes;
+  const pathData = nodes.path;
   const [dimensions, setDimensions] = React.useState({
     height: window.innerHeight,
     width: window.innerWidth,
   });
 
+  //RESIZING OF CANVAS
   useEffect(() => {
     function handleResize() {
       setDimensions({
@@ -28,44 +31,44 @@ const CanvasMap = (nodes: CanvasMapProps) => {
     };
   }, []);
 
+  //DRAWING OF NODES AND PATH
   useEffect(() => {
     const xMult = dimensions.width / 5000;
     const yMult = dimensions.height / 3400;
     function drawNodes(ctx: CanvasRenderingContext2D) {
-      //PATH DRAWING
-      //   ctx.fillStyle = "black";
-      //   ctx.lineWidth = 4;
-
-      //   if (nodeData.length > 0) {
-      //     ctx.beginPath();
-      //     ctx.moveTo(
-      //       nodeData[0].xcoord * xMult,
-      //       nodeData[0].ycoord * yMult,
-      //     );
-
-      //     for (let i = 1; i < nodeData.length; i++) {
-      //       const node = nodeData[i];
-      //       ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
-      //     }
-      //     ctx.stroke();
-      //   }
       //NODE DRAWING
       nodeData.forEach((node) => {
         ctx.beginPath();
         ctx.fillStyle = "blue";
-        ctx.arc(node.xcoord * xMult, node.ycoord * yMult, 5, 0, 2 * Math.PI);
+        ctx.arc(node.xcoord * xMult, node.ycoord * yMult, 3, 0, 2 * Math.PI);
         ctx.fill();
-        //   ctx.fillStyle = "white";
-        //   ctx.font = "12px Arial";
+        //PATH DRAWING
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 4;
 
-        //   const textWidth = ctx.measureText(node.longName).width;
+        if (pathData.length > 0) {
+          ctx.beginPath();
+          ctx.moveTo(pathData[0].xcoord * xMult, pathData[0].ycoord * yMult);
 
-        //   ctx.fillText(
-        //     node.longName,
-        //     parseInt(node.coords.xcoord) * xMult - textWidth / 2,
-        //     node.coords.ycoord * yMult - 10,
-        //   );
-        //   ctx.fillStyle = "black";
+          for (let i = 1; i < pathData.length; i++) {
+            const node = pathData[i];
+            //LINE DRAWING
+            ctx.strokeStyle = "red";
+            ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
+            //TEXT DRAWING
+            if (i === pathData.length - 1 || i === 1) {
+              ctx.fillStyle = "black";
+              ctx.font = "20px Arial";
+              const textWidth = ctx.measureText(node.longName).width;
+              ctx.fillText(
+                node.longName,
+                node.xcoord * xMult - textWidth / 2,
+                node.ycoord * yMult - 10,
+              );
+            }
+          }
+          ctx.stroke();
+        }
       });
     }
     const image = new Image();
@@ -90,7 +93,7 @@ const CanvasMap = (nodes: CanvasMapProps) => {
       resizeCanvas();
       window.addEventListener("resize", resizeCanvas);
     }
-  }, [nodeData, dimensions]);
+  }, [nodeData, pathData, dimensions]);
 
   return (
     <div className="relative">
