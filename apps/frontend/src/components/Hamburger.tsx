@@ -25,7 +25,10 @@ export default function Hamburger() {
       <SheetContent side="left" className="dark:bg-secondary">
         <div className="grid gap-2 py-4">
           <SheetClose asChild>
-            <Link to="/login" className="rounded hover:bg-card pl-2">
+            <Link
+              to="/login"
+              className="rounded hover:bg-card pl-2 dark:bg-foreground dark:hover:bg-card"
+            >
               <img src={bwhLogo} alt="BWH logo" style={{ height: "50px" }} />
             </Link>
           </SheetClose>
