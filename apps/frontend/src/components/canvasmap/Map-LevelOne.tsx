@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Node } from "common/src/types/Node";
+import { Node } from "common/src/types";
 import axios from "axios";
 
 export default function LevelOne() {

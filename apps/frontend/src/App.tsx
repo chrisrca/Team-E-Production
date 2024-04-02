@@ -1,9 +1,9 @@
 import "./index.css";
-import { Login } from "./components";
-import LevelOne from "./components/Map-LevelOne.tsx";
+import Login from "./components/Login.tsx";
 import FlowerService from "@/components/FlowerServiceRequest.tsx";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Hamburger from "./components/Hamburger.tsx";
+import MapPage from "@/components/MapPage.tsx";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route index element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/map" element={<LevelOne />} />
+          <Route path="/map" element={<MapPage />} />
           <Route path="/flower-service" element={<FlowerService />} />
         </Routes>
       </BrowserRouter>

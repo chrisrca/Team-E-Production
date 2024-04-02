@@ -35,88 +35,111 @@ export default function Login() {
 
   return (
     <div className="relative flex items-center justify-center h-screen">
-      {/* Background Image Container */}
+      {/* Background Image Container for the whole page }
       <div
         className="absolute top-0 left-0 w-full h-full bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url(${hospitalHero})`, opacity: 0.25 }}
-      ></div>
-
+      ></div> */}
       {/* Vertical Container for Stacking Sections */}
-      <div className="space-y-8 z-10">
-        {/* Kiosk Admin Section */}
-        <section className="p-6 bg-white rounded shadow-md text-center">
-          <h1 className="text-xl font-bold">Need directions?</h1>
-          <h2>Checkout our pathfinder in the nearest available kiosk!</h2>
+      <div className="space-y-8 z-10 w-full content-center">
+        {/* Hero Section */}
+        <section
+          className="p-6 bg-white bg-opacity-90 rounded shadow-md content-center text-center relative"
+          style={{
+            backgroundImage: `url(${hospitalHero})`,
+            backgroundSize: "cover",
+            minHeight: "300px",
+          }}
+        >
+          <div className="absolute inset-0 bg-black opacity-50"></div>{" "}
+          {/* Dark overlay for better text visibility */}
+          <div className="z-10 relative">
+            <h1 className="text-3xl font-bold text-white">Need Directions?</h1>
+            <p className="text-xl text-gray-200">
+              Find your way with our easy-to-use pathfinder located in the
+              nearest kiosk!
+            </p>
+            <Link
+              to="/map"
+              className="mt-4 inline-block bg-indigo-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-700"
+            >
+              Get Started
+            </Link>
+          </div>
         </section>
 
         {/* Login Form Section */}
-        <section className="p-6 bg-white rounded shadow-md max-w-md">
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="space-y-8">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold text-center text-black">
-                  Sign in to your account
-                </h1>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <Label htmlFor="email" className="text-black pr-9">
-                    Email:
-                  </Label>
-                  <FormInput
-                    variant="login"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="m@ex.com"
-                    required
-                    type="email"
-                  />
+        <div className="z-10 w-full flex flex-col items-center justify-center">
+          <section className="p-6 bg-white rounded shadow-md content-center max-w-md">
+            <form onSubmit={handleSubmit} className="space-y-8 content-center">
+              <div className="space-y-8 content-center">
+                <div className="space-y-2">
+                  <h1 className="text-3xl font-bold text-center text-black">
+                    Sign in to your account
+                  </h1>
                 </div>
-                <div className="space-y-4">
-                  <div className="flex items-center">
-                    <Label htmlFor="password" className="text-black pr-2">
-                      Password:
+                <div className="space-y-2">
+                  <div className="flex items-center content-center">
+                    <Label htmlFor="email" className="text-black pr-9">
+                      Email:
                     </Label>
                     <FormInput
                       variant="login"
-                      id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="m@ex.com"
                       required
-                      type="password"
+                      type="email"
                     />
                   </div>
+                  <div className="space-y-4">
+                    <div className="flex items-center">
+                      <Label htmlFor="password" className="text-black pr-2">
+                        Password:
+                      </Label>
+                      <FormInput
+                        variant="login"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        type="password"
+                      />
+                    </div>
+                  </div>
+                  <div className="pt-2 space-y-2">
+                    <Button
+                      type="submit"
+                      className="w-full bg-indigo-600 hover:bg-gray-600 rounded"
+                    >
+                      Login
+                    </Button>
+                  </div>
+                  <div className="text-black pt-2">
+                    {loginStatus && (
+                      <p className="text-center">{loginStatus}</p>
+                    )}
+                  </div>
                 </div>
-                <div className="pt-2 space-y-2">
-                  <Button
-                    type="submit"
-                    className="w-full bg-indigo-600 hover:bg-gray-600 rounded"
+                <div className="text-sm text-black text-center space-x-2">
+                  <span>Don't have an account? </span>
+                  <Link to="#" className="underline text-indigo-600">
+                    Sign up
+                  </Link>
+                </div>
+                <div className="text-sm text-center space-x-2">
+                  <Link
+                    to="#"
+                    className="inline-block text-sm underline text-indigo-600"
                   >
-                    Login
-                  </Button>
-                </div>
-                <div className="text-black pt-2">
-                  {loginStatus && <p className="text-center">{loginStatus}</p>}
+                    Forgot your password?
+                  </Link>
                 </div>
               </div>
-              <div className="text-sm text-black text-center space-x-2">
-                <span>Don't have an account? </span>
-                <Link to="#" className="underline text-indigo-600">
-                  Sign up
-                </Link>
-              </div>
-              <div className="text-sm text-center space-x-2">
-                <Link
-                  to="#"
-                  className="inline-block text-sm underline text-indigo-600"
-                >
-                  Forgot your password?
-                </Link>
-              </div>
-            </div>
-          </form>
-        </section>
+            </form>
+          </section>
+        </div>
       </div>
     </div>
   );

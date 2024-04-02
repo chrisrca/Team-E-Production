@@ -2,6 +2,6 @@ import Login from "./Login";
 import Welcome from "./Welcome";
 import FlowerService from "./FlowerServiceRequest";
 import NavMenu from "./NavMenu";
-import MapLevelOne from "./Map-LevelOne";
+import MapPage from "./MapPage";
 
-export { Login, Welcome, FlowerService, NavMenu, MapLevelOne };
+export { Login, Welcome, FlowerService, NavMenu, MapPage };
