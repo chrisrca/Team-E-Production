@@ -9,23 +9,23 @@ import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import { ModeToggle } from "./components/ModeToggle.tsx";
 
 function App() {
-  return (
-    <ThemeProvider>
-      <BrowserRouter>
-        <Hamburger />
-        <Routes>
-          <Route index element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="/flower-service" element={<FlowerService />} />
-          <Route path="/data" element={<DataViewer />} />
-        </Routes>
-        <div className="fixed bottom-0 pb-2 pl-2">
-          <ModeToggle />
-        </div>
-      </BrowserRouter>
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider>
+            <BrowserRouter>
+                <Hamburger />
+                <Routes>
+                    <Route index element={<Login />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/map" element={<MapPage />} />
+                    <Route path="/flower-service" element={<FlowerService />} />
+                    <Route path="/data" element={<DataViewer />} />
+                </Routes>
+                <div className="fixed bottom-0 pb-2 pl-2">
+                    <ModeToggle />
+                </div>
+            </BrowserRouter>
+        </ThemeProvider>
+    );
 }
 
 export default App;

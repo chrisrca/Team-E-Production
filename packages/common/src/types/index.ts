@@ -7,11 +7,11 @@ import { Test1 } from "./test.ts";
 import { FlowerServiceRequest } from "./flowerrequest.ts";
 
 export type {
-  DBNode,
-  DBParseNode,
-  Edge,
-  Coords,
-  StartEnd,
-  Test1,
-  FlowerServiceRequest,
+    DBNode,
+    DBParseNode,
+    Edge,
+    Coords,
+    StartEnd,
+    Test1,
+    FlowerServiceRequest,
 };

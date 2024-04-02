@@ -6,13 +6,13 @@ const router = express.Router();
 let edges: string;
 
 async function getEdgesFromDB(): Promise<string> {
-  edges = await client.$queryRaw`SELECT * FROM edge`;
-  return edges;
+    edges = await client.$queryRaw`SELECT * FROM edge`;
+    return edges;
 }
 
 router.get("/", async (req: Request, res: Response) => {
-  const msg = await getEdgesFromDB();
-  res.send(msg);
+    const msg = await getEdgesFromDB();
+    res.send(msg);
 });
 
 export default router;

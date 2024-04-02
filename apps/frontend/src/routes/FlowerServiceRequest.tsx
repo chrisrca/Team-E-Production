@@ -4,163 +4,178 @@ import { FlowerServiceRequest } from "common/src/types";
 import axios from "axios";
 
 async function sendFlowerOrder(flowerOrder: FlowerServiceRequest) {
-  axios.post("/api/flower", flowerOrder).then((res) => {
-    console.log(res);
-  });
+    axios.post("/api/flower", flowerOrder).then((res) => {
+        console.log(res);
+    });
 }
 
 // bare-bone basics for flower request form, template taken from tailwind
 export default function FlowerService() {
-  const flowerOrderData = [];
-  const [flowerOrder, setFlowerOrder] = useState<FlowerServiceRequest>({
-    patientName: "",
-    roomNumber: "",
-    senderName: "",
-    cardMessage: "",
-    flowerType: "Roses - $13",
-  });
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    //Saving of data
-    flowerOrderData.push(flowerOrder);
-    if (
-      flowerOrder.patientName === "" ||
-      flowerOrder.roomNumber === "" ||
-      flowerOrder.senderName === ""
-    ) {
-      alert("Please fill out all required fields.");
-      return;
-    }
-    sendFlowerOrder(flowerOrder);
-    //Clearing of form
-    setFlowerOrder({
-      patientName: "",
-      roomNumber: "",
-      senderName: "",
-      cardMessage: "",
-      flowerType: "Roses - $13",
+    const flowerOrderData = [];
+    const [flowerOrder, setFlowerOrder] = useState<FlowerServiceRequest>({
+        patientName: "",
+        roomNumber: "",
+        senderName: "",
+        cardMessage: "",
+        flowerType: "Roses - $13",
     });
-  };
 
-  return (
-    <div className="flex flex-col flex-auto justify-center items-center h-screen">
-      <form onSubmit={handleSubmit} className="rounded">
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2">
-              Patient Name
-            </label>
-            <FormInput
-              variant="flowers"
-              id="grid-patient-name"
-              type="text"
-              value={flowerOrder.patientName}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setFlowerOrder({ ...flowerOrder, patientName: e.target.value })
-              }
-              placeholder="First Last"
-            />
-          </div>
-          <div className="w-full md:w-1/2 px-3">
-            <label
-              className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
-              htmlFor="grid-room-num"
-            >
-              Room Number
-            </label>
-            <FormInput
-              variant="flowers"
-              id="grid-room-num"
-              type="number"
-              value={flowerOrder.roomNumber}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                const number = parseInt(e.target.value);
-                if (number < 0) {
-                  e.target.value = "0";
-                }
-                if (number > 999) {
-                  e.target.value = "999";
-                }
-                setFlowerOrder({ ...flowerOrder, roomNumber: e.target.value });
-              }}
-              placeholder="Enter room number..."
-            />
-          </div>
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //Saving of data
+        flowerOrderData.push(flowerOrder);
+        if (
+            flowerOrder.patientName === "" ||
+            flowerOrder.roomNumber === "" ||
+            flowerOrder.senderName === ""
+        ) {
+            alert("Please fill out all required fields.");
+            return;
+        }
+        sendFlowerOrder(flowerOrder);
+        //Clearing of form
+        setFlowerOrder({
+            patientName: "",
+            roomNumber: "",
+            senderName: "",
+            cardMessage: "",
+            flowerType: "Roses - $13",
+        });
+    };
+
+    return (
+        <div className="flex flex-col flex-auto justify-center items-center h-screen">
+            <form onSubmit={handleSubmit} className="rounded">
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2">
+                            Patient Name
+                        </label>
+                        <FormInput
+                            variant="flowers"
+                            id="grid-patient-name"
+                            type="text"
+                            value={flowerOrder.patientName}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                setFlowerOrder({
+                                    ...flowerOrder,
+                                    patientName: e.target.value,
+                                })
+                            }
+                            placeholder="First Last"
+                        />
+                    </div>
+                    <div className="w-full md:w-1/2 px-3">
+                        <label
+                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
+                            htmlFor="grid-room-num"
+                        >
+                            Room Number
+                        </label>
+                        <FormInput
+                            variant="flowers"
+                            id="grid-room-num"
+                            type="number"
+                            value={flowerOrder.roomNumber}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                const number = parseInt(e.target.value);
+                                if (number < 0) {
+                                    e.target.value = "0";
+                                }
+                                if (number > 999) {
+                                    e.target.value = "999";
+                                }
+                                setFlowerOrder({
+                                    ...flowerOrder,
+                                    roomNumber: e.target.value,
+                                });
+                            }}
+                            placeholder="Enter room number..."
+                        />
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label
+                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
+                            htmlFor="grid-sender-name"
+                        >
+                            Sender Name
+                        </label>
+                        <FormInput
+                            variant="flowers"
+                            id="grid-sender-name"
+                            type="text"
+                            value={flowerOrder.senderName}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                setFlowerOrder({
+                                    ...flowerOrder,
+                                    senderName: e.target.value,
+                                })
+                            }
+                            placeholder="First Last"
+                        />
+                    </div>
+                    <div className="w-full md:w-1/2 px-3">
+                        <label
+                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
+                            htmlFor="grid-message"
+                        >
+                            Message
+                        </label>
+                        <FormInput
+                            variant="flowers"
+                            id="grid-message"
+                            type="text"
+                            value={flowerOrder.cardMessage}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                setFlowerOrder({
+                                    ...flowerOrder,
+                                    cardMessage: e.target.value,
+                                })
+                            }
+                            placeholder="Enter message (optional)"
+                        />
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-2 items-end">
+                    <div className="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+                        <label
+                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
+                            htmlFor="grid-flower"
+                        >
+                            Type of Flower
+                        </label>
+                        <div className="relative">
+                            <select
+                                className="block appearance-none w-full bg-secondary border border-gray-200 text-foreground py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-secondary focus:border-gray-500"
+                                value={flowerOrder.flowerType}
+                                id="grid-flower"
+                                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                                    setFlowerOrder({
+                                        ...flowerOrder,
+                                        flowerType: e.target.value,
+                                    })
+                                }
+                            >
+                                <option>Roses - $13</option>
+                                <option>Lilies - $50</option>
+                                <option>Chrysanthemums - $1000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <button
+                            className="bg-blue-900 hover:bg-transparent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                            type={"submit"}
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
-              htmlFor="grid-sender-name"
-            >
-              Sender Name
-            </label>
-            <FormInput
-              variant="flowers"
-              id="grid-sender-name"
-              type="text"
-              value={flowerOrder.senderName}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setFlowerOrder({ ...flowerOrder, senderName: e.target.value })
-              }
-              placeholder="First Last"
-            />
-          </div>
-          <div className="w-full md:w-1/2 px-3">
-            <label
-              className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
-              htmlFor="grid-message"
-            >
-              Message
-            </label>
-            <FormInput
-              variant="flowers"
-              id="grid-message"
-              type="text"
-              value={flowerOrder.cardMessage}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setFlowerOrder({ ...flowerOrder, cardMessage: e.target.value })
-              }
-              placeholder="Enter message (optional)"
-            />
-          </div>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-2 items-end">
-          <div className="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
-              htmlFor="grid-flower"
-            >
-              Type of Flower
-            </label>
-            <div className="relative">
-              <select
-                className="block appearance-none w-full bg-secondary border border-gray-200 text-foreground py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-secondary focus:border-gray-500"
-                value={flowerOrder.flowerType}
-                id="grid-flower"
-                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                  setFlowerOrder({ ...flowerOrder, flowerType: e.target.value })
-                }
-              >
-                <option>Roses - $13</option>
-                <option>Lilies - $50</option>
-                <option>Chrysanthemums - $1000</option>
-              </select>
-            </div>
-          </div>
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <button
-              className="bg-blue-900 hover:bg-transparent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
-              type={"submit"}
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  );
+    );
 }
 
 //----------------------------------------------------------------------------------------//

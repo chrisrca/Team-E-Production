@@ -2,15 +2,15 @@
 
 <!-- TOC -->
 
-- [Backend](#backend)
-  - [RESTful API Basics](#restful-api-basics)
-  - [Package Overview](#package-overview)
-    - [Express.js](#expressjs)
-    - [ts-node](#ts-node)
-    - [Nodemon](#nodemon)
-    - [Miscellaneous](#miscellaneous)
-  - [Code Structure](#code-structure)
-  <!-- TOC -->
+-   [Backend](#backend)
+    -   [RESTful API Basics](#restful-api-basics)
+    -   [Package Overview](#package-overview)
+        -   [Express.js](#expressjs)
+        -   [ts-node](#ts-node)
+        -   [Nodemon](#nodemon)
+        -   [Miscellaneous](#miscellaneous)
+    -   [Code Structure](#code-structure)
+    <!-- TOC -->
 
 This package defines the backend server, and the RESTful API it
 represents. It also includes the packages used.
@@ -38,14 +38,14 @@ operation and return.
 
 See the following resources for details on how to design the REST API:
 
-- https://wiki.onap.org/display/DW/RESTful+API+Design+Specification
-- https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/
-- https://www.w3.org/2001/sw/wiki/REST
-- https://restful-api-design.readthedocs.io/en/latest/resources.html
-- https://www.tutorialspoint.com/restful/restful_resources.htm
-- https://cloud.google.com/apis/design/resources
-- https://learning.oreilly.com/library/view/rest-api-design/9781449317904/
-- https://learning.oreilly.com/library/view/hands-on-restful-api/9781788992664/
+-   https://wiki.onap.org/display/DW/RESTful+API+Design+Specification
+-   https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/
+-   https://www.w3.org/2001/sw/wiki/REST
+-   https://restful-api-design.readthedocs.io/en/latest/resources.html
+-   https://www.tutorialspoint.com/restful/restful_resources.htm
+-   https://cloud.google.com/apis/design/resources
+-   https://learning.oreilly.com/library/view/rest-api-design/9781449317904/
+-   https://learning.oreilly.com/library/view/hands-on-restful-api/9781788992664/
 
 ## Package Overview
 
@@ -64,9 +64,9 @@ should do when a given operation is requested on that route.
 
 Express has a few dependencies:
 
-- `cookie-parser` which lets Express parse web-cookies
-- `morgan` which helps with request/response logging
-- various typing libraries
+-   `cookie-parser` which lets Express parse web-cookies
+-   `morgan` which helps with request/response logging
+-   various typing libraries
 
 For details on how to use Express, see https://expressjs.com/en/4x/api.html
 
@@ -122,14 +122,14 @@ the root readme.md for details
 The code for the Backend package can be found in the src folder. This
 documents the recommended structure for using this.
 
-- bin/www.ts is the entrypoint for the program. It creates an HTTP
-  server on the correct port, provides clean output if that fails, and provides
-  last-ditch exception handling and startup output. You probably don't need
-  to edit this.
-- app.ts is the Express.js entrypoint. It defines the Express routers
-  (see Express docs for info), logging, and basic error trapping.
-  routes/\* define the routers Express uses. This is where the bulk
-  of processing is done
-- bin/database-connection.ts provides a database connection the rest of the
-  database package can use. When this is required by www.ts, it automatically starts
-  the database. It also automatically disconnects WHENEVER the client exits
+-   bin/www.ts is the entrypoint for the program. It creates an HTTP
+    server on the correct port, provides clean output if that fails, and provides
+    last-ditch exception handling and startup output. You probably don't need
+    to edit this.
+-   app.ts is the Express.js entrypoint. It defines the Express routers
+    (see Express docs for info), logging, and basic error trapping.
+    routes/\* define the routers Express uses. This is where the bulk
+    of processing is done
+-   bin/database-connection.ts provides a database connection the rest of the
+    database package can use. When this is required by www.ts, it automatically starts
+    the database. It also automatically disconnects WHENEVER the client exits

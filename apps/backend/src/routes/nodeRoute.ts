@@ -6,13 +6,13 @@ const router = express.Router();
 let nodes: string;
 
 async function getNodesFromDB(): Promise<string> {
-  nodes = await client.$queryRaw`SELECT * FROM node`;
-  return nodes;
+    nodes = await client.$queryRaw`SELECT * FROM node`;
+    return nodes;
 }
 
 router.get("/", async (req: Request, res: Response) => {
-  const msg = await getNodesFromDB();
-  res.send(msg);
+    const msg = await getNodesFromDB();
+    res.send(msg);
 });
 
 export default router;
