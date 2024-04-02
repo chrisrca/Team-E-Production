@@ -44,8 +44,9 @@ export default function FlowerService() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className="w-full max-w-lg">
+    <div className="flex flex-col justify-center items-center h-screen">
+      {/*w-full max-w-lg bg-amber-400 relative object-right*/}
+      <form onSubmit={handleSubmit} className="rounded bg-cyan-600">
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -152,14 +153,14 @@ export default function FlowerService() {
           </div>
         </div>
       </form>
-      <p>
+      <p className="">
         Patient Name: {displayedFlowerData.patientName} Room Number:{" "}
         {displayedFlowerData.roomNumber} Sender Name:{" "}
         {displayedFlowerData.senderName} Card Message:{" "}
         {displayedFlowerData.cardMessage} Flower Type:{" "}
         {displayedFlowerData.flowerType}
       </p>
-    </>
+    </div>
   );
 }
 

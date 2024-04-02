@@ -4,7 +4,6 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import nodeRoute from "./routes/nodeRoute";
 import pathRoute from "./routes/pathRoute";
-// import runBFS from "./algos/BFS";
 
 const app: Express = express(); // Setup the backend
 
