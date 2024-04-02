@@ -1,14 +1,14 @@
 import fs from "fs";
 import { PrismaClient } from "database";
 import { saveNodesToCSV, saveEdgesToCSV } from "./csvUtils";
-import { Node, Edge } from "common/src/types";
+import { DBParseNode, Edge } from "common/src/types";
 // Create the prisma client, this automatically connects to the database
 const client = new PrismaClient();
 
 const edges: string = "./src/data/edges.csv";
 const nodes: string = "./src/data/nodes.csv";
 
-function createNodes(): Promise<Node[]> {
+function createNodes(): Promise<DBParseNode[]> {
   return new Promise((resolve, reject) => {
     fs.readFile(nodes, { encoding: "utf-8" }, (err, data) => {
       if (err) {
@@ -18,7 +18,7 @@ function createNodes(): Promise<Node[]> {
       }
 
       const lines = data.trim().split(/\r?\n/);
-      const nodesArray: Node[] = lines.slice(1).map((line) => {
+      const nodesArray: DBParseNode[] = lines.slice(1).map((line) => {
         line = line.replace(/\r$/, "");
         const [
           nodeID,
@@ -76,7 +76,7 @@ function createEdges(): Promise<Edge[]> {
 }
 
 async function processGraphData(): Promise<void> {
-  const nodeList: Node[] = await createNodes();
+  const nodeList: DBParseNode[] = await createNodes();
   const edgeList: Edge[] = await createEdges();
 
   for (let i = 0; i < edgeList.length; i++) {

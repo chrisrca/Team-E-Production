@@ -1,6 +1,6 @@
 import { Coords } from "./coords";
 import { Edge } from "./edge";
-export interface Node {
+export interface DBParseNode {
   nodeID: string;
   coords: Coords;
   floor: string;

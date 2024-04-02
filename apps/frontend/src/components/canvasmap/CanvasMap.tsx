@@ -1,156 +1,72 @@
 import React, { useRef, useEffect } from "react";
+import { DBNode } from "common/src/types";
 
-const CanvasMap = () => {
+interface CanvasMapProps {
+  nodes: DBNode[];
+}
+
+const CanvasMap = (nodes: CanvasMapProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const nodeData = nodes.nodes;
+  const [dimensions, setDimensions] = React.useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
 
   useEffect(() => {
-    const xMult = 1710 / 5000;
-    const yMult = 920 / 3400;
-    function drawNodes(ctx: CanvasRenderingContext2D) {
-      ctx.fillStyle = "blue";
-      // ctx.lineWidth = 2;
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(2255 * xMult, 849 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2665 * xMult, 1043 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2445 * xMult, 1245 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1980 * xMult, 844 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1845 * xMult, 844 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2310 * xMult, 1043 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1732 * xMult, 924 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2445 * xMult, 1043 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2445 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2770 * xMult, 1070 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1750 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2130 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2130 * xMult, 1045 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2215 * xMult, 1045 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2220 * xMult, 904 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2265 * xMult, 904 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2360 * xMult, 849 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2130 * xMult, 904 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2130 * xMult, 844 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1845 * xMult, 924 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2300 * xMult, 849 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1965 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1750 * xMult, 1090 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2290 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2320 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2770 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1732 * xMult, 1019 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2065 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2300 * xMult, 879 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2770 * xMult, 1160 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2185 * xMult, 904 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2490 * xMult, 1043 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2015 * xMult, 1280 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1637 * xMult, 2116 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1702 * xMult, 2260 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1702 * xMult, 2167 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1688 * xMult, 2167 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1666 * xMult, 2167 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1688 * xMult, 2131 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1665 * xMult, 2116 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1720 * xMult, 2131 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2715 * xMult, 1070 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2360 * xMult, 799 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2220 * xMult, 974 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1785 * xMult, 924 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1820 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
+    function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      });
+    }
 
-      // ctx.stroke();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const xMult = dimensions.width / 5000;
+    const yMult = dimensions.height / 3400;
+    function drawNodes(ctx: CanvasRenderingContext2D) {
+      //PATH DRAWING
+      //   ctx.fillStyle = "black";
+      //   ctx.lineWidth = 4;
+
+      //   if (nodeData.length > 0) {
+      //     ctx.beginPath();
+      //     ctx.moveTo(
+      //       nodeData[0].xcoord * xMult,
+      //       nodeData[0].ycoord * yMult,
+      //     );
+
+      //     for (let i = 1; i < nodeData.length; i++) {
+      //       const node = nodeData[i];
+      //       ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
+      //     }
+      //     ctx.stroke();
+      //   }
+      //NODE DRAWING
+      nodeData.forEach((node) => {
+        ctx.beginPath();
+        ctx.fillStyle = "blue";
+        ctx.arc(node.xcoord * xMult, node.ycoord * yMult, 5, 0, 2 * Math.PI);
+        ctx.fill();
+        //   ctx.fillStyle = "white";
+        //   ctx.font = "12px Arial";
+
+        //   const textWidth = ctx.measureText(node.longName).width;
+
+        //   ctx.fillText(
+        //     node.longName,
+        //     parseInt(node.coords.xcoord) * xMult - textWidth / 2,
+        //     node.coords.ycoord * yMult - 10,
+        //   );
+        //   ctx.fillStyle = "black";
+      });
     }
     const image = new Image();
     image.src = "../../src/assets/00_thelowerlevel1.png"; // Path to your image file
@@ -174,7 +90,7 @@ const CanvasMap = () => {
       resizeCanvas();
       window.addEventListener("resize", resizeCanvas);
     }
-  }, []);
+  }, [nodeData, dimensions]);
 
   return (
     <div className="relative">
