@@ -33,3 +33,13 @@ model path {
   endNodeID   String
   nodes       String
 }
+
+model flower {
+  id          Int      @id @default(autoincrement())
+  patientName String
+  roomNumber  Int
+  senderName  String
+  cardMessage String
+  flowerType  String
+  date        DateTime @default(now())
+}

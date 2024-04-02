@@ -48,7 +48,7 @@ export default function Login() {
           style={{
             backgroundImage: `url(${hospitalHero})`,
             backgroundSize: "cover",
-            minHeight: "300px",
+            minHeight: "400px",
           }}
         >
           <div className="absolute inset-0 bg-black opacity-50"></div>{" "}
@@ -61,7 +61,7 @@ export default function Login() {
             </p>
             <Link
               to="/map"
-              className="mt-4 inline-block bg-indigo-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-700"
+              className="mt-4 inline-block bg-accent text-white font-bold py-2 px-4 rounded hover:bg-indigo-700"
             >
               Get Started
             </Link>
@@ -70,17 +70,17 @@ export default function Login() {
 
         {/* Login Form Section */}
         <div className="z-10 w-full flex flex-col items-center justify-center">
-          <section className="p-6 bg-white rounded shadow-md content-center max-w-md">
+          <section className="p-6 bg-background rounded shadow-md content-center max-w-md">
             <form onSubmit={handleSubmit} className="space-y-8 content-center">
               <div className="space-y-8 content-center">
                 <div className="space-y-2">
-                  <h1 className="text-3xl font-bold text-center text-black">
+                  <h1 className="text-3xl font-bold text-center text-foreground">
                     Sign in to your account
                   </h1>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center content-center">
-                    <Label htmlFor="email" className="text-black pr-9">
+                    <Label htmlFor="email" className="text-foreground pr-9">
                       Email:
                     </Label>
                     <FormInput
@@ -91,11 +91,15 @@ export default function Login() {
                       placeholder="m@ex.com"
                       required
                       type="email"
+                      className="dark:bg-secondary  dark:focus:bg-background"
                     />
                   </div>
                   <div className="space-y-4">
                     <div className="flex items-center">
-                      <Label htmlFor="password" className="text-black pr-2">
+                      <Label
+                        htmlFor="password"
+                        className="text-foreground pr-2"
+                      >
                         Password:
                       </Label>
                       <FormInput
@@ -105,33 +109,34 @@ export default function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         type="password"
+                        className="dark:bg-secondary  dark:focus:bg-background"
                       />
                     </div>
                   </div>
                   <div className="pt-2 space-y-2">
                     <Button
                       type="submit"
-                      className="w-full bg-indigo-600 hover:bg-gray-600 rounded"
+                      className="w-full bg-accent hover:bg-gray-600 rounded"
                     >
                       Login
                     </Button>
                   </div>
-                  <div className="text-black pt-2">
+                  <div className="text-foreground pt-2">
                     {loginStatus && (
                       <p className="text-center">{loginStatus}</p>
                     )}
                   </div>
                 </div>
-                <div className="text-sm text-black text-center space-x-2">
+                <div className="text-sm text-foreground text-center space-x-2">
                   <span>Don't have an account? </span>
-                  <Link to="#" className="underline text-indigo-600">
+                  <Link to="#" className="underline text-accent">
                     Sign up
                   </Link>
                 </div>
                 <div className="text-sm text-center space-x-2">
                   <Link
                     to="#"
-                    className="inline-block text-sm underline text-indigo-600"
+                    className="inline-block text-sm underline text-accent"
                   >
                     Forgot your password?
                   </Link>
