@@ -1,4 +1,17 @@
+import { useEffect, useState } from "react";
+import { Node } from "common/src/types";
+import axios from "axios";
+
 export default function LevelOne() {
+  const [nodeData, setFeedbackData] = useState<Node[]>([]);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await axios.get("/api/nodes/");
+      setFeedbackData(res.data);
+    }
+    fetchData().then();
+  }, []);
+  console.log(nodeData);
   return (
     <div className="flex -mb-10">
       <img
