@@ -1,14 +1,16 @@
 import "./index.css";
-import Login from "./components/Login.tsx";
-import FlowerService from "@/components/FlowerServiceRequest.tsx";
+import Login from "./routes/Login.tsx";
+import FlowerService from "@/routes/FlowerServiceRequest.tsx";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Hamburger from "./components/Hamburger.tsx";
-import MapPage from "@/components/MapPage.tsx";
-import ViewNodes from "@/components/ViewNodes.tsx";
+import MapPage from "@/routes/MapPage.tsx";
+import DataViewer from "@/routes/DataViewer.tsx";
+import { ThemeProvider } from "./components/ThemeProvider.tsx";
+import { ModeToggle } from "./components/ModeToggle.tsx";
 
 function App() {
   return (
-    <div className="">
+    <ThemeProvider>
       <BrowserRouter>
         <Hamburger />
         <Routes>
@@ -16,10 +18,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/flower-service" element={<FlowerService />} />
-          <Route path="/nodes" element={<ViewNodes />} />
+          <Route path="/data" element={<DataViewer />} />
         </Routes>
+        <div className="fixed bottom-0 pb-2 pl-2">
+          <ModeToggle />
+        </div>
       </BrowserRouter>
-    </div>
+    </ThemeProvider>
   );
 }
 

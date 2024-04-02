@@ -1,6 +1,6 @@
 export interface DBNode {
   building: string;
-  edges: string;
+  edges: [];
   floor: string;
   longName: string;
   nodeID: string;

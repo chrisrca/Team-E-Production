@@ -4,26 +4,26 @@
 
 @layer base {
   :root {
-    --background: #ffffff;
+    --background: #f1f1f1;
     --foreground: #0c0a09;
 
-    --card: #ffffff;
+    --card: #e5e7eb;
     --card-foreground: #0c0a09;
 
     --popover: #ffffff;
     --popover-foreground: #0c0a09;
 
-    --primary: #1c1917;
+    --primary: #012d5a;
     --primary-foreground: #fafaf9;
 
-    --secondary: #f5f5f4;
-    --secondary-foreground: #1c1917;
+    --secondary: #fafaf9;
+    --secondary-foreground: #fafaf9;
 
     --muted: #f5f5f4;
     --muted-foreground: #78716c;
 
-    --accent: #f5f5f4;
-    --accent-foreground: #1c1917;
+    --accent: #f6bd38;
+    --accent-foreground: #fafaf9;
 
     --destructive: #ef4444;
     --destructive-foreground: #fafaf9;
@@ -36,25 +36,25 @@
   }
 
   .dark {
-    --background: #0c0a09;
-    --foreground: #fafaf9;
+    --background: #012d5a;
+    --foreground: #f1f1f1;
 
-    --card: #0c0a09;
+    --card: #171413;
     --card-foreground: #fafaf9;
 
-    --popover: #0c0a09;
+    --popover: #003365;
     --popover-foreground: #fafaf9;
 
-    --primary: #fafaf9;
+    --primary: #cae7ff;
     --primary-foreground: #1c1917;
 
-    --secondary: #292524;
+    --secondary: #013f7c;
     --secondary-foreground: #fafaf9;
 
     --muted: #292524;
     --muted-foreground: #a8a29e;
 
-    --accent: #292524;
+    --accent: #f6bd38;
     --accent-foreground: #fafaf9;
 
     --destructive: #7f1d1d;

@@ -96,14 +96,13 @@ const CanvasMap = (nodes: CanvasMapProps) => {
   }, [nodeData, pathData, dimensions]);
 
   return (
-    <div className="relative">
+    <div className="aspect-[5000/3400] relative">
       <canvas
         ref={canvasRef}
         style={{ width: "100vw", height: "100vh", display: "block" }}
         className="px-0 py-0 z-0 absolute"
         id="layer1"
       />
-      <div className={"flex flex-col gap-5 absolute"}></div>
     </div>
   );
 };
