@@ -34,26 +34,69 @@ function DataViewer() {
             return;
         }
 
-        // Determine the API endpoint based on the currData type
-        let apiEndpoint;
-        if (currData === nodeData) {
-            apiEndpoint = "/api/nodes/upload";
-        } else if (currData === edgeData) {
-            apiEndpoint = "/api/edges/upload";
-        } else if (currData === flowerData) {
-            apiEndpoint = "/api/flower/upload";
-        } else {
-            console.error("Invalid Upload Type");
-            return;
-        }
+        // Read the content of the file as a string
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            if (e.target?.result) {
+                const fileContent = e.target.result as string;
 
-        // Send a POST request to the API endpoint
-        try {
-            const res = await axios.post(apiEndpoint, file);
-            console.log(res.data);
-        } catch (error) {
-            console.error("Error uploading file:", error);
-        }
+                // Determine the API endpoint based on the currData type
+                let apiEndpoint;
+                console.log(fileContent);
+                if (currData === nodeData) {
+                    apiEndpoint = "/api/nodes/upload";
+                } else if (currData === edgeData) {
+                    apiEndpoint = "/api/edges/upload";
+                } else if (currData === flowerData) {
+                    apiEndpoint = "/api/flower/upload";
+                } else {
+                    console.error("Invalid Upload Type");
+                    return;
+                }
+
+                // Send a POST request to the API endpoint with file content as a string
+                try {
+                    const res = await axios.post(apiEndpoint, { fileContent });
+                    console.log(res.data);
+                } catch (error) {
+                    console.error("Error uploading file:", error);
+                }
+            }
+        };
+        reader.readAsText(file);
+    };
+
+    const downloadCSV = () => {
+        // Convert currData to CSV format
+        const csvData = convertToCSV(currData);
+
+        // Create a Blob from CSV data
+        const blob = new Blob([csvData], { type: "text/csv" });
+
+        // Create a URL for the Blob
+        const url = window.URL.createObjectURL(blob);
+
+        // Create a link element
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "data.csv"); // Set the filename for download
+
+        // Append the link to the body
+        document.body.appendChild(link);
+
+        // Trigger the download
+        link.click();
+
+        // Cleanup
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+    };
+
+    // Function to convert data to CSV format
+    const convertToCSV = (data: Edge[] | DBNode[] | []) => {
+        const headers = Object.keys(data[0]).join(",");
+        const csv = data.map((row) => Object.values(row).join(","));
+        return headers + "\n" + csv.join("\n");
     };
 
     useEffect(() => {
@@ -115,9 +158,7 @@ function DataViewer() {
                         </Button>
                     </div>
 
-                    <Button onClick={() => console.log(currData)}>
-                        Download
-                    </Button>
+                    <Button onClick={downloadCSV}>Download</Button>
                 </div>
             </div>
             {<ViewNodes data={currData} />}
