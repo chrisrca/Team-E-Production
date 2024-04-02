@@ -1,26 +1,26 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { FormInput } from "@/components/ui/formInput.tsx";
+import { FlowerServiceRequest } from "common/src/types";
+import axios from "axios";
 
-interface FlowerOrderFormData {
-  patientName: string;
-  roomNumber: string;
-  senderName: string;
-  cardMessage: string;
-  flowerType: string;
+async function sendFlowerOrder(flowerOrder: FlowerServiceRequest) {
+  axios.post("/api/flower", flowerOrder).then((res) => {
+    console.log(res);
+  });
 }
 
 // bare-bone basics for flower request form, template taken from tailwind
 export default function FlowerService() {
   const flowerOrderData = [];
   const [displayedFlowerData, setDisplayedFlowerData] =
-    useState<FlowerOrderFormData>({
+    useState<FlowerServiceRequest>({
       patientName: "",
       roomNumber: "",
       senderName: "",
       cardMessage: "",
       flowerType: "",
     });
-  const [flowerOrder, setFlowerOrder] = useState<FlowerOrderFormData>({
+  const [flowerOrder, setFlowerOrder] = useState<FlowerServiceRequest>({
     patientName: "",
     roomNumber: "",
     senderName: "",
@@ -34,6 +34,7 @@ export default function FlowerService() {
     flowerOrderData.push(flowerOrder);
     setDisplayedFlowerData(flowerOrder);
     //Clearing of form
+    sendFlowerOrder(flowerOrder);
     setFlowerOrder({
       patientName: "",
       roomNumber: "",
