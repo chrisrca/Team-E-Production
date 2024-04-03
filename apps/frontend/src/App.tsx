@@ -20,7 +20,7 @@ function App() {
                     <Route path="/flower-service" element={<FlowerService />} />
                     <Route path="/data" element={<DataViewer />} />
                 </Routes>
-                <div className="fixed bottom-0 pb-2 pl-2">
+                <div className="fixed z-50 bottom-0 pb-2 pl-2">
                     <ModeToggle />
                 </div>
             </BrowserRouter>

@@ -158,7 +158,12 @@ function DataViewer() {
                         </Button>
                     </div>
 
-                    <Button onClick={downloadCSV}>Download</Button>
+                    <Button
+                        className="flex flex-row px-2 space-x-2"
+                        onClick={downloadCSV}
+                    >
+                        Download
+                    </Button>
                 </div>
             </div>
             {<ViewNodes data={currData} />}

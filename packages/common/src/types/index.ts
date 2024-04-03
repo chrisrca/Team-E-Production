@@ -5,6 +5,7 @@ import { Coords } from "./coords.ts";
 import { StartEnd } from "./start_end.ts";
 import { Test1 } from "./test.ts";
 import { FlowerServiceRequest } from "./flowerrequest.ts";
+import { Node } from "./node.ts";
 
 export type {
     DBNode,
@@ -14,4 +15,5 @@ export type {
     StartEnd,
     Test1,
     FlowerServiceRequest,
+    Node,
 };
