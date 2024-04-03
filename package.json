@@ -37,23 +37,32 @@
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@vitest/ui": "^0.33.0",
+    "autoprefixer": "^10.4.19",
     "eslint": "^8.56.0",
     "eslint-config-custom": "workspace:*",
     "happy-dom": "^10.6.3",
     "husky": "^8.0.0",
+    "postcss": "^8.4.38",
     "prettier": "2.8.8",
     "prettier-config-custom": "workspace:*",
+    "tailwindcss": "^3.4.3",
     "tsconfig-custom": "workspace:*",
     "turbo": "latest",
     "typescript": "^5.0.4",
     "vitest": "^0.33.0"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.5",
     "@yarnpkg/pnpify": "^4.0.0-rc.45",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.0",
+    "lucide-react": "^0.363.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss-animate": "^1.0.7"
   }
 }
