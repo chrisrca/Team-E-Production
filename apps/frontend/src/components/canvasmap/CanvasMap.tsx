@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { DBNode } from "common/src/types";
+import MapImage from "../../assets/00_thelowerlevel1.png";
 
 interface CanvasMapProps {
     nodes: DBNode[];
@@ -83,7 +84,7 @@ const CanvasMap = (nodes: CanvasMapProps) => {
             });
         }
         const image = new Image();
-        image.src = "../../src/assets/00_thelowerlevel1.png"; // Path to your image file
+        image.src = MapImage; // Path to your image file
         if (canvasRef.current) {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
