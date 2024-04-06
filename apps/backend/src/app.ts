@@ -7,6 +7,8 @@ import pathRoute from "./routes/pathRoute";
 import edgeRoute from "./routes/edgeRoute";
 import flowerRoute from "./routes/flowerRoute";
 import flowerUploadRoute from "./routes/flowerUploadRoute";
+import edgeUploadRoute from "./routes/edgeUploadRoute.ts";
+import nodeUploadRoute from "./routes/nodeUploadRoute.ts";
 
 const app: Express = express(); // Setup the backend
 
@@ -35,6 +37,8 @@ app.use("/api/edges", edgeRoute);
 app.use("/api/flower", flowerRoute);
 
 app.use("/api/flower", flowerUploadRoute);
+app.use("/api/edge", edgeUploadRoute);
+app.use("/api/node", nodeUploadRoute);
 
 /**
  * Catch all 404 errors, and forward them to the error handler
