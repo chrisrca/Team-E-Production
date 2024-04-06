@@ -4,4 +4,5 @@ export interface DrugDeliveryData {
     patientCondition: string;
     drugName: string;
     drugQuantity: string;
+    status: string;
 }
