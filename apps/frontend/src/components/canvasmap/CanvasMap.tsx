@@ -1,192 +1,87 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useState } from 'react';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 const CanvasMap = () => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
-  useEffect(() => {
-    const xMult = 1710 / 5000;
-    const yMult = 920 / 3400;
-    function drawNodes(ctx: CanvasRenderingContext2D) {
-      ctx.fillStyle = "blue";
-      // ctx.lineWidth = 2;
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(2255 * xMult, 849 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2665 * xMult, 1043 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2445 * xMult, 1245 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1980 * xMult, 844 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1845 * xMult, 844 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2310 * xMult, 1043 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1732 * xMult, 924 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2445 * xMult, 1043 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2445 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2770 * xMult, 1070 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1750 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2130 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2130 * xMult, 1045 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2215 * xMult, 1045 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2220 * xMult, 904 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2265 * xMult, 904 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2360 * xMult, 849 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2130 * xMult, 904 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2130 * xMult, 844 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1845 * xMult, 924 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2300 * xMult, 849 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1965 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1750 * xMult, 1090 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2290 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2320 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2770 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1732 * xMult, 1019 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2065 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2300 * xMult, 879 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2770 * xMult, 1160 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2185 * xMult, 904 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2490 * xMult, 1043 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2015 * xMult, 1280 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1637 * xMult, 2116 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1702 * xMult, 2260 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1702 * xMult, 2167 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1688 * xMult, 2167 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1666 * xMult, 2167 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1688 * xMult, 2131 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1665 * xMult, 2116 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1720 * xMult, 2131 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2715 * xMult, 1070 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2360 * xMult, 799 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(2220 * xMult, 974 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1785 * xMult, 924 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1820 * xMult, 1284 * yMult, 5, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-
-      // ctx.stroke();
-    }
-    const image = new Image();
-    image.src = "../../src/assets/00_thelowerlevel1.png"; // Path to your image file
-    if (canvasRef.current) {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
-      drawNodes(context!);
-      if (context) {
-        context.beginPath();
-        context.arc(500, 500, 500, 0, 2 * Math.PI);
-        context.fill();
+    useEffect(() => {
+        const image = new Image();
+        image.src = '../../src/assets/00_thelowerlevel1.png';
         image.onload = () => {
-          context.drawImage(image, 0, 0, canvas.width, canvas.height);
-          drawNodes(context!);
+            setImageSize({ width: image.width, height: image.height});
         };
-      }
-      const resizeCanvas = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      };
-      resizeCanvas();
-      window.addEventListener("resize", resizeCanvas);
-    }
-  }, []);
 
-  return (
-    <div className="relative">
-      <canvas
-        ref={canvasRef}
-        style={{ width: "100vw", height: "100vh", display: "block" }}
-        className="px-0 py-0 z-0 absolute"
-        id="layer1"
-      />
-      <div className={"flex flex-col gap-5 absolute"}></div>
-    </div>
-  );
+        // Update container size on mount
+        updateContainerSize();
+
+        // Update container size on window resize
+        window.addEventListener('resize', updateContainerSize);
+
+        return () => {
+            window.removeEventListener('resize', updateContainerSize);
+        };
+    }, []);
+
+    // Function to update container size
+    const updateContainerSize = () => {
+        setContainerSize({
+            width: window.outerWidth,
+            height: window.outerHeight,
+        });
+    };
+
+    // Function to handle panning stopped event
+    const handlePanningStopped = (e) => {
+        const transformComponent = e.target;
+        const { x, y } = transformComponent.getTransformPosition();
+        const { scaleX, scaleY } = transformComponent.getTransformScale();
+
+        // If image is smaller than the container, center it
+        if (imageSize.width * scaleX < containerSize.width) {
+            transformComponent.setTransformPosition({
+                x: (containerSize.width - imageSize.width * scaleX) / 2,
+                y,
+            });
+        }
+        if (imageSize.height * scaleY < containerSize.height) {
+            transformComponent.setTransformPosition({
+                x,
+                y: (containerSize.height - imageSize.height * scaleY) / 2,
+            });
+        }
+    };
+
+    return (
+        <TransformWrapper
+            initialScale={1.5}
+            centerOnInit={true}
+            limitToBounds={true}
+            minScale={1}
+            maxScale={4}
+            wheel={{ step: 0.5 }}
+            options={{ limitToBounds: false }}
+            doubleClick={{ disabled: false }}
+            defaultPositionY={-100}
+        >
+            {() => (
+                <React.Fragment>
+                    <TransformComponent onPanningStopped={handlePanningStopped}>
+                        <div
+                            style={{
+                                margin: '-7.5%',
+                                width: '200vh',
+                                height: '200vh',
+                                backgroundImage: `url('../../src/assets/00_thelowerlevel1.png')`,
+                                backgroundSize: 'contain',
+                                backgroundRepeat: 'no-repeat',
+                            }}
+                        />
+                    </TransformComponent>
+                </React.Fragment>
+            )}
+        </TransformWrapper>
+    );
 };
 
 export default CanvasMap;
