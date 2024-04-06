@@ -1,33 +1,27 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { FormInput } from "@/components/ui/formInput.tsx";
+import { DrugDeliveryData } from "common/src/types/medicinerequest.ts";
 import axios from "axios";
 /*import tylenol from "../images/tylenol.jpg";
 import advil from "../images/advil.jpg";
 import melatonin from "../images/melatonin.jpg";*/
 
-interface DrugDeliveryData {
-    patientName: string;
-    roomNumber: string;
-    patientCondition: string;
-    drugName: string;
-    drugQuantity: string;
-}
-
 async function sendMedicineRequest(drugOrder: DrugDeliveryData) {
-    axios.post("/api/drugs", drugOrder).then((res) => {
+    axios.post("/api/medicine", drugOrder).then((res) => {
         console.log(res);
     });
 }
 
 export default function DrugDelivery() {
     const drugOrderData = [];
-
     const [drugOrder, setDrugOrder] = useState<DrugDeliveryData>({
         patientName: "",
         roomNumber: "",
         patientCondition: "Fever",
         drugName: "Tylenol - $5",
         drugQuantity: "",
+        priority: "Low",
+        status: "Unassigned",
     });
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -39,13 +33,15 @@ export default function DrugDelivery() {
             return;
         }
         sendMedicineRequest(drugOrder);
-
+        //Clearing of form
         setDrugOrder({
             patientName: "",
             roomNumber: "",
             patientCondition: "Fever",
             drugName: "Tylenol - $5",
             drugQuantity: "",
+            priority: "Low",
+            status: "Unassigned",
         });
     };
 
@@ -169,8 +165,62 @@ export default function DrugDelivery() {
                                     drugQuantity: e.target.value,
                                 })
                             }
-                            placeholder="Enter Room Number..."
+                            placeholder="Enter Drug Quantity..."
                         />
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6 items-end">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label
+                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            htmlFor="grid-drug-priority"
+                        >
+                            Priority
+                        </label>
+                        <div className="relative">
+                            <select
+                                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-10 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                value={drugOrder.priority}
+                                id="grid-drug-priority"
+                                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                                    setDrugOrder({
+                                        ...drugOrder,
+                                        priority: e.target.value,
+                                    })
+                                }
+                            >
+                                <option>Low</option>
+                                <option>Medium</option>
+                                <option>High</option>
+                                <option>Emergency</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label
+                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            htmlFor="grid-drug-status"
+                        >
+                            Status
+                        </label>
+                        <div className="relative">
+                            <select
+                                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-10 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                value={drugOrder.status}
+                                id="grid-drug-status"
+                                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                                    setDrugOrder({
+                                        ...drugOrder,
+                                        status: e.target.value,
+                                    })
+                                }
+                            >
+                                <option>Unassigned</option>
+                                <option>Assigned</option>
+                                <option>In progress</option>
+                                <option>Closed</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -179,7 +229,7 @@ export default function DrugDelivery() {
                         className="bg-blue-900 hover:bg-transparent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded hover:rounded-none"
                         type={"submit"}
                     >
-                        Preview Checkout
+                        Checkout
                     </button>
                 </div>
             </form>
