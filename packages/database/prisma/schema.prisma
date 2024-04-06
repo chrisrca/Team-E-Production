@@ -6,7 +6,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_URL")
+  url      = env("DATABASE_URL")
 }
 
 model node {
@@ -42,4 +42,16 @@ model flower {
   cardMessage String
   flowerType  String
   date        DateTime @default(now())
+}
+
+model medicine {
+  id               Int      @id @default(autoincrement())
+  patientName      String
+  roomNumber       Int
+  patientCondition String
+  drugName         String
+  drugQuantity     String
+  status           String
+  priority         String
+  date             DateTime @default(now())
 }
