@@ -44,7 +44,7 @@ model flower {
   date        DateTime @default(now())
 }
 
-model medicineDeliveryRequest {
+model medicine {
   id               Int      @id @default(autoincrement())
   patientName      String
   roomNumber       Int
