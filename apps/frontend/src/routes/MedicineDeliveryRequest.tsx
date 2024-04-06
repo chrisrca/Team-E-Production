@@ -1,33 +1,27 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { FormInput } from "@/components/ui/formInput.tsx";
+import { DrugDeliveryData } from "common/src/types/medicinerequest.ts";
 import axios from "axios";
 /*import tylenol from "../images/tylenol.jpg";
 import advil from "../images/advil.jpg";
 import melatonin from "../images/melatonin.jpg";*/
 
-interface DrugDeliveryData {
-    patientName: string;
-    roomNumber: string;
-    patientCondition: string;
-    drugName: string;
-    drugQuantity: string;
-}
-
 async function sendMedicineRequest(drugOrder: DrugDeliveryData) {
-    axios.post("/api/drugs", drugOrder).then((res) => {
+    axios.post("/api/medicine", drugOrder).then((res) => {
         console.log(res);
     });
 }
 
 export default function DrugDelivery() {
     const drugOrderData = [];
-
     const [drugOrder, setDrugOrder] = useState<DrugDeliveryData>({
         patientName: "",
         roomNumber: "",
         patientCondition: "Fever",
         drugName: "Tylenol - $5",
         drugQuantity: "",
+        status: "Unassigned",
+        priority: "Low",
     });
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -39,13 +33,15 @@ export default function DrugDelivery() {
             return;
         }
         sendMedicineRequest(drugOrder);
-
+        //Clearing of form
         setDrugOrder({
             patientName: "",
             roomNumber: "",
             patientCondition: "Fever",
             drugName: "Tylenol - $5",
             drugQuantity: "",
+            status: "Unassigned",
+            priority: "Low",
         });
     };
 
@@ -169,7 +165,7 @@ export default function DrugDelivery() {
                                     drugQuantity: e.target.value,
                                 })
                             }
-                            placeholder="Enter Room Number..."
+                            placeholder="Enter Drug Quantity..."
                         />
                     </div>
                 </div>
