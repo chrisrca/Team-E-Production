@@ -37,7 +37,7 @@ export default function SecurityForm() {
             ...requests,
             {
                 employeeName,
-                parseInt(employeeID) {},
+                employeeID,
                 reqPriority,
                 location,
                 requestType,
