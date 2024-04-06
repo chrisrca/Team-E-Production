@@ -5,4 +5,5 @@ export interface DrugDeliveryData {
     drugName: string;
     drugQuantity: string;
     status: string;
+    priority: string;
 }

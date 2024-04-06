@@ -51,7 +51,6 @@ model medicineDeliveryRequest {
   patientCondition String
   drugName         String
   drugQuantity     String
-  deliveryType     String
   status           String
   priority         String
   date             DateTime @default(now())
