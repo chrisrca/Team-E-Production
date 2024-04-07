@@ -8,6 +8,7 @@ import MapPage from "@/routes/MapPage.tsx";
 import DataViewer from "@/routes/DataViewer.tsx";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import { ModeToggle } from "./components/ModeToggle.tsx";
+import DrugDelivery from "@/routes/MedicineDeliveryRequest.tsx";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage />} />
                     <Route path="/flower-service" element={<FlowerService />} />
+                    <Route path="/drug-service" element={<DrugDelivery />} />
                     <Route path="/data" element={<DataViewer />} />
                     <Route path="/services" element={<ServiceRequests />} />
                 </Routes>
