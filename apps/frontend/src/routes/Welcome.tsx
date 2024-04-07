@@ -92,7 +92,7 @@ export default function Welcome() {
                                     </div>
                                     <div className="flex">
                                         <Link
-                                            to="/map"
+                                            to="/login"
                                             className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
                                         >
                                             Get Started
