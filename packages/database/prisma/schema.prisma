@@ -41,6 +41,8 @@ model flower {
   senderName  String
   cardMessage String
   flowerType  String
+  status      String
+  priority    String
   date        DateTime @default(now())
 }
 

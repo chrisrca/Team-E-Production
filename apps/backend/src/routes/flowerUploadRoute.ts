@@ -22,6 +22,8 @@ router.post("/upload", async (req: Request, res: Response) => {
                 senderName,
                 cardMessage,
                 flowerType,
+                status,
+                priority,
             ] = row.split(",");
 
             // Create a FlowerServiceRequest object
@@ -31,6 +33,8 @@ router.post("/upload", async (req: Request, res: Response) => {
                 senderName,
                 cardMessage,
                 flowerType,
+                status,
+                priority,
             };
 
             // Insert flowerData into the database
@@ -41,6 +45,8 @@ router.post("/upload", async (req: Request, res: Response) => {
                     senderName: flowerData.senderName,
                     cardMessage: flowerData.cardMessage,
                     flowerType: flowerData.flowerType,
+                    status: flowerData.status,
+                    priority: flowerData.status,
                 },
             });
         }
