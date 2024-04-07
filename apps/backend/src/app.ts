@@ -9,6 +9,7 @@ import flowerRoute from "./routes/flowerRoute";
 import flowerUploadRoute from "./routes/flowerUploadRoute";
 import medicineRoute from "./routes/medicineRoute.ts";
 import medicineUploadRoute from "./routes/medicineUploadRoute.ts";
+import securityRoute from "./routes/securityRoute.ts";
 
 const app: Express = express(); // Setup the backend
 
@@ -35,6 +36,7 @@ app.use("/api/path", pathRoute);
 app.use("/api/nodes", nodeRoute);
 app.use("/api/edges", edgeRoute);
 app.use("/api/flower", flowerRoute);
+app.use("/api/security", securityRoute);
 
 app.use("/api/flower", flowerUploadRoute);
 
