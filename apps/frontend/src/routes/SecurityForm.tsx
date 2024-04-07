@@ -257,7 +257,7 @@ export default function SecurityForm() {
                                 }
                                 className="dropdown-menu-item"
                             >
-                                InProgress
+                                In Progress
                             </DropdownMenuItem>
                             <DropdownMenuItem
                                 onSelect={() =>
