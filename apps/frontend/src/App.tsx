@@ -1,6 +1,7 @@
 import "./index.css";
 import Login from "./routes/Login.tsx";
 import FlowerService from "@/routes/FlowerServiceRequest.tsx";
+import { ServiceRequests } from "@/routes/ServiceRequests.tsx";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Hamburger from "./components/Hamburger.tsx";
 import MapPage from "@/routes/MapPage.tsx";
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/map" element={<MapPage />} />
                     <Route path="/flower-service" element={<FlowerService />} />
                     <Route path="/data" element={<DataViewer />} />
+                    <Route path="/services" element={<ServiceRequests />} />
                 </Routes>
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
                     <ModeToggle />
