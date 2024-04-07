@@ -2,6 +2,7 @@ import "./index.css";
 import Login from "./routes/Login.tsx";
 import Welcome from "./routes/Welcome.tsx";
 import FlowerService from "@/routes/FlowerServiceRequest.tsx";
+import InterpreterService from "@/routes/LanguageInterpreterRequest.tsx";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Hamburger from "./components/Hamburger.tsx";
 import MapPage from "@/routes/MapPage.tsx";
@@ -26,6 +27,10 @@ function App() {
                     <Route
                         path="/gift-service"
                         element={<GiftServiceRequest />}
+                    />
+                    <Route
+                        path="/language-service"
+                        element={<InterpreterService />}
                     />
                     <Route path="/drug-service" element={<DrugDelivery />} />
                     <Route path="/data" element={<DataViewer />} />
