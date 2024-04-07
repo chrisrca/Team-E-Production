@@ -7,6 +7,7 @@ import pathRoute from "./routes/pathRoute";
 import edgeRoute from "./routes/edgeRoute";
 import flowerRoute from "./routes/flowerRoute";
 import flowerUploadRoute from "./routes/flowerUploadRoute";
+import securityRoute from "./routes/securityRoute.ts";
 import medicineRoute from "./routes/medicineRoute.ts";
 import medicineUploadRoute from "./routes/medicineUploadRoute.ts";
 
@@ -35,6 +36,7 @@ app.use("/api/path", pathRoute);
 app.use("/api/nodes", nodeRoute);
 app.use("/api/edges", edgeRoute);
 app.use("/api/flower", flowerRoute);
+app.use("/api/security", securityRoute);
 
 app.use("/api/flower", flowerUploadRoute);
 
