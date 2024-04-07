@@ -10,49 +10,41 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { SecurityServiceRequest } from "common/src/types";
+import axios from "axios";
+//import MapPage from "/MapPage.tsx";
 
-interface Request {
-    employeeName: string;
-    employeeID: number | undefined;
-    reqPriority: string;
-    location: string;
-    requestType: string;
-    reqStatus: string;
-    alertAuthorities: boolean;
+async function sendSecurityOrder(securityOrder: SecurityServiceRequest) {
+    axios.post("/api/security", securityOrder).then((res) => {
+        console.log(res);
+    });
 }
-
 export default function SecurityForm() {
-    const [employeeName, setEmployeeName] = useState("");
-    const [employeeID, setEmployeeID] = useState<number>();
-    const [reqPriority, setReqPriority] = useState("");
-    const [location, setLocation] = useState("");
-    const [requestType, setRequestType] = useState("");
-    const [reqStatus, setReqStatus] = useState("");
-    const [alertAuthorities, setAlertAuthorities] = useState(false);
-    const [requests, setRequests] = useState<Request[]>([]);
-
+    const [securityData, setSecurityData] = useState<SecurityServiceRequest>({
+        employeeName: "",
+        employeeID: "",
+        reqPriority: "",
+        location: "",
+        requestType: "",
+        reqStatus: "",
+        alertAuthorities: false,
+    });
+    const [requests, setRequests] = useState<SecurityServiceRequest[]>([]);
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setRequests([
-            ...requests,
-            {
-                employeeName,
-                employeeID,
-                reqPriority,
-                location,
-                requestType,
-                reqStatus,
-                alertAuthorities,
-            },
-        ]);
+        sendSecurityOrder(securityData);
+        setRequests((prevRequests) => [...prevRequests, securityData]);
+
         //reset form
-        setEmployeeName("");
-        setEmployeeID(undefined);
-        setReqPriority("");
-        setLocation("");
-        setRequestType("");
-        setReqStatus("");
-        setAlertAuthorities(false);
+        setSecurityData({
+            employeeName: "",
+            employeeID: "",
+            reqPriority: "",
+            location: "",
+            requestType: "",
+            reqStatus: "",
+            alertAuthorities: false,
+        });
     };
 
     return (
@@ -70,8 +62,13 @@ export default function SecurityForm() {
                         </Label>
                         <Input
                             className="mt-1 w-full block border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                            value={employeeName}
-                            onChange={(e) => setEmployeeName(e.target.value)}
+                            value={securityData.employeeName}
+                            onChange={(e) =>
+                                setSecurityData({
+                                    ...securityData,
+                                    employeeName: e.target.value,
+                                })
+                            }
                             placeholder="Enter your full name"
                         />
                     </div>
@@ -81,9 +78,12 @@ export default function SecurityForm() {
                         </Label>
                         <Input
                             className="mt-1 w-full block border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                            value={employeeID}
+                            value={securityData.employeeID}
                             onChange={(e) =>
-                                setEmployeeID(parseInt(e.target.value))
+                                setSecurityData({
+                                    ...securityData,
+                                    employeeID: e.target.value,
+                                })
                             }
                             placeholder="Enter your ID"
                         />
@@ -96,8 +96,13 @@ export default function SecurityForm() {
                         </Label>
                         <RadioGroup
                             className="mt-1"
-                            value={reqPriority}
-                            onValueChange={setReqPriority}
+                            value={securityData.reqPriority}
+                            onValueChange={(value) =>
+                                setSecurityData({
+                                    ...securityData,
+                                    reqPriority: value,
+                                })
+                            }
                         >
                             <div className="flex space-x-4">
                                 {["Low", "Medium", "High", "Emergency"].map(
@@ -121,12 +126,15 @@ export default function SecurityForm() {
                     </div>
                     <div className="flex-1">
                         <Label className="block text-sm font-medium text-gray-700">
-                            Alert Authorities
+                            Alert Authorities?
                         </Label>
                         <Checkbox
-                            checked={alertAuthorities}
+                            checked={securityData.alertAuthorities}
                             onCheckedChange={(checked) =>
-                                setAlertAuthorities(checked === true)
+                                setSecurityData({
+                                    ...securityData,
+                                    alertAuthorities: checked === true,
+                                })
                             }
                             className="mt-1"
                         >
@@ -141,19 +149,29 @@ export default function SecurityForm() {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                {location || "Select Location"}
+                                {securityData.location || "Select Location"}
                             </Button>
                         </DropdownMenuTrigger>{" "}
                         {/* link to database */}
                         <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <DropdownMenuItem
-                                onSelect={() => setLocation("Location 1")}
+                                onSelect={() =>
+                                    setSecurityData({
+                                        ...securityData,
+                                        location: "Location 1",
+                                    })
+                                }
                                 className="dropdown-menu-item"
                             >
                                 Location 1
                             </DropdownMenuItem>
                             <DropdownMenuItem
-                                onSelect={() => setLocation("Location 2")}
+                                onSelect={() =>
+                                    setSecurityData({
+                                        ...securityData,
+                                        location: "Location 2",
+                                    })
+                                }
                                 className="dropdown-menu-item"
                             >
                                 Location 2
@@ -168,20 +186,28 @@ export default function SecurityForm() {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                {requestType || "Select Type"}
+                                {securityData.requestType || "Select Type"}
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <DropdownMenuItem
                                 onSelect={() =>
-                                    setRequestType("Patient Threat")
+                                    setSecurityData({
+                                        ...securityData,
+                                        requestType: "Patient Threat",
+                                    })
                                 }
                                 className="dropdown-menu-item"
                             >
                                 Patient Threat
                             </DropdownMenuItem>
                             <DropdownMenuItem
-                                onSelect={() => setRequestType("Staff Threat")}
+                                onSelect={() =>
+                                    setSecurityData({
+                                        ...securityData,
+                                        requestType: "Staff Threat",
+                                    })
+                                }
                                 className="dropdown-menu-item"
                             >
                                 Staff Threat
@@ -196,30 +222,50 @@ export default function SecurityForm() {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                {reqStatus || "Select Status"}
+                                {securityData.reqStatus || "Select Status"}
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <DropdownMenuItem
-                                onSelect={() => setReqStatus("Unassigned")}
+                                onSelect={() =>
+                                    setSecurityData({
+                                        ...securityData,
+                                        reqStatus: "Unassigned",
+                                    })
+                                }
                                 className="dropdown-menu-item"
                             >
                                 Unassigned
                             </DropdownMenuItem>
                             <DropdownMenuItem
-                                onSelect={() => setReqStatus("Assigned")}
+                                onSelect={() =>
+                                    setSecurityData({
+                                        ...securityData,
+                                        reqStatus: "Assigned",
+                                    })
+                                }
                                 className="dropdown-menu-item"
                             >
                                 Assigned
                             </DropdownMenuItem>
                             <DropdownMenuItem
-                                onSelect={() => setReqStatus("InProgress")}
+                                onSelect={() =>
+                                    setSecurityData({
+                                        ...securityData,
+                                        reqStatus: "In Progress",
+                                    })
+                                }
                                 className="dropdown-menu-item"
                             >
                                 InProgress
                             </DropdownMenuItem>
                             <DropdownMenuItem
-                                onSelect={() => setReqStatus("Closed")}
+                                onSelect={() =>
+                                    setSecurityData({
+                                        ...securityData,
+                                        reqStatus: "Closed",
+                                    })
+                                }
                                 className="dropdown-menu-item"
                             >
                                 Closed
@@ -248,6 +294,12 @@ export default function SecurityForm() {
                                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 >
                                     Employee Name
+                                </th>
+                                <th
+                                    scope="col"
+                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                    Employee ID
                                 </th>
                                 <th
                                     scope="col"
@@ -286,6 +338,9 @@ export default function SecurityForm() {
                                 <tr key={index}>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {request.employeeName}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {request.employeeID}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {request.alertAuthorities

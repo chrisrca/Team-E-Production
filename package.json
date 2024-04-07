@@ -63,6 +63,7 @@
     "embla-carousel-autoplay": "^8.0.1",
     "embla-carousel-react": "^8.0.1",
     "lucide-react": "^0.363.0",
+    "prisma": "^5.12.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",
     "react-dom": "^18.2.0",
