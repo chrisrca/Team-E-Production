@@ -149,7 +149,6 @@ export default function Welcome() {
                     </h2>
                     <div className="flex">
                         <Card className="w-[350px] mt-5 mr-5 ml-5">
-                            {" "}
                             {/*card 1*/}
                             <CardHeader>
                                 <CardTitle>Flower Request</CardTitle>
@@ -171,7 +170,6 @@ export default function Welcome() {
                             </CardFooter>
                         </Card>
                         <Card className="w-[350px] mt-5 mr-5">
-                            {" "}
                             {/*card 2*/}
                             <CardHeader>
                                 <CardTitle>Security Request</CardTitle>
@@ -193,7 +191,6 @@ export default function Welcome() {
                             </CardFooter>
                         </Card>
                         <Card className="w-[350px] mt-5 mr-5">
-                            {" "}
                             {/*card 3*/}
                             <CardHeader>
                                 <CardTitle>Medicine Request</CardTitle>
@@ -215,9 +212,8 @@ export default function Welcome() {
                             </CardFooter>
                         </Card>
                     </div>
-                    <div className="flex">
+                    <div className="flex pb-10">
                         <Card className="w-[350px] mt-5 mr-5 ml-5">
-                            {" "}
                             {/*card 4*/}
                             <CardHeader>
                                 <CardTitle>Request</CardTitle>
@@ -259,7 +255,6 @@ export default function Welcome() {
                             </CardFooter>
                         </Card>
                         <Card className="w-[350px] mt-5 mr-5">
-                            {" "}
                             {/*card 6*/}
                             <CardHeader>
                                 <CardTitle>Request</CardTitle>
