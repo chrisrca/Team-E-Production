@@ -1,6 +1,5 @@
 import fs from "fs";
 import { PrismaClient } from "database";
-import { saveNodesToCSV, saveEdgesToCSV } from "./csvUtils";
 import { DBParseNode, Edge } from "common/src/types";
 // Create the prisma client, this automatically connects to the database
 const client = new PrismaClient();
@@ -128,10 +127,6 @@ async function processGraphData(): Promise<void> {
             //console.log(`Node with ID ${node.nodeID} already exists. Skipping...`);
         }
     }
-
-    // After processing, save the nodes and edges to CSV files
-    saveNodesToCSV(nodeList, "./src/data/processedNodes.csv");
-    saveEdgesToCSV(edgeList, "./src/data/processedEdges.csv");
 }
 
 // async function generateAllOutput(): Promise<void> {

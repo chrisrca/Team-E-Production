@@ -61,6 +61,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["@prisma/client", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:5.12.1"],\
           ["@radix-ui/react-dialog", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.5"],\
           ["@radix-ui/react-radio-group", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.1.3"],\
           ["@radix-ui/react-slot", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.2"],\
@@ -1323,6 +1324,26 @@ const RAW_RUNTIME_STATE =
           ["@prisma/client", "npm:4.15.0"]\
         ],\
         "linkType": "SOFT"\
+      }],\
+      ["npm:5.12.1", {\
+        "packageLocation": "./.yarn/unplugged/@prisma-client-virtual-dd7c193033/node_modules/@prisma/client/",\
+        "packageDependencies": [\
+          ["@prisma/client", "npm:5.12.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:5.12.1", {\
+        "packageLocation": "./.yarn/unplugged/@prisma-client-virtual-dd7c193033/node_modules/@prisma/client/",\
+        "packageDependencies": [\
+          ["@prisma/client", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:5.12.1"],\
+          ["@types/prisma", null],\
+          ["prisma", "npm:5.12.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/prisma",\
+          "prisma"\
+        ],\
+        "linkType": "HARD"\
       }],\
       ["virtual:fe27c481e11f854f2aaf80c4760560439cddfbeba750e60d2e16a63e1f6a6a95afa15077c31c3bb85454931e3cde1f859cec18d092f611e16a968032948f7247#npm:4.15.0", {\
         "packageLocation": "./.yarn/unplugged/@prisma-client-virtual-1fb12a8bef/node_modules/@prisma/client/",\
@@ -10642,6 +10663,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["softeng-starter-code", "workspace:."],\
+          ["@prisma/client", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:5.12.1"],\
           ["@radix-ui/react-dialog", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.5"],\
           ["@radix-ui/react-radio-group", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.1.3"],\
           ["@radix-ui/react-slot", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.2"],\

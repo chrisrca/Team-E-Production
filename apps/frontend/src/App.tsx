@@ -10,6 +10,7 @@ import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import { ModeToggle } from "./components/ModeToggle.tsx";
 import DrugDelivery from "@/routes/MedicineDeliveryRequest.tsx";
 import SecurityForm from "./routes/SecurityForm";
+import SanitationService from "@/routes/SanitationServiceRequest.tsx";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/drug-service" element={<DrugDelivery />} />
                     <Route path="/data" element={<DataViewer />} />
                     <Route path="/security" element={<SecurityForm />} />
+                    <Route path="/sanitation" element={<SanitationService />} />
                 </Routes>
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
                     <ModeToggle />
