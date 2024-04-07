@@ -49,7 +49,15 @@ export default function Hamburger() {
                             to="/drug-service"
                             className="text-primary hover:bg-card rounded pl-2"
                         >
-                            Medicine Service Request
+                            Medicin Service Request
+                        </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Link
+                            to="/gift-service"
+                            className="text-primary hover:bg-card rounded pl-2"
+                        >
+                            Gift Service Request
                         </Link>
                     </SheetClose>
                     <SheetClose asChild>
