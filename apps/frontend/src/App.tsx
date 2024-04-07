@@ -1,5 +1,6 @@
 import "./index.css";
 import Login from "./routes/Login.tsx";
+import Welcome from "./routes/Welcome.tsx";
 import FlowerService from "@/routes/FlowerServiceRequest.tsx";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Hamburger from "./components/Hamburger.tsx";
@@ -16,7 +17,7 @@ function App() {
             <BrowserRouter>
                 <Hamburger />
                 <Routes>
-                    <Route index element={<Login />} />
+                    <Route index element={<Welcome />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage />} />
                     <Route path="/flower-service" element={<FlowerService />} />

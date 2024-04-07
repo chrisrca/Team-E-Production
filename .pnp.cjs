@@ -63,6 +63,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@radix-ui/react-dialog", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.5"],\
           ["@radix-ui/react-radio-group", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.1.3"],\
+          ["@radix-ui/react-slot", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.2"],\
           ["@types/react", "npm:18.2.74"],\
           ["@types/react-dom", "npm:18.2.24"],\
           ["@vitest/ui", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:0.33.0"],\
@@ -72,6 +73,8 @@ const RAW_RUNTIME_STATE =
           ["clsx", "npm:2.1.0"],\
           ["dotenv", "npm:16.4.5"],\
           ["dotenv-cli", "npm:7.4.0"],\
+          ["embla-carousel-autoplay", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:8.0.1"],\
+          ["embla-carousel-react", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:8.0.1"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-custom", "workspace:configs/eslint-config-custom"],\
           ["happy-dom", "npm:10.11.2"],\
@@ -1474,7 +1477,7 @@ const RAW_RUNTIME_STATE =
           ["@radix-ui/react-compose-refs", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.1"],\
           ["@radix-ui/react-context", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.1"],\
           ["@radix-ui/react-primitive", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.3"],\
-          ["@radix-ui/react-slot", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.2"],\
+          ["@radix-ui/react-slot", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.2"],\
           ["@types/react", "npm:18.2.74"],\
           ["@types/react-dom", "npm:18.2.24"],\
           ["react", "npm:18.2.0"],\
@@ -1618,7 +1621,7 @@ const RAW_RUNTIME_STATE =
           ["@radix-ui/react-portal", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.4"],\
           ["@radix-ui/react-presence", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.1"],\
           ["@radix-ui/react-primitive", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.3"],\
-          ["@radix-ui/react-slot", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.2"],\
+          ["@radix-ui/react-slot", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.2"],\
           ["@radix-ui/react-use-controllable-state", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.1"],\
           ["@types/react", "npm:18.2.74"],\
           ["@types/react-dom", "npm:18.2.24"],\
@@ -2168,7 +2171,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@radix-ui/react-primitive", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.3"],\
           ["@babel/runtime", "npm:7.24.1"],\
-          ["@radix-ui/react-slot", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.2"],\
+          ["@radix-ui/react-slot", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.2"],\
           ["@types/react", "npm:18.2.74"],\
           ["@types/react-dom", "npm:18.2.24"],\
           ["react", "npm:18.2.0"],\
@@ -2367,13 +2370,13 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.2", {\
-        "packageLocation": "./.yarn/__virtual__/@radix-ui-react-slot-virtual-700764ad1f/0/cache/@radix-ui-react-slot-npm-1.0.2-b9078e9a0b-734866561e.zip/node_modules/@radix-ui/react-slot/",\
+      ["virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.2", {\
+        "packageLocation": "./.yarn/__virtual__/@radix-ui-react-slot-virtual-7465e714f5/0/cache/@radix-ui-react-slot-npm-1.0.2-b9078e9a0b-734866561e.zip/node_modules/@radix-ui/react-slot/",\
         "packageDependencies": [\
-          ["@radix-ui/react-slot", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.2"],\
+          ["@radix-ui/react-slot", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.2"],\
           ["@babel/runtime", "npm:7.24.1"],\
-          ["@radix-ui/react-compose-refs", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.1"],\
-          ["@types/react", "npm:18.2.74"],\
+          ["@radix-ui/react-compose-refs", "virtual:a2d1753ecdbebc072a0fc53de0a969d414d4b52ea42e4907fd341ca750ee7889cf7c7ff2cb343eb50617d6586764790d0499bd2748fdd0a661f18a621f081482#npm:1.0.1"],\
+          ["@types/react", "npm:18.2.48"],\
           ["react", "npm:18.2.0"]\
         ],\
         "packagePeers": [\
@@ -2382,13 +2385,13 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.2", {\
-        "packageLocation": "./.yarn/__virtual__/@radix-ui-react-slot-virtual-7465e714f5/0/cache/@radix-ui-react-slot-npm-1.0.2-b9078e9a0b-734866561e.zip/node_modules/@radix-ui/react-slot/",\
+      ["virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.2", {\
+        "packageLocation": "./.yarn/__virtual__/@radix-ui-react-slot-virtual-ae828db1b2/0/cache/@radix-ui-react-slot-npm-1.0.2-b9078e9a0b-734866561e.zip/node_modules/@radix-ui/react-slot/",\
         "packageDependencies": [\
-          ["@radix-ui/react-slot", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.2"],\
+          ["@radix-ui/react-slot", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.2"],\
           ["@babel/runtime", "npm:7.24.1"],\
-          ["@radix-ui/react-compose-refs", "virtual:a2d1753ecdbebc072a0fc53de0a969d414d4b52ea42e4907fd341ca750ee7889cf7c7ff2cb343eb50617d6586764790d0499bd2748fdd0a661f18a621f081482#npm:1.0.1"],\
-          ["@types/react", "npm:18.2.48"],\
+          ["@radix-ui/react-compose-refs", "virtual:b5c96302282161f9c7d08257a0dd57a50da44e52818a7b7697acb823a9d26539842b59b4a9be3edbca668d95eeee1f23127d1cca8108070e806efac4c0521957#npm:1.0.1"],\
+          ["@types/react", "npm:18.2.74"],\
           ["react", "npm:18.2.0"]\
         ],\
         "packagePeers": [\
@@ -5858,6 +5861,98 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["embla-carousel", [\
+      ["npm:8.0.1", {\
+        "packageLocation": "./.yarn/cache/embla-carousel-npm-8.0.1-fa1275ba75-1f8f9bb011.zip/node_modules/embla-carousel/",\
+        "packageDependencies": [\
+          ["embla-carousel", "npm:8.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["embla-carousel-autoplay", [\
+      ["npm:8.0.1", {\
+        "packageLocation": "./.yarn/cache/embla-carousel-autoplay-npm-8.0.1-502c653050-84abd0603c.zip/node_modules/embla-carousel-autoplay/",\
+        "packageDependencies": [\
+          ["embla-carousel-autoplay", "npm:8.0.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:8.0.1", {\
+        "packageLocation": "./.yarn/__virtual__/embla-carousel-autoplay-virtual-a79e2882af/0/cache/embla-carousel-autoplay-npm-8.0.1-502c653050-84abd0603c.zip/node_modules/embla-carousel-autoplay/",\
+        "packageDependencies": [\
+          ["embla-carousel-autoplay", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:8.0.1"],\
+          ["@types/embla-carousel", null],\
+          ["embla-carousel", null]\
+        ],\
+        "packagePeers": [\
+          "@types/embla-carousel",\
+          "embla-carousel"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["embla-carousel-react", [\
+      ["npm:8.0.1", {\
+        "packageLocation": "./.yarn/cache/embla-carousel-react-npm-8.0.1-db1044dbbe-7c8201bd50.zip/node_modules/embla-carousel-react/",\
+        "packageDependencies": [\
+          ["embla-carousel-react", "npm:8.0.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:8.0.1", {\
+        "packageLocation": "./.yarn/__virtual__/embla-carousel-react-virtual-4b7fa785d4/0/cache/embla-carousel-react-npm-8.0.1-db1044dbbe-7c8201bd50.zip/node_modules/embla-carousel-react/",\
+        "packageDependencies": [\
+          ["embla-carousel-react", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:8.0.1"],\
+          ["@types/react", "npm:18.2.48"],\
+          ["embla-carousel", "npm:8.0.1"],\
+          ["embla-carousel-reactive-utils", "virtual:db302ca672272e1001093c3dd5377828b2bdd599920e30c081e348fea5d9833dd3cfa85fc8eead967ce550b77120f350f7b1c7cab7834efedda4acbb0d63c6e7#npm:8.0.1"],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:8.0.1", {\
+        "packageLocation": "./.yarn/__virtual__/embla-carousel-react-virtual-db302ca672/0/cache/embla-carousel-react-npm-8.0.1-db1044dbbe-7c8201bd50.zip/node_modules/embla-carousel-react/",\
+        "packageDependencies": [\
+          ["embla-carousel-react", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:8.0.1"],\
+          ["@types/react", "npm:18.2.74"],\
+          ["embla-carousel", "npm:8.0.1"],\
+          ["embla-carousel-reactive-utils", "virtual:db302ca672272e1001093c3dd5377828b2bdd599920e30c081e348fea5d9833dd3cfa85fc8eead967ce550b77120f350f7b1c7cab7834efedda4acbb0d63c6e7#npm:8.0.1"],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["embla-carousel-reactive-utils", [\
+      ["npm:8.0.1", {\
+        "packageLocation": "./.yarn/cache/embla-carousel-reactive-utils-npm-8.0.1-7ad55d2b02-38f24ced81.zip/node_modules/embla-carousel-reactive-utils/",\
+        "packageDependencies": [\
+          ["embla-carousel-reactive-utils", "npm:8.0.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:db302ca672272e1001093c3dd5377828b2bdd599920e30c081e348fea5d9833dd3cfa85fc8eead967ce550b77120f350f7b1c7cab7834efedda4acbb0d63c6e7#npm:8.0.1", {\
+        "packageLocation": "./.yarn/__virtual__/embla-carousel-reactive-utils-virtual-cc66edd0d1/0/cache/embla-carousel-reactive-utils-npm-8.0.1-7ad55d2b02-38f24ced81.zip/node_modules/embla-carousel-reactive-utils/",\
+        "packageDependencies": [\
+          ["embla-carousel-reactive-utils", "virtual:db302ca672272e1001093c3dd5377828b2bdd599920e30c081e348fea5d9833dd3cfa85fc8eead967ce550b77120f350f7b1c7cab7834efedda4acbb0d63c6e7#npm:8.0.1"],\
+          ["@types/embla-carousel", null],\
+          ["embla-carousel", "npm:8.0.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/embla-carousel",\
+          "embla-carousel"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["emoji-regex", [\
       ["npm:8.0.0", {\
         "packageLocation": "./.yarn/cache/emoji-regex-npm-8.0.0-213764015c-c72d67a682.zip/node_modules/emoji-regex/",\
@@ -6696,6 +6791,8 @@ const RAW_RUNTIME_STATE =
           ["clsx", "npm:2.1.0"],\
           ["common", "workspace:packages/common"],\
           ["database", "workspace:packages/database"],\
+          ["embla-carousel-autoplay", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:8.0.1"],\
+          ["embla-carousel-react", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:8.0.1"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-custom", "workspace:configs/eslint-config-custom"],\
           ["eslint-plugin-react-hooks", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:4.6.0"],\
@@ -10489,6 +10586,7 @@ const RAW_RUNTIME_STATE =
           ["softeng-starter-code", "workspace:."],\
           ["@radix-ui/react-dialog", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.5"],\
           ["@radix-ui/react-radio-group", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.1.3"],\
+          ["@radix-ui/react-slot", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:1.0.2"],\
           ["@types/react", "npm:18.2.74"],\
           ["@types/react-dom", "npm:18.2.24"],\
           ["@vitest/ui", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:0.33.0"],\
@@ -10498,6 +10596,8 @@ const RAW_RUNTIME_STATE =
           ["clsx", "npm:2.1.0"],\
           ["dotenv", "npm:16.4.5"],\
           ["dotenv-cli", "npm:7.4.0"],\
+          ["embla-carousel-autoplay", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:8.0.1"],\
+          ["embla-carousel-react", "virtual:f7b030241781449f9f163484f540f772ec3707fc5214186cd12bce9e472ad0dbf6db26b799fb1d7d9f7a9e4faeedac41da01e533ee775acb5c8a31c546a0661d#npm:8.0.1"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-custom", "workspace:configs/eslint-config-custom"],\
           ["happy-dom", "npm:10.11.2"],\
