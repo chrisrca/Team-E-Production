@@ -9,6 +9,8 @@ import { GiftServiceRequest } from "./giftrequest.ts";
 import { InterpreterServiceRequest } from "./languagerequest.ts";
 import { Node } from "./node.ts";
 import { SecurityServiceRequest } from "./securityrequest.ts";
+import { SanitationServiceRequest } from "./sanitationrequest.ts";
+import { DrugDeliveryData } from "./medicinerequest.ts";
 
 export type {
     DBNode,
@@ -21,4 +23,6 @@ export type {
     GiftServiceRequest,
     Node,
     SecurityServiceRequest,
+    SanitationServiceRequest,
+    DrugDeliveryData,
 };

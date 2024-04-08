@@ -2,16 +2,46 @@ import { ViewNodes } from "@/components";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { DBNode, Edge } from "common/src/types";
+import {
+    DBNode,
+    Edge,
+    FlowerServiceRequest,
+    GiftServiceRequest,
+    InterpreterServiceRequest,
+    SecurityServiceRequest,
+    DrugDeliveryData,
+    SanitationServiceRequest,
+} from "common/src/types";
 import { Input } from "@/components/ui/input";
 
-type DataViewerProps = DBNode[] | Edge[] | [];
+type DataViewerProps =
+    | Edge[]
+    | DBNode[]
+    | FlowerServiceRequest[]
+    | GiftServiceRequest[]
+    | InterpreterServiceRequest[]
+    | SecurityServiceRequest[]
+    | DrugDeliveryData[]
+    | SanitationServiceRequest[]
+    | [];
 
 function DataViewer() {
     const [nodeData, setNodeData] = useState<DBNode[]>([]);
     const [edgeData, setEdgeData] = useState<Edge[]>([]);
     const [currData, setCurrData] = useState<DataViewerProps>(nodeData);
-    const [flowerData, setFlowerData] = useState<[]>([]);
+    const [flowerData, setFlowerData] = useState<FlowerServiceRequest[]>([]);
+    const [giftData, setGiftData] = useState<GiftServiceRequest[]>([]);
+    const [interpreterData, setInterpreterData] = useState<
+        InterpreterServiceRequest[]
+    >([]);
+    const [securityData, setSecurityData] = useState<SecurityServiceRequest[]>(
+        [],
+    );
+    const [drugData, setDrugData] = useState<DrugDeliveryData[]>([]);
+    const [sanitationData, setSanitationData] = useState<
+        SanitationServiceRequest[]
+    >([]);
+
     const [uploadData, setUploadData] = useState<File | null | undefined>();
 
     const uploadCSV = async (file: File | null | undefined) => {
@@ -93,7 +123,17 @@ function DataViewer() {
     };
 
     // Function to convert data to CSV format
-    const convertToCSV = (data: Edge[] | DBNode[] | []) => {
+    const convertToCSV = (
+        data:
+            | Edge[]
+            | DBNode[]
+            | FlowerServiceRequest[]
+            | GiftServiceRequest[]
+            | InterpreterServiceRequest[]
+            | SecurityServiceRequest[]
+            | DrugDeliveryData[]
+            | SanitationServiceRequest[],
+    ) => {
         const headers = Object.keys(data[0]).join(",");
         const csv = data.map((row) => Object.values(row).join(","));
         return headers + "\n" + csv.join("\n");
@@ -127,6 +167,55 @@ function DataViewer() {
             }
         }
         fetchFlowerData().then();
+        async function fetchGiftData() {
+            try {
+                const res = await axios.get("/api/gift");
+                setGiftData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchGiftData().then();
+
+        async function fetchInterpreterData() {
+            try {
+                const res = await axios.get("/api/interpreter");
+                setInterpreterData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchInterpreterData().then();
+
+        async function fetchSecurityData() {
+            try {
+                const res = await axios.get("/api/security");
+                setSecurityData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchSecurityData().then();
+
+        async function fetchDrugData() {
+            try {
+                const res = await axios.get("/api/drug");
+                setDrugData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchDrugData().then();
+
+        async function fetchSanitationData() {
+            try {
+                const res = await axios.get("/api/sanitation");
+                setSanitationData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchSanitationData().then();
     }, []);
 
     return (
@@ -141,6 +230,21 @@ function DataViewer() {
                     </Button>
                     <Button onClick={() => setCurrData(flowerData)}>
                         Flower Data
+                    </Button>
+                    <Button onClick={() => setCurrData(giftData)}>
+                        Gift Data
+                    </Button>
+                    <Button onClick={() => setCurrData(interpreterData)}>
+                        Interpreter Data
+                    </Button>
+                    <Button onClick={() => setCurrData(securityData)}>
+                        Security Data
+                    </Button>
+                    <Button onClick={() => setCurrData(drugData)}>
+                        Drug Data
+                    </Button>
+                    <Button onClick={() => setCurrData(sanitationData)}>
+                        Sanitation Data
                     </Button>
                 </div>
                 <div className=" px-10 flex flex-col space-y-2">
