@@ -11,6 +11,7 @@ export default function MapPage() {
     const [staticNodes, setStaticNodes] = useState<DBNode[]>([]);
     const [start, setStart] = useState<string>("");
     const [end, setEnd] = useState<string>("");
+    const [algorithm, setAlgorithm] = useState<string>("");
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
     useEffect(() => {
         async function fetchNodeData() {
@@ -30,17 +31,24 @@ export default function MapPage() {
         fetchNodeData().then();
         async function fetchPathData() {
             try {
-                const res = await axios.get(`/api/path/${start}/${end}`);
+                const res = await axios.get(
+                    `/api/path/${start}/${end}/${algorithm}`,
+                );
                 setPathNodes(res.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         }
         fetchPathData().then();
-    }, [start, end]);
+    }, [start, end, algorithm]);
     return (
         <div className="z-0 relative">
-            <SearchBar selection={staticNodes} start={setStart} end={setEnd} />
+            <SearchBar
+                selection={staticNodes}
+                start={setStart}
+                end={setEnd}
+                algorithm={setAlgorithm}
+            />
             <CanvasMap path={pathNodes} nodes={staticNodes} />
         </div>
     );
