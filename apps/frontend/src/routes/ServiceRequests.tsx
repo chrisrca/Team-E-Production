@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { SubmitEvent, ChangeEvent } from "react";
+import { FormEvent, ChangeEvent } from "react";
 //import { SubmitEvent } from "react";
 // import { zodResolver } from "@hookform/resolvers/zod";
 // import { useForm } from "react-hook-form";
@@ -140,7 +140,7 @@ export const ServiceRequests = () => {
                     <Input
                         type={props.title}
                         placeholder={props.placeholder}
-                        onChange={(e: ChangeEvent) =>
+                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             (serviceReqArr[props.id] = e.target.value)
                         }
                     />
@@ -190,14 +190,14 @@ export const ServiceRequests = () => {
             title: "text 1",
             placeholder: "text placeholder 1",
             required: true,
-            id: null,
+            id: 0,
         },
         {
             type: "select",
             title: "select 1",
             placeholder: "select placeholder 1",
             required: false,
-            id: null,
+            id: 0,
             label: "Options",
             options: ["option 1", "option 2", "option 3"],
         },
@@ -206,7 +206,7 @@ export const ServiceRequests = () => {
             title: "text 2",
             placeholder: "text placeholder 2",
             required: true,
-            id: null,
+            id: 0,
         },
     ];
 
@@ -226,7 +226,7 @@ export const ServiceRequests = () => {
     //
     // });
 
-    const handleSubmit = (e: SubmitEvent) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         //Saving of data
         serviceReqData.push(serviceReqArr);
