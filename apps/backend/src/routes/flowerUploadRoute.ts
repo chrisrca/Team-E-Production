@@ -9,12 +9,9 @@ router.post("/upload", async (req: Request, res: Response) => {
         const fileContent: string = req.body.fileContent;
         console.log("Flower data received:", fileContent);
 
-        // Split the fileContent string into individual rows
         const rows = fileContent.split("\n");
 
-        // Iterate over each row and insert it into the database
         for (let i = 1; i < rows.length; i++) {
-            // Start from index 1 to skip the header row
             const row = rows[i];
             const [
                 patientName,
@@ -24,7 +21,6 @@ router.post("/upload", async (req: Request, res: Response) => {
                 flowerType,
             ] = row.split(",");
 
-            // Create a FlowerServiceRequest object
             const flowerData: FlowerServiceRequest = {
                 patientName,
                 roomNumber,
@@ -33,7 +29,6 @@ router.post("/upload", async (req: Request, res: Response) => {
                 flowerType,
             };
 
-            // Insert flowerData into the database
             await client.flower.create({
                 data: {
                     patientName: flowerData.patientName,
