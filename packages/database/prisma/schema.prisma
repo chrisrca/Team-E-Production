@@ -43,3 +43,26 @@ model flower {
   flowerType  String
   date        DateTime @default(now())
 }
+
+model security {
+  id               Int     @id @default(autoincrement())
+  employeeName     String
+  employeeID       Int
+  reqPriority      String
+  location         String
+  requestType      String
+  reqStatus        String
+  alertAuthorities Boolean
+}
+
+model medicine {
+  id               Int      @id @default(autoincrement())
+  patientName      String
+  roomNumber       Int
+  patientCondition String
+  drugName         String
+  drugQuantity     String
+  status           String
+  priority         String
+  date             DateTime @default(now())
+}
