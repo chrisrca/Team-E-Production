@@ -95,7 +95,7 @@ export default function Welcome() {
                                             to="/login"
                                             className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
                                         >
-                                            Get Started
+                                            Log in
                                         </Link>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@ export default function Welcome() {
                                     to="/flower-service"
                                     className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
                                 >
-                                    Take me there
+                                    Order
                                 </Link>
                             </CardFooter>
                         </Card>
@@ -186,7 +186,7 @@ export default function Welcome() {
                                     to="/security"
                                     className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
                                 >
-                                    Take me there
+                                    Request
                                 </Link>
                             </CardFooter>
                         </Card>
@@ -207,7 +207,7 @@ export default function Welcome() {
                                     to="/drug-service"
                                     className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
                                 >
-                                    Take me there
+                                    Request
                                 </Link>
                             </CardFooter>
                         </Card>

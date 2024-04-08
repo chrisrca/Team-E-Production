@@ -53,7 +53,8 @@ model security {
   requestType      String
   reqStatus        String
   alertAuthorities Boolean
-  
+}
+
 model medicine {
   id               Int      @id @default(autoincrement())
   patientName      String

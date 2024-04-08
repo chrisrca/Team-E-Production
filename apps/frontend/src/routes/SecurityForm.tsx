@@ -18,7 +18,7 @@ async function sendSecurityOrder(securityOrder: SecurityServiceRequest) {
         console.log(res);
     });
 }
-export default function SecurityForm({nodes}: {nodes: DBNode[] }) {
+export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
     const [securityData, setSecurityData] = useState<SecurityServiceRequest>({
         employeeName: "",
         employeeID: "",
@@ -32,7 +32,14 @@ export default function SecurityForm({nodes}: {nodes: DBNode[] }) {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (!securityData.employeeName || !securityData.employeeID || !securityData.reqPriority || !securityData.location || !securityData.requestType || !securityData.reqStatus) {
+        if (
+            !securityData.employeeName ||
+            !securityData.employeeID ||
+            !securityData.reqPriority ||
+            !securityData.location ||
+            !securityData.requestType ||
+            !securityData.reqStatus
+        ) {
             alert("Please fill out all fields.");
             return; // Prevent the form from submitting
         }
@@ -153,13 +160,11 @@ export default function SecurityForm({nodes}: {nodes: DBNode[] }) {
                     </Label>
                     <DropdownMenu modal={false}>
                         <DropdownMenuTrigger asChild>
-                            <Button
-                                className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 {securityData.location || "Select Location"}
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                            className="origin-top-right absolute mt-2 w-56 max-h-60 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 overflow-y-auto focus:outline-none">
+                        <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 max-h-60 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 overflow-y-auto focus:outline-none">
                             {nodes.map((node) => (
                                 <DropdownMenuItem
                                     key={node.nodeID}
@@ -182,13 +187,11 @@ export default function SecurityForm({nodes}: {nodes: DBNode[] }) {
                     </Label>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button
-                                className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 {securityData.requestType || "Select Type"}
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                            className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <DropdownMenuItem
                                 onSelect={() =>
                                     setSecurityData({
@@ -220,13 +223,11 @@ export default function SecurityForm({nodes}: {nodes: DBNode[] }) {
                     </Label>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button
-                                className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 {securityData.reqStatus || "Select Status"}
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                            className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <DropdownMenuItem
                                 onSelect={() =>
                                     setSecurityData({
@@ -276,7 +277,14 @@ export default function SecurityForm({nodes}: {nodes: DBNode[] }) {
                 </div>
                 <Button
                     type="submit"
-                    disabled={!securityData.employeeName || !securityData.employeeID || !securityData.reqPriority || !securityData.location || !securityData.requestType || !securityData.reqStatus}
+                    disabled={
+                        !securityData.employeeName ||
+                        !securityData.employeeID ||
+                        !securityData.reqPriority ||
+                        !securityData.location ||
+                        !securityData.requestType ||
+                        !securityData.reqStatus
+                    }
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Submit
@@ -289,40 +297,58 @@ export default function SecurityForm({nodes}: {nodes: DBNode[] }) {
                 <div className="mt-4 overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200 table-fixed">
                         <thead className="bg-gray-50">
-                        <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">Employee
-                                Name
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[120px] break-words">Employee
-                                ID
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">Alert
-                                Authorities?
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">Request
-                                Type
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider break-words">Location</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">Request
-                                Priority
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">Request
-                                Status
-                            </th>
-                        </tr>
+                            <tr>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                    Employee Name
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[120px] break-words">
+                                    Employee ID
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">
+                                    Alert Authorities?
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                    Request Type
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider break-words">
+                                    Location
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">
+                                    Request Priority
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">
+                                    Request Status
+                                </th>
+                            </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                        {requests.map((request, index) => (
-                            <tr key={index}>
-                                <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">{request.employeeName}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">{request.employeeID}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">{request.alertAuthorities ? "Yes" : "No"}</td>
-                                <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">{request.requestType}</td>
-                                <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">{request.location}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">{request.reqPriority}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">{request.reqStatus}</td>
-                            </tr>
-                        ))}
+                            {requests.map((request, index) => (
+                                <tr key={index}>
+                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">
+                                        {request.employeeName}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
+                                        {request.employeeID}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
+                                        {request.alertAuthorities
+                                            ? "Yes"
+                                            : "No"}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">
+                                        {request.requestType}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">
+                                        {request.location}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
+                                        {request.reqPriority}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
+                                        {request.reqStatus}
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
