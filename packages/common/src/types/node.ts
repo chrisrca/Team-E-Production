@@ -1,12 +1,11 @@
-import { Coords } from "./coords";
-import { Edge } from "./edge";
 export interface Node {
-  nodeID: string;
-  coords: Coords;
-  floor: string;
-  building: string;
-  nodeType: string;
-  longName: string;
-  shortName: string;
-  edges: Edge[];
+    building: string;
+    edges: [];
+    floor: string;
+    longName: string;
+    nodeID: string;
+    nodeType: string;
+    shortName: string;
+    xcoord: string;
+    ycoord: string;
 }

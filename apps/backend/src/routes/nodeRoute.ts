@@ -1,41 +1,76 @@
-import express, { Router } from "express";
-import { StartEnd } from "common/src/types/start_end.ts";
-// import {Edge, Node} from "common/src/types";
-//import { client } from "./src/bin/database-connection";
+import client from "../bin/database-connection";
+import express, { Request, Response } from "express";
+import { Node } from "common/src/types";
 
-const router: Router = express.Router();
+const router = express.Router();
 
-// type NodeEdgeData = {
-//   nodes: Node[];
-//   edges: Edge[];
-// };
+async function getNodesFromDB(): Promise<string> {
+    const nodes: string = await client.$queryRaw`SELECT * FROM node`;
+    return nodes;
+}
 
-// const locations: StartEnd[] = [];
+router.post("/upload", async (req: Request, res: Response) => {
+    try {
+        const fileContent: string = req.body.fileContent;
+        console.log("Node Data Received:", fileContent);
 
-// const database: NodeEdgeData = {
-//   nodes: [],
-//   edges: [],
-// };
+        // Split the fileContent string into individual rows
+        const rows = fileContent.split("\n");
 
-//this is for frontend sending start & end location
-router.post("/", (req, res) => {
-  const startend: StartEnd = req.body() as StartEnd;
-  console.log(startend);
-  // locations.push(startend);
+        // Iterate over each row and insert it into the database
+        for (let i = 1; i < rows.length; i++) {
+            // Start from index 1 to skip the header row
+            const row = rows[i];
+            const [
+                building,
+                floor,
+                longName,
+                nodeID,
+                nodeType,
+                shortName,
+                xcoord,
+                ycoord,
+            ] = row.split(",");
 
-  res.status(200).json({
-    message: "added db object",
-  });
+            // Create a FlowerServiceRequest object
+            const nodeData: Node = {
+                building,
+                floor,
+                longName,
+                nodeID,
+                nodeType,
+                shortName,
+                xcoord,
+                ycoord,
+                edges: [],
+            };
+
+            // Insert flowerData into the database
+            await client.node.create({
+                data: {
+                    nodeID: nodeData.nodeID,
+                    xcoord: parseInt(nodeData.xcoord), // Ensure xcoord is parsed as an integer
+                    ycoord: parseInt(nodeData.ycoord), // Ensure ycoord is parsed as an integer
+                    floor: nodeData.floor,
+                    building: nodeData.building,
+                    nodeType: nodeData.nodeType,
+                    longName: nodeData.longName,
+                    shortName: nodeData.shortName,
+                    edges: "[]",
+                },
+            });
+        }
+
+        res.send("Nodes added to database");
+    } catch (error) {
+        console.error("Error uploading node data:", error);
+        res.status(500).send("Failed to add nodes to database");
+    }
 });
-// router.get("/:index", (req, res) => {
-//   const index = parseInt(req.params.index);
-//   if (index >= 0 && index < database.nodes.length) {
-//     res.status(200).json(database.nodes[index]);
-//   } else {
-//     res.status(400).json({
-//       message: "not a valid index",
-//     });
-//   }
-// });
+
+router.get("/", async (req: Request, res: Response) => {
+    const msg = await getNodesFromDB();
+    res.send(msg);
+});
 
 export default router;

@@ -41,11 +41,11 @@ Any issues encountered during `prisma migrate dev` can be resolved by running
 
 A few other useful commands:
 
-- `yarn run migrate:reset` (which runs `prisma migrate reset`) drops all development tables
-  and re-creates the schema from scratch
-- `yarn run db:push` (which runs `prisma db push`) syncs the database with
-  the current state of your `schema.prisma` without creating a record of
-  any changes. This is automatically run when `Start Dev` is run
+-   `yarn run migrate:reset` (which runs `prisma migrate reset`) drops all development tables
+    and re-creates the schema from scratch
+-   `yarn run db:push` (which runs `prisma db push`) syncs the database with
+    the current state of your `schema.prisma` without creating a record of
+    any changes. This is automatically run when `Start Dev` is run
 
 ### Prototyping in SQL
 
