@@ -200,7 +200,7 @@ export default function FlowerService() {
                     </div>
                 </div>
                 <div className="flex justify-center mb-4">
-                    <div className="w-full md:w-1/1 px-0 mb-6 md:mb-0 mt-4">
+                    <div className="w-full md:w-1/1 px-0 mb-6 md:mb-2 mt-4">
                         <label
                             className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
                             htmlFor="grid-flower"
