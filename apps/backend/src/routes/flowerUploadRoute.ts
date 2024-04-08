@@ -19,6 +19,8 @@ router.post("/upload", async (req: Request, res: Response) => {
                 senderName,
                 cardMessage,
                 flowerType,
+                status,
+                priority,
             ] = row.split(",");
 
             const flowerData: FlowerServiceRequest = {
@@ -27,6 +29,8 @@ router.post("/upload", async (req: Request, res: Response) => {
                 senderName,
                 cardMessage,
                 flowerType,
+                status,
+                priority,
             };
 
             await client.flower.create({
@@ -36,6 +40,8 @@ router.post("/upload", async (req: Request, res: Response) => {
                     senderName: flowerData.senderName,
                     cardMessage: flowerData.cardMessage,
                     flowerType: flowerData.flowerType,
+                    status: flowerData.status,
+                    priority: flowerData.status,
                 },
             });
         }
