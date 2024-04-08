@@ -78,6 +78,14 @@ export default function Hamburger() {
                     </SheetClose>
                     <SheetClose asChild>
                         <Link
+                            to="/room-service"
+                            className="text-primary hover:bg-card rounded pl-2"
+                        >
+                            Room Service Request
+                        </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Link
                             to="/map"
                             className="text-primary hover:bg-card rounded pl-2"
                         >

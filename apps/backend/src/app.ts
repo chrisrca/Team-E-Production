@@ -13,6 +13,7 @@ import securityRoute from "./routes/securityRoute.ts";
 import giftRoute from "./routes/giftRoute.ts";
 import interpreterRoute from "./routes/interpreterRoute.ts";
 import sanitationRoute from "./routes/sanitationRoute.ts";
+import roomRoute from "./routes/roomRoute.ts";
 
 const app: Express = express(); // Setup the backend
 
@@ -44,6 +45,7 @@ app.use("/api/interpreter", interpreterRoute);
 app.use("/api/security", securityRoute);
 app.use("/api/medicine", medicineRoute);
 app.use("/api/sanitation", sanitationRoute);
+app.use("/api/room", roomRoute);
 
 app.use("/api/flower", flowerUploadRoute);
 app.use("/api/medicine", medicineUploadRoute);

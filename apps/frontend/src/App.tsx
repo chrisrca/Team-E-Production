@@ -13,6 +13,7 @@ import DrugDelivery from "@/routes/MedicineDeliveryRequest.tsx";
 import GiftServiceRequest from "@/routes/GiftServiceRequest.tsx";
 import SecurityForm from "./routes/SecurityForm";
 import SanitationService from "@/routes/SanitationServiceRequest.tsx";
+import RoomScheduling from "@/routes/RoomServiceRequest.tsx";
 
 function App() {
     return (
@@ -36,6 +37,7 @@ function App() {
                     <Route path="/data" element={<DataViewer />} />
                     <Route path="/security" element={<SecurityForm />} />
                     <Route path="/sanitation" element={<SanitationService />} />
+                    <Route path="/room-service" element={<RoomScheduling />} />
                 </Routes>
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
                     <ModeToggle />

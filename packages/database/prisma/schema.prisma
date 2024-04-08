@@ -94,3 +94,14 @@ model sanitation {
   priority       String
   additionalInfo String
 }
+
+model roomschedule {
+  id           Int    @id @default(autoincrement())
+  employeeName String
+  priority     String
+  location     String
+  serviceType  String
+  status       String
+  startTime    String
+  endTime      String
+}

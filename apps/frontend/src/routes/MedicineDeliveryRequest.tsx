@@ -13,7 +13,6 @@ async function sendMedicineRequest(drugOrder: DrugDeliveryData) {
 }
 
 export default function DrugDelivery() {
-    const drugOrderData = [];
     const [drugOrder, setDrugOrder] = useState<DrugDeliveryData>({
         patientName: "",
         roomNumber: "",
@@ -24,15 +23,17 @@ export default function DrugDelivery() {
         status: "Unassigned",
     });
 
+    const [drugOrderData, setDrugSchedule] = useState<DrugDeliveryData[]>([]);
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        drugOrderData.push(drugOrder);
-
         if (drugOrder.patientName === "" || drugOrder.roomNumber === "") {
             alert("Please fill out the required fields");
             return;
         }
+        drugOrderData.push(drugOrder);
         sendMedicineRequest(drugOrder);
+        setDrugSchedule((prevRequest) => [...prevRequest, drugOrder]);
         //Clearing of form
         setDrugOrder({
             patientName: "",

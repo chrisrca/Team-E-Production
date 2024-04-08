@@ -29,9 +29,13 @@ export default function SecurityForm() {
         reqStatus: "",
         alertAuthorities: false,
     });
+
     const [requests, setRequests] = useState<SecurityServiceRequest[]>([]);
+
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log(securityData);
+        requests.push(securityData);
         sendSecurityOrder(securityData);
         setRequests((prevRequests) => [...prevRequests, securityData]);
 
@@ -274,7 +278,7 @@ export default function SecurityForm() {
                     </DropdownMenu>
                 </div>
                 <Button
-                    type="submit"
+                    type={"submit"}
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Submit

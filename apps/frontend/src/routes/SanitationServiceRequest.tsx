@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { SanitationServiceRequest } from "common/src/types/sanitationrequest.ts";
+import { SanitationServiceRequest } from "common/src/types";
 import axios from "axios";
 
 async function sendSanitationRequest(
@@ -34,7 +34,6 @@ enum Service {
 
 // bare-bone basics for flower request form, template taken from tailwind
 export default function SanitationService() {
-    const sanitationOrderData = [];
     const [sanitationRequest, setSanitationRequest] =
         useState<SanitationServiceRequest>({
             patientName: "",
@@ -45,8 +44,11 @@ export default function SanitationService() {
             additionalInfo: "",
         });
 
+    const [sanitationOrderData, setSanitationService] = useState<
+        SanitationServiceRequest[]
+    >([]);
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        console.log("submitted");
         e.preventDefault();
         console.log(sanitationRequest);
         if (
@@ -59,6 +61,10 @@ export default function SanitationService() {
         //Saving of data
         sanitationOrderData.push(sanitationRequest);
         sendSanitationRequest(sanitationRequest);
+        setSanitationService((prevRequests) => [
+            ...prevRequests,
+            sanitationRequest,
+        ]);
         //Clearing of form
         setSanitationRequest({
             patientName: "",
@@ -192,12 +198,7 @@ export default function SanitationService() {
                     />
                 </div>
                 <div className="width:50%">
-                    <button
-                        type="submit"
-                        onClick={() => console.log("I have been clicked.")}
-                    >
-                        Submit
-                    </button>
+                    <button type="submit">Submit</button>
                 </div>
             </form>
         </div>

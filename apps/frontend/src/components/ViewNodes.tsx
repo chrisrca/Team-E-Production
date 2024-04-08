@@ -7,6 +7,7 @@ import {
     SecurityServiceRequest,
     DrugDeliveryData,
     SanitationServiceRequest,
+    RoomSchedulingForm,
 } from "common/src/types";
 
 export default function ViewNodes(inputData: {
@@ -18,7 +19,8 @@ export default function ViewNodes(inputData: {
         | InterpreterServiceRequest[]
         | SecurityServiceRequest[]
         | DrugDeliveryData[]
-        | SanitationServiceRequest[];
+        | SanitationServiceRequest[]
+        | RoomSchedulingForm[];
 }) {
     const data = inputData.data;
     if (data.length != 0) {

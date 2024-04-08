@@ -11,6 +11,7 @@ import {
     SecurityServiceRequest,
     DrugDeliveryData,
     SanitationServiceRequest,
+    RoomSchedulingForm,
 } from "common/src/types";
 import { Input } from "@/components/ui/input";
 
@@ -23,6 +24,7 @@ type DataViewerProps =
     | SecurityServiceRequest[]
     | DrugDeliveryData[]
     | SanitationServiceRequest[]
+    | RoomSchedulingForm[]
     | [];
 
 function DataViewer() {
@@ -41,6 +43,7 @@ function DataViewer() {
     const [sanitationData, setSanitationData] = useState<
         SanitationServiceRequest[]
     >([]);
+    const [roomData, setRoomData] = useState<RoomSchedulingForm[]>([]);
 
     const [uploadData, setUploadData] = useState<File | null | undefined>();
 
@@ -132,7 +135,8 @@ function DataViewer() {
             | InterpreterServiceRequest[]
             | SecurityServiceRequest[]
             | DrugDeliveryData[]
-            | SanitationServiceRequest[],
+            | SanitationServiceRequest[]
+            | RoomSchedulingForm[],
     ) => {
         const headers = Object.keys(data[0]).join(",");
         const csv = data.map((row) => Object.values(row).join(","));
@@ -199,7 +203,7 @@ function DataViewer() {
 
         async function fetchDrugData() {
             try {
-                const res = await axios.get("/api/drug");
+                const res = await axios.get("/api/medicine");
                 setDrugData(res.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -216,6 +220,16 @@ function DataViewer() {
             }
         }
         fetchSanitationData().then();
+
+        async function fetchRoomData() {
+            try {
+                const res = await axios.get("/api/room");
+                setRoomData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchRoomData().then();
     }, []);
 
     return (
@@ -245,6 +259,9 @@ function DataViewer() {
                     </Button>
                     <Button onClick={() => setCurrData(sanitationData)}>
                         Sanitation Data
+                    </Button>
+                    <Button onClick={() => setCurrData(roomData)}>
+                        Room Data
                     </Button>
                 </div>
                 <div className=" px-10 flex flex-col space-y-2">
