@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
-export default function MapPage( {nodes}: {nodes: DBNode[]}) {
+export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     //const [staticNodes, setStaticNodes] = useState<DBNode[]>([]);
     const [start, setStart] = useState<string>("");
     const [end, setEnd] = useState<string>("");
