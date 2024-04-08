@@ -148,7 +148,7 @@ export default function FlowerService() {
                 <div className="flex flex-wrap -mx-3 mb-2 items-end">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                            className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
+                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
                             htmlFor="grid-drug-priority"
                         >
                             Priority
@@ -174,7 +174,7 @@ export default function FlowerService() {
                     </div>
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                            className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
+                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
                             htmlFor="grid-drug-status"
                         >
                             Status
