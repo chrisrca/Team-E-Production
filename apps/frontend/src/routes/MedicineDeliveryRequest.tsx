@@ -12,7 +12,10 @@ import {
 } from "@/components/ui/carousel";
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
-import Carousel1 from "@/images/carousel-1.jpeg";
+import MedicineStore from "@/images/medicinestore.jpg";
+import Tylenol from "@/images/tylenol.jpg";
+import Advil from "@/images/advil.jpg";
+import Melatonin from "@/images/melatonin.jpg";
 
 async function sendMedicineRequest(drugOrder: DrugDeliveryData) {
     axios.post("/api/medicine", drugOrder).then((res) => {
@@ -122,13 +125,13 @@ export default function DrugDelivery() {
                             <div
                                 className="mt-3 rounded-lg"
                                 style={{
-                                    backgroundImage: `url(${Carousel1})`,
+                                    backgroundImage: `url(${MedicineStore})`,
                                     backgroundSize: "cover",
                                     minHeight: "300px",
-                                    minWidth: "300px",
+                                    backgroundPosition: "center",
                                 }}
                             >
-                                <h1 className="z-1 text-white text-3xl font-bold pt-[200px] pl-8">
+                                <h1 className="z-1 text-white text-3xl font-bold pt-[250px] pl-8">
                                     Request medication here!
                                 </h1>
                                 <div className="flex">
@@ -136,6 +139,72 @@ export default function DrugDelivery() {
                                         <h2 className="z-1 text-white text-2xl pt-2 pl-8">
                                             Order medicine to be safely
                                             delivered to your destination!
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </CarouselItem>
+                        <CarouselItem>
+                            <div
+                                className="mt-3 rounded-lg"
+                                style={{
+                                    backgroundImage: `url(${Tylenol})`,
+                                    backgroundSize: "cover",
+                                    minHeight: "300px",
+                                    backgroundPosition: "center",
+                                }}
+                            >
+                                <h1 className="z-1 text-white text-3xl font-bold pt-[250px] pl-8">
+                                    Tylenol
+                                </h1>
+                                <div className="flex">
+                                    <div className="flex">
+                                        <h2 className="z-1 text-white text-2xl pt-2 pl-8">
+                                            For those suffering with fevers
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </CarouselItem>
+                        <CarouselItem>
+                            <div
+                                className="mt-3 rounded-lg"
+                                style={{
+                                    backgroundImage: `url(${Advil})`,
+                                    backgroundSize: "cover",
+                                    minHeight: "300px",
+                                    backgroundPosition: "center",
+                                }}
+                            >
+                                <h1 className="z-1 text-white text-3xl font-bold pt-[250px] pl-8">
+                                    Advil
+                                </h1>
+                                <div className="flex">
+                                    <div className="flex">
+                                        <h2 className="z-1 text-white text-2xl pt-2 pl-8">
+                                            To help with body sores
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </CarouselItem>
+                        <CarouselItem>
+                            <div
+                                className="mt-3 rounded-lg"
+                                style={{
+                                    backgroundImage: `url(${Melatonin})`,
+                                    backgroundSize: "cover",
+                                    minHeight: "300px",
+                                    backgroundPosition: "center",
+                                }}
+                            >
+                                <h1 className="z-1 text-white text-3xl font-bold pt-[250px] pl-8">
+                                    Melatonin
+                                </h1>
+                                <div className="flex">
+                                    <div className="flex">
+                                        <h2 className="z-1 text-white text-2xl pt-2 pl-8">
+                                            For those suffering with insomnia
                                         </h2>
                                     </div>
                                 </div>
@@ -149,7 +218,8 @@ export default function DrugDelivery() {
                     {current} of {count}
                 </div>
             </div>
-            <h1 className="text-extrabold text-3xl p-10 justify-center items-center">
+
+            <h1 className="text-extrabold text-3xl p-10 items-center text-center">
                 Medicine Delivery Request Form
             </h1>
             <form
@@ -302,13 +372,16 @@ export default function DrugDelivery() {
 
                 <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <button
-                        className="bg-blue-900 hover:bg-transparent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded hover:rounded-none"
+                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         type={"submit"}
                     >
                         Checkout
                     </button>
                 </div>
             </form>
+            <footer className="mt-8 text-center text-sm text-gray-500">
+                Developed by Tri Vien Le and Brendan Reilly
+            </footer>
         </div>
     );
 }
