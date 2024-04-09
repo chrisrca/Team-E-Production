@@ -216,9 +216,9 @@ export default function Welcome() {
                         <Card className="w-[350px] mt-5 mr-5 ml-5">
                             {/*card 4*/}
                             <CardHeader>
-                                <CardTitle>Request</CardTitle>
+                                <CardTitle>Gift Request</CardTitle>
                                 <CardDescription>
-                                    Some cool description.
+                                    Get Your Buddy a Gift
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -226,7 +226,7 @@ export default function Welcome() {
                             </CardContent>
                             <CardFooter className="flex justify-end">
                                 <Link
-                                    to="/flower-service"
+                                    to="/gift-service"
                                     className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
                                 >
                                     Take me there
@@ -237,9 +237,9 @@ export default function Welcome() {
                             {" "}
                             {/*card 5*/}
                             <CardHeader>
-                                <CardTitle>Request</CardTitle>
+                                <CardTitle>Interpreter</CardTitle>
                                 <CardDescription>
-                                    Some cool description.
+                                    Interpretation Language Needs Bonjour
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -247,7 +247,7 @@ export default function Welcome() {
                             </CardContent>
                             <CardFooter className="flex justify-end">
                                 <Link
-                                    to="/flower-service"
+                                    to="/language-service"
                                     className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
                                 >
                                     Take me there
@@ -257,9 +257,9 @@ export default function Welcome() {
                         <Card className="w-[350px] mt-5 mr-5">
                             {/*card 6*/}
                             <CardHeader>
-                                <CardTitle>Request</CardTitle>
+                                <CardTitle>Sanitation</CardTitle>
                                 <CardDescription>
-                                    Some cool description.
+                                    For all your cleaning needs
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -267,7 +267,7 @@ export default function Welcome() {
                             </CardContent>
                             <CardFooter className="flex justify-end">
                                 <Link
-                                    to="/flower-service"
+                                    to="/sanitation"
                                     className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
                                 >
                                     Take me there

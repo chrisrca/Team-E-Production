@@ -33,6 +33,7 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
         reqStatus: "",
         alertAuthorities: false,
     });
+
     const [requests, setRequests] = useState<SecurityServiceRequest[]>([]);
     const [filteredNodes, setFilteredNodes] = useState(nodes);
     const [searchTerm, setSearchTerm] = useState("");
