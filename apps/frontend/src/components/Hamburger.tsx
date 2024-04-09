@@ -26,7 +26,7 @@ export default function Hamburger() {
                 <div className="grid gap-2 py-4">
                     <SheetClose asChild>
                         <Link
-                            to="/login"
+                            to="/"
                             className="rounded hover:bg-card pl-2 dark:bg-foreground dark:hover:bg-card"
                         >
                             <img
@@ -49,7 +49,7 @@ export default function Hamburger() {
                             to="/drug-service"
                             className="text-primary hover:bg-card rounded pl-2"
                         >
-                            Medicin Service Request
+                            Medicine Service Request
                         </Link>
                     </SheetClose>
                     <SheetClose asChild>
@@ -58,6 +58,30 @@ export default function Hamburger() {
                             className="text-primary hover:bg-card rounded pl-2"
                         >
                             Gift Service Request
+                        </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Link
+                            to="/sanitation"
+                            className="text-primary hover:bg-card rounded pl-2"
+                        >
+                            Sanitation Service Request
+                        </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Link
+                            to="/language-service"
+                            className="text-primary hover:bg-card rounded pl-2"
+                        >
+                            Language Interpreter Request
+                        </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Link
+                            to="/room-service"
+                            className="text-primary hover:bg-card rounded pl-2"
+                        >
+                            Room Service Request
                         </Link>
                     </SheetClose>
                     <SheetClose asChild>

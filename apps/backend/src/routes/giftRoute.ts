@@ -14,7 +14,7 @@ async function getGiftsFromDB(): Promise<string> {
 router.post("/", async (req: Request, res: Response) => {
     const giftRequest: GiftServiceRequest = req.body;
     try {
-        await client.gifts.create({
+        await client.gift.create({
             data: {
                 recipientName: giftRequest.recipientName,
                 deliveryLocation: giftRequest.deliveryLocation,
@@ -26,7 +26,7 @@ router.post("/", async (req: Request, res: Response) => {
         });
     } catch (e) {
         console.log(e);
-        res.send("Failed to add gift to database");
+        res.send("Failed to add Gifts to database");
     }
     res.send("Gifts added to database");
 });
