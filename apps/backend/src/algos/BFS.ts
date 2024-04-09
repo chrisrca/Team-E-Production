@@ -1,4 +1,5 @@
 import { processGraphData, Node } from "./graphData";
+import { euclideanDistance } from "./euclideanDistance.ts";
 
 let startNodeIn: string;
 let endNodeIn: string;
@@ -29,6 +30,15 @@ async function runBFS(start: string, end: string) {
 
         path = bfs(startNode!, endNode!);
     });
+
+    let distance = 0;
+
+    for (let i = 0; i < path.length - 1; i++) {
+        distance += euclideanDistance(path[i], path[i + 1]);
+    }
+
+    console.log("Path Distance: " + distance);
+
     return path;
 }
 

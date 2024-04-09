@@ -1,5 +1,6 @@
 import { processGraphData, Node } from "./graphData";
 import TinyQueue from "tinyqueue";
+import { euclideanDistance } from "./euclideanDistance.ts";
 
 let startNodeIn: string;
 let endNodeIn: string;
@@ -25,21 +26,6 @@ class PriorityQueue<T> extends TinyQueue<T> {
 
     public has(item: T): boolean {
         return this.data.includes(item);
-    }
-}
-
-function euclideanDistance(nodeA: Node, nodeB: Node): number {
-    if (
-        // Filter Elevators and Stairs to prevent unreasonable floor changes during path
-        (nodeA.nodeType == "ELEV" || nodeA.nodeType == "STAI") &&
-        (nodeB.nodeType == "ELEV" || nodeB.nodeType == "STAI")
-    ) {
-        return 500;
-    } else {
-        return Math.sqrt(
-            Math.pow(nodeA.coords.xcoord - nodeB.coords.xcoord, 2) +
-                Math.pow(nodeA.coords.ycoord - nodeB.coords.ycoord, 2),
-        );
     }
 }
 
@@ -69,6 +55,15 @@ async function runASTAR(start: string, end: string) {
 
         path = astar(startNode!, endNode!);
     });
+
+    let distance = 0;
+
+    for (let i = 0; i < path.length - 1; i++) {
+        distance += euclideanDistance(path[i], path[i + 1]);
+    }
+
+    console.log("Path Distance: " + distance);
+
     return path;
 }
 
