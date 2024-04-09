@@ -21,8 +21,23 @@ interface PathSetFunctionProps {
 export default function SearchBar(PathFunctions: PathSetFunctionProps) {
     const [startPath, setStart] = useState<string>("");
     const [endPath, setEnd] = useState<string>("");
+    const choices = removeHallNodes(PathFunctions.selection);
 
-    const choices = PathFunctions.selection;
+    function removeHallNodes(nodes: DBNode[]): DBNode[] {
+        return nodes
+            .filter((node) => {
+                return node.nodeType != "HALL";
+            })
+            .sort(function (a, b) {
+                if (a.longName < b.longName) {
+                    return -1;
+                }
+                if (a.longName > b.longName) {
+                    return 1;
+                }
+                return 0;
+            });
+    }
 
     async function submit() {
         PathFunctions.start(startPath);
@@ -52,7 +67,7 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                     <SelectContent>
                         {choices.map((node, index) => (
                             <SelectItem key={index} value={node.nodeID}>
-                                {node.nodeID}
+                                {node.longName}
                             </SelectItem>
                         ))}
                     </SelectContent>
@@ -70,7 +85,7 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                     <SelectContent>
                         {choices.map((node, index) => (
                             <SelectItem key={index} value={node.nodeID}>
-                                {node.nodeID}
+                                {node.longName}
                             </SelectItem>
                         ))}
                     </SelectContent>

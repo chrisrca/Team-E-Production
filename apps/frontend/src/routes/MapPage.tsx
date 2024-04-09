@@ -12,7 +12,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [start, setStart] = useState<string>("");
     const [end, setEnd] = useState<string>("");
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
-    const [level, setLevel] = useState<number>(0);
+    const [level, setLevel] = useState<number>(1);
 
     function handleLevelChange(level: number) {
         setLevel(level);

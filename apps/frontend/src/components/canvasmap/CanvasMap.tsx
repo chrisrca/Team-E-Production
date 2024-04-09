@@ -96,24 +96,34 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                 ctx.fill();
             });
             //PATH DRAWING
-            ctx.strokeStyle = "red";
-            ctx.lineWidth = 4;
-
             if (pathData.length > 0) {
-                ctx.beginPath();
-                ctx.moveTo(
-                    pathData[0].xcoord * xMult,
-                    pathData[0].ycoord * yMult,
-                );
-
-                for (let i = 1; i < pathData.length; i++) {
-                    if (pathData[i].floor !== floor[mapLevel]) return;
-                    const node = pathData[i];
-                    //LINE DRAWING
-                    ctx.strokeStyle = "red";
-                    ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
+                ctx.strokeStyle = "red";
+                ctx.lineWidth = 4;
+                if (pathData[0].floor === floor[mapLevel]) {
+                    ctx.beginPath();
+                    ctx.moveTo(
+                        pathData[0].xcoord * xMult,
+                        pathData[0].ycoord * yMult,
+                    );
                 }
-                ctx.stroke();
+                for (let i = 1; i < pathData.length; i++) {
+                    const node = pathData[i];
+                    if (node.floor === floor[mapLevel]) {
+                        //LINE DRAWING
+                        ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
+                    }
+                    if (node.floor !== floor[mapLevel]) {
+                        ctx.stroke();
+                        ctx.beginPath();
+                        continue;
+                    }
+
+                    if (
+                        pathData[pathData.length - 1].floor === floor[mapLevel]
+                    ) {
+                        ctx.stroke();
+                    }
+                }
             }
         }
         //This shit supposed to draw the image and the nodes let's goooo
