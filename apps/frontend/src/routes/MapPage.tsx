@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
-export default function MapPage() {
-    const [staticNodes, setStaticNodes] = useState<DBNode[]>([]);
+export default function MapPage({ nodes }: { nodes: DBNode[] }) {
+    //const [staticNodes, setStaticNodes] = useState<DBNode[]>([]);
     const [start, setStart] = useState<string>("");
     const [end, setEnd] = useState<string>("");
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
@@ -22,7 +22,7 @@ export default function MapPage() {
                         newNodes.push(node);
                     }
                 });
-                setStaticNodes(newNodes);
+                //setStaticNodes(newNodes);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -40,8 +40,8 @@ export default function MapPage() {
     }, [start, end]);
     return (
         <div className="z-0 relative">
-            <SearchBar selection={staticNodes} start={setStart} end={setEnd} />
-            <CanvasMap path={pathNodes} nodes={staticNodes} />
+            <SearchBar selection={nodes} start={setStart} end={setEnd} />
+            <CanvasMap path={pathNodes} nodes={nodes} />
         </div>
     );
 }
