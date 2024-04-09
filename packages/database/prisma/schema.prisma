@@ -50,9 +50,10 @@ model gift {
   id               Int    @id @default(autoincrement())
   recipientName    String
   deliveryLocation String
-  warmwords        String
+  message          String
   giftSize         String
   priority         String
+  wrapping         String
 }
 
 model interpreter {

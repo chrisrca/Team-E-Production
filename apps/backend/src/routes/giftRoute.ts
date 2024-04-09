@@ -18,9 +18,10 @@ router.post("/", async (req: Request, res: Response) => {
             data: {
                 recipientName: giftRequest.recipientName,
                 deliveryLocation: giftRequest.deliveryLocation,
-                warmwords: giftRequest.warmwords,
+                message: giftRequest.message,
                 giftSize: giftRequest.giftSize,
                 priority: giftRequest.priority,
+                wrapping: giftRequest.wrapping,
             },
         });
     } catch (e) {

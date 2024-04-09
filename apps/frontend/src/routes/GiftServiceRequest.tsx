@@ -2,6 +2,9 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { FormInput } from "@/components/ui/formInput.tsx";
 import { GiftServiceRequest } from "common/src/types";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
+import gift_box from "../assets/gift_box.webp";
+import "./GiftServiceRequest.css";
 
 async function sendGiftOrder(giftOrder: GiftServiceRequest) {
     axios.post("/api/gift", giftOrder).then((res) => {
@@ -10,13 +13,16 @@ async function sendGiftOrder(giftOrder: GiftServiceRequest) {
 }
 
 export default function GiftServiceRequest() {
-    const giftOrderData = [];
+    const [giftOrderData, setGiftOrderMany] = useState<GiftServiceRequest[]>(
+        [],
+    );
     const [giftOrder, setGiftOrder] = useState<GiftServiceRequest>({
         recipientName: "",
         deliveryLocation: "",
-        warmwords: "",
-        giftSize: "",
-        priority: "",
+        message: "",
+        giftSize: "Small",
+        priority: "Low",
+        wrapping: "",
     });
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -25,19 +31,32 @@ export default function GiftServiceRequest() {
         if (
             giftOrder.recipientName === "" ||
             giftOrder.deliveryLocation === "" ||
-            giftOrder.warmwords === ""
+            giftOrder.message === "" ||
+            giftOrder.wrapping === ""
         ) {
             alert("Please fill out all required fields.");
             return;
         }
         sendGiftOrder(giftOrder);
+        setGiftOrderMany((prevState) => [...prevState, giftOrder]);
         setGiftOrder({
             recipientName: "",
             deliveryLocation: "",
-            warmwords: "",
+            message: "",
             giftSize: "",
             priority: "",
+            wrapping: "",
         });
+    };
+
+    const handleChange = (
+        e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    ) => {
+        const { name, value } = e.target;
+        setGiftOrder((prevRequests) => ({
+            ...prevRequests,
+            [name]: value,
+        }));
     };
 
     return (
@@ -93,17 +112,17 @@ export default function GiftServiceRequest() {
                             className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
                             htmlFor="grid-warmwords"
                         >
-                            Warm Words
+                            Message
                         </label>
                         <FormInput
                             variant="gift"
                             id="grid-message"
                             type="text"
-                            value={giftOrder.warmwords}
+                            value={giftOrder.message}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 setGiftOrder({
                                     ...giftOrder,
-                                    warmwords: e.target.value,
+                                    message: e.target.value,
                                 })
                             }
                             placeholder="Enter message..."
@@ -152,19 +171,75 @@ export default function GiftServiceRequest() {
                                 })
                             }
                         >
-                            <option>Normal</option>
-                            <option>Urgent</option>
+                            <option>Low</option>
+                            <option>Medium</option>
+                            <option>High</option>
+                            <option>Emergency</option>
                         </select>
                     </div>
                 </div>
+                <label
+                    className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
+                    htmlFor="wrapping"
+                >
+                    Wrapping Paper
+                </label>
+
+                <div className="flex flex-col -mx-3 mb-6">
+                    <div className="flex flex-row">
+                        <label className="w-1/3">
+                            <input
+                                type="radio"
+                                name="wrapping"
+                                value="default"
+                                onChange={handleChange}
+                            ></input>
+                            <img
+                                src={gift_box}
+                                alt="Gift"
+                                style={{ width: "150px", height: "auto" }}
+                            ></img>
+                        </label>
+
+                        <label className="w-1/3">
+                            <input
+                                type="radio"
+                                name="wrapping"
+                                value="festive"
+                                onChange={handleChange}
+                            ></input>
+                            <img
+                                src={gift_box}
+                                alt="Gift"
+                                style={{ width: "150px", height: "auto" }}
+                            ></img>
+                        </label>
+
+                        <label className="w-1/3">
+                            <input
+                                type="radio"
+                                name="wrapping"
+                                value="boring"
+                                onChange={handleChange}
+                            ></input>
+                            <img
+                                src={gift_box}
+                                alt="Gift"
+                                style={{ width: "150px", height: "auto" }}
+                            ></img>
+                        </label>
+                    </div>
+
+                    <div className="flex flex-row text-center">
+                        <p className="w-1/3 justify-center">Default - $15 </p>
+                        <p className="w-1/3 justify-center">Festive - $6 </p>
+                        <p className="w-1/3 justify-center">Boring - $500 </p>
+                    </div>
+                </div>
+
                 <div className="flex flex-wrap -mx-3 mb-2 items-end">
                     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                        <button
-                            className="bg-blue-900 hover:bg-transparent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
-                            type="submit"
-                        >
-                            Submit
-                        </button>
+                        <Button type="submit">Submit</Button>
                     </div>
                 </div>
             </form>
