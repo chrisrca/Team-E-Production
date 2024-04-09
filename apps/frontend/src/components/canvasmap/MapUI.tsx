@@ -16,12 +16,14 @@ interface PathSetFunctionProps {
     selection: DBNode[];
     start: (start: string) => void;
     end: (end: string) => void;
+    algorithm: (algorithm: string) => void;
 }
 
 export default function SearchBar(PathFunctions: PathSetFunctionProps) {
     const [startPath, setStart] = useState<string>("");
     const [endPath, setEnd] = useState<string>("");
     const choices = removeHallNodes(PathFunctions.selection);
+    const [algorithm, setAlgorithm] = useState<string>("");
 
     function removeHallNodes(nodes: DBNode[]): DBNode[] {
         return nodes
@@ -42,11 +44,13 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
     async function submit() {
         PathFunctions.start(startPath);
         PathFunctions.end(endPath);
+        PathFunctions.algorithm(algorithm);
     }
 
     function clear() {
         setEnd("");
         setStart("");
+        setAlgorithm("");
     }
 
     return (
@@ -91,7 +95,31 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                     </SelectContent>
                 </Select>
             </div>
-            <div className={"grid grid-cols-2 justify-items-center space-x-5"}>
+            <div
+                className={
+                    "flex flex-col rounded-2 border-white drop-shadow-xl"
+                }
+            >
+                <Select
+                    onValueChange={(value) => setAlgorithm(value)}
+                    value={algorithm}
+                >
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select Algorithm" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="BFS">
+                            Breadth-First Search (BFS)
+                        </SelectItem>
+                        <SelectItem value="ASTAR">A* (A-Star)</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+            <div
+                className={
+                    "mt-5 grid grid-cols-2 justify-items-center space-x-5"
+                }
+            >
                 <Button
                     className={"w-32 px-5 py-2 rounded-3xl drop-shadow-xl"}
                     onClick={() => {

@@ -46,14 +46,6 @@ export default function Hamburger() {
                     </SheetClose>
                     <SheetClose asChild>
                         <Link
-                            to="/drug-service"
-                            className="text-primary hover:bg-card rounded pl-2"
-                        >
-                            Medicine Service Request
-                        </Link>
-                    </SheetClose>
-                    <SheetClose asChild>
-                        <Link
                             to="/map"
                             className="text-primary hover:bg-card rounded pl-2"
                         >

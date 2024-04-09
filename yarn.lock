@@ -3272,6 +3272,7 @@ __metadata:
     prettier: "npm:latest"
     prettier-config-custom: "workspace:*"
     supertest: "npm:^6.3.3"
+    tinyqueue: "npm:^2.0.3"
     ts-node: "npm:^10.9.1"
     tsconfig-custom: "workspace:*"
     typescript: "npm:^5.0.4"
@@ -8801,6 +8802,13 @@ __metadata:
   version: 0.7.0
   resolution: "tinypool@npm:0.7.0"
   checksum: e1fb1f430647525c6bb0bac71acc4c1594c7687fe8e4f08c8f389d9a672fb69746869e9d9818b55f1ab85ea6308d42f92cbc32a9847088abf6bc55a8700be390
+  languageName: node
+  linkType: hard
+
+"tinyqueue@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "tinyqueue@npm:2.0.3"
+  checksum: b676fdf2050bc9b2b76fe3faa433f3122c623e3f2c32d2a6921487b1e8fb541a85af79ea0eca3618e261b293280db78b02e1f835321783b8c078c507b739017c
   languageName: node
   linkType: hard
 

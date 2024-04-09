@@ -4,10 +4,9 @@ let startNodeIn: string;
 let endNodeIn: string;
 
 async function runBFS(start: string, end: string) {
-    // RENAME O
+    console.log("Running BFS Algorithm on Nodes:", start, end);
     startNodeIn = start;
     endNodeIn = end;
-    //This is not good practice redo this
     let path: Node[] | null = [];
 
     await processGraphData().then((data) => {

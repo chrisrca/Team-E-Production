@@ -4677,6 +4677,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:3.2.4"],\
           ["prettier-config-custom", "workspace:configs/prettier-config-custom"],\
           ["supertest", "npm:6.3.4"],\
+          ["tinyqueue", "npm:2.0.3"],\
           ["ts-node", "virtual:9a28949798a912c67218bf8cea1001b3cae21be82aaad0589210650a91ed87ad2b921ce3379d36f5723672b5e5a668da59a3e262568425b08570aa654e7b0112#npm:10.9.2"],\
           ["tsconfig-custom", "workspace:configs/tsconfig-custom"],\
           ["typescript", "patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"],\
@@ -11236,6 +11237,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/tinypool-npm-0.7.0-725c438ec5-e1fb1f4306.zip/node_modules/tinypool/",\
         "packageDependencies": [\
           ["tinypool", "npm:0.7.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["tinyqueue", [\
+      ["npm:2.0.3", {\
+        "packageLocation": "./.yarn/cache/tinyqueue-npm-2.0.3-ceed389145-b676fdf205.zip/node_modules/tinyqueue/",\
+        "packageDependencies": [\
+          ["tinyqueue", "npm:2.0.3"]\
         ],\
         "linkType": "HARD"\
       }]\

@@ -8,7 +8,6 @@ import MapPage from "@/routes/MapPage.tsx";
 import DataViewer from "@/routes/DataViewer.tsx";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import { ModeToggle } from "./components/ModeToggle.tsx";
-import DrugDelivery from "@/routes/MedicineDeliveryRequest.tsx";
 import SecurityForm from "./routes/SecurityForm";
 import { useState, useEffect } from "react";
 import { DBNode } from "common/src/types";
@@ -38,7 +37,6 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
                     <Route path="/flower-service" element={<FlowerService />} />
-                    <Route path="/drug-service" element={<DrugDelivery />} />
                     <Route path="/data" element={<DataViewer />} />
                     <Route
                         path="/security"
