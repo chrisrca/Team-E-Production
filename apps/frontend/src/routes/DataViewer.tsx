@@ -12,6 +12,7 @@ import {
     DrugDeliveryData,
     SanitationServiceRequest,
     RoomSchedulingForm,
+    MedicalDeviceServiceRequest,
 } from "common/src/types";
 import { Input } from "@/components/ui/input";
 
@@ -25,6 +26,7 @@ type DataViewerProps =
     | DrugDeliveryData[]
     | SanitationServiceRequest[]
     | RoomSchedulingForm[]
+    | MedicalDeviceServiceRequest[]
     | [];
 
 function DataViewer() {
@@ -44,6 +46,9 @@ function DataViewer() {
         SanitationServiceRequest[]
     >([]);
     const [roomData, setRoomData] = useState<RoomSchedulingForm[]>([]);
+    const [medicalDeviceData, setMedicalDeviceData] = useState<
+        MedicalDeviceServiceRequest[]
+    >([]);
 
     const [uploadData, setUploadData] = useState<File | null | undefined>();
 
@@ -136,7 +141,8 @@ function DataViewer() {
             | SecurityServiceRequest[]
             | DrugDeliveryData[]
             | SanitationServiceRequest[]
-            | RoomSchedulingForm[],
+            | RoomSchedulingForm[]
+            | MedicalDeviceServiceRequest[],
     ) => {
         const headers = Object.keys(data[0]).join(",");
         const csv = data.map((row) => Object.values(row).join(","));
@@ -230,6 +236,16 @@ function DataViewer() {
             }
         }
         fetchRoomData().then();
+
+        async function fetchMedicalDeviceData() {
+            try {
+                const res = await axios.get("/api/medical-device");
+                setMedicalDeviceData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchMedicalDeviceData().then();
     }, []);
 
     return (
@@ -262,6 +278,9 @@ function DataViewer() {
                     </Button>
                     <Button onClick={() => setCurrData(roomData)}>
                         Room Data
+                    </Button>
+                    <Button onClick={() => setCurrData(medicalDeviceData)}>
+                        Medical Device Data
                     </Button>
                 </div>
                 <div className=" px-10 flex flex-col space-y-2">

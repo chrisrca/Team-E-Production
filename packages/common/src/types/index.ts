@@ -12,6 +12,7 @@ import { SecurityServiceRequest } from "./securityrequest.ts";
 import { SanitationServiceRequest } from "./sanitationrequest.ts";
 import { DrugDeliveryData } from "./medicinerequest.ts";
 import { RoomSchedulingForm } from "./roomrequest.ts";
+import { MedicalDeviceServiceRequest } from "./medicaldevicerequest.ts";
 
 export type {
     DBNode,
@@ -27,4 +28,5 @@ export type {
     SanitationServiceRequest,
     DrugDeliveryData,
     RoomSchedulingForm,
+    MedicalDeviceServiceRequest,
 };
