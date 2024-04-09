@@ -2,9 +2,17 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { FormInput } from "@/components/ui/formInput.tsx";
 import { DrugDeliveryData } from "common/src/types/medicinerequest.ts";
 import axios from "axios";
-/*import tylenol from "../images/tylenol.jpg";
-import advil from "../images/advil.jpg";
-import melatonin from "../images/melatonin.jpg";*/
+import {
+    Carousel,
+    type CarouselApi,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel";
+import * as React from "react";
+import Autoplay from "embla-carousel-autoplay";
+import Carousel1 from "@/images/carousel-1.jpeg";
 
 async function sendMedicineRequest(drugOrder: DrugDeliveryData) {
     axios.post("/api/medicine", drugOrder).then((res) => {
@@ -74,15 +82,83 @@ export default function DrugDelivery() {
         }
     };*/
 
+    const [api, setApi] = React.useState<CarouselApi>();
+    const [current, setCurrent] = React.useState(0);
+    const [count, setCount] = React.useState(0);
+
+    React.useEffect(() => {
+        if (!api) {
+            return;
+        }
+
+        setCount(api.scrollSnapList().length);
+        setCurrent(api.selectedScrollSnap() + 1);
+
+        api.on("select", () => {
+            setCurrent(api.selectedScrollSnap() + 1);
+        });
+    }, [api]);
+
+    /*flex flex-col flex-auto justify-center items-center max-w-4xl mx-auto my-10 p-8 shadow rounded-lg*/
     return (
-        <div className="flex flex-col flex-auto justify-center items-center h-screen">
-            <h1 className="text-extrabold text-2xl p-10">
+        <div className="mx-auto pr-20 pl-20">
+            <div className="">
+                {/*Advert Carousel*/}
+                <Carousel
+                    className=""
+                    setApi={setApi}
+                    plugins={[
+                        Autoplay({
+                            delay: 10000,
+                        }),
+                    ]}
+                    opts={{
+                        align: "start",
+                        loop: true,
+                    }}
+                >
+                    <CarouselContent>
+                        <CarouselItem>
+                            <div
+                                className="mt-3 rounded-lg"
+                                style={{
+                                    backgroundImage: `url(${Carousel1})`,
+                                    backgroundSize: "cover",
+                                    minHeight: "300px",
+                                    minWidth: "300px",
+                                }}
+                            >
+                                <h1 className="z-1 text-white text-3xl font-bold pt-[200px] pl-8">
+                                    Request medication here!
+                                </h1>
+                                <div className="flex">
+                                    <div className="flex">
+                                        <h2 className="z-1 text-white text-2xl pt-2 pl-8">
+                                            Order medicine to be safely
+                                            delivered to your destination!
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </CarouselItem>
+                    </CarouselContent>
+                    <CarouselPrevious className="" />
+                    <CarouselNext className="" />
+                </Carousel>
+                <div className="py-2 text-center text-sm text-muted-foreground">
+                    {current} of {count}
+                </div>
+            </div>
+            <h1 className="text-extrabold text-3xl p-10 justify-center items-center">
                 Medicine Delivery Request Form
             </h1>
-            <form onSubmit={handleSubmit} className="w-full max-w-lg">
+            <form
+                onSubmit={handleSubmit}
+                className="mx-auto flex flex-col flex-auto my-10 p-8 shadow rounded-lg max-w-lg"
+            >
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        <label className="block uppercase text-foreground tracking-wide text-xs font-bold mb-2">
                             Patient Name
                         </label>
                         <FormInput
@@ -101,7 +177,7 @@ export default function DrugDelivery() {
                     </div>
                     <div className="w-full md:w-1/2 px-3">
                         <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            className="block uppercase text-foreground tracking-wide text-xs font-bold mb-2"
                             htmlFor="grid-room-num"
                         >
                             Room Number
@@ -124,7 +200,7 @@ export default function DrugDelivery() {
                 <div className="flex flex-wrap -mx-3 mb-6 items-end">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            className="block uppercase text-foreground tracking-wide text-xs font-bold mb-2"
                             htmlFor="grid-drug"
                         >
                             Medicine/Drug
@@ -149,7 +225,7 @@ export default function DrugDelivery() {
                     </div>
                     <div className="w-full md:w-1/2 px-3">
                         <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            className="block uppercase text-foreground tracking-wide text-xs font-bold mb-2"
                             htmlFor="grid-drug-num"
                         >
                             Drug Quantity
@@ -172,7 +248,7 @@ export default function DrugDelivery() {
                 <div className="flex flex-wrap -mx-3 mb-6 items-end">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            className="block uppercase text-foreground tracking-wide text-xs font-bold mb-2"
                             htmlFor="grid-drug-priority"
                         >
                             Priority
@@ -198,7 +274,7 @@ export default function DrugDelivery() {
                     </div>
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            className="block uppercase text-foreground tracking-wide text-xs font-bold mb-2"
                             htmlFor="grid-drug-status"
                         >
                             Status
