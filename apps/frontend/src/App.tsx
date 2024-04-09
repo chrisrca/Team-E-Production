@@ -21,10 +21,7 @@ function App() {
         async function fetchNodes() {
             try {
                 const response = await axios.get("/api/nodes");
-                const filteredNodes = response.data.filter(
-                    (node: DBNode) => node.floor === "L1",
-                );
-                setNodes(filteredNodes);
+                setNodes(response.data);
             } catch (error) {
                 console.error("Failed to fetch nodes: ", error);
             }

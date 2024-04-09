@@ -9,11 +9,15 @@ import { useEffect, useState } from "react";
 //import { Node } from "common/src/types";
 
 export default function MapPage({ nodes }: { nodes: DBNode[] }) {
-    //const [staticNodes, setStaticNodes] = useState<DBNode[]>([]);
     const [start, setStart] = useState<string>("");
     const [end, setEnd] = useState<string>("");
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
-    const level = 0;
+    const [level, setLevel] = useState<number>(0);
+
+    function handleLevelChange(level: number) {
+        setLevel(level);
+    }
+
     useEffect(() => {
         async function fetchNodeData() {
             try {
@@ -45,7 +49,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     return (
         <div className="z-0 relative">
             <SearchBar selection={nodes} start={setStart} end={setEnd} />
-            <LevelButtons />
+            <LevelButtons updateLevel={handleLevelChange} />
             <CanvasMap level={level} path={pathNodes} nodes={nodes} />
         </div>
     );

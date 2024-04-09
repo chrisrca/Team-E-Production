@@ -5,14 +5,13 @@ import {
     ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
 import { DBNode } from "common/src/types";
-import Level1 from "./mapImages/00_thelowerlevel1.png";
-import Level2 from "./mapImages/00_thelowerlevel2.png";
-import Level3 from "./mapImages/01_thefirstfloor.png";
-import Level4 from "./mapImages/02_thesecondfloor.png";
-import Level5 from "./mapImages/03_thethirdfloor.png";
+import LLevel1 from "./mapImages/00_thelowerlevel1.png";
+import LLevel2 from "./mapImages/00_thelowerlevel2.png";
+import Level1 from "./mapImages/01_thefirstfloor.png";
+import Level2 from "./mapImages/02_thesecondfloor.png";
+import Level3 from "./mapImages/03_thethirdfloor.png";
 
-const MapImage = [Level1, Level2, Level3, Level4, Level5];
-
+const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
 interface CanvasMapProps {
     nodes: DBNode[];
     path: DBNode[];
@@ -55,7 +54,6 @@ export default function CanvasMap(nodes: CanvasMapProps) {
 
     // Function to handle panning stopped event
     const handlePanningStopped = (e: ReactZoomPanPinchRef) => {
-        console.log(e);
         const x = e.state.positionX;
         const y = e.state.positionY;
         const scale = e.state.scale;
@@ -79,11 +77,13 @@ export default function CanvasMap(nodes: CanvasMapProps) {
 
     //DRAWING OF NODES AND PATH
     useEffect(() => {
+        const floor = ["L2", "L1", "1", "2", "3"];
         const xMult = imageSize.width / 5000;
         const yMult = imageSize.height / 3400;
         function drawNodes(ctx: CanvasRenderingContext2D) {
             //NODE DRAWING
             nodeData.forEach((node) => {
+                if (node.floor !== floor[mapLevel]) return;
                 ctx.beginPath();
                 ctx.fillStyle = "blue";
                 ctx.arc(
@@ -94,39 +94,27 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                     2 * Math.PI,
                 );
                 ctx.fill();
-                //PATH DRAWING
-                ctx.strokeStyle = "red";
-                ctx.lineWidth = 4;
-
-                if (pathData.length > 0) {
-                    ctx.beginPath();
-                    ctx.moveTo(
-                        pathData[0].xcoord * xMult,
-                        pathData[0].ycoord * yMult,
-                    );
-
-                    for (let i = 1; i < pathData.length; i++) {
-                        const node = pathData[i];
-                        //LINE DRAWING
-                        ctx.strokeStyle = "red";
-                        ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
-                        //TEXT DRAWING
-                        if (i === pathData.length - 1 || i === 1) {
-                            ctx.fillStyle = "black";
-                            ctx.font = "20px Arial";
-                            const textWidth = ctx.measureText(
-                                node.longName,
-                            ).width;
-                            ctx.fillText(
-                                node.longName,
-                                node.xcoord * xMult - textWidth / 2,
-                                node.ycoord * yMult - 10,
-                            );
-                        }
-                    }
-                    ctx.stroke();
-                }
             });
+            //PATH DRAWING
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 4;
+
+            if (pathData.length > 0) {
+                ctx.beginPath();
+                ctx.moveTo(
+                    pathData[0].xcoord * xMult,
+                    pathData[0].ycoord * yMult,
+                );
+
+                for (let i = 1; i < pathData.length; i++) {
+                    if (pathData[i].floor !== floor[mapLevel]) return;
+                    const node = pathData[i];
+                    //LINE DRAWING
+                    ctx.strokeStyle = "red";
+                    ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
+                }
+                ctx.stroke();
+            }
         }
         //This shit supposed to draw the image and the nodes let's goooo
         const image = new Image();
@@ -135,11 +123,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         if (canvasRef.current) {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
-            drawNodes(context!);
             if (context) {
-                context.beginPath();
-                context.arc(500, 500, 500, 0, 2 * Math.PI);
-                context.fill();
                 image.onload = () => {
                     context.drawImage(image, 0, 0, canvas.width, canvas.height);
                     drawNodes(context!);
