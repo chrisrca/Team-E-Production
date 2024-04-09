@@ -1,11 +1,22 @@
 import React, { useEffect, useState, useRef } from "react";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import {
+    TransformWrapper,
+    TransformComponent,
+    ReactZoomPanPinchRef,
+} from "react-zoom-pan-pinch";
 import { DBNode } from "common/src/types";
-import MapImage from "../../assets/00_thelowerlevel1.png";
+import Level1 from "./mapImages/00_thelowerlevel1.png";
+import Level2 from "./mapImages/00_thelowerlevel2.png";
+import Level3 from "./mapImages/01_thefirstfloor.png";
+import Level4 from "./mapImages/02_thesecondfloor.png";
+import Level5 from "./mapImages/03_thethirdfloor.png";
+
+const MapImage = [Level1, Level2, Level3, Level4, Level5];
 
 interface CanvasMapProps {
     nodes: DBNode[];
     path: DBNode[];
+    level: number;
 }
 
 export default function CanvasMap(nodes: CanvasMapProps) {
@@ -14,11 +25,12 @@ export default function CanvasMap(nodes: CanvasMapProps) {
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const nodeData = nodes.nodes;
     const pathData = nodes.path;
+    const mapLevel = nodes.level;
 
     //RESIZING OF CANVAS
     useEffect(() => {
         const image = new Image();
-        image.src = "../../src/assets/00_thelowerlevel1.png";
+        image.src = MapImage[mapLevel];
         image.onload = () => {
             setImageSize({ width: image.width, height: image.height });
         };
@@ -31,7 +43,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         return () => {
             window.removeEventListener("resize", updateContainerSize);
         };
-    }, []);
+    }, [mapLevel]);
 
     // Function to update container size
     const updateContainerSize = () => {
@@ -42,23 +54,26 @@ export default function CanvasMap(nodes: CanvasMapProps) {
     };
 
     // Function to handle panning stopped event
-    const handlePanningStopped = (e) => {
-        const transformComponent = e.target;
-        const { x, y } = transformComponent.getTransformPosition();
-        const { scaleX, scaleY } = transformComponent.getTransformScale();
+    const handlePanningStopped = (e: ReactZoomPanPinchRef) => {
+        console.log(e);
+        const x = e.state.positionX;
+        const y = e.state.positionY;
+        const scale = e.state.scale;
 
         // If image is smaller than the container, center it
-        if (imageSize.width * scaleX < containerSize.width) {
-            transformComponent.setTransformPosition({
-                x: (containerSize.width - imageSize.width * scaleX) / 2,
+        if (imageSize.width * scale < containerSize.width) {
+            e.setTransform(
+                (containerSize.width - imageSize.width * scale) / 2,
                 y,
-            });
+                scale,
+            );
         }
-        if (imageSize.height * scaleY < containerSize.height) {
-            transformComponent.setTransformPosition({
+        if (imageSize.height * scale < containerSize.height) {
+            e.setTransform(
                 x,
-                y: (containerSize.height - imageSize.height * scaleY) / 2,
-            });
+                (containerSize.width - imageSize.width * scale) / 2,
+                scale,
+            );
         }
     };
 
@@ -115,7 +130,8 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         }
         //This shit supposed to draw the image and the nodes let's goooo
         const image = new Image();
-        image.src = MapImage; // Path to your image file
+        image.src = MapImage[mapLevel];
+        // Path to your image file
         if (canvasRef.current) {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
@@ -130,7 +146,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                 };
             }
         }
-    }, [nodeData, pathData, imageSize]);
+    }, [nodeData, pathData, imageSize, mapLevel]);
 
     return (
         <TransformWrapper
@@ -140,33 +156,40 @@ export default function CanvasMap(nodes: CanvasMapProps) {
             minScale={1}
             maxScale={4}
             wheel={{ step: 0.5 }}
-            options={{ limitToBounds: false }}
             doubleClick={{ disabled: false }}
-            defaultPositionY={-100}
+            onPanningStop={handlePanningStopped}
         >
-            {" "}
-            {() => (
-                <React.Fragment>
-                    <TransformComponent onPanningStopped={handlePanningStopped}>
-                        <div>Yooo</div>
-                        {/* <canvas ref={canvasRef} style={{margin: '-7.5%' width: "200vw", height: "200vh", display: "block" }} className="px-0 py-0 z-0 absolute" id="layer1"/> */}
-                    </TransformComponent>
-                </React.Fragment>
-            )}
+            <TransformComponent>
+                <canvas
+                    ref={canvasRef}
+                    height={3400}
+                    width={5000}
+                    style={{ width: "100%", height: "100%", display: "block" }}
+                    id="layer1"
+                />
+            </TransformComponent>
         </TransformWrapper>
     );
-    // return (
-    //     <div className="aspect-[5000/3400] relative">
-    //                     <div
-    //                         style={{
-    //                             margin: '-7.5%',
-    //                             width: '200vh',
-    //                             height: '200vh',
-    //                             backgroundImage: `url('../../src/assets/00_thelowerlevel1.png')`,
-    //                             backgroundSize: 'contain',
-    //                             backgroundRepeat: 'no-repeat',
-    //                         }}
-    //                     />
-    //     </div>
-    // );
 }
+
+// return (
+//     <TransformWrapper>
+//                 <TransformComponent>
+//                     <canvas ref={canvasRef} style={{margin: '-7.5%' display: "block" }} className="px-0 py-0 z-0 absolute" id="layer1"/>
+//                 </TransformComponent>
+//     </TransformWrapper>
+// );
+// return (
+//     <div className="aspect-[5000/3400] relative">
+//                     <div
+//                         style={{
+//                             margin: '-7.5%',
+//                             width: '200vh',
+//                             height: '200vh',
+//                             backgroundImage: `url('../../src/assets/00_thelowerlevel1.png')`,
+//                             backgroundSize: 'contain',
+//                             backgroundRepeat: 'no-repeat',
+//                         }}
+//                     />
+//     </div>
+// );

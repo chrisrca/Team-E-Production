@@ -4,7 +4,7 @@ import { SecurityServiceRequest } from "common/src/types";
 
 const router = express.Router();
 
-async function getSecurityFromDB(): Promise<any> {
+async function getSecurityFromDB(): Promise<SecurityServiceRequest[] | null> {
     try {
         return await client.security.findMany();
     } catch (error) {
@@ -19,7 +19,7 @@ router.post("/", async (req: Request, res: Response) => {
         const createdSecurity = await client.security.create({
             data: {
                 employeeName: securityRequest.employeeName,
-                employeeID: parseInt(securityRequest.employeeID),
+                employeeID: securityRequest.employeeID,
                 reqPriority: securityRequest.reqPriority,
                 location: securityRequest.location,
                 requestType: securityRequest.requestType,
@@ -33,10 +33,9 @@ router.post("/", async (req: Request, res: Response) => {
         });
     } catch (error) {
         console.error("Failed to add security form to database:", error);
-        // @ts-ignore
         res.status(500).json({
             message: "Failed to add security form to database",
-            error: error.message,
+            error: error,
         });
     }
 });

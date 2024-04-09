@@ -1,4 +1,5 @@
 import CanvasMap from "@/components/canvasmap/CanvasMap";
+import LevelButtons from "@/components/canvasmap/LevelButtons";
 import SearchBar from "@/components/canvasmap/MapUI";
 import axios from "axios";
 import { DBNode } from "common/src/types";
@@ -12,6 +13,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [start, setStart] = useState<string>("");
     const [end, setEnd] = useState<string>("");
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
+    const level = 0;
     useEffect(() => {
         async function fetchNodeData() {
             try {
@@ -28,6 +30,8 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
             }
         }
         fetchNodeData().then();
+    }, []);
+    useEffect(() => {
         async function fetchPathData() {
             try {
                 const res = await axios.get(`/api/path/${start}/${end}`);
@@ -41,7 +45,8 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     return (
         <div className="z-0 relative">
             <SearchBar selection={nodes} start={setStart} end={setEnd} />
-            <CanvasMap path={pathNodes} nodes={nodes} />
+            <LevelButtons />
+            <CanvasMap level={level} path={pathNodes} nodes={nodes} />
         </div>
     );
 }

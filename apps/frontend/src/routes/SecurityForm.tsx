@@ -21,7 +21,7 @@ async function sendSecurityOrder(securityOrder: SecurityServiceRequest) {
 export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
     const [securityData, setSecurityData] = useState<SecurityServiceRequest>({
         employeeName: "",
-        employeeID: "",
+        employeeID: 0,
         reqPriority: "",
         location: "",
         requestType: "",
@@ -50,7 +50,7 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
         //reset form
         setSecurityData({
             employeeName: "",
-            employeeID: "",
+            employeeID: 0,
             reqPriority: "",
             location: "",
             requestType: "",
@@ -94,7 +94,7 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
                             onChange={(e) =>
                                 setSecurityData({
                                     ...securityData,
-                                    employeeID: e.target.value,
+                                    employeeID: parseInt(e.target.value),
                                 })
                             }
                             placeholder="Enter your ID"

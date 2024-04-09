@@ -34,11 +34,6 @@ async function runBFS(start: string, end: string) {
 }
 
 function bfs(start: Node, end: Node): Node[] | null {
-    if (start.floor !== "L1" || end.floor !== "L1") {
-        console.error("Error: Start or End Nodes are invalid");
-        return null;
-    }
-
     const queue: Node[] = [start];
     const visited: Set<Node> = new Set([start]);
     const parentMap: Map<Node, Node> = new Map();

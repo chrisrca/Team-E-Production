@@ -1,6 +1,6 @@
 export interface SecurityServiceRequest {
     employeeName: string;
-    employeeID: string;
+    employeeID: number;
     reqPriority: string;
     location: string;
     requestType: string;
