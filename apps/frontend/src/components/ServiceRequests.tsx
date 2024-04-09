@@ -9,13 +9,14 @@ import { FormEvent, ChangeEvent } from "react";
 // import { Button } from "@/components/ui/button";
 //import { TestSchema } from "common/src/types";
 import { Input } from "@/components/ui/input";
+//import {Label} from "@/components/ui/label";
 //import {
 //     Form,
 //     FormControl,
 //     FormDescription,
 //     FormField,
 //     FormItem,
-//    FormLabel,
+//     FormLabel,
 //     FormMessage,
 //} from "@/components/ui/form";
 
@@ -91,7 +92,8 @@ import {
 // }
 
 type Component = {
-    type: string; //Element type - (input, select, switch, button, ect)
+    content: string; //Element content - (input, select, switch, button, ect)
+    type: string; //Element type - (string, number, etc)
     title: string; //Element title
     placeholder: string; //Displayed placeholder text
     required: boolean; //Required field?
@@ -146,6 +148,7 @@ export const ServiceRequests = (
     });
 
     console.log(formSchema);
+    console.log(schemaKeys);
 
     // Form Generation
     const makeForm = (props: FormSelect[] | Component[]) => {
@@ -159,9 +162,9 @@ export const ServiceRequests = (
     };
     // Identify element to return based on value of Component.type
     const identifyComponent = (props: Component) => {
-        if (props.type.includes("text")) {
+        if (props.content.includes("text")) {
             return inputComp(props);
-        } else if (props.type.includes("select")) {
+        } else if (props.content.includes("select")) {
             return selectComp(props as FormSelect);
         } else {
             console.error("Failed to identify element - " + props.type);
@@ -179,10 +182,10 @@ export const ServiceRequests = (
                         {props.title}
                     </label>
                     <Input
-                        type={props.title}
+                        type={props.type}
                         placeholder={props.placeholder}
                         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            (formValues[props.id] = e.target.value)
+                            (formValues[props.id] = e.target.value.toString())
                         }
                     />
                 </div>
@@ -197,10 +200,10 @@ export const ServiceRequests = (
                         {props.title}
                     </label>
                     <Select
-                        onValueChange={(value: string) =>
-                            (formValues[props.id] = value)
-                        }
                         required={props.required}
+                        onValueChange={(value: string) =>
+                            (formValues[props.id] = value.toString())
+                        }
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder={props.placeholder} />
@@ -232,7 +235,7 @@ export const ServiceRequests = (
     layout.map((field) => (field.id = layout.indexOf(field)));
 
     const handleSubmit = (e: FormEvent) => {
-        // Shallow copy of formSchema that is discarded after submit
+        // Shallow copy of formSchema that is discarded after submit,
         // Pushed to submittedServicesData and adheres to provided interface
         const formData = { ...formSchema };
 
@@ -241,11 +244,14 @@ export const ServiceRequests = (
 
         // Saving of data
         // Using array of keys, maps data held in formValues to formData object
-        // (lint doesn't like that formData doesn't have a promised type)
+        // (lint doesn't like that form doesn't have a promised type)
 
         schemaKeys.map(
-            (field) => (formData[field] = formData[schemaKeys.indexOf(field)]),
+            (field) =>
+                (formData[field] = formValues[schemaKeys.indexOf(field)]),
         );
+
+        console.log(formValues);
 
         // Add current submission to array of submissions
         submittedServiceData.push(formData);
