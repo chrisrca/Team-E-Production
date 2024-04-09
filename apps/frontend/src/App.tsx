@@ -1,7 +1,7 @@
 import "./index.css";
 import Login from "./routes/Login.tsx";
 import FlowerService from "@/routes/FlowerServiceRequest.tsx";
-import { ServiceRequests } from "@/routes/ServiceRequests.tsx";
+import { ServiceRequestForm } from "@/routes/ServiceRequestForms";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Hamburger from "./components/Hamburger.tsx";
 import MapPage from "@/routes/MapPage.tsx";
@@ -22,7 +22,7 @@ function App() {
                     <Route path="/flower-service" element={<FlowerService />} />
                     <Route path="/drug-service" element={<DrugDelivery />} />
                     <Route path="/data" element={<DataViewer />} />
-                    <Route path="/services" element={<ServiceRequests />} />
+                    <Route path="/services" element={<ServiceRequestForm />} />
                 </Routes>
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
                     <ModeToggle />

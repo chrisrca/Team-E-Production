@@ -7,6 +7,7 @@ import { FormEvent, ChangeEvent } from "react";
 // import { z } from "zod";
 // import axios from "axios";
 // import { Button } from "@/components/ui/button";
+//import { TestSchema } from "common/src/types";
 import { Input } from "@/components/ui/input";
 //import {
 //     Form,
@@ -39,18 +40,7 @@ import {
 //     TableRow,
 // } from "@/components/ui/table";
 
-type Component = {
-    type: string; //Element type - (input, select, switch, button, ect)
-    title: string; //Element title
-    placeholder: string; //Displayed placeholder text
-    required: boolean; //Required field?
-    id: number;
-};
-
-type FormSelect = Component & {
-    label: string; // Options label
-    options: string[]; //Displayed options
-};
+//type FormSchema = DrugDeliveryData | FlowerServiceRequest | TestSchema;
 
 // type TableData = {
 //     submission: string[];
@@ -100,9 +90,64 @@ type FormSelect = Component & {
 //     )
 // }
 
-export const ServiceRequests = () => {
-    // Form Generation
+type Component = {
+    type: string; //Element type - (input, select, switch, button, ect)
+    title: string; //Element title
+    placeholder: string; //Displayed placeholder text
+    required: boolean; //Required field?
+    id: number;
+};
 
+type FormSelect = Component & {
+    label: string; // Options label
+    options: string[]; //Displayed options
+};
+
+export interface FlowerServiceRequest {
+    patientName: string;
+    roomNumber: string;
+    senderName: string;
+    cardMessage: string;
+    flowerType: string;
+}
+
+// layout: an array of objects of type component, how to define the objects is shown above
+// blankSchema: whatever type/interface you assign to the output of your form, just pass a blank version
+/*              for instance, for a FlowerServiceRequest form using the interface FlowerServiceRequest:
+ *
+ * interface FlowerServiceRequest {
+ *   patientName: string;
+ *   roomNumber: string;
+ *   senderName: string;
+ *   cardMessage: string;
+ *   flowerType: string;
+ * }
+ *
+ * You would simply pass an object with blank values:
+ *
+ * const defaultSchema {
+ *   patientName: "",
+ *   roomNumber: "",
+ *   senderName: "",
+ *   cardMessage: "",
+ *   flowerType: "",
+ * }
+ * */
+
+export const ServiceRequests = (
+    layout: (Component | FormSelect)[],
+    blankSchema: NonNullable<unknown>,
+) => {
+    const formSchema = { ...blankSchema };
+    const schemaKeys = [] as string[];
+
+    Object.keys(formSchema).map((value) => {
+        schemaKeys.push(value);
+    });
+
+    console.log(formSchema);
+
+    // Form Generation
     const makeForm = (props: FormSelect[] | Component[]) => {
         return (
             <>
@@ -112,15 +157,11 @@ export const ServiceRequests = () => {
             </>
         );
     };
-
+    // Identify element to return based on value of Component.type
     const identifyComponent = (props: Component) => {
         if (props.type.includes("text")) {
-            // console.log(props.title);
-            // console.log("component == text");
             return inputComp(props);
         } else if (props.type.includes("select")) {
-            // console.log(props.title);
-            // console.log("component == select");
             return selectComp(props as FormSelect);
         } else {
             console.error("Failed to identify element - " + props.type);
@@ -141,7 +182,7 @@ export const ServiceRequests = () => {
                         type={props.title}
                         placeholder={props.placeholder}
                         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            (serviceReqArr[props.id] = e.target.value)
+                            (formValues[props.id] = e.target.value)
                         }
                     />
                 </div>
@@ -157,7 +198,7 @@ export const ServiceRequests = () => {
                     </label>
                     <Select
                         onValueChange={(value: string) =>
-                            (serviceReqArr[props.id] = value)
+                            (formValues[props.id] = value)
                         }
                         required={props.required}
                     >
@@ -167,6 +208,7 @@ export const ServiceRequests = () => {
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>{props.label}</SelectLabel>
+                                {/* Map options to select */}
                                 {props.options.map((option) => (
                                     <SelectItem value={option.toString()}>
                                         {option}
@@ -182,65 +224,47 @@ export const ServiceRequests = () => {
 
     //End of Elements
 
-    //const serviceRequestData = [[]];
+    const formValues = [] as string[];
+    const submittedServiceData = [] as (typeof blankSchema)[];
 
-    const test = [
-        {
-            type: "text",
-            title: "text 1",
-            placeholder: "text placeholder 1",
-            required: true,
-            id: 0,
-        },
-        {
-            type: "select",
-            title: "select 1",
-            placeholder: "select placeholder 1",
-            required: false,
-            id: 0,
-            label: "Options",
-            options: ["option 1", "option 2", "option 3"],
-        },
-        {
-            type: "text",
-            title: "text 2",
-            placeholder: "text placeholder 2",
-            required: true,
-            id: 0,
-        },
-    ];
-
-    const serviceReqArr = [""];
-    const serviceReqData = [[""]];
-
-    const serviceReq = () => {
-        test.map((field) => (field.id = test.indexOf(field)));
-        console.log(test);
-    };
-
-    serviceReq();
-    console.log(serviceReqArr);
-
-    // const [serviceReq, setServiceRequest] = useState<formSchema>({
-    //
-    //
-    // });
+    // Assign id to each element specified in layout based on order in the form,
+    // determines where form values are sent on submit
+    layout.map((field) => (field.id = layout.indexOf(field)));
 
     const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        //Saving of data
-        serviceReqData.push(serviceReqArr);
+        // Shallow copy of formSchema that is discarded after submit
+        // Pushed to submittedServicesData and adheres to provided interface
+        const formData = { ...formSchema };
 
-        console.log(serviceReqArr);
-        //Clearing of form
-        serviceReqArr.fill("");
+        // Prevent reload on submit
+        e.preventDefault();
+
+        // Saving of data
+        // Using array of keys, maps data held in formValues to formData object
+        // (lint doesn't like that formData doesn't have a promised type)
+
+        schemaKeys.map(
+            (field) => (formData[field] = formData[schemaKeys.indexOf(field)]),
+        );
+
+        // Add current submission to array of submissions
+        submittedServiceData.push(formData);
+
+        // Push submission to console
+        console.log(formData);
+
+        // Push all submissions for current session to console
+        console.log(submittedServiceData);
+
+        // Not really necessary but clear formValues for next submit
+        formValues.fill("");
     };
 
     return (
         <>
             <div className="flex flex-col space-y-8 items-center bg-secondary w-[35rem] rounded m-auto ">
                 <form className="rounded" onSubmit={handleSubmit}>
-                    {makeForm(test)}
+                    {makeForm(layout)}
                     <button
                         className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
                         type={"submit"}
