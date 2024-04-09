@@ -43,3 +43,13 @@ model flower {
   flowerType  String
   date        DateTime @default(now())
 }
+
+model gifts {
+  id               Int    @id @default(autoincrement())
+  recipientName    String
+  deliveryLocation String
+  message          String
+  giftSize         String
+  priority         String
+  wrapping         String
+}

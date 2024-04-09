@@ -7,6 +7,7 @@ import pathRoute from "./routes/pathRoute";
 import edgeRoute from "./routes/edgeRoute";
 import flowerRoute from "./routes/flowerRoute";
 import flowerUploadRoute from "./routes/flowerUploadRoute";
+import giftRoute from "./routes/giftRoute.ts";
 
 const app: Express = express(); // Setup the backend
 
@@ -33,6 +34,7 @@ app.use("/api/path", pathRoute);
 app.use("/api/nodes", nodeRoute);
 app.use("/api/edges", edgeRoute);
 app.use("/api/flower", flowerRoute);
+app.use("/api/gift", giftRoute);
 
 app.use("/api/flower", flowerUploadRoute);
 
