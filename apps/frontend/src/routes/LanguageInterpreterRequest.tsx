@@ -19,6 +19,8 @@ export default function InterpreterService() {
             language: "",
             duration: "",
             location: "",
+            status: "",
+            priority: "",
             additionalInfo: "",
         });
 
@@ -40,6 +42,8 @@ export default function InterpreterService() {
             language: "",
             duration: "",
             location: "",
+            status: "",
+            priority: "",
             additionalInfo: "",
         });
     };
@@ -133,6 +137,60 @@ export default function InterpreterService() {
                             }
                             placeholder="Enter location..."
                         />
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6 items-end">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label
+                            className="block uppercase text-foreground tracking-wide text-xs font-bold mb-2"
+                            htmlFor="grid-drug-priority"
+                        >
+                            Priority
+                        </label>
+                        <div className="relative">
+                            <select
+                                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-10 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                value={interpreterRequest.priority}
+                                id="grid-drug-priority"
+                                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                                    setInterpreterRequest({
+                                        ...interpreterRequest,
+                                        priority: e.target.value,
+                                    })
+                                }
+                            >
+                                <option>Low</option>
+                                <option>Medium</option>
+                                <option>High</option>
+                                <option>Emergency</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label
+                            className="block uppercase text-foreground tracking-wide text-xs font-bold mb-2"
+                            htmlFor="grid-drug-status"
+                        >
+                            Status
+                        </label>
+                        <div className="relative">
+                            <select
+                                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-10 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                value={interpreterRequest.status}
+                                id="grid-drug-status"
+                                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                                    setInterpreterRequest({
+                                        ...interpreterRequest,
+                                        status: e.target.value,
+                                    })
+                                }
+                            >
+                                <option>Unassigned</option>
+                                <option>Assigned</option>
+                                <option>In progress</option>
+                                <option>Closed</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">

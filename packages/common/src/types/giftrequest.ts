@@ -3,6 +3,7 @@ export interface GiftServiceRequest {
     deliveryLocation: string;
     message: string;
     giftSize: string;
+    status: string;
     priority: string;
     wrapping: string;
 }
