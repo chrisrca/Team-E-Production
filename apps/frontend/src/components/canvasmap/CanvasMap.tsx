@@ -84,20 +84,37 @@ export default function CanvasMap(nodes: CanvasMapProps) {
             //NODE DRAWING
             nodeData.forEach((node) => {
                 if (node.floor !== floor[mapLevel]) return;
+
+                // Original Dot
                 ctx.beginPath();
-                ctx.fillStyle = "blue";
+                ctx.fillStyle = "#002244"; // Color of the dot
                 ctx.arc(
                     node.xcoord * xMult,
                     node.ycoord * yMult,
-                    3,
+                    3, // Radius of the dot
                     0,
                     2 * Math.PI,
                 );
                 ctx.fill();
+
+                // Ring around the Dot
+                ctx.setLineDash([5, 0]);
+                ctx.beginPath();
+                ctx.strokeStyle = "#012d5a"; // Color of the ring
+                ctx.lineWidth = 2; // Width of the ring
+                ctx.arc(
+                    node.xcoord * xMult,
+                    node.ycoord * yMult,
+                    6, // Radius of the ring
+                    0,
+                    2 * Math.PI,
+                );
+                ctx.stroke();
             });
             //PATH DRAWING
             if (pathData.length > 0) {
-                ctx.strokeStyle = "red";
+                ctx.setLineDash([7, 3]);
+                ctx.strokeStyle = "#1d3e60";
                 ctx.lineWidth = 4;
                 if (pathData[0].floor === floor[mapLevel]) {
                     ctx.beginPath();
@@ -165,25 +182,3 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         </TransformWrapper>
     );
 }
-
-// return (
-//     <TransformWrapper>
-//                 <TransformComponent>
-//                     <canvas ref={canvasRef} style={{margin: '-7.5%' display: "block" }} className="px-0 py-0 z-0 absolute" id="layer1"/>
-//                 </TransformComponent>
-//     </TransformWrapper>
-// );
-// return (
-//     <div className="aspect-[5000/3400] relative">
-//                     <div
-//                         style={{
-//                             margin: '-7.5%',
-//                             width: '200vh',
-//                             height: '200vh',
-//                             backgroundImage: `url('../../src/assets/00_thelowerlevel1.png')`,
-//                             backgroundSize: 'contain',
-//                             backgroundRepeat: 'no-repeat',
-//                         }}
-//                     />
-//     </div>
-// );
