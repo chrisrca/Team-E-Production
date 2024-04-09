@@ -52,6 +52,7 @@ model gift {
   deliveryLocation String
   message          String
   giftSize         String
+  status           String
   priority         String
   wrapping         String
 }
@@ -62,6 +63,8 @@ model interpreter {
   language       String
   duration       String
   location       String
+  status         String
+  priority       String
   additionalInfo String
 }
 

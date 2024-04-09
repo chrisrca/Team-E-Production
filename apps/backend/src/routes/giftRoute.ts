@@ -20,6 +20,7 @@ router.post("/", async (req: Request, res: Response) => {
                 deliveryLocation: giftRequest.deliveryLocation,
                 message: giftRequest.message,
                 giftSize: giftRequest.giftSize,
+                status: giftRequest.status,
                 priority: giftRequest.priority,
                 wrapping: giftRequest.wrapping,
             },

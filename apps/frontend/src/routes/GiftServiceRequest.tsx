@@ -21,6 +21,7 @@ export default function GiftServiceRequest() {
         deliveryLocation: "",
         message: "",
         giftSize: "Small",
+        status: "",
         priority: "Low",
         wrapping: "",
     });
@@ -44,6 +45,7 @@ export default function GiftServiceRequest() {
             deliveryLocation: "",
             message: "",
             giftSize: "",
+            status: "",
             priority: "",
             wrapping: "",
         });
@@ -153,29 +155,63 @@ export default function GiftServiceRequest() {
                             <option>Large</option>
                         </select>
                     </div>
-                    <div className="w-full md:w-1/2 px-3">
-                        <label
-                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
-                            htmlFor="grid-priority"
-                        >
-                            Priority
-                        </label>
-                        <select
-                            className="block appearance-none w-full bg-secondary border border-gray-200 text-foreground py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-secondary focus:border-gray-500"
-                            value={giftOrder.priority}
-                            id="grid-priority"
-                            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                                setGiftOrder({
-                                    ...giftOrder,
-                                    priority: e.target.value,
-                                })
-                            }
-                        >
-                            <option>Low</option>
-                            <option>Medium</option>
-                            <option>High</option>
-                            <option>Emergency</option>
-                        </select>
+                    <div className="flex flex-wrap -mx-3 mb-6 items-end">
+                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label
+                                className="block uppercase text-foreground tracking-wide text-xs font-bold mb-2"
+                                htmlFor="grid-drug-priority"
+                            >
+                                Priority
+                            </label>
+                            <div className="relative">
+                                <select
+                                    className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-10 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    value={giftOrder.priority}
+                                    id="grid-drug-priority"
+                                    onChange={(
+                                        e: ChangeEvent<HTMLSelectElement>,
+                                    ) =>
+                                        setGiftOrder({
+                                            ...giftOrder,
+                                            priority: e.target.value,
+                                        })
+                                    }
+                                >
+                                    <option>Low</option>
+                                    <option>Medium</option>
+                                    <option>High</option>
+                                    <option>Emergency</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label
+                                className="block uppercase text-foreground tracking-wide text-xs font-bold mb-2"
+                                htmlFor="grid-drug-status"
+                            >
+                                Status
+                            </label>
+                            <div className="relative">
+                                <select
+                                    className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-10 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    value={giftOrder.status}
+                                    id="grid-drug-status"
+                                    onChange={(
+                                        e: ChangeEvent<HTMLSelectElement>,
+                                    ) =>
+                                        setGiftOrder({
+                                            ...giftOrder,
+                                            status: e.target.value,
+                                        })
+                                    }
+                                >
+                                    <option>Unassigned</option>
+                                    <option>Assigned</option>
+                                    <option>In progress</option>
+                                    <option>Closed</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <label
