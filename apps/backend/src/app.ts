@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import nodeRoute from "./routes/nodeRoute";
 import pathRoute from "./routes/pathRoute";
+import editorRoute from "./routes/editorRoute";
 import edgeRoute from "./routes/edgeRoute";
 import flowerRoute from "./routes/flowerRoute";
 import flowerUploadRoute from "./routes/flowerUploadRoute";
@@ -35,6 +36,7 @@ app.use("/healthcheck", (req, res) => {
 });
 // Don't delete above: MIDDLEWARE
 app.use("/api/path", pathRoute);
+app.use("/api/editor", editorRoute);
 app.use("/api/nodes", nodeRoute);
 app.use("/api/edges", edgeRoute);
 app.use("/api/edge", edgeUploadRoute);

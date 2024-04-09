@@ -5,6 +5,7 @@ import FlowerService from "@/routes/FlowerServiceRequest.tsx";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Hamburger from "./components/Hamburger.tsx";
 import MapPage from "@/routes/MapPage.tsx";
+import MapEditor from "@/routes/MapEditor.tsx";
 import DataViewer from "@/routes/DataViewer.tsx";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import { ModeToggle } from "./components/ModeToggle.tsx";
@@ -36,6 +37,10 @@ function App() {
                     <Route index element={<Welcome />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
+                    <Route
+                        path="/map-editor"
+                        element={<MapEditor nodes={nodes} />}
+                    />
                     <Route path="/flower-service" element={<FlowerService />} />
                     <Route path="/data" element={<DataViewer />} />
                     <Route
