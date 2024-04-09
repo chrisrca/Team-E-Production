@@ -10,67 +10,11 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { ChevronRight } from "lucide-react";
-
-const services = [
-    {
-        title: "Flower Service Request",
-        href: "/flower-service",
-        description: "Flower Service Request",
-    },
-    {
-        title: "Security Request",
-        href: "/security",
-        description: "Security Service Request",
-    },
-    {
-        title: "Medicine Service Request",
-        href: "/drug-service",
-        description: "Medicine Service Request",
-    },
-];
-
-const mapLevels = [
-    {
-        title: "Map Level 1",
-        href: "/map",
-        description: "Map Level 1",
-    },
-    {
-        title: "Map Level 2",
-        href: "/map",
-        description: "Map Level 2",
-    },
-    {
-        title: "Map Level 3",
-        href: "/map",
-        description: "Map Level 3",
-    },
-];
-
-const dataViewer = [
-    {
-        title: "Nodes",
-        href: "/data",
-        description: "Node Data Viewer",
-    },
-    {
-        title: "Edges",
-        href: "/data",
-        description: "Edge Data Viewer",
-    },
-    {
-        title: "Flower Requests",
-        href: "/map",
-        description: "Flower Data Viewer",
-    },
-];
 
 export default function Hamburger() {
     return (
@@ -97,84 +41,116 @@ export default function Hamburger() {
                             />
                         </Link>
                     </SheetClose>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <div className="w-full">
-                                <Button className="rounded w-full font-medium leading-none text-left bg-gray-150 text-sm text-primary hover:bg-card">
-                                    Services{" "}
-                                    <ChevronRight className="w-4 h-4 inline-block" />
-                                </Button>
+                    <Collapsible className="grid gap-4">
+                        <CollapsibleTrigger className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                            Services{" "}
+                            <ChevronRight className="ml-auto w-4 h-4 transition-all" />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <div className="-mx-6 grid gap-6 bg-gray-150 p-6 dark:bg-gray-800">
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full justify-start gap-1"
+                                        to="flower-service"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Flower Request
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full justify-start gap-1"
+                                        to="security"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Security Request
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full justify-start gap-1"
+                                        to="drug-service"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Medicine Request
+                                        </div>
+                                    </Link>
+                                </SheetClose>
                             </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent side="right" className="-ml-28">
-                            {services.map((service) => (
-                                <DropdownMenuItem key={service.title} asChild>
-                                    <SheetClose asChild>
-                                        <Link
-                                            to={service.href}
-                                            className="rounded text-left block w-full"
-                                        >
-                                            <div className="text-sm font-medium leading-none">
-                                                {service.title}
-                                            </div>
-                                        </Link>
-                                    </SheetClose>
-                                </DropdownMenuItem>
-                            ))}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <div className="w-full">
-                                <Button className="rounded w-full font-medium leading-none text-left bg-gray-150 text-sm text-primary hover:bg-card">
-                                    Maps{" "}
-                                    <ChevronRight className="w-4 h-4 inline-block" />
-                                </Button>
+                        </CollapsibleContent>
+                    </Collapsible>
+                    <Collapsible className="grid gap-4">
+                        <CollapsibleTrigger className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                            Maps{" "}
+                            <ChevronRight className="ml-auto w-4 h-4 transition-all" />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <div className="-mx-6 grid gap-6 bg-gray-150 p-6 dark:bg-gray-800">
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full justify-start gap-1"
+                                        to="map"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Level 1
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full justify-start gap-1"
+                                        to="map"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Level 2
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full justify-start gap-1"
+                                        to="map"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Level 3
+                                        </div>
+                                    </Link>
+                                </SheetClose>
                             </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent side="right" className="-ml-28">
-                            {mapLevels.map((mapLevel) => (
-                                <DropdownMenuItem key={mapLevel.title} asChild>
-                                    <SheetClose asChild>
-                                        <Link
-                                            to={mapLevel.href}
-                                            className="rounded text-left block w-full"
-                                        >
-                                            <div className="text-sm font-medium leading-none">
-                                                {mapLevel.title}
-                                            </div>
-                                        </Link>
-                                    </SheetClose>
-                                </DropdownMenuItem>
-                            ))}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <div className="w-full">
-                                <Button className="rounded w-full font-medium leading-none text-left bg-gray-150 text-sm text-primary hover:bg-card">
-                                    Data Viewer{" "}
-                                    <ChevronRight className="w-4 h-4 inline-block" />
-                                </Button>
+                        </CollapsibleContent>
+                    </Collapsible>
+                    <Collapsible className="grid gap-4">
+                        <CollapsibleTrigger className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                            Data Viewer{" "}
+                            <ChevronRight className="ml-auto w-4 h-4 transition-all" />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <div className="-mx-6 grid gap-6 bg-gray-150 p-6 dark:bg-gray-800">
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full justify-start gap-1"
+                                        to="data"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Nodes and Edges
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full justify-start gap-1"
+                                        to="security"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Services
+                                        </div>
+                                    </Link>
+                                </SheetClose>
                             </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent side="right" className="-ml-28">
-                            {dataViewer.map((item) => (
-                                <DropdownMenuItem key={item.title} asChild>
-                                    <SheetClose asChild>
-                                        <Link
-                                            to={item.href}
-                                            className="rounded text-left block w-full"
-                                        >
-                                            <div className="text-sm font-medium leading-none">
-                                                {item.title}
-                                            </div>
-                                        </Link>
-                                    </SheetClose>
-                                </DropdownMenuItem>
-                            ))}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                        </CollapsibleContent>
+                    </Collapsible>
                 </div>
             </SheetContent>
         </Sheet>
