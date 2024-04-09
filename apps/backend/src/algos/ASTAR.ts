@@ -29,10 +29,18 @@ class PriorityQueue<T> extends TinyQueue<T> {
 }
 
 function euclideanDistance(nodeA: Node, nodeB: Node): number {
-    return Math.sqrt(
-        Math.pow(nodeA.coords.xcoord - nodeB.coords.xcoord, 2) +
-            Math.pow(nodeA.coords.ycoord - nodeB.coords.ycoord, 2),
-    );
+    if (
+        // Filter Elevators and Stairs to prevent unreasonable floor changes during path
+        (nodeA.nodeType == "ELEV" || nodeA.nodeType == "STAI") &&
+        (nodeB.nodeType == "ELEV" || nodeB.nodeType == "STAI")
+    ) {
+        return 500;
+    } else {
+        return Math.sqrt(
+            Math.pow(nodeA.coords.xcoord - nodeB.coords.xcoord, 2) +
+                Math.pow(nodeA.coords.ycoord - nodeB.coords.ycoord, 2),
+        );
+    }
 }
 
 async function runASTAR(start: string, end: string) {
