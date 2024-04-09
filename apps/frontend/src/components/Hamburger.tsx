@@ -54,6 +54,38 @@ export default function Hamburger() {
                     </SheetClose>
                     <SheetClose asChild>
                         <Link
+                            to="/gift-service"
+                            className="text-primary hover:bg-card rounded pl-2"
+                        >
+                            Gift Service Request
+                        </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Link
+                            to="/sanitation"
+                            className="text-primary hover:bg-card rounded pl-2"
+                        >
+                            Sanitation Service Request
+                        </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Link
+                            to="/language-service"
+                            className="text-primary hover:bg-card rounded pl-2"
+                        >
+                            Language Interpreter Request
+                        </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Link
+                            to="/room-service"
+                            className="text-primary hover:bg-card rounded pl-2"
+                        >
+                            Room Service Request
+                        </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Link
                             to="/map"
                             className="text-primary hover:bg-card rounded pl-2"
                         >

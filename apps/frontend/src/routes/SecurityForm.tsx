@@ -28,7 +28,9 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
         reqStatus: "",
         alertAuthorities: false,
     });
+
     const [requests, setRequests] = useState<SecurityServiceRequest[]>([]);
+
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 

@@ -46,6 +46,24 @@ model flower {
   date        DateTime @default(now())
 }
 
+model gift {
+  id               Int    @id @default(autoincrement())
+  recipientName    String
+  deliveryLocation String
+  warmwords        String
+  giftSize         String
+  priority         String
+}
+
+model interpreter {
+  id             Int    @id @default(autoincrement())
+  clientName     String
+  language       String
+  duration       String
+  location       String
+  additionalInfo String
+}
+
 model security {
   id               Int     @id @default(autoincrement())
   employeeName     String
@@ -67,4 +85,25 @@ model medicine {
   status           String
   priority         String
   date             DateTime @default(now())
+}
+
+model sanitation {
+  id             Int    @id @default(autoincrement())
+  patientName    String
+  location       String
+  serviceType    String
+  status         String
+  priority       String
+  additionalInfo String
+}
+
+model roomschedule {
+  id           Int    @id @default(autoincrement())
+  employeeName String
+  priority     String
+  location     String
+  serviceType  String
+  status       String
+  startTime    String
+  endTime      String
 }
