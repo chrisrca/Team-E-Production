@@ -42,12 +42,12 @@ export default function Welcome() {
     }, [api]);
 
     return (
-        <div className="mx-auto pr-20 pl-20 bg-white shadow rounded-lg">
+        <div className="mx-auto pr-20 pl-20 bg-background shadow rounded-lg">
             {" "}
             {/* component wrapper*/}
             <div className="">
                 <h1 className="pt-20 text-4xl font-bold">
-                    Bringham and Women's Hospital
+                    Brigham and Women's Hospital
                 </h1>
                 <h2 className="text-xl ">
                     Helping our patients and their families get back to what
@@ -93,7 +93,7 @@ export default function Welcome() {
                                     <div className="flex">
                                         <Link
                                             to="/login"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
+                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
                                         >
                                             Log in
                                         </Link>
@@ -124,7 +124,7 @@ export default function Welcome() {
                                     <div className="flex">
                                         <Link
                                             to="/map"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
+                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
                                         >
                                             Get Started
                                         </Link>
@@ -147,8 +147,8 @@ export default function Welcome() {
                         Choose from a selection of services to enrich your stay
                         with us.
                     </h2>
-                    <div className="flex">
-                        <Card className="w-[350px] mt-5 mr-5 ml-5">
+                    <div className="grid grid-cols-4 space-y-5">
+                        <Card className="w-[350px]">
                             {/*card 1*/}
                             <CardHeader>
                                 <CardTitle>Flower Request</CardTitle>
@@ -158,18 +158,21 @@ export default function Welcome() {
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <img src={Flowers}></img>
+                                <img
+                                    className="aspect-video"
+                                    src={Flowers}
+                                ></img>
                             </CardContent>
                             <CardFooter className="flex justify-end">
                                 <Link
                                     to="/flower-service"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
                                 >
                                     Order
                                 </Link>
                             </CardFooter>
                         </Card>
-                        <Card className="w-[350px] mt-5 mr-5">
+                        <Card className="w-[350px]">
                             {/*card 2*/}
                             <CardHeader>
                                 <CardTitle>Security Request</CardTitle>
@@ -184,7 +187,7 @@ export default function Welcome() {
                             <CardFooter className="flex justify-end">
                                 <Link
                                     to="/security"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
                                 >
                                     Request
                                 </Link>
@@ -205,14 +208,12 @@ export default function Welcome() {
                             <CardFooter className="flex justify-end">
                                 <Link
                                     to="/drug-service"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
                                 >
                                     Request
                                 </Link>
                             </CardFooter>
                         </Card>
-                    </div>
-                    <div className="flex pb-10">
                         <Card className="w-[350px] mt-5 mr-5 ml-5">
                             {/*card 4*/}
                             <CardHeader>
@@ -227,7 +228,7 @@ export default function Welcome() {
                             <CardFooter className="flex justify-end">
                                 <Link
                                     to="/gift-service"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
                                 >
                                     Take me there
                                 </Link>
@@ -248,7 +249,7 @@ export default function Welcome() {
                             <CardFooter className="flex justify-end">
                                 <Link
                                     to="/language-service"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
                                 >
                                     Take me there
                                 </Link>
@@ -268,7 +269,7 @@ export default function Welcome() {
                             <CardFooter className="flex justify-end">
                                 <Link
                                     to="/sanitation"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
                                 >
                                     Take me there
                                 </Link>
