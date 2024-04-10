@@ -25,8 +25,7 @@ export default function ViewNodes(inputData: {
     const data = inputData.data;
     if (data.length != 0) {
         return (
-            <div className="relative overflow-x-auto flex flex-col items-center justify-center">
-                <h1 className="text-3xl font-bold">Data</h1>
+            <div className="relative py-10 overflow-x-auto flex flex-col items-center justify-center">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>

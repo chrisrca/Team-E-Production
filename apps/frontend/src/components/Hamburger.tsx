@@ -42,15 +42,15 @@ export default function Hamburger() {
                         </Link>
                     </SheetClose>
                     <Collapsible className="grid gap-4">
-                        <CollapsibleTrigger className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                        <CollapsibleTrigger className="flex rounded-sm p-1 hover:bg-card w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
                             Services{" "}
                             <ChevronRight className="ml-auto w-4 h-4 transition-all" />
                         </CollapsibleTrigger>
                         <CollapsibleContent>
-                            <div className="-mx-6 grid gap-6 bg-gray-150 p-6 dark:bg-gray-800">
+                            <div className="grid gap-3 bg-gray-150 px-3 dark:bg-gray-800">
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
                                         to="flower-service"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -60,27 +60,7 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
-                                        to="security"
-                                    >
-                                        <div className="text-sm font-medium leading-none group-hover:underline">
-                                            Security Request
-                                        </div>
-                                    </Link>
-                                </SheetClose>
-                                <SheetClose asChild>
-                                    <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
-                                        to="drug-service"
-                                    >
-                                        <div className="text-sm font-medium leading-none group-hover:underline">
-                                            Medicine Request
-                                        </div>
-                                    </Link>
-                                </SheetClose>
-                                <SheetClose asChild>
-                                    <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
                                         to="gift-service"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -90,21 +70,51 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
-                                        to="language-service"
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="drug-service"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
-                                            Language Service
+                                            Medicine Request
                                         </div>
                                     </Link>
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="security"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Security Request
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="language-service"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Language Interpreter Request
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
                                         to="sanitation"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
                                             Sanitation Request
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="room-service"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Room Scheduling Request
                                         </div>
                                     </Link>
                                 </SheetClose>
@@ -113,7 +123,7 @@ export default function Hamburger() {
                     </Collapsible>
                     <SheetClose asChild>
                         <Link
-                            className="group grid h-auto w-full justify-start gap-1"
+                            className="group rounded-sm p-1 grid hover:bg-card h-auto w-full justify-start gap-1"
                             to="map"
                         >
                             <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
@@ -123,7 +133,7 @@ export default function Hamburger() {
                     </SheetClose>
                     <SheetClose asChild>
                         <Link
-                            className="group grid h-auto w-full justify-start gap-1"
+                            className="group rounded-sm p-1 grid hover:bg-card h-auto w-full justify-start gap-1"
                             to="data"
                         >
                             <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
