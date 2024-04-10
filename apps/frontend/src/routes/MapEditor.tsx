@@ -5,7 +5,7 @@ import { DBNode } from "common/src/types";
 import { useEffect, useState } from "react";
 
 export default function MapPage({ nodes }: { nodes: DBNode[] }) {
-    const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
+    const [pathNodes, setPathNodes] = useState<DBNode[][]>([]);
     const [level, setLevel] = useState<number>(1);
 
     function handleLevelChange(level: number) {

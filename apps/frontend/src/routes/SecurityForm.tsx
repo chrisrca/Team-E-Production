@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect, useRef } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,11 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { DBNode, SecurityServiceRequest } from "common/src/types";
 import axios from "axios";
+import {
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+} from "@/components/ui/popover";
 
 async function sendSecurityOrder(securityOrder: SecurityServiceRequest) {
     axios.post("/api/security", securityOrder).then((res) => {
@@ -28,7 +33,28 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
         reqStatus: "",
         alertAuthorities: false,
     });
+
     const [requests, setRequests] = useState<SecurityServiceRequest[]>([]);
+    const [filteredNodes, setFilteredNodes] = useState(nodes);
+    const [searchTerm, setSearchTerm] = useState("");
+    const searchRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        setFilteredNodes(
+            nodes.filter((node) =>
+                node.longName.toLowerCase().includes(searchTerm.toLowerCase()),
+            ),
+        );
+    }, [searchTerm, nodes]);
+
+    //Handlers
+    const handleLocationSelect = (nodeID: string, longName: string) => {
+        setSecurityData((prevState) => ({
+            ...prevState,
+            location: longName,
+        }));
+        setSearchTerm("");
+    };
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -158,28 +184,36 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
                     <Label className="block text-sm font-medium text-gray-700">
                         Location of the Request
                     </Label>
-                    <DropdownMenu modal={false}>
-                        <DropdownMenuTrigger asChild>
+                    <Popover>
+                        <PopoverTrigger asChild>
                             <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 {securityData.location || "Select Location"}
                             </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 max-h-60 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 overflow-y-auto focus:outline-none">
-                            {nodes.map((node) => (
-                                <DropdownMenuItem
+                        </PopoverTrigger>
+                        <PopoverContent className="origin-top-right absolute mt-2 max-h-60 overflow-y-auto w-56 rounded-md shadow-lg">
+                            <Input
+                                ref={searchRef}
+                                className="w-full"
+                                placeholder="Search location..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            {filteredNodes.map((node) => (
+                                <div
                                     key={node.nodeID}
-                                    onSelect={() =>
-                                        setSecurityData({
-                                            ...securityData,
-                                            location: node.longName,
-                                        })
+                                    className="p-2 hover:bg-gray-100 cursor-pointer"
+                                    onClick={() =>
+                                        handleLocationSelect(
+                                            node.nodeID,
+                                            node.longName,
+                                        )
                                     }
                                 >
                                     {node.longName}
-                                </DropdownMenuItem>
+                                </div>
                             ))}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                        </PopoverContent>
+                    </Popover>
                 </div>
                 <div>
                     <Label className="block text-sm font-medium text-gray-700">

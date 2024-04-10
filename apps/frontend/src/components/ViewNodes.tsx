@@ -1,6 +1,27 @@
-import { DBNode, Edge } from "common/src/types";
+import {
+    DBNode,
+    Edge,
+    FlowerServiceRequest,
+    GiftServiceRequest,
+    InterpreterServiceRequest,
+    SecurityServiceRequest,
+    DrugDeliveryData,
+    SanitationServiceRequest,
+    RoomSchedulingForm,
+} from "common/src/types";
 
-export default function ViewNodes(inputData: { data: DBNode[] | Edge[] }) {
+export default function ViewNodes(inputData: {
+    data:
+        | Edge[]
+        | DBNode[]
+        | FlowerServiceRequest[]
+        | GiftServiceRequest[]
+        | InterpreterServiceRequest[]
+        | SecurityServiceRequest[]
+        | DrugDeliveryData[]
+        | SanitationServiceRequest[]
+        | RoomSchedulingForm[];
+}) {
     const data = inputData.data;
     if (data.length != 0) {
         return (

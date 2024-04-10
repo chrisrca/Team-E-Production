@@ -24,7 +24,6 @@ async function sendMedicineRequest(drugOrder: DrugDeliveryData) {
 }
 
 export default function DrugDelivery() {
-    const drugOrderData = [];
     const [drugOrder, setDrugOrder] = useState<DrugDeliveryData>({
         patientName: "",
         roomNumber: "",
@@ -35,16 +34,18 @@ export default function DrugDelivery() {
         status: "Unassigned",
     });
 
+    const [requests, setRequests] = useState<DrugDeliveryData[]>([]);
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        drugOrderData.push(drugOrder);
-
         if (drugOrder.patientName === "" || drugOrder.roomNumber === "") {
             alert("Please fill out the required fields");
             return;
         }
         sendMedicineRequest(drugOrder);
         //Clearing of form
+        setRequests((prevRequests) => [...prevRequests, drugOrder]);
+
         setDrugOrder({
             patientName: "",
             roomNumber: "",
@@ -379,6 +380,56 @@ export default function DrugDelivery() {
                     </button>
                 </div>
             </form>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-700">
+                    <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
+                        <tr>
+                            <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                Patient Name
+                            </th>
+                            <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                Room Number
+                            </th>
+                            <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                Medicine/Drug
+                            </th>
+                            <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                Drug Quantity
+                            </th>
+                            <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                Priority
+                            </th>
+                            <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {requests.map((request, index) => (
+                            <tr key={index}>
+                                <td className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                    {request.patientName}
+                                </td>
+                                <td className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                    {request.roomNumber}
+                                </td>
+                                <td className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                    {request.drugName}
+                                </td>
+                                <td className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                    {request.drugQuantity}
+                                </td>
+                                <td className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                    {request.priority}
+                                </td>
+                                <td className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                    {request.status}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
             <footer className="mt-8 text-center text-sm text-gray-500">
                 Developed by Tri Vien Le and Brendan Reilly
             </footer>

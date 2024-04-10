@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState, useRef } from "react";
 import {
     TransformWrapper,
@@ -15,7 +14,7 @@ import Level3 from "./mapImages/03_thethirdfloor.png";
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
 interface CanvasMapProps {
     nodes: DBNode[];
-    path: DBNode[];
+    path: DBNode[][];
     level: number;
 }
 
@@ -117,11 +116,11 @@ export default function EditorMap(nodes: CanvasMapProps) {
                 ctx.stroke();
             });
             //PATH DRAWING
+
             if (pathData.length > 0) {
                 ctx.setLineDash([5, 0]);
                 ctx.strokeStyle = "#1d3e60";
                 ctx.lineWidth = 4;
-
                 // Iterate over each path group in pathData
                 for (const group of pathData) {
                     // Start a new path for each group

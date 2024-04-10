@@ -1,6 +1,6 @@
 import client from "../bin/database-connection";
 import express, { Request, Response } from "express";
-import { DrugDeliveryData } from "common/src/types/medicinerequest.ts";
+import { DrugDeliveryData } from "common/src/types";
 
 const router = express.Router();
 
