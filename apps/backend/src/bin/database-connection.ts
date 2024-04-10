@@ -127,8 +127,6 @@ async function processGraphData(): Promise<void> {
             //console.log(`Node with ID ${node.nodeID} already exists. Skipping...`);
         }
     }
-
-    // After processing, save the nodes and edges to CSV files
 }
 
 // async function generateAllOutput(): Promise<void> {

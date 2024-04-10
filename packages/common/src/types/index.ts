@@ -5,16 +5,28 @@ import { Coords } from "./coords.ts";
 //import { StartEnd } from "./start_end.ts";
 import { Test1 } from "./test.ts";
 import { FlowerServiceRequest } from "./flowerrequest.ts";
+import { GiftServiceRequest } from "./giftrequest.ts";
+import { InterpreterServiceRequest } from "./languagerequest.ts";
 import { Node } from "./node.ts";
 import { SecurityServiceRequest } from "./securityrequest.ts";
+import { SanitationServiceRequest } from "./sanitationrequest.ts";
+import { DrugDeliveryData } from "./medicinerequest.ts";
+import { RoomSchedulingForm } from "./roomrequest.ts";
+import { MedicalDeviceServiceRequest } from "./medicaldevicerequest.ts";
 
 export type {
     DBNode,
     DBParseNode,
     FlowerServiceRequest,
+    InterpreterServiceRequest,
     Edge,
     Coords,
     Test1,
+    GiftServiceRequest,
     Node,
     SecurityServiceRequest,
+    SanitationServiceRequest,
+    DrugDeliveryData,
+    RoomSchedulingForm,
+    MedicalDeviceServiceRequest,
 };

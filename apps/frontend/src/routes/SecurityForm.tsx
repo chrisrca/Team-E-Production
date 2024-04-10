@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect, useRef } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,11 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { DBNode, SecurityServiceRequest } from "common/src/types";
 import axios from "axios";
+import {
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+} from "@/components/ui/popover";
 
 async function sendSecurityOrder(securityOrder: SecurityServiceRequest) {
     axios.post("/api/security", securityOrder).then((res) => {
@@ -28,7 +33,28 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
         reqStatus: "",
         alertAuthorities: false,
     });
+
     const [requests, setRequests] = useState<SecurityServiceRequest[]>([]);
+    const [filteredNodes, setFilteredNodes] = useState(nodes);
+    const [searchTerm, setSearchTerm] = useState("");
+    const searchRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        setFilteredNodes(
+            nodes.filter((node) =>
+                node.longName.toLowerCase().includes(searchTerm.toLowerCase()),
+            ),
+        );
+    }, [searchTerm, nodes]);
+
+    //Handlers
+    const handleLocationSelect = (nodeID: string, longName: string) => {
+        setSecurityData((prevState) => ({
+            ...prevState,
+            location: longName,
+        }));
+        setSearchTerm("");
+    };
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -60,7 +86,7 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
     };
 
     return (
-        <div className="max-w-4xl mx-auto my-10 p-8 bg-white shadow rounded-lg">
+        <div className="max-w-4xl mx-auto my-10 p-8 bg-secondary shadow rounded-lg">
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                     <h1 className="text-extrabold text-center text-3xl">
@@ -69,7 +95,7 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
                 </div>
                 <div className="flex justify-between space-x-4">
                     <div className="flex-1">
-                        <Label className="block text-sm font-medium text-gray-700">
+                        <Label className="block text-sm font-medium text-gray-700 dark:text-foreground">
                             Name of the Employee
                         </Label>
                         <Input
@@ -85,7 +111,7 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
                         />
                     </div>
                     <div className="flex-1">
-                        <Label className="block text-sm font-medium text-gray-700">
+                        <Label className="block text-sm font-medium text-gray-700 dark:text-foreground">
                             Employee ID
                         </Label>
                         <Input
@@ -103,7 +129,7 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
                 </div>
                 <div className="flex justify-between">
                     <div className="flex-1 px-2">
-                        <Label className="block text-sm font-medium text-gray-700">
+                        <Label className="block text-sm font-medium text-gray-700 dark:text-foreground">
                             Priority of the Request
                         </Label>
                         <RadioGroup
@@ -127,7 +153,7 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
                                                 value={priority}
                                                 className="radio-group-item"
                                             />
-                                            <Label className="ml-2 text-sm font-medium text-gray-700">
+                                            <Label className="ml-2 text-sm font-medium text-gray-700 dark:text-foreground">
                                                 {priority}
                                             </Label>
                                         </div>
@@ -137,7 +163,7 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
                         </RadioGroup>
                     </div>
                     <div className="flex-1">
-                        <Label className="block text-sm font-medium text-gray-700">
+                        <Label className="block text-sm font-medium text-gray-700 dark:text-foreground">
                             Alert Authorities?
                         </Label>
                         <Checkbox
@@ -155,43 +181,51 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
                     </div>
                 </div>
                 <div>
-                    <Label className="block text-sm font-medium text-gray-700">
+                    <Label className="block text-sm font-medium text-gray-700 dark:text-foreground">
                         Location of the Request
                     </Label>
-                    <DropdownMenu modal={false}>
-                        <DropdownMenuTrigger asChild>
-                            <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-background text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 {securityData.location || "Select Location"}
                             </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 max-h-60 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 overflow-y-auto focus:outline-none">
-                            {nodes.map((node) => (
-                                <DropdownMenuItem
+                        </PopoverTrigger>
+                        <PopoverContent className="origin-top-right absolute mt-2 max-h-60 overflow-y-auto rounded-md shadow-lg">
+                            <Input
+                                ref={searchRef}
+                                className="w-full"
+                                placeholder="Search location..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            {filteredNodes.map((node) => (
+                                <div
                                     key={node.nodeID}
-                                    onSelect={() =>
-                                        setSecurityData({
-                                            ...securityData,
-                                            location: node.longName,
-                                        })
+                                    className="p-2 hover:bg-secondary cursor-pointer rounded-md"
+                                    onClick={() =>
+                                        handleLocationSelect(
+                                            node.nodeID,
+                                            node.longName,
+                                        )
                                     }
                                 >
                                     {node.longName}
-                                </DropdownMenuItem>
+                                </div>
                             ))}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                        </PopoverContent>
+                    </Popover>
                 </div>
                 <div>
-                    <Label className="block text-sm font-medium text-gray-700">
+                    <Label className="block text-sm font-medium text-gray-700 dark:text-foreground">
                         Type of Security Request
                     </Label>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-background text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 {securityData.requestType || "Select Type"}
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-background ring-1 ring-black ring-opacity-5 focus:outline-none dark:text-foreground">
                             <DropdownMenuItem
                                 onSelect={() =>
                                     setSecurityData({
@@ -218,16 +252,16 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
                     </DropdownMenu>
                 </div>
                 <div>
-                    <Label className="block text-sm font-medium text-gray-700">
+                    <Label className="block text-sm font-medium text-gray-700 dark:text-foreground">
                         Status of the Request
                     </Label>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-background text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 {securityData.reqStatus || "Select Status"}
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-background ring-1 ring-black ring-opacity-5 focus:outline-none dark:text-foreground">
                             <DropdownMenuItem
                                 onSelect={() =>
                                     setSecurityData({
@@ -296,55 +330,55 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
                 </h3>
                 <div className="mt-4 overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200 table-fixed">
-                        <thead className="bg-gray-50">
+                        <thead className="bg-gray-50 dark:bg-card">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-foreground uppercase tracking-wider w-1/4 break-words">
                                     Employee Name
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[120px] break-words">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-foreground uppercase tracking-wider w-[120px] break-words">
                                     Employee ID
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-foreground uppercase tracking-wider w-[160px] break-words">
                                     Alert Authorities?
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-foreground uppercase tracking-wider w-1/4 break-words">
                                     Request Type
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider break-words">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-foreground uppercase tracking-wider break-words">
                                     Location
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-foreground uppercase tracking-wider w-[160px] break-words">
                                     Request Priority
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-foreground uppercase tracking-wider w-[160px] break-words">
                                     Request Status
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-background divide-y divide-gray-200">
                             {requests.map((request, index) => (
                                 <tr key={index}>
-                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">
+                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 dark:text-foreground break-words">
                                         {request.employeeName}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-foreground break-words">
                                         {request.employeeID}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-foreground break-words">
                                         {request.alertAuthorities
                                             ? "Yes"
                                             : "No"}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">
+                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 dark:text-foreground break-words">
                                         {request.requestType}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">
+                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 dark:text-foreground break-words">
                                         {request.location}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-foreground break-words">
                                         {request.reqPriority}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-foreground break-words">
                                         {request.reqStatus}
                                     </td>
                                 </tr>
@@ -353,7 +387,7 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
                     </table>
                 </div>
             </div>
-            <footer className="mt-8 text-center text-sm text-gray-500">
+            <footer className="mt-8 text-center text-sm text-gray-500 dark:text-foreground">
                 Developed by Lorenzo Manfredi Segato and Kai Davidson
             </footer>
         </div>

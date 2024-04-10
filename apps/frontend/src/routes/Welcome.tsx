@@ -42,12 +42,12 @@ export default function Welcome() {
     }, [api]);
 
     return (
-        <div className="mx-auto pr-20 pl-20 bg-white shadow rounded-lg">
+        <div className="mx-auto pr-20 pl-20 bg-background shadow rounded-lg">
             {" "}
             {/* component wrapper*/}
             <div className="">
                 <h1 className="pt-20 text-4xl font-bold">
-                    Bringham and Women's Hospital
+                    Brigham and Women's Hospital
                 </h1>
                 <h2 className="text-xl ">
                     Helping our patients and their families get back to what
@@ -93,9 +93,9 @@ export default function Welcome() {
                                     <div className="flex">
                                         <Link
                                             to="/login"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
+                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
                                         >
-                                            Get Started
+                                            Log in
                                         </Link>
                                     </div>
                                 </div>
@@ -124,7 +124,7 @@ export default function Welcome() {
                                     <div className="flex">
                                         <Link
                                             to="/map"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
+                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
                                         >
                                             Get Started
                                         </Link>
@@ -147,8 +147,8 @@ export default function Welcome() {
                         Choose from a selection of services to enrich your stay
                         with us.
                     </h2>
-                    <div className="flex">
-                        <Card className="w-[350px] mt-5 mr-5 ml-5">
+                    <div className="grid lg:grid-cols-4 gap-5 pt-5 pb-16">
+                        <Card className="">
                             {/*card 1*/}
                             <CardHeader>
                                 <CardTitle>Flower Request</CardTitle>
@@ -160,16 +160,16 @@ export default function Welcome() {
                             <CardContent>
                                 <img src={Flowers}></img>
                             </CardContent>
-                            <CardFooter className="flex justify-end">
+                            <CardFooter className="flex justify-end items-center">
                                 <Link
                                     to="/flower-service"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary"
                                 >
-                                    Take me there
+                                    Order
                                 </Link>
                             </CardFooter>
                         </Card>
-                        <Card className="w-[350px] mt-5 mr-5">
+                        <Card className="">
                             {/*card 2*/}
                             <CardHeader>
                                 <CardTitle>Security Request</CardTitle>
@@ -181,16 +181,16 @@ export default function Welcome() {
                             <CardContent>
                                 <img src={Security}></img>
                             </CardContent>
-                            <CardFooter className="flex justify-end">
+                            <CardFooter className="flex justify-end items-center">
                                 <Link
                                     to="/security"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
                                 >
-                                    Take me there
+                                    Request
                                 </Link>
                             </CardFooter>
                         </Card>
-                        <Card className="w-[350px] mt-5 mr-5">
+                        <Card className="">
                             {/*card 3*/}
                             <CardHeader>
                                 <CardTitle>Medicine Request</CardTitle>
@@ -202,73 +202,111 @@ export default function Welcome() {
                             <CardContent>
                                 <img src={Medication}></img>
                             </CardContent>
-                            <CardFooter className="flex justify-end">
+                            <CardFooter className="flex justify-end items-center">
                                 <Link
                                     to="/drug-service"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1 ml-4"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
                                 >
-                                    Take me there
+                                    Order
                                 </Link>
                             </CardFooter>
                         </Card>
-                    </div>
-                    <div className="flex pb-10">
-                        <Card className="w-[350px] mt-5 mr-5 ml-5">
+                        <Card className="">
                             {/*card 4*/}
                             <CardHeader>
-                                <CardTitle>Request</CardTitle>
+                                <CardTitle>Gift Request</CardTitle>
                                 <CardDescription>
-                                    Some cool description.
+                                    Get Your Buddy a Gift
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <img src={Flowers}></img>
                             </CardContent>
-                            <CardFooter className="flex justify-end">
+                            <CardFooter className="flex justify-end items-center">
                                 <Link
-                                    to="/flower-service"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
+                                    to="/gift-service"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
                                 >
-                                    Take me there
+                                    Order
                                 </Link>
                             </CardFooter>
                         </Card>
-                        <Card className="w-[350px] mt-5 mr-5">
+                        <Card className="">
                             {" "}
                             {/*card 5*/}
                             <CardHeader>
-                                <CardTitle>Request</CardTitle>
+                                <CardTitle>Interpreter Request</CardTitle>
                                 <CardDescription>
-                                    Some cool description.
+                                    Interpretation Language Needs Bonjour
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <img src={Flowers}></img>
                             </CardContent>
-                            <CardFooter className="flex justify-end">
+                            <CardFooter className="flex justify-end items-center">
                                 <Link
-                                    to="/flower-service"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
+                                    to="/language-service"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                >
+                                    Request
+                                </Link>
+                            </CardFooter>
+                        </Card>
+                        <Card className="">
+                            {/*card 6*/}
+                            <CardHeader>
+                                <CardTitle>Sanitation Request</CardTitle>
+                                <CardDescription>
+                                    For all your cleaning needs
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <img src={Flowers}></img>
+                            </CardContent>
+                            <CardFooter className="flex justify-end items-center">
+                                <Link
+                                    to="/sanitation"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                >
+                                    Request
+                                </Link>
+                            </CardFooter>
+                        </Card>
+                        <Card className="">
+                            {/*card 7*/}
+                            <CardHeader>
+                                <CardTitle>Room Scheduling Request</CardTitle>
+                                <CardDescription>
+                                    Schedule a room for your needs
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <img src={Flowers}></img>
+                            </CardContent>
+                            <CardFooter className="flex justify-end items-center">
+                                <Link
+                                    to="/room-service"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
                                 >
                                     Take me there
                                 </Link>
                             </CardFooter>
                         </Card>
-                        <Card className="w-[350px] mt-5 mr-5">
-                            {/*card 6*/}
+                        <Card className="">
+                            {/*card 8*/}
                             <CardHeader>
-                                <CardTitle>Request</CardTitle>
+                                <CardTitle>Medical Device Request</CardTitle>
                                 <CardDescription>
-                                    Some cool description.
+                                    Schedule a room for your needs
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <img src={Flowers}></img>
                             </CardContent>
-                            <CardFooter className="flex justify-end">
+                            <CardFooter className="flex justify-end items-center">
                                 <Link
-                                    to="/flower-service"
-                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-indigo-700 align-middle mt-1"
+                                    to="/medical-device-service"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
                                 >
                                     Take me there
                                 </Link>

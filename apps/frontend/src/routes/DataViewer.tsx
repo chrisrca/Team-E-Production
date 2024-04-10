@@ -2,16 +2,54 @@ import { ViewNodes } from "@/components";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { DBNode, Edge } from "common/src/types";
+import {
+    DBNode,
+    Edge,
+    FlowerServiceRequest,
+    GiftServiceRequest,
+    InterpreterServiceRequest,
+    SecurityServiceRequest,
+    DrugDeliveryData,
+    SanitationServiceRequest,
+    RoomSchedulingForm,
+    MedicalDeviceServiceRequest,
+} from "common/src/types";
 import { Input } from "@/components/ui/input";
 
-type DataViewerProps = DBNode[] | Edge[] | [];
+type DataViewerProps =
+    | Edge[]
+    | DBNode[]
+    | FlowerServiceRequest[]
+    | GiftServiceRequest[]
+    | InterpreterServiceRequest[]
+    | SecurityServiceRequest[]
+    | DrugDeliveryData[]
+    | SanitationServiceRequest[]
+    | RoomSchedulingForm[]
+    | MedicalDeviceServiceRequest[]
+    | [];
 
 function DataViewer() {
     const [nodeData, setNodeData] = useState<DBNode[]>([]);
     const [edgeData, setEdgeData] = useState<Edge[]>([]);
     const [currData, setCurrData] = useState<DataViewerProps>(nodeData);
-    const [flowerData, setFlowerData] = useState<[]>([]);
+    const [flowerData, setFlowerData] = useState<FlowerServiceRequest[]>([]);
+    const [giftData, setGiftData] = useState<GiftServiceRequest[]>([]);
+    const [interpreterData, setInterpreterData] = useState<
+        InterpreterServiceRequest[]
+    >([]);
+    const [securityData, setSecurityData] = useState<SecurityServiceRequest[]>(
+        [],
+    );
+    const [drugData, setDrugData] = useState<DrugDeliveryData[]>([]);
+    const [sanitationData, setSanitationData] = useState<
+        SanitationServiceRequest[]
+    >([]);
+    const [roomData, setRoomData] = useState<RoomSchedulingForm[]>([]);
+    const [medicalDeviceData, setMedicalDeviceData] = useState<
+        MedicalDeviceServiceRequest[]
+    >([]);
+
     const [uploadData, setUploadData] = useState<File | null | undefined>();
 
     const uploadCSV = async (file: File | null | undefined) => {
@@ -93,7 +131,19 @@ function DataViewer() {
     };
 
     // Function to convert data to CSV format
-    const convertToCSV = (data: Edge[] | DBNode[] | []) => {
+    const convertToCSV = (
+        data:
+            | Edge[]
+            | DBNode[]
+            | FlowerServiceRequest[]
+            | GiftServiceRequest[]
+            | InterpreterServiceRequest[]
+            | SecurityServiceRequest[]
+            | DrugDeliveryData[]
+            | SanitationServiceRequest[]
+            | RoomSchedulingForm[]
+            | MedicalDeviceServiceRequest[],
+    ) => {
         const headers = Object.keys(data[0]).join(",");
         const csv = data.map((row) => Object.values(row).join(","));
         return headers + "\n" + csv.join("\n");
@@ -127,12 +177,81 @@ function DataViewer() {
             }
         }
         fetchFlowerData().then();
+        async function fetchGiftData() {
+            try {
+                const res = await axios.get("/api/gift");
+                setGiftData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchGiftData().then();
+
+        async function fetchInterpreterData() {
+            try {
+                const res = await axios.get("/api/interpreter");
+                setInterpreterData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchInterpreterData().then();
+
+        async function fetchSecurityData() {
+            try {
+                const res = await axios.get("/api/security");
+                setSecurityData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchSecurityData().then();
+
+        async function fetchDrugData() {
+            try {
+                const res = await axios.get("/api/medicine");
+                setDrugData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchDrugData().then();
+
+        async function fetchSanitationData() {
+            try {
+                const res = await axios.get("/api/sanitation");
+                setSanitationData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchSanitationData().then();
+
+        async function fetchRoomData() {
+            try {
+                const res = await axios.get("/api/room");
+                setRoomData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchRoomData().then();
+
+        async function fetchMedicalDeviceData() {
+            try {
+                const res = await axios.get("/api/medical-device");
+                setMedicalDeviceData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchMedicalDeviceData().then();
     }, []);
 
     return (
         <div className="p-10 flex flex-auto flex-col items-center align-center">
             <div className="flex flex-row items-center">
-                <div className="space-x-1 flex flex-row">
+                <div className="space-x-1 flex flex-auto flex-row">
                     <Button onClick={() => setCurrData(nodeData)}>
                         Node Data
                     </Button>
@@ -142,10 +261,32 @@ function DataViewer() {
                     <Button onClick={() => setCurrData(flowerData)}>
                         Flower Data
                     </Button>
+                    <Button onClick={() => setCurrData(giftData)}>
+                        Gift Data
+                    </Button>
+                    <Button onClick={() => setCurrData(interpreterData)}>
+                        Interpreter Data
+                    </Button>
+                    <Button onClick={() => setCurrData(securityData)}>
+                        Security Data
+                    </Button>
+                    <Button onClick={() => setCurrData(drugData)}>
+                        Medicine Delivery Data
+                    </Button>
+                    <Button onClick={() => setCurrData(sanitationData)}>
+                        Sanitation Data
+                    </Button>
+                    <Button onClick={() => setCurrData(roomData)}>
+                        Room Data
+                    </Button>
+                    <Button onClick={() => setCurrData(medicalDeviceData)}>
+                        Medical Device Data
+                    </Button>
                 </div>
                 <div className=" px-10 flex flex-col space-y-2">
                     <div className="flex flex-row px-2 space-x-2">
                         <Input
+                            className="text-foreground bg-secondary"
                             type="file"
                             onChange={(e) => {
                                 if (e.target.files !== null) {
@@ -157,13 +298,11 @@ function DataViewer() {
                             Upload
                         </Button>
                     </div>
-
-                    <Button
-                        className="flex flex-row px-2 space-x-2"
-                        onClick={downloadCSV}
-                    >
-                        Download
-                    </Button>
+                    <div className="flex flex-row px-2">
+                        <Button className="w-full" onClick={downloadCSV}>
+                            Download
+                        </Button>
+                    </div>
                 </div>
             </div>
             {<ViewNodes data={currData} />}

@@ -7,11 +7,17 @@ import pathRoute from "./routes/pathRoute";
 import edgeRoute from "./routes/edgeRoute";
 import flowerRoute from "./routes/flowerRoute";
 import flowerUploadRoute from "./routes/flowerUploadRoute";
-import edgeUploadRoute from "./routes/edgeUploadRoute.ts";
-import nodeUploadRoute from "./routes/nodeUploadRoute.ts";
-import securityRoute from "./routes/securityRoute.ts";
+import giftRoute from "./routes/giftRoute.ts";
 import medicineRoute from "./routes/medicineRoute.ts";
 import medicineUploadRoute from "./routes/medicineUploadRoute.ts";
+import securityRoute from "./routes/securityRoute.ts";
+import interpreterRoute from "./routes/interpreterRoute.ts";
+import sanitationRoute from "./routes/sanitationRoute.ts";
+import roomRoute from "./routes/roomRoute.ts";
+import medicalDeviceServiceRoute from "./routes/medicalDeviceServiceRoute.ts";
+import edgeUploadRoute from "./routes/edgeUploadRoute.ts";
+import nodeUploadRoute from "./routes/nodeUploadRoute.ts";
+import editorRoute from "./routes/editorRoute.ts";
 
 const app: Express = express(); // Setup the backend
 
@@ -38,12 +44,17 @@ app.use("/api/path", pathRoute);
 app.use("/api/nodes", nodeRoute);
 app.use("/api/edges", edgeRoute);
 app.use("/api/flower", flowerRoute);
+app.use("/api/gift", giftRoute);
+app.use("/api/interpreter", interpreterRoute);
 app.use("/api/security", securityRoute);
-
+app.use("/api/medicine", medicineRoute);
+app.use("/api/sanitation", sanitationRoute);
+app.use("/api/room", roomRoute);
+app.use("/api/medical-device", medicalDeviceServiceRoute);
+app.use("/api/editor", editorRoute);
 app.use("/api/flower", flowerUploadRoute);
 app.use("/api/edge", edgeUploadRoute);
 app.use("/api/node", nodeUploadRoute);
-
 app.use("/api/medicine", medicineRoute);
 app.use("/api/medicine", medicineUploadRoute);
 
