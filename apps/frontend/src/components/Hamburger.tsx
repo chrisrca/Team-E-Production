@@ -118,6 +118,16 @@ export default function Hamburger() {
                                         </div>
                                     </Link>
                                 </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="medical-device-service"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Medical Device Request
+                                        </div>
+                                    </Link>
+                                </SheetClose>
                             </div>
                         </CollapsibleContent>
                     </Collapsible>
@@ -151,16 +161,6 @@ export default function Hamburger() {
                             </div>
                         </CollapsibleContent>
                     </Collapsible>
-                    {/* <SheetClose asChild>
-                        <Link
-                            className="group rounded-sm p-1 grid hover:bg-card h-auto w-full justify-start gap-1"
-                            to="map"
-                        >
-                            <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                                Map
-                            </div>
-                        </Link>
-                    </SheetClose> */}
                     <SheetClose asChild>
                         <Link
                             className="group rounded-sm p-1 grid hover:bg-card h-auto w-full justify-start gap-1"

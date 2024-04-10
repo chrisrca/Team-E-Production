@@ -111,3 +111,13 @@ model roomschedule {
   startTime    String
   endTime      String
 }
+
+model medicaldevice {
+  id             Int     @id @default(autoincrement())
+  employeeName   String
+  priority       String
+  location       String
+  selectedDevice String
+  status         String
+  withBalloons   Boolean
+}

@@ -15,6 +15,7 @@ import GiftServiceRequest from "@/routes/GiftServiceRequest.tsx";
 import SecurityForm from "./routes/SecurityForm";
 import SanitationService from "@/routes/SanitationServiceRequest.tsx";
 import RoomScheduling from "@/routes/RoomServiceRequest.tsx";
+import MedicalDeviceService from "@/routes/MedicalDeviceServiceRequest.tsx";
 import { useState, useEffect } from "react";
 import { DBNode } from "common/src/types";
 import axios from "axios";
@@ -54,6 +55,10 @@ function App() {
                     <Route
                         path="/language-service"
                         element={<InterpreterService />}
+                    />
+                    <Route
+                        path="/medical-device-service"
+                        element={<MedicalDeviceService />}
                     />
                     <Route path="/drug-service" element={<DrugDelivery />} />
                     <Route path="/data" element={<DataViewer />} />
