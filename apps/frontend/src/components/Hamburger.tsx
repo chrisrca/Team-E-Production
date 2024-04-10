@@ -41,13 +41,13 @@ export default function Hamburger() {
                             />
                         </Link>
                     </SheetClose>
-                    <Collapsible className="grid gap-4">
+                    <Collapsible className="grid gap-4 dark:bg-secondary">
                         <CollapsibleTrigger className="flex rounded-sm p-1 hover:bg-card w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
                             Services{" "}
                             <ChevronRight className="ml-auto w-4 h-4 transition-all" />
                         </CollapsibleTrigger>
                         <CollapsibleContent>
-                            <div className="grid gap-3 bg-gray-150 px-3 dark:bg-gray-800">
+                            <div className="grid gap-3 bg-gray-150 px-3">
                                 <SheetClose asChild>
                                     <Link
                                         className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
@@ -121,7 +121,37 @@ export default function Hamburger() {
                             </div>
                         </CollapsibleContent>
                     </Collapsible>
-                    <SheetClose asChild>
+                    <Collapsible className="grid gap-4 dark:bg-secondary">
+                        <CollapsibleTrigger className="flex rounded-sm p-1 hover:bg-card w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                            Map{" "}
+                            <ChevronRight className="ml-auto w-4 h-4 transition-all" />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <div className="grid gap-3 bg-gray-150 px-3">
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="map"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Map
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="map-editor"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Map Editor
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                            </div>
+                        </CollapsibleContent>
+                    </Collapsible>
+                    {/* <SheetClose asChild>
                         <Link
                             className="group rounded-sm p-1 grid hover:bg-card h-auto w-full justify-start gap-1"
                             to="map"
@@ -130,7 +160,7 @@ export default function Hamburger() {
                                 Map
                             </div>
                         </Link>
-                    </SheetClose>
+                    </SheetClose> */}
                     <SheetClose asChild>
                         <Link
                             className="group rounded-sm p-1 grid hover:bg-card h-auto w-full justify-start gap-1"

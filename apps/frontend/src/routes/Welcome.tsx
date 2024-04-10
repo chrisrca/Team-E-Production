@@ -147,7 +147,7 @@ export default function Welcome() {
                         Choose from a selection of services to enrich your stay
                         with us.
                     </h2>
-                    <div className="grid lg:grid-cols-4 gap-5">
+                    <div className="grid lg:grid-cols-4 gap-5 pt-5 pb-16">
                         <Card className="">
                             {/*card 1*/}
                             <CardHeader>
