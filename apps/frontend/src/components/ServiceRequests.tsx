@@ -30,6 +30,17 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import {
+    RadioGroup,
+    RadioGroupItem,
+} from "./ui/radio-group";
+import {Checkbox} from "@/components/ui/checkbox";
+// import {
+//     Popover,
+//     PopoverContent,
+//     PopoverTrigger
+// } from "@/components/ui/popover";
+// import {Button} from "@/components/ui/button";
 //import FormInput from "@/components/ui/formInput";
 
 // import {
@@ -172,7 +183,11 @@ export const ServiceRequests = (
             return selectComp(props as FormSelect);
         } else if (props.content.includes("label")) {
             return labelComp(props as FormLabel);
-        } else {
+        } else if (props.content.includes("radio")) {
+            return radioGroupComp(props as FormSelect);
+        } else if (props.content.includes("checkbox")) {
+            return checkboxComp(props as FormComponent);
+        }else {
             console.error("Failed to identify element - " + props.type);
         }
     };
@@ -183,7 +198,7 @@ export const ServiceRequests = (
         console.log("making label element");
         return (
             <>
-                <div className="text-6xl pt-8">
+                <div className="text-extrabold text-center text-3xl">
                     <Label>{props.title}</Label>
                 </div>
             </>
@@ -197,7 +212,7 @@ export const ServiceRequests = (
                 <div className="">
                     <label
                         className={
-                            "text-sm tracking-wide text-foreground font-medium m-1"
+                            "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
                         }
                     >
                         {props.title}
@@ -205,11 +220,12 @@ export const ServiceRequests = (
                     <Input
                         type={props.type}
                         placeholder={props.placeholder}
+                        required={props.required}
                         onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             (formValues[props.id] = e.target.value.toString())
                         }
                         className={
-                            "shadow-md hover:ring-2 hover:ring-bg-primary ring-0"
+                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
                         }
                     />
                 </div>
@@ -220,7 +236,7 @@ export const ServiceRequests = (
         return (
             <>
                 <div className="">
-                    <label className="text-sm tracking-wide text-foreground font-medium m-1">
+                    <label className="block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1">
                         {props.title}
                     </label>
                     <div>
@@ -230,7 +246,7 @@ export const ServiceRequests = (
                                 (formValues[props.id] = value.toString())
                             }
                         >
-                            <SelectTrigger className="w-fit w-[180px] shadow-md hover:ring-2">
+                            <SelectTrigger className="w-fit w-[180px] hover:bg-secondary shadow-md hover:ring-2 ring-accent">
                                 <SelectValue placeholder={props.placeholder} />
                             </SelectTrigger>
                             <SelectContent>
@@ -238,7 +254,7 @@ export const ServiceRequests = (
                                     <SelectLabel>{props.label}</SelectLabel>
                                     {/* Map options to select */}
                                     {props.options.map((option) => (
-                                        <SelectItem value={option.toString()}>
+                                        <SelectItem value={option.toString()} className={""}>
                                             {option}
                                         </SelectItem>
                                     ))}
@@ -250,6 +266,105 @@ export const ServiceRequests = (
             </>
         );
     };
+
+    const radioGroupComp = (props: FormSelect) => {
+        return (
+            <>
+                <div className={""}>
+                    <label
+                        className={
+                            "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+                        }
+                    >
+                        {props.title}
+                    </label>
+                    <div className={"p-2 w-fit bg-background border-input border shadow-md rounded"}>
+                        <RadioGroup
+                            onValueChange={(value: string) =>
+                                (formValues[props.id] = value.toString())
+                            }>
+                            {/* Map options to select */}
+                            <div className="flex px-4 space-x-4">
+                                {props.options.map(
+                                    (option) => (
+                                        <div
+                                            key={option}
+                                            className="flex items-center"
+                                        >
+                                            <RadioGroupItem
+                                                className={"hover:bg-accent"}
+                                                value={option}/>
+                                            <Label className="ml-2 text-sm font-medium text-gray-700 dark:text-foreground">
+                                                {option}
+                                            </Label>
+                                        </div>
+                                    ),
+                                )}
+                            </div>
+                        </RadioGroup>
+                    </div>
+                </div>
+            </>
+        );
+    };
+
+    const checkboxComp = (props: FormComponent) => {
+        return (
+            <>
+                <div className={"flex container:ml-0 pl-6 pt-4 align-content-center"}>
+                    <Checkbox
+                        required={props.required}
+                        onCheckedChange={(value: string) =>
+                            (formValues[props.id] = value.toString())
+                        }
+                        className={"hover:bg-accent"}
+                    >
+                        {props.title}
+                    </Checkbox>
+                    <Label className="ml-4 text-sm font-medium text-gray-700 dark:text-foreground">
+                        {props.placeholder}
+                    </Label>
+                </div>
+            </>
+        );
+    };
+
+    // const popoverComp = () => {
+    //     return(
+    //         <>
+    //             <Popover>
+    //                 <PopoverTrigger asChild>
+    //                     <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-background text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+    //                         {securityData.location || "Select Location"}
+    //                     </Button>
+    //                 </PopoverTrigger>
+    //                 <PopoverContent className="origin-top-right absolute mt-2 max-h-60 overflow-y-auto rounded-md shadow-lg">
+    //                     <Input
+    //                         ref={searchRef}
+    //                         className="w-full"
+    //                         placeholder="Search location..."
+    //                         value={searchTerm}
+    //                         onChange={(e) => setSearchTerm(e.target.value)}
+    //                     />
+    //                     {filteredNodes.map((node) => (
+    //                         <div
+    //                             key={node.nodeID}
+    //                             className="p-2 hover:bg-secondary cursor-pointer rounded-md"
+    //                             onClick={() =>
+    //                                 handleLocationSelect(
+    //                                     node.nodeID,
+    //                                     node.longName,
+    //                                 )
+    //                             }
+    //                         >
+    //                             {node.longName}
+    //                         </div>
+    //                     ))}
+    //                 </PopoverContent>
+    //             </Popover>
+    //         </>
+    //     );
+    // }
 
     //End of Elements
 
@@ -294,19 +409,23 @@ export const ServiceRequests = (
 
     return (
         <>
-            <div className="py-16 h-screen">
-                <div className="flex flex-col block shadow-lg align-middle size-fit items-center bg-secondary w-[35rem] rounded-lg">
-                    <form className="rounded" onSubmit={handleSubmit}>
-                        <div className="">
-                            {makeForm(layout)}
-                            <div className={"py-8"}>
-                                <button
-                                    className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
-                                    type={"submit"}
-                                >
-                                    Submit
-                                </button>
-                            </div>
+            <div className="py-14 h-screen">
+                <div className="flex flex-auto mx-auto grid block shadow-lg size-fit bg-secondary w-[35rem] rounded-lg">
+                    <form className="w-full px-16 py-8" onSubmit={handleSubmit}>
+                        {makeForm(layout)}
+                        <div className={"pt-8 space-x-48"}>
+                            <button
+                                className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                                type={"submit"}
+                            >
+                                Submit
+                            </button>
+                            <button
+                                className="bg-accent hover:bg-destructive text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                                type={"clear"}
+                            >
+                                Clear Form
+                            </button>
                         </div>
                     </form>
                 </div>
