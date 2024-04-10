@@ -9,7 +9,7 @@ import { FormEvent, ChangeEvent } from "react";
 // import { Button } from "@/components/ui/button";
 //import { TestSchema } from "common/src/types";
 import { Input } from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
+import { Label } from "@/components/ui/label";
 //import { BWH } from "@/src/images/BWH-high-res.jpg";
 //import {
 //     Form,
@@ -97,7 +97,7 @@ type FormLabel = {
     title: string; //Element title
     type: string; //Element type - (string, number, etc)
     id: number;
-}
+};
 
 type FormComponent = FormLabel & {
     placeholder: string; //Displayed placeholder text
@@ -141,7 +141,7 @@ export interface FlowerServiceRequest {
  * */
 
 export const ServiceRequests = (
-    layout: ( FormLabel | FormComponent | FormSelect )[],
+    layout: (FormLabel | FormComponent | FormSelect)[],
     blankSchema: NonNullable<unknown>,
 ) => {
     const formSchema = { ...blankSchema };
@@ -155,23 +155,23 @@ export const ServiceRequests = (
     console.log(schemaKeys);
 
     // Form Generation
-    const makeForm = (props: ( FormLabel | FormComponent | FormSelect )[]) => {
+    const makeForm = (props: (FormLabel | FormComponent | FormSelect)[]) => {
         return (
             <>
-                <div className="space-y-6">
-                    {props.map(identifyComponent)}
-                </div>
+                <div className="space-y-6">{props.map(identifyComponent)}</div>
             </>
         );
     };
     // Identify element to return based on value of Component.type
-    const identifyComponent = (props: FormComponent) => {
+    const identifyComponent = (
+        props: FormLabel | FormComponent | FormSelect,
+    ) => {
         if (props.content.includes("text")) {
-            return inputComp(props);
+            return inputComp(props as FormComponent);
         } else if (props.content.includes("select")) {
             return selectComp(props as FormSelect);
         } else if (props.content.includes("label")) {
-            return labelComp(props as FormSelect);
+            return labelComp(props as FormLabel);
         } else {
             console.error("Failed to identify element - " + props.type);
         }
@@ -184,11 +184,7 @@ export const ServiceRequests = (
         return (
             <>
                 <div className="text-6xl pt-8">
-                    <Label
-                        variant={props.type}
-                    >
-                        {props.title}
-                    </Label>
+                    <Label>{props.title}</Label>
                 </div>
             </>
         );
@@ -199,7 +195,11 @@ export const ServiceRequests = (
         return (
             <>
                 <div className="">
-                    <label className={"text-sm tracking-wide text-foreground font-medium m-1"}>
+                    <label
+                        className={
+                            "text-sm tracking-wide text-foreground font-medium m-1"
+                        }
+                    >
                         {props.title}
                     </label>
                     <Input
@@ -208,7 +208,9 @@ export const ServiceRequests = (
                         onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             (formValues[props.id] = e.target.value.toString())
                         }
-                        className={"shadow-md hover:ring-2 hover:ring-bg-primary ring-0"}
+                        className={
+                            "shadow-md hover:ring-2 hover:ring-bg-primary ring-0"
+                        }
                     />
                 </div>
             </>
@@ -221,7 +223,7 @@ export const ServiceRequests = (
                     <label className="text-sm tracking-wide text-foreground font-medium m-1">
                         {props.title}
                     </label>
-                    <div >
+                    <div>
                         <Select
                             required={props.required}
                             onValueChange={(value: string) =>
@@ -256,7 +258,7 @@ export const ServiceRequests = (
 
     // Assign id to each element specified in layout based on order in the form,
     // determines where form values are sent on submit
-    layout.map((field) => (field.id = (layout.indexOf(field) - 1)));
+    layout.map((field) => (field.id = layout.indexOf(field) - 1));
 
     const handleSubmit = (e: FormEvent) => {
         // Shallow copy of formSchema that is discarded after submit,
@@ -295,8 +297,7 @@ export const ServiceRequests = (
             <div className="py-16 h-screen">
                 <div className="flex flex-col block shadow-lg align-middle size-fit items-center bg-secondary w-[35rem] rounded-lg">
                     <form className="rounded" onSubmit={handleSubmit}>
-                        <div
-                            className="">
+                        <div className="">
                             {makeForm(layout)}
                             <div className={"py-8"}>
                                 <button
@@ -310,8 +311,6 @@ export const ServiceRequests = (
                     </form>
                 </div>
             </div>
-
         </>
-    )
-        ;
+    );
 };
