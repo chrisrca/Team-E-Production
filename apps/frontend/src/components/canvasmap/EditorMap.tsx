@@ -84,11 +84,6 @@ export default function EditorMap(nodes: CanvasMapProps) {
             //NODE DRAWING
             nodeData.forEach((node) => {
                 if (node.floor !== floor[mapLevel]) return;
-                ctx.fillText(
-                    node.nodeID,
-                    node.xcoord * xMult,
-                    node.ycoord * yMult,
-                );
                 // Original Dot
                 ctx.beginPath();
                 ctx.fillStyle = "#002244"; // Color of the dot
