@@ -1,13 +1,13 @@
 import { processGraphData, Node } from "./graphData";
+import { euclideanDistance } from "./euclideanDistance.ts";
 
 let startNodeIn: string;
 let endNodeIn: string;
 
 async function runBFS(start: string, end: string) {
-    // RENAME O
+    console.log("Running BFS Algorithm on Nodes:", start, end);
     startNodeIn = start;
     endNodeIn = end;
-    //This is not good practice redo this
     let path: Node[] | null = [];
 
     await processGraphData().then((data) => {
@@ -30,15 +30,19 @@ async function runBFS(start: string, end: string) {
 
         path = bfs(startNode!, endNode!);
     });
+
+    let distance = 0;
+
+    for (let i = 0; i < path.length - 1; i++) {
+        distance += euclideanDistance(path[i], path[i + 1]);
+    }
+
+    console.log("Path Distance: " + distance);
+
     return path;
 }
 
 function bfs(start: Node, end: Node): Node[] | null {
-    if (start.floor !== "L1" || end.floor !== "L1") {
-        console.error("Error: Start or End Nodes are invalid");
-        return null;
-    }
-
     const queue: Node[] = [start];
     const visited: Set<Node> = new Set([start]);
     const parentMap: Map<Node, Node> = new Map();

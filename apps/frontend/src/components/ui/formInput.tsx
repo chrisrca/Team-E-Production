@@ -7,7 +7,11 @@ const inputVariants = cva(
   {
     variants: {
       variant: {
-        default:
+          gift:
+          "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+          interpreter:
+              "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+          default:
           "appearance-none h-full w-full border rounded bg-background text-primary-foreground hover:bg-primary/90",
         login:
           "flex h-10 w-full bg-gray-200 focus:bg-backround placeholder:text-grey-400 rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus:border-black disabled:cursor-not-allowed disabled:opacity-50",

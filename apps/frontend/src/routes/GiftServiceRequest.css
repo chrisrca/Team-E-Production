@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+[type="radio"] + img {
+    cursor: pointer;
+}
+
+@layer base {
+    .dark {
+        [type="radio"]:hover + img {
+            border: 3px solid #f6bd38;
+        }
+
+        [type="radio"]:checked + img {
+            /*outline:5px solid darkcyan;*/
+            border: 6px solid #f6bd38;
+        }
+    }
+
+    .light {
+        [type="radio"]:hover + img {
+            border: 3px solid #747bff;
+        }
+
+        [type="radio"]:checked + img {
+            /*outline:5px solid darkcyan;*/
+            border: 6px solid #747bff;
+        }
+    }
+}

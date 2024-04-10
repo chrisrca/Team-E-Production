@@ -4,4 +4,6 @@ export interface FlowerServiceRequest {
     senderName: string;
     cardMessage: string;
     flowerType: string;
+    status: string;
+    priority: string;
 }

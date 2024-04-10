@@ -1,122 +1,184 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import {
+    TransformWrapper,
+    TransformComponent,
+    ReactZoomPanPinchRef,
+} from "react-zoom-pan-pinch";
 import { DBNode } from "common/src/types";
-import MapImage from "../../assets/00_thelowerlevel1.png";
+import LLevel1 from "./mapImages/00_thelowerlevel1.png";
+import LLevel2 from "./mapImages/00_thelowerlevel2.png";
+import Level1 from "./mapImages/01_thefirstfloor.png";
+import Level2 from "./mapImages/02_thesecondfloor.png";
+import Level3 from "./mapImages/03_thethirdfloor.png";
 
+const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
 interface CanvasMapProps {
     nodes: DBNode[];
     path: DBNode[];
+    level: number;
 }
 
-const CanvasMap = (nodes: CanvasMapProps) => {
+export default function CanvasMap(nodes: CanvasMapProps) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const nodeData = nodes.nodes;
     const pathData = nodes.path;
-    const [dimensions, setDimensions] = React.useState({
-        height: window.innerHeight,
-        width: window.innerWidth,
-    });
+    const mapLevel = nodes.level;
 
     //RESIZING OF CANVAS
     useEffect(() => {
-        function handleResize() {
-            setDimensions({
-                height: window.innerHeight,
-                width: window.innerWidth,
-            });
-        }
+        const image = new Image();
+        image.src = MapImage[mapLevel];
+        image.onload = () => {
+            setImageSize({ width: image.width, height: image.height });
+        };
 
-        window.addEventListener("resize", handleResize);
+        // Update container size on mount
+        updateContainerSize();
+        // Update container size on window resize
+        window.addEventListener("resize", updateContainerSize);
 
         return () => {
-            window.removeEventListener("resize", handleResize);
+            window.removeEventListener("resize", updateContainerSize);
         };
-    }, []);
+    }, [mapLevel]);
+
+    // Function to update container size
+    const updateContainerSize = () => {
+        setContainerSize({
+            width: window.outerWidth,
+            height: window.outerHeight,
+        });
+    };
+
+    // Function to handle panning stopped event
+    const handlePanningStopped = (e: ReactZoomPanPinchRef) => {
+        const x = e.state.positionX;
+        const y = e.state.positionY;
+        const scale = e.state.scale;
+
+        // If image is smaller than the container, center it
+        if (imageSize.width * scale < containerSize.width) {
+            e.setTransform(
+                (containerSize.width - imageSize.width * scale) / 2,
+                y,
+                scale,
+            );
+        }
+        if (imageSize.height * scale < containerSize.height) {
+            e.setTransform(
+                x,
+                (containerSize.width - imageSize.width * scale) / 2,
+                scale,
+            );
+        }
+    };
 
     //DRAWING OF NODES AND PATH
     useEffect(() => {
-        const xMult = dimensions.width / 5000;
-        const yMult = dimensions.height / 3400;
+        const floor = ["L2", "L1", "1", "2", "3"];
+        const xMult = imageSize.width / 5000;
+        const yMult = imageSize.height / 3400;
         function drawNodes(ctx: CanvasRenderingContext2D) {
             //NODE DRAWING
             nodeData.forEach((node) => {
+                if (node.floor !== floor[mapLevel]) return;
+
+                // Original Dot
                 ctx.beginPath();
-                ctx.fillStyle = "blue";
+                ctx.fillStyle = "#002244"; // Color of the dot
                 ctx.arc(
                     node.xcoord * xMult,
                     node.ycoord * yMult,
-                    3,
+                    3, // Radius of the dot
                     0,
                     2 * Math.PI,
                 );
                 ctx.fill();
-                //PATH DRAWING
-                ctx.strokeStyle = "red";
-                ctx.lineWidth = 4;
 
-                if (pathData.length > 0) {
+                // Ring around the Dot
+                ctx.setLineDash([5, 0]);
+                ctx.beginPath();
+                ctx.strokeStyle = "#012d5a"; // Color of the ring
+                ctx.lineWidth = 2; // Width of the ring
+                ctx.arc(
+                    node.xcoord * xMult,
+                    node.ycoord * yMult,
+                    6, // Radius of the ring
+                    0,
+                    2 * Math.PI,
+                );
+                ctx.stroke();
+            });
+            //PATH DRAWING
+            if (pathData.length > 0) {
+                ctx.setLineDash([7, 3]);
+                ctx.strokeStyle = "#1d3e60";
+                ctx.lineWidth = 4;
+                if (pathData[0].floor === floor[mapLevel]) {
                     ctx.beginPath();
                     ctx.moveTo(
                         pathData[0].xcoord * xMult,
                         pathData[0].ycoord * yMult,
                     );
-
-                    for (let i = 1; i < pathData.length; i++) {
-                        const node = pathData[i];
-                        //LINE DRAWING
-                        ctx.strokeStyle = "red";
-                        ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
-                        //TEXT DRAWING
-                        if (i === pathData.length - 1 || i === 1) {
-                            ctx.fillStyle = "black";
-                            ctx.font = "20px Arial";
-                            const textWidth = ctx.measureText(
-                                node.longName,
-                            ).width;
-                            ctx.fillText(
-                                node.longName,
-                                node.xcoord * xMult - textWidth / 2,
-                                node.ycoord * yMult - 10,
-                            );
-                        }
-                    }
-                    ctx.stroke();
                 }
-            });
+                for (let i = 1; i < pathData.length; i++) {
+                    const node = pathData[i];
+                    if (node.floor === floor[mapLevel]) {
+                        //LINE DRAWING
+                        ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
+                    }
+                    if (node.floor !== floor[mapLevel]) {
+                        ctx.stroke();
+                        ctx.beginPath();
+                        continue;
+                    }
+
+                    if (
+                        pathData[pathData.length - 1].floor === floor[mapLevel]
+                    ) {
+                        ctx.stroke();
+                    }
+                }
+            }
         }
+        //This shit supposed to draw the image and the nodes let's goooo
         const image = new Image();
-        image.src = MapImage; // Path to your image file
+        image.src = MapImage[mapLevel];
+        // Path to your image file
         if (canvasRef.current) {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
-            drawNodes(context!);
             if (context) {
-                context.beginPath();
-                context.arc(500, 500, 500, 0, 2 * Math.PI);
-                context.fill();
                 image.onload = () => {
                     context.drawImage(image, 0, 0, canvas.width, canvas.height);
                     drawNodes(context!);
                 };
             }
-            const resizeCanvas = () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            };
-            resizeCanvas();
-            window.addEventListener("resize", resizeCanvas);
         }
-    }, [nodeData, pathData, dimensions]);
+    }, [nodeData, pathData, imageSize, mapLevel]);
 
     return (
-        <div className="aspect-[5000/3400] relative">
-            <canvas
-                ref={canvasRef}
-                style={{ width: "100vw", height: "100vh", display: "block" }}
-                className="px-0 py-0 z-0 absolute"
-                id="layer1"
-            />
-        </div>
+        <TransformWrapper
+            initialScale={1.5}
+            centerOnInit={true}
+            limitToBounds={true}
+            minScale={1}
+            maxScale={4}
+            wheel={{ step: 0.5 }}
+            doubleClick={{ disabled: false }}
+            onPanningStop={handlePanningStopped}
+        >
+            <TransformComponent>
+                <canvas
+                    ref={canvasRef}
+                    height={3400}
+                    width={5000}
+                    style={{ width: "100%", height: "100%", display: "block" }}
+                    id="layer1"
+                />
+            </TransformComponent>
+        </TransformWrapper>
     );
-};
-
-export default CanvasMap;
+}
