@@ -21,6 +21,8 @@ router.post("/", async (req: Request, res: Response) => {
                 senderName: flowerRequest.senderName,
                 cardMessage: flowerRequest.cardMessage,
                 flowerType: flowerRequest.flowerType,
+                status: flowerRequest.status,
+                priority: flowerRequest.priority,
             },
         });
     } catch (e) {

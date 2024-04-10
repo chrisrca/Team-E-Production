@@ -1,3 +1,7 @@
+import { Button } from "../components/ui/button.tsx";
+import { Label } from "@/components/ui/label";
+import { FormInput } from "@/components/ui/formInput.tsx";
+
 import { FormEvent, useState } from "react";
 import { SanitationServiceRequest } from "common/src/types";
 import axios from "axios";
@@ -32,7 +36,6 @@ enum Service {
     otherCleaning = "Other",
 }
 
-// bare-bone basics for flower request form, template taken from tailwind
 export default function SanitationService() {
     const [sanitationRequest, setSanitationRequest] =
         useState<SanitationServiceRequest>({
@@ -76,8 +79,8 @@ export default function SanitationService() {
         });
     };
     return (
-        <div className="fullDiv text-center">
-            <div className="">
+        <div className="flex flex-col flex-auto justify-center items-center h-screen">
+            <div className="text-center">
                 <h1 className={"text-3xl font-HeadlandOne py-4"}>
                     Welcome to the Sanitation Request page!
                 </h1>
@@ -87,46 +90,64 @@ export default function SanitationService() {
                 </p>
             </div>
             <br />
-            <br />
+
             <form onSubmit={handleSubmit}>
-                <div className="columns-2">
-                    <label>Name of the employee making the request:</label>
-                    <br />
-                    <input
-                        type="text"
-                        value={sanitationRequest.patientName}
-                        onChange={(e) =>
-                            setSanitationRequest({
-                                ...sanitationRequest,
-                                patientName: e.target.value,
-                            })
-                        }
-                    />
-                    <div>
-                        <br />
-                        <div>
-                            <label>
-                                Location of the request in the building:
-                            </label>
-                            <br />
-                            <input
-                                className="bg-secondary"
-                                type="text"
-                                name="location"
-                                value={sanitationRequest.location}
-                                onChange={(e) =>
-                                    setSanitationRequest({
-                                        ...sanitationRequest,
-                                        location: e.target.value,
-                                    })
-                                }
-                            />
-                        </div>
-                        <br />
-                        <br />
-                        <label>Priority of the request:</label>
-                        <br />
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                        <Label
+                            htmlFor="employee"
+                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
+                        >
+                            Name of Employee:
+                        </Label>
+                        <FormInput
+                            variant="gift" // using same as gift for input boxes
+                            type="text"
+                            name="employee"
+                            value={sanitationRequest.patientName}
+                            onChange={(e) =>
+                                setSanitationRequest({
+                                    ...sanitationRequest,
+                                    patientName: e.target.value,
+                                })
+                            }
+                            placeholder="Employee's Name"
+                        />
+                    </div>
+
+                    <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                        <Label
+                            htmlFor="location"
+                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
+                        >
+                            Location in building:
+                        </Label>
+                        <FormInput
+                            variant="gift"
+                            type="text"
+                            name="location"
+                            value={sanitationRequest.location}
+                            onChange={(e) =>
+                                setSanitationRequest({
+                                    ...sanitationRequest,
+                                    location: e.target.value,
+                                })
+                            }
+                            placeholder="Location"
+                        />
+                    </div>
+                </div>
+
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="md:w-1/3 px-3 mb-6 md:mb-0">
+                        <Label
+                            htmlFor="priority"
+                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
+                        >
+                            Priority:
+                        </Label>
                         <select
+                            name="priority"
                             value={sanitationRequest.priority}
                             onChange={(e) =>
                                 setSanitationRequest({
@@ -141,53 +162,69 @@ export default function SanitationService() {
                                 </option>
                             ))}
                         </select>
-                        <div>
-                            <label>Service Type:</label>
-                            <br />
-                            {/* Placeholder for service type */}
-                            <select
-                                value={sanitationRequest.serviceType}
-                                onChange={(e) =>
-                                    setSanitationRequest({
-                                        ...sanitationRequest,
-                                        serviceType: e.target.value,
-                                    })
-                                }
-                            >
-                                {Object.values(Service).map((serviceType) => (
-                                    <option
-                                        key={serviceType}
-                                        value={serviceType}
-                                    >
-                                        {serviceType}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <label>Status of the request:</label> <br />
-                            <select
-                                value={sanitationRequest.status}
-                                onChange={(e) =>
-                                    setSanitationRequest({
-                                        ...sanitationRequest,
-                                        status: e.target.value,
-                                    })
-                                }
-                            >
-                                {Object.values(Status).map((status) => (
-                                    <option key={status} value={status}>
-                                        {status}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                    </div>
+
+                    <div className="md:w-1/3 px-3 mb-6 md:mb-0">
+                        <Label
+                            htmlFor="type"
+                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
+                        >
+                            Service Type:
+                        </Label>
+                        {/* Placeholder for service type */}
+                        <select
+                            name="type"
+                            value={sanitationRequest.serviceType}
+                            onChange={(e) =>
+                                setSanitationRequest({
+                                    ...sanitationRequest,
+                                    serviceType: e.target.value,
+                                })
+                            }
+                        >
+                            {Object.values(Service).map((serviceType) => (
+                                <option key={serviceType} value={serviceType}>
+                                    {serviceType}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="md:w-1/3 px-3 mb-6 md:mb-0">
+                        <Label
+                            htmlFor="status"
+                            className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
+                        >
+                            Status:
+                        </Label>
+                        <select
+                            name="status"
+                            value={sanitationRequest.status}
+                            onChange={(e) =>
+                                setSanitationRequest({
+                                    ...sanitationRequest,
+                                    status: e.target.value,
+                                })
+                            }
+                        >
+                            {Object.values(Status).map((status) => (
+                                <option key={status} value={status}>
+                                    {status}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                 </div>
-                <div>
-                    <label>Additional Information:</label> <br />
-                    {/* Placeholder for additional info */}
+
+                <div className="mb-6">
+                    <Label
+                        htmlFor="info"
+                        className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2"
+                    >
+                        Additional Information:
+                    </Label>
                     <textarea
+                        name="info"
                         value={sanitationRequest.additionalInfo}
                         onChange={(e) =>
                             setSanitationRequest({
@@ -197,8 +234,8 @@ export default function SanitationService() {
                         }
                     />
                 </div>
-                <div className="width:50%">
-                    <button type="submit">Submit</button>
+                <div className=" ">
+                    <Button type="submit">Submit</Button>
                 </div>
             </form>
         </div>

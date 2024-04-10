@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect, useRef } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,19 +10,23 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { SecurityServiceRequest } from "common/src/types";
+import { DBNode, SecurityServiceRequest } from "common/src/types";
 import axios from "axios";
-//import MapPage from "/MapPage.tsx";
+import {
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+} from "@/components/ui/popover";
 
 async function sendSecurityOrder(securityOrder: SecurityServiceRequest) {
     axios.post("/api/security", securityOrder).then((res) => {
         console.log(res);
     });
 }
-export default function SecurityForm() {
+export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
     const [securityData, setSecurityData] = useState<SecurityServiceRequest>({
         employeeName: "",
-        employeeID: "",
+        employeeID: 0,
         reqPriority: "",
         location: "",
         requestType: "",
@@ -31,18 +35,48 @@ export default function SecurityForm() {
     });
 
     const [requests, setRequests] = useState<SecurityServiceRequest[]>([]);
+    const [filteredNodes, setFilteredNodes] = useState(nodes);
+    const [searchTerm, setSearchTerm] = useState("");
+    const searchRef = useRef<HTMLInputElement>(null);
 
+    useEffect(() => {
+        setFilteredNodes(
+            nodes.filter((node) =>
+                node.longName.toLowerCase().includes(searchTerm.toLowerCase()),
+            ),
+        );
+    }, [searchTerm, nodes]);
+
+    //Handlers
+    const handleLocationSelect = (nodeID: string, longName: string) => {
+        setSecurityData((prevState) => ({
+            ...prevState,
+            location: longName,
+        }));
+        setSearchTerm("");
+    };
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(securityData);
-        requests.push(securityData);
+
+        if (
+            !securityData.employeeName ||
+            !securityData.employeeID ||
+            !securityData.reqPriority ||
+            !securityData.location ||
+            !securityData.requestType ||
+            !securityData.reqStatus
+        ) {
+            alert("Please fill out all fields.");
+            return; // Prevent the form from submitting
+        }
+
         sendSecurityOrder(securityData);
         setRequests((prevRequests) => [...prevRequests, securityData]);
 
         //reset form
         setSecurityData({
             employeeName: "",
-            employeeID: "",
+            employeeID: 0,
             reqPriority: "",
             location: "",
             requestType: "",
@@ -86,7 +120,7 @@ export default function SecurityForm() {
                             onChange={(e) =>
                                 setSecurityData({
                                     ...securityData,
-                                    employeeID: e.target.value,
+                                    employeeID: parseInt(e.target.value),
                                 })
                             }
                             placeholder="Enter your ID"
@@ -150,38 +184,36 @@ export default function SecurityForm() {
                     <Label className="block text-sm font-medium text-gray-700">
                         Location of the Request
                     </Label>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
+                    <Popover>
+                        <PopoverTrigger asChild>
                             <Button className="mt-1 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 {securityData.location || "Select Location"}
                             </Button>
-                        </DropdownMenuTrigger>{" "}
-                        {/* link to database */}
-                        <DropdownMenuContent className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <DropdownMenuItem
-                                onSelect={() =>
-                                    setSecurityData({
-                                        ...securityData,
-                                        location: "Location 1",
-                                    })
-                                }
-                                className="dropdown-menu-item"
-                            >
-                                Location 1
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                                onSelect={() =>
-                                    setSecurityData({
-                                        ...securityData,
-                                        location: "Location 2",
-                                    })
-                                }
-                                className="dropdown-menu-item"
-                            >
-                                Location 2
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                        </PopoverTrigger>
+                        <PopoverContent className="origin-top-right absolute mt-2 max-h-60 overflow-y-auto w-56 rounded-md shadow-lg">
+                            <Input
+                                ref={searchRef}
+                                className="w-full"
+                                placeholder="Search location..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            {filteredNodes.map((node) => (
+                                <div
+                                    key={node.nodeID}
+                                    className="p-2 hover:bg-gray-100 cursor-pointer"
+                                    onClick={() =>
+                                        handleLocationSelect(
+                                            node.nodeID,
+                                            node.longName,
+                                        )
+                                    }
+                                >
+                                    {node.longName}
+                                </div>
+                            ))}
+                        </PopoverContent>
+                    </Popover>
                 </div>
                 <div>
                     <Label className="block text-sm font-medium text-gray-700">
@@ -278,61 +310,47 @@ export default function SecurityForm() {
                     </DropdownMenu>
                 </div>
                 <Button
-                    type={"submit"}
+                    type="submit"
+                    disabled={
+                        !securityData.employeeName ||
+                        !securityData.employeeID ||
+                        !securityData.reqPriority ||
+                        !securityData.location ||
+                        !securityData.requestType ||
+                        !securityData.reqStatus
+                    }
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Submit
                 </Button>
             </form>
-
             <div className="mt-8">
                 <h3 className="text-lg leading-6 font-medium text-gray-900">
                     Submitted Requests
                 </h3>
-                <div className="mt-4">
-                    <table className="min-w-full divide-y divide-gray-200">
+                <div className="mt-4 overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200 table-fixed">
                         <thead className="bg-gray-50">
                             <tr>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
                                     Employee Name
                                 </th>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[120px] break-words">
                                     Employee ID
                                 </th>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">
                                     Alert Authorities?
                                 </th>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 break-words">
                                     Request Type
                                 </th>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider break-words">
                                     Location
                                 </th>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">
                                     Request Priority
                                 </th>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[160px] break-words">
                                     Request Status
                                 </th>
                             </tr>
@@ -340,27 +358,27 @@ export default function SecurityForm() {
                         <tbody className="bg-white divide-y divide-gray-200">
                             {requests.map((request, index) => (
                                 <tr key={index}>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">
                                         {request.employeeName}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
                                         {request.employeeID}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
                                         {request.alertAuthorities
                                             ? "Yes"
                                             : "No"}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">
                                         {request.requestType}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500 break-words">
                                         {request.location}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
                                         {request.reqPriority}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 break-words">
                                         {request.reqStatus}
                                     </td>
                                 </tr>

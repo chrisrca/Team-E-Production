@@ -251,7 +251,7 @@ function DataViewer() {
     return (
         <div className="p-10 flex flex-auto flex-col items-center align-center">
             <div className="flex flex-row items-center">
-                <div className="space-x-1 flex flex-row">
+                <div className="space-x-1 flex flex-auto flex-row">
                     <Button onClick={() => setCurrData(nodeData)}>
                         Node Data
                     </Button>
@@ -271,7 +271,7 @@ function DataViewer() {
                         Security Data
                     </Button>
                     <Button onClick={() => setCurrData(drugData)}>
-                        Drug Data
+                        Medicine Delivery Data
                     </Button>
                     <Button onClick={() => setCurrData(sanitationData)}>
                         Sanitation Data
@@ -286,6 +286,7 @@ function DataViewer() {
                 <div className=" px-10 flex flex-col space-y-2">
                     <div className="flex flex-row px-2 space-x-2">
                         <Input
+                            className="text-foreground bg-secondary"
                             type="file"
                             onChange={(e) => {
                                 if (e.target.files !== null) {
@@ -297,13 +298,11 @@ function DataViewer() {
                             Upload
                         </Button>
                     </div>
-
-                    <Button
-                        className="flex flex-row px-2 space-x-2"
-                        onClick={downloadCSV}
-                    >
-                        Download
-                    </Button>
+                    <div className="flex flex-row px-2">
+                        <Button className="w-full" onClick={downloadCSV}>
+                            Download
+                        </Button>
+                    </div>
                 </div>
             </div>
             {<ViewNodes data={currData} />}

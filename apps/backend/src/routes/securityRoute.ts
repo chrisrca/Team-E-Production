@@ -4,20 +4,22 @@ import { SecurityServiceRequest } from "common/src/types";
 
 const router = express.Router();
 
-let security: string;
-
-async function getSecurityFromDB(): Promise<string> {
-    security = await client.$queryRaw`SELECT * FROM security`;
-    return security;
+async function getSecurityFromDB(): Promise<SecurityServiceRequest[] | null> {
+    try {
+        return await client.security.findMany();
+    } catch (error) {
+        console.error("Error fetching security data from DB:", error);
+        throw error;
+    }
 }
 
 router.post("/", async (req: Request, res: Response) => {
     const securityRequest: SecurityServiceRequest = req.body;
     try {
-        await client.security.create({
+        const createdSecurity = await client.security.create({
             data: {
                 employeeName: securityRequest.employeeName,
-                employeeID: parseInt(securityRequest.employeeID),
+                employeeID: securityRequest.employeeID,
                 reqPriority: securityRequest.reqPriority,
                 location: securityRequest.location,
                 requestType: securityRequest.requestType,
@@ -25,16 +27,26 @@ router.post("/", async (req: Request, res: Response) => {
                 alertAuthorities: securityRequest.alertAuthorities,
             },
         });
-    } catch (e) {
-        console.log(e);
-        res.send("Failed to add security form to database");
+        res.json({
+            message: "Security form added to database",
+            data: createdSecurity,
+        });
+    } catch (error) {
+        console.error("Failed to add security form to database:", error);
+        res.status(500).json({
+            message: "Failed to add security form to database",
+            error: error,
+        });
     }
-    res.send("Security form added to database");
 });
 
 router.get("/", async (req: Request, res: Response) => {
-    const msg = await getSecurityFromDB();
-    res.send(msg);
+    try {
+        const securityData = await getSecurityFromDB();
+        res.json(securityData);
+    } catch (error) {
+        res.status(500).send("Failed to fetch security data from database");
+    }
 });
 
 export default router;

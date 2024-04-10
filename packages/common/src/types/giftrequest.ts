@@ -1,7 +1,9 @@
 export interface GiftServiceRequest {
     recipientName: string;
     deliveryLocation: string;
-    warmwords: string;
+    message: string;
     giftSize: string;
+    status: string;
     priority: string;
+    wrapping: string;
 }

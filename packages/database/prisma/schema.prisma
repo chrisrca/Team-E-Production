@@ -41,6 +41,8 @@ model flower {
   senderName  String
   cardMessage String
   flowerType  String
+  status      String
+  priority    String
   date        DateTime @default(now())
 }
 
@@ -48,9 +50,11 @@ model gift {
   id               Int    @id @default(autoincrement())
   recipientName    String
   deliveryLocation String
-  warmwords        String
+  message          String
   giftSize         String
+  status           String
   priority         String
+  wrapping         String
 }
 
 model interpreter {
@@ -59,6 +63,8 @@ model interpreter {
   language       String
   duration       String
   location       String
+  status         String
+  priority       String
   additionalInfo String
 }
 

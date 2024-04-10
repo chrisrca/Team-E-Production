@@ -20,6 +20,8 @@ router.post("/", async (req: Request, res: Response) => {
                 language: interpRequest.language,
                 duration: interpRequest.duration,
                 location: interpRequest.location,
+                status: interpRequest.status,
+                priority: interpRequest.priority,
                 additionalInfo: interpRequest.additionalInfo,
             },
         });
