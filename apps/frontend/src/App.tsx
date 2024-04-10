@@ -6,6 +6,7 @@ import InterpreterService from "@/routes/LanguageInterpreterRequest.tsx";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Hamburger from "./components/Hamburger.tsx";
 import MapPage from "@/routes/MapPage.tsx";
+import MapEditor from "@/routes/MapEditor.tsx";
 import DataViewer from "@/routes/DataViewer.tsx";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import { ModeToggle } from "./components/ModeToggle.tsx";
@@ -25,10 +26,7 @@ function App() {
         async function fetchNodes() {
             try {
                 const response = await axios.get("/api/nodes");
-                const filteredNodes = response.data.filter(
-                    (node: DBNode) => node.floor === "L1",
-                );
-                setNodes(filteredNodes);
+                setNodes(response.data);
             } catch (error) {
                 console.error("Failed to fetch nodes: ", error);
             }
@@ -44,6 +42,10 @@ function App() {
                     <Route index element={<Welcome />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
+                    <Route
+                        path="/map-editor"
+                        element={<MapEditor nodes={nodes} />}
+                    />
                     <Route path="/flower-service" element={<FlowerService />} />
                     <Route
                         path="/gift-service"

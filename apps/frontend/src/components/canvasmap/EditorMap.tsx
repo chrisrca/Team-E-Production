@@ -14,11 +14,11 @@ import Level3 from "./mapImages/03_thethirdfloor.png";
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
 interface CanvasMapProps {
     nodes: DBNode[];
-    path: DBNode[];
+    path: DBNode[][];
     level: number;
 }
 
-export default function CanvasMap(nodes: CanvasMapProps) {
+export default function EditorMap(nodes: CanvasMapProps) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
@@ -84,7 +84,11 @@ export default function CanvasMap(nodes: CanvasMapProps) {
             //NODE DRAWING
             nodeData.forEach((node) => {
                 if (node.floor !== floor[mapLevel]) return;
-
+                ctx.fillText(
+                    node.nodeID,
+                    node.xcoord * xMult,
+                    node.ycoord * yMult,
+                );
                 // Original Dot
                 ctx.beginPath();
                 ctx.fillStyle = "#002244"; // Color of the dot
@@ -112,32 +116,36 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                 ctx.stroke();
             });
             //PATH DRAWING
+
             if (pathData.length > 0) {
-                ctx.setLineDash([7, 3]);
+                ctx.setLineDash([5, 0]);
                 ctx.strokeStyle = "#1d3e60";
                 ctx.lineWidth = 4;
-                if (pathData[0].floor === floor[mapLevel]) {
-                    ctx.beginPath();
-                    ctx.moveTo(
-                        pathData[0].xcoord * xMult,
-                        pathData[0].ycoord * yMult,
-                    );
-                }
-                for (let i = 1; i < pathData.length; i++) {
-                    const node = pathData[i];
-                    if (node.floor === floor[mapLevel]) {
-                        //LINE DRAWING
-                        ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
-                    }
-                    if (node.floor !== floor[mapLevel]) {
-                        ctx.stroke();
-                        ctx.beginPath();
-                        continue;
-                    }
-
+                // Iterate over each path group in pathData
+                for (const group of pathData) {
+                    // Start a new path for each group
                     if (
-                        pathData[pathData.length - 1].floor === floor[mapLevel]
+                        group.length > 0 &&
+                        group[0].floor === floor[mapLevel]
                     ) {
+                        ctx.beginPath();
+                        ctx.moveTo(
+                            group[0].xcoord * xMult,
+                            group[0].ycoord * yMult,
+                        ); // Move to the start of this path
+
+                        // Draw lines to each subsequent node in the group
+                        for (let i = 1; i < group.length; i++) {
+                            const node = group[i];
+                            if (node.floor === floor[mapLevel]) {
+                                ctx.lineTo(
+                                    node.xcoord * xMult,
+                                    node.ycoord * yMult,
+                                );
+                            }
+                        }
+
+                        // Finish the path for this group
                         ctx.stroke();
                     }
                 }
