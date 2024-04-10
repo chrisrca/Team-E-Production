@@ -439,8 +439,8 @@ export default function MedicalDeviceServiceRequest() {
                             Device Type
                         </label>
                         <select
-                            id="serviceType"
-                            name="serviceType"
+                            id="deviceType"
+                            name="deviceType"
                             value={medicalDeviceData.selectedDevice}
                             onChange={handleChange}
                         >
