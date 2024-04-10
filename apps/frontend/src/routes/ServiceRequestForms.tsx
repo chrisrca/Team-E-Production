@@ -13,7 +13,15 @@ const defaultTestSchema = {
     field4: "",
 };
 
+//Label is necessary, ids are calculated assuming that there is a title
+
 const test = [
+    {
+        content: "label",
+        title: "Big Ass Label",
+        type: "header",
+        id: 0,
+    },
     {
         content: "text",
         type: "string",
@@ -27,7 +35,7 @@ const test = [
         type: "string",
         title: "select 1",
         placeholder: "select placeholder 1",
-        required: false,
+        required: true,
         id: 0,
         label: "Options",
         options: ["option 1", "option 2", "option 3"],
@@ -53,4 +61,5 @@ const test = [
 ];
 export const ServiceRequestForm = () => {
     return ServiceRequests(test, defaultTestSchema);
+
 };

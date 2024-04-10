@@ -9,7 +9,8 @@ import { FormEvent, ChangeEvent } from "react";
 // import { Button } from "@/components/ui/button";
 //import { TestSchema } from "common/src/types";
 import { Input } from "@/components/ui/input";
-//import {Label} from "@/components/ui/label";
+import {Label} from "@/components/ui/label";
+//import { BWH } from "@/src/images/BWH-high-res.jpg";
 //import {
 //     Form,
 //     FormControl,
@@ -91,16 +92,19 @@ import {
 //     )
 // }
 
-type Component = {
+type FormLabel = {
     content: string; //Element content - (input, select, switch, button, ect)
-    type: string; //Element type - (string, number, etc)
     title: string; //Element title
+    type: string; //Element type - (string, number, etc)
+    id: number;
+}
+
+type FormComponent = FormLabel & {
     placeholder: string; //Displayed placeholder text
     required: boolean; //Required field?
-    id: number;
 };
 
-type FormSelect = Component & {
+type FormSelect = FormComponent & {
     label: string; // Options label
     options: string[]; //Displayed options
 };
@@ -137,7 +141,7 @@ export interface FlowerServiceRequest {
  * */
 
 export const ServiceRequests = (
-    layout: (Component | FormSelect)[],
+    layout: ( FormLabel | FormComponent | FormSelect )[],
     blankSchema: NonNullable<unknown>,
 ) => {
     const formSchema = { ...blankSchema };
@@ -151,21 +155,23 @@ export const ServiceRequests = (
     console.log(schemaKeys);
 
     // Form Generation
-    const makeForm = (props: FormSelect[] | Component[]) => {
+    const makeForm = (props: ( FormLabel | FormComponent | FormSelect )[]) => {
         return (
             <>
-                <div className="flex flex-col flex-auto w-[35rem] m-auto p-10 space-y-8 items-left">
+                <div className="space-y-6">
                     {props.map(identifyComponent)}
                 </div>
             </>
         );
     };
     // Identify element to return based on value of Component.type
-    const identifyComponent = (props: Component) => {
+    const identifyComponent = (props: FormComponent) => {
         if (props.content.includes("text")) {
             return inputComp(props);
         } else if (props.content.includes("select")) {
             return selectComp(props as FormSelect);
+        } else if (props.content.includes("label")) {
+            return labelComp(props as FormSelect);
         } else {
             console.error("Failed to identify element - " + props.type);
         }
@@ -173,12 +179,27 @@ export const ServiceRequests = (
 
     //Beginning of Elements
 
-    const inputComp = (props: Component) => {
+    const labelComp = (props: FormLabel) => {
+        console.log("making label element");
+        return (
+            <>
+                <div className="text-6xl pt-8">
+                    <Label
+                        variant={props.type}
+                    >
+                        {props.title}
+                    </Label>
+                </div>
+            </>
+        );
+    };
+
+    const inputComp = (props: FormComponent) => {
         console.log("making input element");
         return (
             <>
                 <div className="">
-                    <label className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2">
+                    <label className={"text-sm tracking-wide text-foreground font-medium m-1"}>
                         {props.title}
                     </label>
                     <Input
@@ -187,6 +208,7 @@ export const ServiceRequests = (
                         onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             (formValues[props.id] = e.target.value.toString())
                         }
+                        className={"shadow-md hover:ring-2 hover:ring-bg-primary ring-0"}
                     />
                 </div>
             </>
@@ -196,30 +218,32 @@ export const ServiceRequests = (
         return (
             <>
                 <div className="">
-                    <label className="block uppercase tracking-wide text-foreground text-xs font-bold mb-2">
+                    <label className="text-sm tracking-wide text-foreground font-medium m-1">
                         {props.title}
                     </label>
-                    <Select
-                        required={props.required}
-                        onValueChange={(value: string) =>
-                            (formValues[props.id] = value.toString())
-                        }
-                    >
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder={props.placeholder} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>{props.label}</SelectLabel>
-                                {/* Map options to select */}
-                                {props.options.map((option) => (
-                                    <SelectItem value={option.toString()}>
-                                        {option}
-                                    </SelectItem>
-                                ))}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
+                    <div >
+                        <Select
+                            required={props.required}
+                            onValueChange={(value: string) =>
+                                (formValues[props.id] = value.toString())
+                            }
+                        >
+                            <SelectTrigger className="w-fit w-[180px] shadow-md hover:ring-2">
+                                <SelectValue placeholder={props.placeholder} />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>{props.label}</SelectLabel>
+                                    {/* Map options to select */}
+                                    {props.options.map((option) => (
+                                        <SelectItem value={option.toString()}>
+                                            {option}
+                                        </SelectItem>
+                                    ))}
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    </div>
                 </div>
             </>
         );
@@ -232,7 +256,7 @@ export const ServiceRequests = (
 
     // Assign id to each element specified in layout based on order in the form,
     // determines where form values are sent on submit
-    layout.map((field) => (field.id = layout.indexOf(field)));
+    layout.map((field) => (field.id = (layout.indexOf(field) - 1)));
 
     const handleSubmit = (e: FormEvent) => {
         // Shallow copy of formSchema that is discarded after submit,
@@ -244,7 +268,7 @@ export const ServiceRequests = (
 
         // Saving of data
         // Using array of keys, maps data held in formValues to formData object
-        // (lint doesn't like that form doesn't have a promised type)
+        // (lint doesn't like that formData doesn't have a promised type)
 
         schemaKeys.map(
             (field) =>
@@ -268,17 +292,26 @@ export const ServiceRequests = (
 
     return (
         <>
-            <div className="flex flex-col space-y-8 items-center bg-secondary w-[35rem] rounded m-auto ">
-                <form className="rounded" onSubmit={handleSubmit}>
-                    {makeForm(layout)}
-                    <button
-                        className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
-                        type={"submit"}
-                    >
-                        Submit
-                    </button>
-                </form>
+            <div className="py-16 h-screen">
+                <div className="flex flex-col block shadow-lg align-middle size-fit items-center bg-secondary w-[35rem] rounded-lg">
+                    <form className="rounded" onSubmit={handleSubmit}>
+                        <div
+                            className="">
+                            {makeForm(layout)}
+                            <div className={"py-8"}>
+                                <button
+                                    className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                                    type={"submit"}
+                                >
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
+
         </>
-    );
+    )
+        ;
 };
