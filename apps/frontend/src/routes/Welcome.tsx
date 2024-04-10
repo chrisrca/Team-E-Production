@@ -305,7 +305,7 @@ export default function Welcome() {
                             </CardContent>
                             <CardFooter className="flex justify-end items-center">
                                 <Link
-                                    to="/medical-device"
+                                    to="/medical-device-service"
                                     className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
                                 >
                                     Take me there
