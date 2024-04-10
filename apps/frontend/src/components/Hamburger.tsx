@@ -41,16 +41,16 @@ export default function Hamburger() {
                             />
                         </Link>
                     </SheetClose>
-                    <Collapsible className="grid gap-4">
-                        <CollapsibleTrigger className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                    <Collapsible className="grid gap-4 dark:bg-secondary">
+                        <CollapsibleTrigger className="flex rounded-sm p-1 hover:bg-card w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
                             Services{" "}
                             <ChevronRight className="ml-auto w-4 h-4 transition-all" />
                         </CollapsibleTrigger>
                         <CollapsibleContent>
-                            <div className="-mx-6 grid gap-6 bg-gray-150 p-6 dark:bg-gray-800">
+                            <div className="grid gap-3 bg-gray-150 px-3">
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
                                         to="flower-service"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -60,7 +60,27 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="gift-service"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Gift Request
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="drug-service"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Medicine Request
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
                                         to="security"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -70,87 +90,87 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
-                                        to="drug-service"
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="language-service"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
-                                            Medicine Request
+                                            Language Interpreter Request
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="sanitation"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Sanitation Request
+                                        </div>
+                                    </Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="room-service"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            Room Scheduling Request
                                         </div>
                                     </Link>
                                 </SheetClose>
                             </div>
                         </CollapsibleContent>
                     </Collapsible>
-                    <Collapsible className="grid gap-4">
-                        <CollapsibleTrigger className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                            Maps{" "}
+                    <Collapsible className="grid gap-4 dark:bg-secondary">
+                        <CollapsibleTrigger className="flex rounded-sm p-1 hover:bg-card w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                            Map{" "}
                             <ChevronRight className="ml-auto w-4 h-4 transition-all" />
                         </CollapsibleTrigger>
                         <CollapsibleContent>
-                            <div className="-mx-6 grid gap-6 bg-gray-150 p-6 dark:bg-gray-800">
+                            <div className="grid gap-3 bg-gray-150 px-3">
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
                                         to="map"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
-                                            Level 1
+                                            Map
                                         </div>
                                     </Link>
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
-                                        to="map"
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="map-editor"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
-                                            Level 2
-                                        </div>
-                                    </Link>
-                                </SheetClose>
-                                <SheetClose asChild>
-                                    <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
-                                        to="map"
-                                    >
-                                        <div className="text-sm font-medium leading-none group-hover:underline">
-                                            Level 3
+                                            Map Editor
                                         </div>
                                     </Link>
                                 </SheetClose>
                             </div>
                         </CollapsibleContent>
                     </Collapsible>
-                    <Collapsible className="grid gap-4">
-                        <CollapsibleTrigger className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                            Data Viewer{" "}
-                            <ChevronRight className="ml-auto w-4 h-4 transition-all" />
-                        </CollapsibleTrigger>
-                        <CollapsibleContent>
-                            <div className="-mx-6 grid gap-6 bg-gray-150 p-6 dark:bg-gray-800">
-                                <SheetClose asChild>
-                                    <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
-                                        to="data"
-                                    >
-                                        <div className="text-sm font-medium leading-none group-hover:underline">
-                                            Nodes and Edges
-                                        </div>
-                                    </Link>
-                                </SheetClose>
-                                <SheetClose asChild>
-                                    <Link
-                                        className="group grid h-auto w-full justify-start gap-1"
-                                        to="security"
-                                    >
-                                        <div className="text-sm font-medium leading-none group-hover:underline">
-                                            Services
-                                        </div>
-                                    </Link>
-                                </SheetClose>
+                    {/* <SheetClose asChild>
+                        <Link
+                            className="group rounded-sm p-1 grid hover:bg-card h-auto w-full justify-start gap-1"
+                            to="map"
+                        >
+                            <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                                Map
                             </div>
-                        </CollapsibleContent>
-                    </Collapsible>
+                        </Link>
+                    </SheetClose> */}
+                    <SheetClose asChild>
+                        <Link
+                            className="group rounded-sm p-1 grid hover:bg-card h-auto w-full justify-start gap-1"
+                            to="data"
+                        >
+                            <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                                Data Viewer
+                            </div>
+                        </Link>
+                    </SheetClose>
                 </div>
             </SheetContent>
         </Sheet>
