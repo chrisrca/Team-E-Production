@@ -10,6 +10,7 @@ import LLevel2 from "./mapImages/00_thelowerlevel2.png";
 import Level1 from "./mapImages/01_thefirstfloor.png";
 import Level2 from "./mapImages/02_thesecondfloor.png";
 import Level3 from "./mapImages/03_thethirdfloor.png";
+import drawGraph from "@/components/canvasmap/RenderGraph.tsx";
 
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
 interface CanvasMapProps {
@@ -77,72 +78,9 @@ export default function CanvasMap(nodes: CanvasMapProps) {
 
     //DRAWING OF NODES AND PATH
     useEffect(() => {
-        const floor = ["L2", "L1", "1", "2", "3"];
         const xMult = imageSize.width / 5000;
         const yMult = imageSize.height / 3400;
-        function drawNodes(ctx: CanvasRenderingContext2D) {
-            //NODE DRAWING
-            nodeData.forEach((node) => {
-                if (node.floor !== floor[mapLevel]) return;
 
-                // Original Dot
-                ctx.beginPath();
-                ctx.fillStyle = "#002244"; // Color of the dot
-                ctx.arc(
-                    node.xcoord * xMult,
-                    node.ycoord * yMult,
-                    3, // Radius of the dot
-                    0,
-                    2 * Math.PI,
-                );
-                ctx.fill();
-
-                // Ring around the Dot
-                ctx.setLineDash([5, 0]);
-                ctx.beginPath();
-                ctx.strokeStyle = "#012d5a"; // Color of the ring
-                ctx.lineWidth = 2; // Width of the ring
-                ctx.arc(
-                    node.xcoord * xMult,
-                    node.ycoord * yMult,
-                    6, // Radius of the ring
-                    0,
-                    2 * Math.PI,
-                );
-                ctx.stroke();
-            });
-            //PATH DRAWING
-            if (pathData.length > 0) {
-                ctx.setLineDash([7, 3]);
-                ctx.strokeStyle = "#1d3e60";
-                ctx.lineWidth = 4;
-                if (pathData[0].floor === floor[mapLevel]) {
-                    ctx.beginPath();
-                    ctx.moveTo(
-                        pathData[0].xcoord * xMult,
-                        pathData[0].ycoord * yMult,
-                    );
-                }
-                for (let i = 1; i < pathData.length; i++) {
-                    const node = pathData[i];
-                    if (node.floor === floor[mapLevel]) {
-                        //LINE DRAWING
-                        ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
-                    }
-                    if (node.floor !== floor[mapLevel]) {
-                        ctx.stroke();
-                        ctx.beginPath();
-                        continue;
-                    }
-
-                    if (
-                        pathData[pathData.length - 1].floor === floor[mapLevel]
-                    ) {
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
         //This shit supposed to draw the image and the nodes let's goooo
         const image = new Image();
         image.src = MapImage[mapLevel];
@@ -153,7 +91,14 @@ export default function CanvasMap(nodes: CanvasMapProps) {
             if (context) {
                 image.onload = () => {
                     context.drawImage(image, 0, 0, canvas.width, canvas.height);
-                    drawNodes(context!);
+                    drawGraph(
+                        context!,
+                        xMult,
+                        yMult,
+                        pathData,
+                        nodeData,
+                        mapLevel,
+                    );
                 };
             }
         }
