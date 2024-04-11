@@ -6,6 +6,7 @@ export default function drawNodes(
     xMult: number,
     yMult: number,
     mapLevel: number,
+    mousePosition: { x: number; y: number }
 ) {
     const floor = ["L2", "L1", "1", "2", "3"];
     nodeData.forEach((node) => {
@@ -13,7 +14,7 @@ export default function drawNodes(
         ctx.lineWidth = 2;
         switch (node.nodeType) {
             case "HALL":
-                drawSquare(ctx, node, xMult, yMult);
+                drawSquare(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "CONF":
                 drawRectangle(ctx, node, xMult, yMult);
@@ -50,6 +51,9 @@ export default function drawNodes(
                 break;
         }
     });
+}
+function calculateDistance(point1: { x: number; y: number }, node: DBNode) {
+    return Math.sqrt(Math.pow(node.xcoord - point1.x, 2) + Math.pow(node.ycoord - point1.y, 2));
 }
 
 function drawHexagon(
@@ -99,9 +103,13 @@ function drawSquare(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number }
 ) {
     ctx.beginPath();
-    const size = 10;
+    let size: number = 10;
+    if (calculateDistance(mousePosition, node) < 10) {
+        size *= 2;
+    }
     const halfSize = size / 2;
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;

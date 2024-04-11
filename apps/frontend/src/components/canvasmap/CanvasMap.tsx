@@ -23,6 +23,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }); // State to hold mouse coordinates
     const nodeData = nodes.nodes;
     const pathData = nodes.path;
     const mapLevel = nodes.level;
@@ -76,6 +77,23 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         }
     };
 
+    // This function took like 3 hours dont touch it :sob:
+    // Map current mouse position onto canvas
+    const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;   // relationship bitmap vs. element for X
+        const scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
+
+        const x = (event.clientX - rect.left) * scaleX;  // scale mouse coordinates after they have
+        const y = (event.clientY - rect.top) * scaleY;   // been adjusted to be relative to element
+
+        setMousePosition({ x, y });
+    };
+
+
     //DRAWING OF NODES AND PATH
     useEffect(() => {
         const xMult = imageSize.width / 5000;
@@ -98,11 +116,12 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                         pathData,
                         nodeData,
                         mapLevel,
+                        mousePosition
                     );
                 };
             }
         }
-    }, [nodeData, pathData, imageSize, mapLevel]);
+    }, [nodeData, pathData, imageSize, mapLevel, mousePosition]);
 
     return (
         <TransformWrapper
@@ -122,6 +141,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                     width={5000}
                     style={{ width: "100%", height: "100%", display: "block" }}
                     id="layer1"
+                    onMouseMove={handleMouseMove}
                 />
             </TransformComponent>
         </TransformWrapper>
