@@ -6,7 +6,7 @@ export default function drawNodes(
     xMult: number,
     yMult: number,
     mapLevel: number,
-    mousePosition: { x: number; y: number }
+    mousePosition: { x: number; y: number },
 ) {
     const floor = ["L2", "L1", "1", "2", "3"];
     nodeData.forEach((node) => {
@@ -53,7 +53,10 @@ export default function drawNodes(
     });
 }
 function calculateDistance(point1: { x: number; y: number }, node: DBNode) {
-    return Math.sqrt(Math.pow(node.xcoord - point1.x, 2) + Math.pow(node.ycoord - point1.y, 2));
+    return Math.sqrt(
+        Math.pow(node.xcoord - point1.x, 2) +
+            Math.pow(node.ycoord - point1.y, 2),
+    );
 }
 
 function drawHexagon(
@@ -103,7 +106,7 @@ function drawSquare(
     node: DBNode,
     xMult: number,
     yMult: number,
-    mousePosition: { x: number; y: number }
+    mousePosition: { x: number; y: number },
 ) {
     ctx.beginPath();
     let size: number = 10;

@@ -77,22 +77,23 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         }
     };
 
-    // This function took like 3 hours dont touch it :sob:
+    // This function took like 3 hours dont touch it
     // Map current mouse position onto canvas
-    const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
+    const handleMouseMove = (
+        event: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
+    ) => {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
         const rect = canvas.getBoundingClientRect();
-        const scaleX = canvas.width / rect.width;   // relationship bitmap vs. element for X
+        const scaleX = canvas.width / rect.width; // relationship bitmap vs. element for X
         const scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
 
-        const x = (event.clientX - rect.left) * scaleX;  // scale mouse coordinates after they have
-        const y = (event.clientY - rect.top) * scaleY;   // been adjusted to be relative to element
+        const x = (event.clientX - rect.left) * scaleX; // scale mouse coordinates after they have
+        const y = (event.clientY - rect.top) * scaleY; // been adjusted to be relative to element
 
         setMousePosition({ x, y });
     };
-
 
     //DRAWING OF NODES AND PATH
     useEffect(() => {
@@ -116,7 +117,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                         pathData,
                         nodeData,
                         mapLevel,
-                        mousePosition
+                        mousePosition,
                     );
                 };
             }
