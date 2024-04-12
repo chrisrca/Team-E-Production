@@ -43,12 +43,12 @@ async function runDFS(start: string, end: string) {
 }
 
 function dfs(start: Node, end: Node): Node[] | null {
-    const queue: Node[] = [start];
+    const stack: Node[] = [start];
     const visited: Set<Node> = new Set([start]);
     const parentMap: Map<Node, Node> = new Map();
 
-    while (queue.length > 0) {
-        let current: Node = queue.shift() as Node;
+    while (stack.length > 0) {
+        let current: Node = stack.pop() as Node;
 
         // When the end is found, reconstruct the path from end to start
         if (current === end) {
@@ -65,7 +65,7 @@ function dfs(start: Node, end: Node): Node[] | null {
             const neighbor = edge.start === current ? edge.end : edge.start;
             if (!visited.has(neighbor)) {
                 visited.add(neighbor);
-                queue.push(neighbor);
+                stack.unshift(neighbor);
                 parentMap.set(neighbor, current); // Track the path
             }
         }
