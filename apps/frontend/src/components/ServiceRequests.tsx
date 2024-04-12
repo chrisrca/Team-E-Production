@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { FormEvent, ChangeEvent } from "react";
+import {FormEvent, ChangeEvent} from "react";
 //import { SubmitEvent } from "react";
 // import { zodResolver } from "@hookform/resolvers/zod";
 // import { useForm } from "react-hook-form";
@@ -8,8 +8,10 @@ import { FormEvent, ChangeEvent } from "react";
 // import axios from "axios";
 // import { Button } from "@/components/ui/button";
 //import { TestSchema } from "common/src/types";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
+import {FlowerServiceRequest} from "common/src/types";
+//import Lilacs from "/src/images/Lilacs.jpg";
 //import { BWH } from "@/src/images/BWH-high-res.jpg";
 //import {
 //     Form,
@@ -35,6 +37,8 @@ import {
     RadioGroupItem,
 } from "./ui/radio-group";
 import {Checkbox} from "@/components/ui/checkbox";
+import axios from "axios";
+
 // import {
 //     Popover,
 //     PopoverContent,
@@ -42,66 +46,6 @@ import {Checkbox} from "@/components/ui/checkbox";
 // } from "@/components/ui/popover";
 // import {Button} from "@/components/ui/button";
 //import FormInput from "@/components/ui/formInput";
-
-// import {
-//     Table,
-//     TableBody,
-//     TableCaption,
-//     TableCell,
-//     TableHead,
-//     TableHeader,
-//     TableRow,
-// } from "@/components/ui/table";
-
-//type FormSchema = DrugDeliveryData | FlowerServiceRequest | TestSchema;
-
-// type TableData = {
-//     submission: string[];
-// };
-
-// type Submission = {
-//     data: string[];
-// };
-
-// type formSchema = {
-//     field1: string;
-//     field2: string;
-//     field3: string;
-// };
-
-// const tableComp = (props: TableData) => {
-//     return (
-//         <div className="p-10 m-auto w-min">
-//             <Table>
-//                 <TableCaption>List of requests.</TableCaption>
-//                 <TableHeader>
-//                     <TableRow>
-//                         <TableHead>Employee Name</TableHead>
-//                         <TableHead>Location</TableHead>
-//                         <TableHead>Message</TableHead>
-//                         <TableHead>Gift</TableHead>
-//                         <TableHead>Priority</TableHead>
-//                         <TableHead>Status</TableHead>
-//                         <TableHead>Anonymous</TableHead>
-//                     </TableRow>
-//                 </TableHeader>
-//                 <TableBody>
-//                     {submissions.map((request) => (
-//                         <TableRow key={request.toString()}>
-//                             <TableCell>{request.employeeName}</TableCell>
-//                             <TableCell>{request.location}</TableCell>
-//                             <TableCell>{request.message}</TableCell>
-//                             <TableCell>{request.gift}</TableCell>
-//                             <TableCell>{request.priority}</TableCell>
-//                             <TableCell>{request.status}</TableCell>
-//                             <TableCell>{request.anonymous.toString()}</TableCell>
-//                         </TableRow>
-//                     ))}
-//                 </TableBody>
-//             </Table>
-//         </div>
-//     )
-// }
 
 type FormLabel = {
     content: string; //Element content - (input, select, switch, button, ect)
@@ -119,14 +63,6 @@ type FormSelect = FormComponent & {
     label: string; // Options label
     options: string[]; //Displayed options
 };
-
-export interface FlowerServiceRequest {
-    patientName: string;
-    roomNumber: string;
-    senderName: string;
-    cardMessage: string;
-    flowerType: string;
-}
 
 // layout: an array of objects of type component, how to define the objects is shown above
 // blankSchema: whatever type/interface you assign to the output of your form, just pass a blank version
@@ -154,8 +90,10 @@ export interface FlowerServiceRequest {
 export const ServiceRequests = (
     layout: (FormLabel | FormComponent | FormSelect)[],
     blankSchema: NonNullable<unknown>,
+    apiPath: string,
+    bgPath: string
 ) => {
-    const formSchema = { ...blankSchema };
+    const formSchema = {...blankSchema};
     const schemaKeys = [] as string[];
 
     Object.keys(formSchema).map((value) => {
@@ -165,11 +103,17 @@ export const ServiceRequests = (
     console.log(formSchema);
     console.log(schemaKeys);
 
+    async function sendForm(formData: FlowerServiceRequest, apiPath: string) {
+        axios.post([apiPath], formData).then((res) => {
+            console.log(res);
+        });
+    }
+
     // Form Generation
     const makeForm = (props: (FormLabel | FormComponent | FormSelect)[]) => {
         return (
             <>
-                <div className="space-y-6">{props.map(identifyComponent)}</div>
+                <div className="space-y-6 grid grid-col grid-cols-2">{props.map(identifyComponent)}</div>
             </>
         );
     };
@@ -187,7 +131,7 @@ export const ServiceRequests = (
             return radioGroupComp(props as FormSelect);
         } else if (props.content.includes("checkbox")) {
             return checkboxComp(props as FormComponent);
-        }else {
+        } else {
             console.error("Failed to identify element - " + props.type);
         }
     };
@@ -198,7 +142,7 @@ export const ServiceRequests = (
         console.log("making label element");
         return (
             <>
-                <div className="text-extrabold text-center text-3xl">
+                <div className="text-extrabold col-span-2 text-center text-3xl">
                     <Label>{props.title}</Label>
                 </div>
             </>
@@ -209,10 +153,10 @@ export const ServiceRequests = (
         console.log("making input element");
         return (
             <>
-                <div className="">
+                <div className="col-span-2">
                     <label
                         className={
-                            "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+                            "block col-span-2 text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
                         }
                     >
                         {props.title}
@@ -235,19 +179,20 @@ export const ServiceRequests = (
     const selectComp = (props: FormSelect) => {
         return (
             <>
-                <div className="">
+                <div className="col-span-1">
                     <label className="block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1">
                         {props.title}
                     </label>
-                    <div>
+                    <div className={"pl-2 pr-2"}>
                         <Select
                             required={props.required}
                             onValueChange={(value: string) =>
                                 (formValues[props.id] = value.toString())
                             }
                         >
-                            <SelectTrigger className="w-fit w-[180px] hover:bg-secondary shadow-md hover:ring-2 ring-accent">
-                                <SelectValue placeholder={props.placeholder} />
+                            <SelectTrigger
+                                className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent">
+                                <SelectValue placeholder={props.placeholder}/>
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
@@ -270,7 +215,7 @@ export const ServiceRequests = (
     const radioGroupComp = (props: FormSelect) => {
         return (
             <>
-                <div className={""}>
+                <div className={"col-span-2"}>
                     <label
                         className={
                             "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
@@ -294,7 +239,8 @@ export const ServiceRequests = (
                                             <RadioGroupItem
                                                 className={"hover:bg-accent"}
                                                 value={option}/>
-                                            <Label className="ml-2 text-sm font-medium text-gray-700 dark:text-foreground">
+                                            <Label
+                                                className="ml-2 text-sm font-medium text-gray-700 dark:text-foreground">
                                                 {option}
                                             </Label>
                                         </div>
@@ -311,7 +257,7 @@ export const ServiceRequests = (
     const checkboxComp = (props: FormComponent) => {
         return (
             <>
-                <div className={"flex container:ml-0 pl-6 pt-4 align-content-center"}>
+                <div className={"flex col-span-1 container:ml-0 pl-6 pt-2 align-content-center"}>
                     <Checkbox
                         required={props.required}
                         onCheckedChange={(value: string) =>
@@ -378,7 +324,7 @@ export const ServiceRequests = (
     const handleSubmit = (e: FormEvent) => {
         // Shallow copy of formSchema that is discarded after submit,
         // Pushed to submittedServicesData and adheres to provided interface
-        const formData = { ...formSchema };
+        const formData = {...formSchema};
 
         // Prevent reload on submit
         e.preventDefault();
@@ -396,6 +342,7 @@ export const ServiceRequests = (
 
         // Add current submission to array of submissions
         submittedServiceData.push(formData);
+        sendForm(formData, apiPath);
 
         // Push submission to console
         console.log(formData);
@@ -404,32 +351,46 @@ export const ServiceRequests = (
         console.log(submittedServiceData);
 
         // Not really necessary but clear formValues for next submit
-        formValues.fill("");
     };
 
     return (
         <>
-            <div className="py-14 h-screen">
-                <div className="flex flex-auto mx-auto grid block shadow-lg size-fit bg-secondary w-[35rem] rounded-lg">
-                    <form className="w-full px-16 py-8" onSubmit={handleSubmit}>
-                        {makeForm(layout)}
-                        <div className={"pt-8 space-x-48"}>
-                            <button
-                                className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
-                                type={"submit"}
-                            >
-                                Submit
-                            </button>
-                            <button
-                                className="bg-accent hover:bg-destructive text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
-                                type={"clear"}
-                            >
-                                Clear Form
-                            </button>
+            <section
+                className="fixed top-0 bg-white bg-cover content-center size-full"
+                style={{
+                    backgroundImage: `url(${[bgPath]})`,
+                }}
+            />
+            <div className="">
+
+                <div className="w-full content-center relative">
+                    {/* Hero Section */}
+
+                    <div className={"py-16"}>
+                        <div
+                            className="flex flex-auto mx-auto grid block shadow-lg size-fit bg-secondary w-[35rem] rounded-lg border-4 border-background">
+                            <form className="w-full px-16 py-8" onSubmit={handleSubmit}>
+                                {makeForm(layout)}
+                                <div className={"pt-8 grid grid-col grid-cols-2"}>
+                                    <button
+                                        className="bg-accent hover:bg-destructive text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                                        type={"clear"}
+                                    >
+                                        Clear Form
+                                    </button>
+                                    <button
+                                        className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                                        type={"submit"}
+                                    >
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </>
-    );
+    )
+        ;
 };
