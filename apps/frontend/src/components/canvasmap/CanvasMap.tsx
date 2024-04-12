@@ -10,6 +10,7 @@ import LLevel2 from "./mapImages/00_thelowerlevel2.png";
 import Level1 from "./mapImages/01_thefirstfloor.png";
 import Level2 from "./mapImages/02_thesecondfloor.png";
 import Level3 from "./mapImages/03_thethirdfloor.png";
+import drawGraph from "@/components/canvasmap/RenderGraph.tsx";
 
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
 interface CanvasMapProps {
@@ -22,6 +23,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }); // State to hold mouse coordinates
     const nodeData = nodes.nodes;
     const pathData = nodes.path;
     const mapLevel = nodes.level;
@@ -75,74 +77,29 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         }
     };
 
+    // This function took like 3 hours dont touch it
+    // Map current mouse position onto canvas
+    const handleMouseMove = (
+        event: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
+    ) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width; // relationship bitmap vs. element for X
+        const scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
+
+        const x = (event.clientX - rect.left) * scaleX; // scale mouse coordinates after they have
+        const y = (event.clientY - rect.top) * scaleY; // been adjusted to be relative to element
+
+        setMousePosition({ x, y });
+    };
+
     //DRAWING OF NODES AND PATH
     useEffect(() => {
-        const floor = ["L2", "L1", "1", "2", "3"];
         const xMult = imageSize.width / 5000;
         const yMult = imageSize.height / 3400;
-        function drawNodes(ctx: CanvasRenderingContext2D) {
-            //NODE DRAWING
-            nodeData.forEach((node) => {
-                if (node.floor !== floor[mapLevel]) return;
 
-                // Original Dot
-                ctx.beginPath();
-                ctx.fillStyle = "#002244"; // Color of the dot
-                ctx.arc(
-                    node.xcoord * xMult,
-                    node.ycoord * yMult,
-                    3, // Radius of the dot
-                    0,
-                    2 * Math.PI,
-                );
-                ctx.fill();
-
-                // Ring around the Dot
-                ctx.setLineDash([5, 0]);
-                ctx.beginPath();
-                ctx.strokeStyle = "#012d5a"; // Color of the ring
-                ctx.lineWidth = 2; // Width of the ring
-                ctx.arc(
-                    node.xcoord * xMult,
-                    node.ycoord * yMult,
-                    6, // Radius of the ring
-                    0,
-                    2 * Math.PI,
-                );
-                ctx.stroke();
-            });
-            //PATH DRAWING
-            if (pathData.length > 0) {
-                ctx.setLineDash([7, 3]);
-                ctx.strokeStyle = "#1d3e60";
-                ctx.lineWidth = 4;
-                if (pathData[0].floor === floor[mapLevel]) {
-                    ctx.beginPath();
-                    ctx.moveTo(
-                        pathData[0].xcoord * xMult,
-                        pathData[0].ycoord * yMult,
-                    );
-                }
-                for (let i = 1; i < pathData.length; i++) {
-                    const node = pathData[i];
-                    if (node.floor === floor[mapLevel]) {
-                        //LINE DRAWING
-                        ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
-                    }
-                    if (node.floor !== floor[mapLevel]) {
-                        ctx.stroke();
-                        ctx.beginPath();
-                        continue;
-                    }
-
-                    if (
-                        pathData[pathData.length - 1].floor === floor[mapLevel]
-                    ) {
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
         //This shit supposed to draw the image and the nodes let's goooo
         const image = new Image();
         image.src = MapImage[mapLevel];
@@ -153,11 +110,19 @@ export default function CanvasMap(nodes: CanvasMapProps) {
             if (context) {
                 image.onload = () => {
                     context.drawImage(image, 0, 0, canvas.width, canvas.height);
-                    drawNodes(context!);
+                    drawGraph(
+                        context!,
+                        xMult,
+                        yMult,
+                        pathData,
+                        nodeData,
+                        mapLevel,
+                        mousePosition,
+                    );
                 };
             }
         }
-    }, [nodeData, pathData, imageSize, mapLevel]);
+    }, [nodeData, pathData, imageSize, mapLevel, mousePosition]);
 
     return (
         <TransformWrapper
@@ -177,6 +142,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                     width={5000}
                     style={{ width: "100%", height: "100%", display: "block" }}
                     id="layer1"
+                    onMouseMove={handleMouseMove}
                 />
             </TransformComponent>
         </TransformWrapper>
