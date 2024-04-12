@@ -1,23 +1,22 @@
 
 import { ServiceRequests } from "@/components/ServiceRequests";
 
-const defaultRoomServiceSchema = {
+const defaultMedicalDeviceSchema = {
     employeeName: "",
     location: "",
     priority: "",
     status: "",
-    startTime: "",
-    endTime: "",
-    serviceType: "",
+    selectedDevice: "",
+    withBalloons: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
 
 
-const defaultRoomServiceForm = [
+const defaultMedicalDeviceForm = [
     {
         content: "label",
-        title: "Room Scheduling Request",
+        title: "Medical Device Request",
         type: "header",
         id: 0,
     },
@@ -58,19 +57,11 @@ const defaultRoomServiceForm = [
         options: ["Unassigned", "Assigned", "In Progress", "Closed",],
     },
     {
-        content: "text",
-        type: "datetime-local",
-        title: "Start Time",
-        placeholder: "",
-        required: true,
-        id: 0,
-    },
-    {
-        content: "text",
-        type: "datetime-local",
-        title: "End Time",
-        placeholder: "",
-        required: true,
+        content: "checkbox",
+        type: "string",
+        title: "withBalloons",
+        placeholder: "With Balloons?",
+        required: false,
         id: 0,
     },
     {
@@ -81,11 +72,11 @@ const defaultRoomServiceForm = [
         required: true,
         id: 0,
         label: "Service Type",
-        options: ["Maintenance", "It Support", "Cleaning", "Security",],
+        options: ["Hospital Bed", "IV Pump", "Recliner",],
     },
 ];
-export default function RoomScheduling() {
+export default function MedicalDeviceService() {
     return (
-        ServiceRequests(defaultRoomServiceForm, defaultRoomServiceSchema, "/api/room", "")
+        ServiceRequests(defaultMedicalDeviceForm, defaultMedicalDeviceSchema, "/api/medical-device", "")
     );
 };

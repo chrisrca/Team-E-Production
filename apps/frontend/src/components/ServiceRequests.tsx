@@ -225,6 +225,7 @@ export const ServiceRequests = (
                     </label>
                     <div className={"p-2 w-fit bg-background border-input border shadow-md rounded"}>
                         <RadioGroup
+                            value={props.value}
                             onValueChange={(value: string) =>
                                 (formValues[props.id] = value.toString())
                             }>
@@ -257,17 +258,17 @@ export const ServiceRequests = (
     const checkboxComp = (props: FormComponent) => {
         return (
             <>
-                <div className={"flex col-span-1 container:ml-0 pl-6 pt-2 align-content-center"}>
+                <div className={"flex col-span-1 container:ml-0 pl-6 pt-2 align-content-center "}>
                     <Checkbox
                         required={props.required}
                         onCheckedChange={(value: string) =>
                             (formValues[props.id] = value.toString())
                         }
-                        className={"hover:bg-accent"}
+                        className={"hover:bg-accent my-auto"}
                     >
                         {props.title}
                     </Checkbox>
-                    <Label className="ml-4 text-sm font-medium text-gray-700 dark:text-foreground">
+                    <Label className="ml-4 text-sm font-medium text-gray-700 dark:text-foreground my-auto">
                         {props.placeholder}
                     </Label>
                 </div>
