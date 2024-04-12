@@ -1,4 +1,3 @@
-
 import { ServiceRequests } from "@/components/ServiceRequests";
 import Lilacs from "/src/images/Lilacs.png";
 
@@ -45,7 +44,7 @@ const flowerForm = [
         required: false,
         id: 0,
         label: "Options",
-        options: ["Low", "Medium", "High", "Emergency",],
+        options: ["Low", "Medium", "High", "Emergency"],
     },
     {
         content: "select",
@@ -55,7 +54,7 @@ const flowerForm = [
         required: false,
         id: 0,
         label: "Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed",],
+        options: ["Unassigned", "Assigned", "In Progress", "Closed"],
     },
     {
         content: "text",
@@ -81,11 +80,14 @@ const flowerForm = [
         required: false,
         id: 0,
         label: "Status",
-        options: ["Roses - $13", "Lilies - $50", "Chrysanthemums - $1000",],
+        options: ["Roses - $13", "Lilies - $50", "Chrysanthemums - $1000"],
     },
 ];
 export default function FlowerService() {
-    return (
-        ServiceRequests(flowerForm, defaultFlowerSchema, "/api/flower", Lilacs)
+    return ServiceRequests(
+        flowerForm,
+        defaultFlowerSchema,
+        "/api/flower",
+        Lilacs,
     );
-};
+}

@@ -1,4 +1,3 @@
-
 import { ServiceRequests } from "@/components/ServiceRequests";
 
 const defaultFormSchema = {
@@ -12,7 +11,6 @@ const defaultFormSchema = {
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
-
 
 const defaultForm = [
     {
@@ -53,7 +51,7 @@ const defaultForm = [
         required: true,
         id: 0,
         label: "Priority",
-        options: ["Low", "Medium", "High", "Emergency",],
+        options: ["Low", "Medium", "High", "Emergency"],
     },
     {
         content: "select",
@@ -63,7 +61,7 @@ const defaultForm = [
         required: true,
         id: 0,
         label: "Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed",],
+        options: ["Unassigned", "Assigned", "In Progress", "Closed"],
     },
     {
         content: "text",
@@ -83,7 +81,10 @@ const defaultForm = [
     },
 ];
 export default function InterpreterService() {
-    return (
-        ServiceRequests(defaultForm, defaultFormSchema, "/api/interpreter", "")
+    return ServiceRequests(
+        defaultForm,
+        defaultFormSchema,
+        "/api/interpreter",
+        "",
     );
-};
+}

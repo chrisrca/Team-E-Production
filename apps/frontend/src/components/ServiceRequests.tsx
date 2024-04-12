@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import {FormEvent, ChangeEvent} from "react";
+import { FormEvent, ChangeEvent } from "react";
 //import { SubmitEvent } from "react";
 // import { zodResolver } from "@hookform/resolvers/zod";
 // import { useForm } from "react-hook-form";
@@ -8,9 +8,9 @@ import {FormEvent, ChangeEvent} from "react";
 // import axios from "axios";
 // import { Button } from "@/components/ui/button";
 //import { TestSchema } from "common/src/types";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
-import {FlowerServiceRequest} from "common/src/types";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { FlowerServiceRequest } from "common/src/types";
 //import Lilacs from "/src/images/Lilacs.jpg";
 //import { BWH } from "@/src/images/BWH-high-res.jpg";
 //import {
@@ -32,11 +32,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import {
-    RadioGroup,
-    RadioGroupItem,
-} from "./ui/radio-group";
-import {Checkbox} from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import axios from "axios";
 
 // import {
@@ -91,9 +88,9 @@ export const ServiceRequests = (
     layout: (FormLabel | FormComponent | FormSelect)[],
     blankSchema: NonNullable<unknown>,
     apiPath: string,
-    bgPath: string
+    bgPath: string,
 ) => {
-    const formSchema = {...blankSchema};
+    const formSchema = { ...blankSchema };
     const schemaKeys = [] as string[];
 
     Object.keys(formSchema).map((value) => {
@@ -113,7 +110,9 @@ export const ServiceRequests = (
     const makeForm = (props: (FormLabel | FormComponent | FormSelect)[]) => {
         return (
             <>
-                <div className="space-y-6 grid grid-col grid-cols-2">{props.map(identifyComponent)}</div>
+                <div className="space-y-6 grid grid-col grid-cols-2">
+                    {props.map(identifyComponent)}
+                </div>
             </>
         );
     };
@@ -162,17 +161,18 @@ export const ServiceRequests = (
                         {props.title}
                     </label>
                     <div className={"px-2"}>
-                    <Input
-                        type={props.type}
-                        placeholder={props.placeholder}
-                        required={props.required}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            (formValues[props.id] = e.target.value.toString())
-                        }
-                        className={
-                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
-                        }
-                    />
+                        <Input
+                            type={props.type}
+                            placeholder={props.placeholder}
+                            required={props.required}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                (formValues[props.id] =
+                                    e.target.value.toString())
+                            }
+                            className={
+                                "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+                            }
+                        />
                     </div>
                 </div>
             </>
@@ -192,16 +192,18 @@ export const ServiceRequests = (
                                 (formValues[props.id] = value.toString())
                             }
                         >
-                            <SelectTrigger
-                                className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent">
-                                <SelectValue placeholder={props.placeholder}/>
+                            <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent">
+                                <SelectValue placeholder={props.placeholder} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
                                     <SelectLabel>{props.label}</SelectLabel>
                                     {/* Map options to select */}
                                     {props.options.map((option) => (
-                                        <SelectItem value={option.toString()} className={""}>
+                                        <SelectItem
+                                            value={option.toString()}
+                                            className={""}
+                                        >
                                             {option}
                                         </SelectItem>
                                     ))}
@@ -225,30 +227,33 @@ export const ServiceRequests = (
                     >
                         {props.title}
                     </label>
-                    <div className={"p-2 w-fit bg-background border-input border shadow-md rounded"}>
+                    <div
+                        className={
+                            "p-2 w-fit bg-background border-input border shadow-md rounded"
+                        }
+                    >
                         <RadioGroup
                             value={props.value}
                             onValueChange={(value: string) =>
                                 (formValues[props.id] = value.toString())
-                            }>
+                            }
+                        >
                             {/* Map options to select */}
                             <div className="flex px-4 space-x-4">
-                                {props.options.map(
-                                    (option) => (
-                                        <div
-                                            key={option}
-                                            className="flex items-center"
-                                        >
-                                            <RadioGroupItem
-                                                className={"hover:bg-accent"}
-                                                value={option}/>
-                                            <Label
-                                                className="ml-2 text-sm font-medium text-gray-700 dark:text-foreground">
-                                                {option}
-                                            </Label>
-                                        </div>
-                                    ),
-                                )}
+                                {props.options.map((option) => (
+                                    <div
+                                        key={option}
+                                        className="flex items-center"
+                                    >
+                                        <RadioGroupItem
+                                            className={"hover:bg-accent"}
+                                            value={option}
+                                        />
+                                        <Label className="ml-2 text-sm font-medium text-gray-700 dark:text-foreground">
+                                            {option}
+                                        </Label>
+                                    </div>
+                                ))}
                             </div>
                         </RadioGroup>
                     </div>
@@ -260,7 +265,11 @@ export const ServiceRequests = (
     const checkboxComp = (props: FormComponent) => {
         return (
             <>
-                <div className={"flex col-span-1 container:ml-0 pl-6 pt-2 align-content-center "}>
+                <div
+                    className={
+                        "flex col-span-1 container:ml-0 pl-6 pt-2 align-content-center "
+                    }
+                >
                     <Checkbox
                         required={props.required}
                         onCheckedChange={(value: string) =>
@@ -327,7 +336,7 @@ export const ServiceRequests = (
     const handleSubmit = (e: FormEvent) => {
         // Shallow copy of formSchema that is discarded after submit,
         // Pushed to submittedServicesData and adheres to provided interface
-        const formData = {...formSchema};
+        const formData = { ...formSchema };
 
         // Prevent reload on submit
         e.preventDefault();
@@ -359,22 +368,25 @@ export const ServiceRequests = (
     return (
         <>
             <section
-                className="fixed top-0 bg-white bg-cover content-center size-full"
+                className="fixed blur-[3px] top-0 bg-white bg-cover content-center size-full"
                 style={{
                     backgroundImage: `url(${[bgPath]})`,
                 }}
             />
             <div className="">
-
                 <div className="w-full content-center relative">
                     {/* Hero Section */}
 
                     <div className={"py-16"}>
-                        <div
-                            className="flex flex-auto mx-auto grid block shadow-lg size-fit bg-secondary w-[35rem] rounded-lg border-4 border-background">
-                            <form className="w-full px-16 py-8" onSubmit={handleSubmit}>
+                        <div className="flex flex-auto mx-auto grid block shadow-lg size-fit bg-secondary w-[35rem] rounded-lg border-4 border-background">
+                            <form
+                                className="w-full px-16 py-8"
+                                onSubmit={handleSubmit}
+                            >
                                 {makeForm(layout)}
-                                <div className={"pt-8 grid grid-col grid-cols-2"}>
+                                <div
+                                    className={"pt-8 grid grid-col grid-cols-2"}
+                                >
                                     <button
                                         className="bg-accent hover:bg-destructive text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
                                         type={"clear"}
@@ -394,6 +406,5 @@ export const ServiceRequests = (
                 </div>
             </div>
         </>
-    )
-        ;
+    );
 };
