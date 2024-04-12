@@ -161,6 +161,7 @@ export const ServiceRequests = (
                     >
                         {props.title}
                     </label>
+                    <div className={"px-2"}>
                     <Input
                         type={props.type}
                         placeholder={props.placeholder}
@@ -172,6 +173,7 @@ export const ServiceRequests = (
                             "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
                         }
                     />
+                    </div>
                 </div>
             </>
         );
@@ -183,7 +185,7 @@ export const ServiceRequests = (
                     <label className="block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1">
                         {props.title}
                     </label>
-                    <div className={"pl-2 pr-2"}>
+                    <div className={"px-2"}>
                         <Select
                             required={props.required}
                             onValueChange={(value: string) =>
