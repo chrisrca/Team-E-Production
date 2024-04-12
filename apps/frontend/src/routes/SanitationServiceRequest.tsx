@@ -5,8 +5,8 @@ const defaultFormSchema = {
     location: "",
     priority: "",
     status: "",
-    additionalInfo: "",
     serviceType: "",
+    additionalInfo: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -35,32 +35,24 @@ const defaultForm = [
         id: 0,
     },
     {
-        content: "select",
+        content: "radio",
         type: "string",
         title: "Priority",
-        placeholder: "Please Select Priority",
+        placeholder: "",
         required: true,
         id: 0,
-        label: "Priority",
-        options: ["Low", "Medium", "High", "Emergency"],
+        label: "Request Priority",
+        options: ["Low", "Medium", "High", "Emergency",],
     },
     {
-        content: "select",
+        content: "radio",
         type: "string",
         title: "Status",
-        placeholder: "Please Select Status",
+        placeholder: "",
         required: true,
         id: 0,
-        label: "Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed"],
-    },
-    {
-        content: "text",
-        type: "string",
-        title: "Additional Information",
-        placeholder: "Enter Additional Information...",
-        required: false,
-        id: 0,
+        label: "Request Status",
+        options: ["Unassigned", "Assigned", "In Progress", "Closed",],
     },
     {
         content: "select",
@@ -71,6 +63,15 @@ const defaultForm = [
         id: 0,
         label: "Service Type",
         options: ["Biohazard", "Human Waste", "Food", "General", "Other"],
+    },
+    {
+        content: "text",
+        type: "string",
+        title: "Additional Information",
+        placeholder: "Enter Additional Information...",
+        required: false,
+        id: 0,
+        variant: "large",
     },
 ];
 export default function SanitationService() {

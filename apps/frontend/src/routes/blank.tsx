@@ -1,13 +1,13 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
 
 const defaultFormSchema = {
-    clientName: "",
-    language: "",
-    location: "",
+    patientName: "",
+    roomNumber: "",
     priority: "",
     status: "",
-    duration: "",
-    additionalInfo: "",
+    drugName: "",
+    drugQuantity: "",
+    patientCondition: "Fever",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -15,76 +15,71 @@ const defaultFormSchema = {
 const defaultForm = [
     {
         content: "label",
-        title: "Language Interpreter Request",
+        title: "Drug Delivery Request",
         type: "header",
         id: 0,
     },
     {
         content: "text",
         type: "string",
-        title: "Client Name",
+        title: "Patient Name",
         placeholder: "First, Last",
         required: true,
         id: 0,
     },
     {
         content: "text",
-        type: "string",
-        title: "Language",
-        placeholder: "Enter Language",
+        type: "number",
+        title: "Room Number",
+        placeholder: "Enter Room Number...",
         required: true,
         id: 0,
     },
     {
-        content: "text",
-        type: "string",
-        title: "Location",
-        placeholder: "Enter Location",
-        required: true,
-        id: 0,
-    },
-    {
-        content: "select",
+        content: "radio",
         type: "string",
         title: "Priority",
-        placeholder: "Please Select Priority",
+        placeholder: "",
         required: true,
         id: 0,
-        label: "Priority",
-        options: ["Low", "Medium", "High", "Emergency"],
+        label: "Request Priority",
+        options: ["Low", "Medium", "High", "Emergency",],
+    },
+    {
+        content: "radio",
+        type: "string",
+        title: "Status",
+        placeholder: "",
+        required: true,
+        id: 0,
+        label: "Request Status",
+        options: ["Unassigned", "Assigned", "In Progress", "Closed",],
     },
     {
         content: "select",
         type: "string",
-        title: "Status",
-        placeholder: "Please Select Status",
+        title: "Medicine Type",
+        placeholder: "Select Medicine",
         required: true,
         id: 0,
-        label: "Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed"],
+        label: "Options",
+        options: ["Tylenol - $5", "Advil - $7", "Melatonin - $10"],
     },
     {
         content: "text",
-        type: "string",
-        title: "Duration",
-        placeholder: "Enter Duration",
+        type: "number",
+        title: "Drug Quantity",
+        placeholder: "Enter Drug Quantity...",
         required: true,
         id: 0,
     },
-    {
-        content: "text",
-        type: "string",
-        title: "Additional Information",
-        placeholder: "Enter Additional Information...",
-        required: false,
-        id: 0,
-    },
+
 ];
-export default function InterpreterService() {
+export default function DrugDelivery() {
     return ServiceRequests(
         defaultForm,
         defaultFormSchema,
-        "/api/interpreter",
+        "/api/medicine",
         "",
     );
 }

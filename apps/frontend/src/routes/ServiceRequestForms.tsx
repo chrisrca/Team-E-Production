@@ -78,6 +78,18 @@ const test = [
         required: false,
         id: 0,
     },
+    {
+        content: "popover",
+        type: "string",
+        title: "Select 2",
+        placeholder: "Select Placeholder 2",
+        required: false,
+        id: 0,
+        label: "Options",
+        options: ["Option 1", "Option 2", "Option 3"],
+    },
+
+
 ];
 export const ServiceRequestForm = () => {
     return ServiceRequests(test, defaultTestSchema, "");
