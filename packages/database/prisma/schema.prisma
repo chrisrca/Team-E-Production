@@ -10,7 +10,7 @@ datasource db {
 }
 
 model node {
-  nodeID    String @id
+  nodeID    String  @id
   xcoord    Int
   ycoord    Int
   floor     String
@@ -19,6 +19,7 @@ model node {
   longName  String
   shortName String
   edges     String
+  blocked   Boolean @default(false)
 }
 
 model edge {
