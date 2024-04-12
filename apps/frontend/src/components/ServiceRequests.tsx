@@ -272,7 +272,7 @@ export const ServiceRequests = (
                 >
                     <Checkbox
                         required={props.required}
-                        onCheckedChange={(value: string) =>
+                        onSubmit={(value: boolean) =>
                             (formValues[props.id] = value.toString())
                         }
                         className={"hover:bg-accent my-auto"}

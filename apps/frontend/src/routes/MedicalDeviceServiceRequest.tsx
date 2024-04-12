@@ -5,7 +5,7 @@ const defaultFormSchema = {
     location: "",
     priority: "",
     status: "",
-    withBalloons: "false",
+    withBalloons: "",
     selectedDevice: "",
 };
 

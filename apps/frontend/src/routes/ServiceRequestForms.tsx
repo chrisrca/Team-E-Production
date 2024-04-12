@@ -75,7 +75,7 @@ const test = [
         type: "string",
         title: "Checkbox 1",
         placeholder: "Checkbox?",
-        required: true,
+        required: false,
         id: 0,
     },
 ];
