@@ -1,7 +1,7 @@
 
 import { ServiceRequests } from "@/components/ServiceRequests";
 
-const defaultSanitationSchema = {
+const defaultFormSchema = {
     patientName: "",
     location: "",
     priority: "",
@@ -13,7 +13,7 @@ const defaultSanitationSchema = {
 //Label is necessary, ids are calculated assuming that there is a title
 
 
-const sanitationForm = [
+const defaultForm = [
     {
         content: "label",
         title: "Sanitation Service Request",
@@ -77,6 +77,6 @@ const sanitationForm = [
 ];
 export default function SanitationService() {
     return (
-        ServiceRequests(sanitationForm, defaultSanitationSchema, "/api/sanitation", "")
+        ServiceRequests(defaultForm, defaultFormSchema, "/api/sanitation", "")
     );
 };

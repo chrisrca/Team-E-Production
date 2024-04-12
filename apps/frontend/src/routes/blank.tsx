@@ -1,30 +1,39 @@
 
 import { ServiceRequests } from "@/components/ServiceRequests";
 
-const defaultMedicalDeviceSchema = {
-    employeeName: "",
+const defaultFormSchema = {
+    clientName: "",
+    language: "",
     location: "",
     priority: "",
     status: "",
-    selectedDevice: "",
-    withBalloons: "",
+    duration: "",
+    additionalInfo: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
 
 
-const defaultMedicalDeviceForm = [
+const defaultForm = [
     {
         content: "label",
-        title: "Medical Device Request",
+        title: "Language Interpreter Request",
         type: "header",
         id: 0,
     },
     {
         content: "text",
         type: "string",
-        title: "Employee Name",
+        title: "Client Name",
         placeholder: "First, Last",
+        required: true,
+        id: 0,
+    },
+    {
+        content: "text",
+        type: "string",
+        title: "Language",
+        placeholder: "Enter Language",
         required: true,
         id: 0,
     },
@@ -57,26 +66,24 @@ const defaultMedicalDeviceForm = [
         options: ["Unassigned", "Assigned", "In Progress", "Closed",],
     },
     {
-        content: "checkbox",
+        content: "text",
         type: "string",
-        title: "withBalloons",
-        placeholder: "With Balloons?",
-        required: false,
+        title: "Duration",
+        placeholder: "Enter Duration",
+        required: true,
         id: 0,
     },
     {
-        content: "select",
+        content: "text",
         type: "string",
-        title: "Service Type",
-        placeholder: "Please Select Service",
-        required: true,
+        title: "Additional Information",
+        placeholder: "Enter Additional Information...",
+        required: false,
         id: 0,
-        label: "Service Type",
-        options: ["Hospital Bed", "IV Pump", "Recliner",],
     },
 ];
-export default function MedicalDeviceService() {
+export default function InterpreterService() {
     return (
-        ServiceRequests(defaultMedicalDeviceForm, defaultMedicalDeviceSchema, "/api/medical-device", "")
+        ServiceRequests(defaultForm, defaultFormSchema, "/api/interpreter", "")
     );
 };

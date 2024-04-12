@@ -1,7 +1,7 @@
 
 import { ServiceRequests } from "@/components/ServiceRequests";
 
-const defaultRoomServiceSchema = {
+const defaultFormSchema = {
     employeeName: "",
     location: "",
     priority: "",
@@ -14,7 +14,7 @@ const defaultRoomServiceSchema = {
 //Label is necessary, ids are calculated assuming that there is a title
 
 
-const defaultRoomServiceForm = [
+const defaultForm = [
     {
         content: "label",
         title: "Room Scheduling Request",
@@ -86,6 +86,6 @@ const defaultRoomServiceForm = [
 ];
 export default function RoomScheduling() {
     return (
-        ServiceRequests(defaultRoomServiceForm, defaultRoomServiceSchema, "/api/room", "")
+        ServiceRequests(defaultForm, defaultFormSchema, "/api/room", "")
     );
 };

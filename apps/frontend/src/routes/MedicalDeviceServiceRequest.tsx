@@ -1,7 +1,7 @@
 
 import { ServiceRequests } from "@/components/ServiceRequests";
 
-const defaultSchema = {
+const defaultFormSchema = {
     employeeName: "",
     location: "",
     priority: "",
@@ -13,7 +13,7 @@ const defaultSchema = {
 //Label is necessary, ids are calculated assuming that there is a title
 
 
-const defaultMedicalDeviceForm = [
+const defaultForm = [
     {
         content: "label",
         title: "Medical Device Request",
@@ -77,6 +77,6 @@ const defaultMedicalDeviceForm = [
 ];
 export default function MedicalDeviceService() {
     return (
-        ServiceRequests(defaultMedicalDeviceForm, defaultSchema, "/api/medical-device", "")
+        ServiceRequests(defaultForm, defaultFormSchema, "/api/medical-device", "")
     );
 };
