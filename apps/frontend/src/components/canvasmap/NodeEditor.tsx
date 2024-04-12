@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { DBParseNode } from "common/src/types";
+import { DBNode } from "common/src/types";
 
 interface NodeEditorProps {
-    node: DBParseNode | null;
-    onSave: (updatedNode: DBParseNode) => void;
+    node: DBNode | null;
+    onSave: (updatedNode: DBNode) => void;
     onCancel: () => void;
 }
 
@@ -12,7 +12,7 @@ export default function NodeEditor({
     onSave,
     onCancel,
 }: NodeEditorProps) {
-    const [editedNode, setEditedNode] = useState<DBParseNode | null>(node);
+    const [editedNode, setEditedNode] = useState<DBNode | null>(node);
     const [blockedEdges, setBlockedEdges] = useState<string[]>([]);
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -40,7 +40,7 @@ export default function NodeEditor({
         });
     }
 
-    function handleSubmit() {
+   /* function handleSubmit() {
         if (editedNode) {
             // Filter out blocked edges from the edited node's edges
             const updatedEdges = editedNode.edges.filter(
@@ -51,7 +51,7 @@ export default function NodeEditor({
             onSave(updatedNode);
         }
     }
-
+*/
     if (!editedNode) return null;
 
     return (
@@ -111,7 +111,7 @@ export default function NodeEditor({
                     <input
                         type="number"
                         name="xcoord"
-                        value={editedNode.coords.xcoord}
+                        value={editedNode.xcoord}
                         onChange={handleInputChange}
                     />
                 </label>
@@ -122,13 +122,13 @@ export default function NodeEditor({
                     <input
                         type="number"
                         name="ycoord"
-                        value={editedNode.coords.ycoord}
+                        value={editedNode.ycoord}
                         onChange={handleInputChange}
                     />
                 </label>
             </div>
 
-            {/* Display checkboxes for blocking connections */}
+            {/* Display checkboxes for blocking connections
             <h4>Block Connections</h4>
             {editedNode.edges.map((edge) => (
                 <div key={edge.edgeID}>
@@ -145,7 +145,7 @@ export default function NodeEditor({
                 </div>
             ))}
 
-            <button onClick={handleSubmit}>Save</button>
+            <button onClick={handleSubmit}>Save</button> */}
             <button onClick={onCancel}>Cancel</button>
         </div>
     );
