@@ -129,6 +129,7 @@ export const ServiceRequests = (
         } else if (props.content.includes("radio")) {
             return radioGroupComp(props as FormSelect);
         } else if (props.content.includes("checkbox")) {
+            formValues[props.id] = "false";
             return checkboxComp(props as FormComponent);
         } else {
             console.error("Failed to identify element - " + props.type);
@@ -233,7 +234,6 @@ export const ServiceRequests = (
                         }
                     >
                         <RadioGroup
-                            value={props.value}
                             onValueChange={(value: string) =>
                                 (formValues[props.id] = value.toString())
                             }
@@ -272,7 +272,7 @@ export const ServiceRequests = (
                 >
                     <Checkbox
                         required={props.required}
-                        onSubmit={(value: boolean) =>
+                        onCheckedChange={(value: boolean) =>
                             (formValues[props.id] = value.toString())
                         }
                         className={"hover:bg-accent my-auto"}

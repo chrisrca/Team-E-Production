@@ -56,7 +56,7 @@ const defaultForm = [
     },
     {
         content: "checkbox",
-        type: "string",
+        type: "boolean",
         title: "withBalloons",
         placeholder: "With Balloons?",
         required: false,
