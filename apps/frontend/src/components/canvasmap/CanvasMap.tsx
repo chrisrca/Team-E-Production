@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, useMemo} from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import {
     TransformWrapper,
     TransformComponent,
@@ -24,18 +24,25 @@ export default function CanvasMap(nodes: CanvasMapProps) {
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [nodeInfoPosition, setNodeInfoPosition] = useState({ x: 0, y: 0, z: 0 });
-    const nullNode: DBNode = useMemo(() => ({
-        building: "",
-        edges: [],
-        floor: "",
-        longName: "",
-        nodeID: "",
-        nodeType: "",
-        shortName: "",
-        xcoord: 0,
-        ycoord: 0
-    }), []);
+    const [nodeInfoPosition, setNodeInfoPosition] = useState({
+        x: 0,
+        y: 0,
+        z: 0,
+    });
+    const nullNode: DBNode = useMemo(
+        () => ({
+            building: "",
+            edges: [],
+            floor: "",
+            longName: "",
+            nodeID: "",
+            nodeType: "",
+            shortName: "",
+            xcoord: 0,
+            ycoord: 0,
+        }),
+        [],
+    );
     const [hoverNode, sethoverNode] = useState(nullNode);
     const nodeData = nodes.nodes;
     const pathData = nodes.path;
@@ -107,7 +114,30 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         const y = (event.clientY - rect.top) * scaleY; // been adjusted to be relative to element
 
         setMousePosition({ x, y });
-        setNodeInfoPosition({x: event.nativeEvent.clientX, y: event.nativeEvent.clientY, z: 9999});
+        setNodeInfoPosition({
+            x: event.nativeEvent.clientX,
+            y: event.nativeEvent.clientY,
+            z: 9999,
+        });
+    };
+
+    const handleMouseClick = (
+        event: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
+    ) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const rect = canvas.getBoundingClientRect();
+
+        const scaleX = canvas.width / rect.width; // relationship bitmap vs. element for X
+        const scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
+
+        const x = (event.clientX - rect.left) * scaleX; // scale mouse coordinates after they have
+        const y = (event.clientY - rect.top) * scaleY; // been adjusted to be relative to element
+
+        if (hoverNode.longName !== "") {
+            console.log(x, y, hoverNode.longName);
+        }
     };
 
     //DRAWING OF NODES AND PATH
@@ -142,7 +172,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
     function calculateDistance(point1: { x: number; y: number }, node: DBNode) {
         return Math.sqrt(
             Math.pow(node.xcoord - point1.x, 2) +
-            Math.pow(node.ycoord - point1.y, 2),
+                Math.pow(node.ycoord - point1.y, 2),
         );
     }
 
@@ -158,57 +188,73 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                 sethoverNode(nullNode);
             }
         }
-    }, [nodeData, hoverNode, mousePosition, nullNode, mapLevel, nodeInfoPosition]);
+    }, [
+        nodeData,
+        hoverNode,
+        mousePosition,
+        nullNode,
+        mapLevel,
+        nodeInfoPosition,
+    ]);
 
-        return (
-            <>
+    return (
+        <>
+            <div
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    zIndex: 9999,
+                    pointerEvents: "none",
+                }}
+            ></div>
+            {hoverNode.longName && (
                 <div
+                    className={
+                        "ml-4 justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"
+                    }
                     style={{
                         position: "absolute",
-                        top: 0,
-                        left: 0,
-                        zIndex: 9999,
-                        pointerEvents: "none",
+                        top: `${nodeInfoPosition.y}px`,
+                        left: `${nodeInfoPosition.x}px`,
+                        zIndex: `${nodeInfoPosition.z}px`,
+                        background: "#ffffff",
+                        whiteSpace: "nowrap", // Prevent text from wrapping
+                        fontSize: "14px",
+                        padding: "5px", // Adjust padding as needed
+                        minWidth: "fit-content", // Allow the div to expand only as much as needed
+                        maxWidth: "calc(100% - 20px)", // Limit the maximum width to ensure it doesn't exceed the viewport
                     }}
-                ></div>
-                {hoverNode.longName && (
-                    <div
-                        className={"ml-4 justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"}
-                        style={{
-                            position: "absolute",
-                            top: `${nodeInfoPosition.y}px`,
-                            left: `${nodeInfoPosition.x}px`,
-                            zIndex: `${nodeInfoPosition.z}px`,
-                            background: "#ffffff",
-                            whiteSpace: "nowrap", // Prevent text from wrapping
-                            fontSize: "14px",
-                            padding: "5px", // Adjust padding as needed
-                            minWidth: "fit-content", // Allow the div to expand only as much as needed
-                            maxWidth: "calc(100% - 20px)" // Limit the maximum width to ensure it doesn't exceed the viewport
-                        }}
-                    >
-                        {hoverNode.longName}
-                    </div>
-                )}
-                <TransformWrapper
-                    initialScale={1.5}
-                    centerOnInit={true}
-                    limitToBounds={true}
-                    minScale={1}
-                    maxScale={4}
-                    wheel={{step: 0.5}}
-                    doubleClick={{disabled: false}}
-                    onPanningStop={handlePanningStopped}
                 >
-                    <TransformComponent>
-                        <canvas
-                            ref={canvasRef}
-                            height={3400}
-                            width={5000}
-                            style={{width: "100%", height: "100%", display: "block"}}
-                            id="layer1"
-                            onMouseMove={handleMouseMoveCanvas}/>
-                    </TransformComponent>
-                </TransformWrapper></>
-        );
+                    {hoverNode.longName}
+                </div>
+            )}
+            <TransformWrapper
+                initialScale={1.5}
+                centerOnInit={true}
+                limitToBounds={true}
+                minScale={1}
+                maxScale={4}
+                wheel={{ step: 0.5 }}
+                doubleClick={{ disabled: false }}
+                onPanningStop={handlePanningStopped}
+            >
+                <TransformComponent>
+                    <canvas
+                        ref={canvasRef}
+                        height={3400}
+                        width={5000}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            display: "block",
+                        }}
+                        id="layer1"
+                        onMouseMove={handleMouseMoveCanvas}
+                        onClick={handleMouseClick}
+                    />
+                </TransformComponent>
+            </TransformWrapper>
+        </>
+    );
 }
