@@ -48,7 +48,7 @@ function dfs(start: Node, end: Node): Node[] | null {
     const parentMap: Map<Node, Node> = new Map();
 
     while (stack.length > 0) {
-        let current: Node = stack.pop() as Node;
+        let current: Node = stack.shift() as Node;
 
         // When the end is found, reconstruct the path from end to start
         if (current === end) {
