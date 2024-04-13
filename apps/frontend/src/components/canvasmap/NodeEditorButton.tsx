@@ -1,13 +1,16 @@
 import React from "react";
 
+// Define the properties expected for the NodeEditorButton component
 interface NodeEditorButtonProps {
     openNodeEditor: () => void;
 }
 
+// NodeEditorButton component function
 export default function NodeEditorButton({
     openNodeEditor,
 }: NodeEditorButtonProps) {
     return (
+        // Create a button element that triggers the openNodeEditor function when clicked
         <button
             onClick={openNodeEditor}
             style={{

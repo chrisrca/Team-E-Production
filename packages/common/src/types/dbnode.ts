@@ -1,6 +1,7 @@
+import { Edge } from "./edge";
 export interface DBNode {
     building: string;
-    edges: [];
+    edges: Edge[];
     floor: string;
     longName: string;
     nodeID: string;

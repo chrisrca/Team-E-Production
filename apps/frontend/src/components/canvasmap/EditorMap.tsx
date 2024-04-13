@@ -13,27 +13,38 @@ import Level3 from "./mapImages/03_thethirdfloor.png";
 import NodeEditor from "./NodeEditor"; // Import NodeEditor function
 import NodeEditorButton from "./NodeEditorButton"; // Adjust the import path as necessary
 
+// Array of map images for each level
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
+
+// Interface for the component's props
 interface CanvasMapProps {
     nodes: DBNode[];
     path: DBNode[][];
     level: number;
 }
 
+// EditorMap component function
 export default function EditorMap(props: CanvasMapProps) {
+    // Create a reference for the canvas element
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+    // State to track the size of the image and container
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+
+    // State to manage the selected node and whether the node editor should be shown
     const [selectedNode, setSelectedNode] = useState<DBNode | null>(null);
     const [showNodeEditor, setShowNodeEditor] = useState(false);
 
+    // Destructure props for easier access
     const { nodes, path, level } = props;
 
-    // Resize canvas and set container size
+    // Effect to handle image loading and updating container size
     useEffect(() => {
         const image = new Image();
         image.src = MapImage[level];
         image.onload = () => {
+            // Set the image size based on the loaded image
             setImageSize({ width: image.width, height: image.height });
         };
 
@@ -47,18 +58,19 @@ export default function EditorMap(props: CanvasMapProps) {
         updateContainerSize();
         window.addEventListener("resize", updateContainerSize);
 
+        // Cleanup: remove event listener on unmount
         return () => {
             window.removeEventListener("resize", updateContainerSize);
         };
     }, [level]);
 
-    // Handle panning stopped event
+    // Function to handle panning stop events
     const handlePanningStopped = (e: ReactZoomPanPinchRef) => {
         const x = e.state.positionX;
         const y = e.state.positionY;
         const scale = e.state.scale;
 
-        // Center image if smaller than container
+        // Center image if it's smaller than the container
         if (imageSize.width * scale < containerSize.width) {
             e.setTransform(
                 (containerSize.width - imageSize.width * scale) / 2,
@@ -75,24 +87,28 @@ export default function EditorMap(props: CanvasMapProps) {
         }
     };
 
-    // Handle node click
+    // Function to handle node clicks
     const handleNodeClick = (node: DBNode) => {
         setSelectedNode(node);
         setShowNodeEditor(true);
     };
 
-    // Draw nodes and paths on the canvas
+    // Effect to draw nodes and paths on the canvas
     useEffect(() => {
+        // Array of floor levels
         const floor = ["L2", "L1", "1", "2", "3"];
+
+        // Multiplier factors for node coordinates
         const xMult = imageSize.width / 5000;
         const yMult = imageSize.height / 3400;
 
+        // Function to draw nodes on the canvas
         function drawNodes(ctx: CanvasRenderingContext2D) {
-            // Node drawing
+            // Draw nodes
             nodes.forEach((node) => {
                 if (node.floor !== floor[level]) return;
 
-                // Original dot
+                // Draw the original dot
                 ctx.beginPath();
                 ctx.fillStyle = "#002244";
                 ctx.arc(
@@ -104,7 +120,7 @@ export default function EditorMap(props: CanvasMapProps) {
                 );
                 ctx.fill();
 
-                // Ring around the dot
+                // Draw the ring around the dot
                 ctx.setLineDash([5, 0]);
                 ctx.beginPath();
                 ctx.strokeStyle = "#012d5a";
@@ -120,24 +136,27 @@ export default function EditorMap(props: CanvasMapProps) {
 
                 // Add event listener for node clicks
                 canvasRef.current?.addEventListener("click", (e) => {
-                    // Calculate the click position in the canvas
-                    const rect = canvasRef.current.getBoundingClientRect();
-                    const clickX = e.clientX - rect.left;
-                    const clickY = e.clientY - rect.top;
+                    // Check if canvasRef.current is not null
+                    if (canvasRef.current) {
+                        // Calculate the click position in the canvas
+                        const rect = canvasRef.current.getBoundingClientRect();
+                        const clickX = e.clientX - rect.left;
+                        const clickY = e.clientY - rect.top;
 
-                    // Calculate the distance between the click position and the node
-                    const dx = clickX - node.xcoord * xMult;
-                    const dy = clickY - node.ycoord * yMult;
-                    const distance = Math.sqrt(dx ** 2 + dy ** 2);
+                        // Calculate the distance between the click position and the node
+                        const dx = clickX - node.xcoord * xMult;
+                        const dy = clickY - node.ycoord * yMult;
+                        const distance = Math.sqrt(dx ** 2 + dy ** 2);
 
-                    // If the click is within the radius of the ring around the node, handle the node click
-                    if (distance <= 6) {
-                        handleNodeClick(node);
+                        // If the click is within the radius of the ring around the node, handle the node click
+                        if (distance <= 6) {
+                            handleNodeClick(node);
+                        }
                     }
                 });
             });
 
-            // Path drawing
+            // Draw paths
             if (path.length > 0) {
                 ctx.setLineDash([5, 0]);
                 ctx.strokeStyle = "#1d3e60";
@@ -151,6 +170,7 @@ export default function EditorMap(props: CanvasMapProps) {
                             group[0].ycoord * yMult,
                         );
 
+                        // Draw the path for each group
                         for (let i = 1; i < group.length; i++) {
                             const node = group[i];
                             if (node.floor === floor[level]) {
@@ -174,6 +194,7 @@ export default function EditorMap(props: CanvasMapProps) {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
             if (context) {
+                // Draw image and nodes on the canvas
                 image.onload = () => {
                     context.drawImage(image, 0, 0, canvas.width, canvas.height);
                     drawNodes(context);
@@ -182,8 +203,10 @@ export default function EditorMap(props: CanvasMapProps) {
         }
     }, [nodes, path, imageSize, level]);
 
+    // Render the editor map
     return (
         <div style={{ position: "relative" }}>
+            {/* Transform wrapper for zooming and panning functionality */}
             <TransformWrapper
                 initialScale={1.5}
                 centerOnInit={true}
@@ -209,13 +232,10 @@ export default function EditorMap(props: CanvasMapProps) {
                 </TransformComponent>
             </TransformWrapper>
 
-            {/* Add NodeEditorButton and position it to the side */}
-            <NodeEditorButton
-                openNodeEditor={() => setShowNodeEditor(true)}
-                style={{ position: "absolute", right: 10, top: 10 }}
-            />
+            {/* NodeEditorButton for opening the node editor */}
+            <NodeEditorButton openNodeEditor={() => setShowNodeEditor(true)} />
 
-            {/* Conditionally render NodeEditor */}
+            {/* Conditionally render NodeEditor based on state */}
             {showNodeEditor && selectedNode && (
                 <NodeEditor
                     node={selectedNode}
