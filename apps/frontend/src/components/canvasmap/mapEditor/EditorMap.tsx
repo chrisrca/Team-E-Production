@@ -11,6 +11,7 @@ import Level1 from "../mapImages/01_thefirstfloor.png";
 import Level2 from "../mapImages/02_thesecondfloor.png";
 import Level3 from "../mapImages/03_thethirdfloor.png";
 import drawGraph from "@/components/canvasmap/mapEditor/RenderGraph.tsx";
+import NodeEditor from "./NodeEditor";
 
 // Array of map images for each level
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
@@ -23,7 +24,13 @@ interface CanvasMapProps {
 }
 
 // EditorMap component function
-export default function EditorMap(nodes: CanvasMapProps) {
+export default function EditorMap(props: CanvasMapProps) {
+    const { nodes, path, level } = props;
+
+    // State for selected node
+    const [selectedNode, setSelectedNode] = useState<DBNode | null>(null);
+
+    // Existing states and refs
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
@@ -47,15 +54,12 @@ export default function EditorMap(nodes: CanvasMapProps) {
         }),
         [],
     );
-    const [hoverNode, sethoverNode] = useState(nullNode);
-    const nodeData = nodes.nodes;
-    const pathData = nodes.path;
-    const mapLevel = nodes.level;
+    const [hoverNode, setHoverNode] = useState(nullNode);
 
     // Effect to handle image loading and updating container size
     useEffect(() => {
         const image = new Image();
-        image.src = MapImage[mapLevel];
+        image.src = MapImage[level];
         image.onload = () => {
             setImageSize({ width: image.width, height: image.height });
         };
@@ -68,7 +72,7 @@ export default function EditorMap(nodes: CanvasMapProps) {
         return () => {
             window.removeEventListener("resize", updateContainerSize);
         };
-    }, [mapLevel]);
+    }, [level]);
 
     // Function to update container size
     const updateContainerSize = () => {
@@ -124,6 +128,7 @@ export default function EditorMap(nodes: CanvasMapProps) {
         });
     };
 
+    // Function to handle mouse click on canvas
     const handleMouseClick = (
         event: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
     ) => {
@@ -138,8 +143,10 @@ export default function EditorMap(nodes: CanvasMapProps) {
         const x = (event.clientX - rect.left) * scaleX; // scale mouse coordinates after they have
         const y = (event.clientY - rect.top) * scaleY; // been adjusted to be relative to element
 
+        // Check if a node is clicked and set it as selected
         if (hoverNode.longName !== "") {
             console.log(x, y, hoverNode.longName);
+            setSelectedNode(hoverNode);
         }
     };
 
@@ -150,7 +157,7 @@ export default function EditorMap(nodes: CanvasMapProps) {
 
         //This shit supposed to draw the image and the nodes let's goooo
         const image = new Image();
-        image.src = MapImage[mapLevel];
+        image.src = MapImage[level];
         // Path to your image file
         if (canvasRef.current) {
             const canvas = canvasRef.current;
@@ -162,15 +169,15 @@ export default function EditorMap(nodes: CanvasMapProps) {
                         context!,
                         xMult,
                         yMult,
-                        pathData,
-                        nodeData,
-                        mapLevel,
+                        path,
+                        nodes,
+                        level,
                         mousePosition,
                     );
                 };
             }
         }
-    }, [nodeData, pathData, imageSize, mapLevel, mousePosition]);
+    }, [nodes, path, imageSize, level, mousePosition]);
 
     function calculateDistance(point1: { x: number; y: number }, node: DBNode) {
         return Math.sqrt(
@@ -179,29 +186,24 @@ export default function EditorMap(nodes: CanvasMapProps) {
         );
     }
 
+    // Effect to detect hover node
     useEffect(() => {
         const floor = ["L2", "L1", "1", "2", "3"];
 
-        for (const node of nodeData) {
-            if (node.floor === floor[mapLevel]) {
+        for (const node of nodes) {
+            if (node.floor === floor[level]) {
                 if (calculateDistance(mousePosition, node) < 9) {
-                    sethoverNode(node);
+                    setHoverNode(node);
                     break;
                 }
-                sethoverNode(nullNode);
+                setHoverNode(nullNode);
             }
         }
-    }, [
-        nodeData,
-        hoverNode,
-        mousePosition,
-        nullNode,
-        mapLevel,
-        nodeInfoPosition,
-    ]);
+    }, [nodes, hoverNode, mousePosition, nullNode, level, nodeInfoPosition]);
 
     return (
         <>
+            {/* Render node information */}
             <div
                 style={{
                     position: "absolute",
@@ -232,6 +234,11 @@ export default function EditorMap(nodes: CanvasMapProps) {
                     {hoverNode.longName}
                 </div>
             )}
+
+            {/* Node Editor */}
+            {selectedNode && <NodeEditor node={selectedNode} />}
+
+            {/* Render map and canvas */}
             <TransformWrapper
                 initialScale={1.5}
                 centerOnInit={true}

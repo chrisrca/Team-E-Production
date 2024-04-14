@@ -37,38 +37,38 @@ export default function drawGraph(
         }
     }
 
-    // //PATH DRAWING
-    // if (pathData.length > 0) {
-    //     ctx.setLineDash([7, 3]);
-    //     ctx.strokeStyle = "#000000";
-    //     ctx.lineWidth = 4;
-    //     if (pathData[0].floor === floor[mapLevel]) {
-    //         ctx.beginPath();
-    //         ctx.moveTo(pathData[0].xcoord * xMult, pathData[0].ycoord * yMult);
-    //     }
-    //     for (let i = 1; i < pathData.length; i++) {
-    //         const node = pathData[i];
-    //         if (node.floor === floor[mapLevel]) {
-    //             //LINE DRAWING
-    //             ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
-    //         }
-    //         if (node.floor !== floor[mapLevel]) {
-    //             ctx.stroke();
-    //             ctx.beginPath();
-    //             continue;
-    //         }
-    //
-    //         if (pathData[pathData.length - 1].floor === floor[mapLevel]) {
-    //             ctx.stroke();
-    //         }
-    //     }
-    //     ctx.setLineDash([5, 0]);
-    //     ctx.lineWidth = 2;
-    // }
-
     //NODE DRAWING
     drawNodes(ctx, nodeData, xMult, yMult, mapLevel, mousePosition);
 }
+
+// //PATH DRAWING
+// if (pathData.length > 0) {
+//     ctx.setLineDash([7, 3]);
+//     ctx.strokeStyle = "#000000";
+//     ctx.lineWidth = 4;
+//     if (pathData[0].floor === floor[mapLevel]) {
+//         ctx.beginPath();
+//         ctx.moveTo(pathData[0].xcoord * xMult, pathData[0].ycoord * yMult);
+//     }
+//     for (let i = 1; i < pathData.length; i++) {
+//         const node = pathData[i];
+//         if (node.floor === floor[mapLevel]) {
+//             //LINE DRAWING
+//             ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
+//         }
+//         if (node.floor !== floor[mapLevel]) {
+//             ctx.stroke();
+//             ctx.beginPath();
+//             continue;
+//         }
+//
+//         if (pathData[pathData.length - 1].floor === floor[mapLevel]) {
+//             ctx.stroke();
+//         }
+//     }
+//     ctx.setLineDash([5, 0]);
+//     ctx.lineWidth = 2;
+// }
 
 // function drawNodes(ctx: CanvasRenderingContext2D) {
 //     // Draw nodes
