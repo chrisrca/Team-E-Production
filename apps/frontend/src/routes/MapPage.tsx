@@ -41,7 +41,12 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 algorithm={setAlgorithm}
             />
             <LevelButtons updateLevel={handleLevelChange} />
-            <CanvasMap level={level} path={pathNodes} nodes={nodes} />
+            <CanvasMap
+                level={level}
+                path={pathNodes}
+                nodes={nodes}
+                setLevel={setLevel}
+            />
         </div>
     );
 }

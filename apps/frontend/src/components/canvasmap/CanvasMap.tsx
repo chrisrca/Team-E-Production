@@ -17,6 +17,7 @@ interface CanvasMapProps {
     nodes: DBNode[];
     path: DBNode[];
     level: number;
+    setLevel: (level: number) => void; // Add setLevel prop
 }
 
 export default function CanvasMap(nodes: CanvasMapProps) {
@@ -138,6 +139,19 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         if (hoverNode.longName !== "") {
             console.log(x, y, hoverNode.longName);
         }
+
+        if (hoverNode.nodeType == "ELEV") {
+            for (let i = 0; i < pathData.length - 1; i++) {
+                if (
+                    pathData[i].nodeID == hoverNode.nodeID &&
+                    pathData[i].nodeType == "ELEV" &&
+                    pathData[i + 1].nodeType == "ELEV"
+                ) {
+                    const floor = ["L2", "L1", "1", "2", "3"];
+                    nodes.setLevel(floor.indexOf(pathData[i + 1].floor));
+                }
+            }
+        }
     };
 
     //DRAWING OF NODES AND PATH
@@ -181,7 +195,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
 
         for (const node of nodeData) {
             if (node.floor === floor[mapLevel]) {
-                if (calculateDistance(mousePosition, node) < 6) {
+                if (calculateDistance(mousePosition, node) < 9) {
                     sethoverNode(node);
                     break;
                 }
