@@ -374,7 +374,7 @@ export const ServiceRequests = (
                     backgroundImage: `url(${[bgPath]})`,
                 }}
             />
-            <div className="flex justify-center container shrink-0 w-full h-dvh my-10">
+            <div className="flex justify-center container shrink-0 w-full h-dvh">
                 <div className="m-auto relative w-2/3 min-w-[35rem]">
                     <div className="block shadow-lg bg-secondary rounded-lg border-4 border-background">
                         <form
