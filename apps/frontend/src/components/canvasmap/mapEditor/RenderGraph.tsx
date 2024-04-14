@@ -5,7 +5,7 @@ export default function drawGraph(
     ctx: CanvasRenderingContext2D,
     xMult: number,
     yMult: number,
-    pathData: DBNode[],
+    pathData: DBNode[][],
     nodeData: DBNode[],
     mapLevel: number,
     mousePosition: { x: number; y: number },
@@ -13,34 +13,58 @@ export default function drawGraph(
     const floor = ["L2", "L1", "1", "2", "3"];
     ctx.imageSmoothingEnabled = true;
 
-    //PATH DRAWING
+    // Draw paths
     if (pathData.length > 0) {
-        ctx.setLineDash([7, 3]);
-        ctx.strokeStyle = "#000000";
-        ctx.lineWidth = 4;
-        if (pathData[0].floor === floor[mapLevel]) {
-            ctx.beginPath();
-            ctx.moveTo(pathData[0].xcoord * xMult, pathData[0].ycoord * yMult);
-        }
-        for (let i = 1; i < pathData.length; i++) {
-            const node = pathData[i];
-            if (node.floor === floor[mapLevel]) {
-                //LINE DRAWING
-                ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
-            }
-            if (node.floor !== floor[mapLevel]) {
-                ctx.stroke();
-                ctx.beginPath();
-                continue;
-            }
-
-            if (pathData[pathData.length - 1].floor === floor[mapLevel]) {
-                ctx.stroke();
-            }
-        }
         ctx.setLineDash([5, 0]);
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = "#1d3e60";
+        ctx.lineWidth = 4;
+
+        for (const group of pathData) {
+            if (group.length > 0 && group[0].floor === floor[mapLevel]) {
+                ctx.beginPath();
+                ctx.moveTo(group[0].xcoord * xMult, group[0].ycoord * yMult);
+
+                // Draw the path for each group
+                for (let i = 1; i < group.length; i++) {
+                    const node = group[i];
+                    if (node.floor === floor[mapLevel]) {
+                        ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
+                    }
+                }
+
+                ctx.stroke();
+            }
+        }
     }
+
+    // //PATH DRAWING
+    // if (pathData.length > 0) {
+    //     ctx.setLineDash([7, 3]);
+    //     ctx.strokeStyle = "#000000";
+    //     ctx.lineWidth = 4;
+    //     if (pathData[0].floor === floor[mapLevel]) {
+    //         ctx.beginPath();
+    //         ctx.moveTo(pathData[0].xcoord * xMult, pathData[0].ycoord * yMult);
+    //     }
+    //     for (let i = 1; i < pathData.length; i++) {
+    //         const node = pathData[i];
+    //         if (node.floor === floor[mapLevel]) {
+    //             //LINE DRAWING
+    //             ctx.lineTo(node.xcoord * xMult, node.ycoord * yMult);
+    //         }
+    //         if (node.floor !== floor[mapLevel]) {
+    //             ctx.stroke();
+    //             ctx.beginPath();
+    //             continue;
+    //         }
+    //
+    //         if (pathData[pathData.length - 1].floor === floor[mapLevel]) {
+    //             ctx.stroke();
+    //         }
+    //     }
+    //     ctx.setLineDash([5, 0]);
+    //     ctx.lineWidth = 2;
+    // }
 
     //NODE DRAWING
     drawNodes(ctx, nodeData, xMult, yMult, mapLevel, mousePosition);
@@ -99,33 +123,4 @@ export default function drawGraph(
 //         });
 //     });
 //
-//     // Draw paths
-//     if (path.length > 0) {
-//         ctx.setLineDash([5, 0]);
-//         ctx.strokeStyle = "#1d3e60";
-//         ctx.lineWidth = 4;
-//
-//         for (const group of path) {
-//             if (group.length > 0 && group[0].floor === floor[level]) {
-//                 ctx.beginPath();
-//                 ctx.moveTo(
-//                     group[0].xcoord * xMult,
-//                     group[0].ycoord * yMult,
-//                 );
-//
-//                 // Draw the path for each group
-//                 for (let i = 1; i < group.length; i++) {
-//                     const node = group[i];
-//                     if (node.floor === floor[level]) {
-//                         ctx.lineTo(
-//                             node.xcoord * xMult,
-//                             node.ycoord * yMult,
-//                         );
-//                     }
-//                 }
-//
-//                 ctx.stroke();
-//             }
-//         }
-//     }
 // }
