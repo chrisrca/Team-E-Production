@@ -67,7 +67,7 @@ function drawHexagon(
     mousePosition: { x: number; y: number },
 ) {
     let size = 7;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         size *= 2;
     }
 
@@ -99,7 +99,7 @@ function drawCircle(
     mousePosition: { x: number; y: number },
 ) {
     let size = 6;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         size *= 2;
     }
     ctx.beginPath();
@@ -120,7 +120,7 @@ function drawSquare(
 ) {
     ctx.beginPath();
     let size: number = 10;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         size *= 2;
     }
     const halfSize = size / 2;
@@ -142,7 +142,7 @@ function drawRectangle(
 ) {
     ctx.beginPath();
     let size = 10;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         size *= 2;
     }
     const halfSize = size / 2;
@@ -169,7 +169,7 @@ function drawTriangle(
 ) {
     ctx.beginPath();
     let size = 14;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         size *= 2;
     }
     const height = size * (Math.sqrt(3) / 2);
@@ -198,7 +198,7 @@ function drawOval(
     const centerY = node.ycoord * yMult;
     let radiusX = 8;
     let radiusY = 6;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         radiusX *= 2;
         radiusY *= 2;
     }
@@ -220,7 +220,7 @@ function drawRhombus(
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
     let diag = 14;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         diag *= 2;
     }
     ctx.moveTo(centerX, centerY - diag / 2);
@@ -247,7 +247,7 @@ function drawParallelogram(
     let base = 14;
     let height = 9;
     let skew = 4;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         base *= 2;
         height *= 2;
         skew *= 2;
@@ -276,7 +276,7 @@ function drawTrapezoid(
     let base = 16;
     let top = 9;
     let height = 9;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         base *= 2;
         top *= 2;
         height *= 2;
@@ -304,7 +304,7 @@ function drawOctagon(
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
     let side = 5;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         side *= 2;
     }
 
@@ -339,7 +339,7 @@ function drawPentagon(
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
     let side = 8;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         side *= 2;
     }
 
@@ -374,7 +374,7 @@ function drawSeptagon(
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
     let side = 6;
-    if (calculateDistance(mousePosition, node) < 6) {
+    if (calculateDistance(mousePosition, node) < 9) {
         side *= 2;
     }
 
