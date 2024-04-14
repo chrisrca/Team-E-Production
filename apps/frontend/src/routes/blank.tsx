@@ -75,7 +75,7 @@ const defaultForm = [
     },
 
 ];
-export default function DrugDelivery() {
+export default function Drugs() {
     return ServiceRequests(
         defaultForm,
         defaultFormSchema,

@@ -89,7 +89,7 @@ export const ServiceRequests = (
     apiPath: string,
     bgPath: string,
 ) => {
-    const formSchema = { ...blankSchema };
+    const formSchema = structuredClone(blankSchema);
     const schemaKeys = [] as string[];
 
     Object.keys(formSchema).map((value) => {
@@ -119,28 +119,19 @@ export const ServiceRequests = (
     const identifyComponent = (
         props: FormLabel | FormComponent | FormSelect,
     ) => {
-        if (props.content.includes("text")) {
-            return inputComp(props as FormComponent);
-        } else if (props.content.includes("select")) {
-            return selectComp(props as FormSelect);
-        } else if (props.content.includes("label")) {
-            return labelComp(props as FormLabel);
-        } else if (props.content.includes("radio")) {
-            return radioGroupComp(props as FormSelect);
-        } else if (props.content.includes("checkbox")) {
-            formValues[props.id] = "false";
-            return checkboxComp(props as FormComponent);
-        } else if (props.content.includes("popover")) {
-            return PopoverComp();
-        } else  {
-            console.error("Failed to identify element - " + props.type);
-        }
+        if (props.content.includes("text")) { return inputComp(props as FormComponent); }
+        else if (props.content.includes("select")) { return selectComp(props as FormSelect); }
+        else if (props.content.includes("label")) { return labelComp(props as FormLabel); }
+        else if (props.content.includes("radio")) { return radioGroupComp(props as FormSelect); }
+        else if (props.content.includes("checkbox")) { return checkboxComp(props as FormComponent); }
+        else if (props.content.includes("popover")) { return PopoverComp(); }
+        else  { console.error("Failed to identify element - " + props.type); }
     };
 
     //Beginning of Elements
 
     const labelComp = (props: FormLabel) => {
-        console.log("making label element");
+        console.log("making label '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className="col-span-full text-extrabold basis-full text-center text-3xl">
@@ -151,7 +142,7 @@ export const ServiceRequests = (
     };
 
     const inputComp = (props: FormComponent) => {
-        console.log("making input element");
+        console.log("making input '" + props.title + "' id: " + props.id);
         return (
             <>
 
@@ -169,7 +160,9 @@ export const ServiceRequests = (
                         required={props.required}
                         variant={props.variant}
                         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            (formValues[props.id] =
+                            /*(formValues[props.id] =
+                                e.target.value.toString())*/
+                            (formSchema[schemaKeys[props.id]] =
                                 e.target.value.toString())
                         }
                         className={
@@ -181,6 +174,7 @@ export const ServiceRequests = (
         );
     };
     const selectComp = (props: FormSelect) => {
+        console.log("making select '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className="col-auto">
@@ -190,7 +184,8 @@ export const ServiceRequests = (
                     <Select
                         required={props.required}
                         onValueChange={(value: string) =>
-                            (formValues[props.id] = value.toString())
+                            (formSchema[schemaKeys[props.id]] =
+                                value.toString())
                         }
                     >
                         <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent">
@@ -217,6 +212,7 @@ export const ServiceRequests = (
     };
 
     const radioGroupComp = (props: FormSelect) => {
+        console.log("making radio '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className={"col-auto"}>
@@ -234,7 +230,8 @@ export const ServiceRequests = (
                     >
                         <RadioGroup
                             onValueChange={(value: string) =>
-                                (formValues[props.id] = value.toString())
+                                (formSchema[schemaKeys[props.id]] =
+                                    value.toString())
                             }
                         >
                             {/* Map options to select */}
@@ -263,6 +260,7 @@ export const ServiceRequests = (
     };
 
     const checkboxComp = (props: FormComponent) => {
+        console.log("making checkbox '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div
@@ -273,7 +271,8 @@ export const ServiceRequests = (
                     <Checkbox
                         required={props.required}
                         onCheckedChange={(value: boolean) =>
-                            (formValues[props.id] = value.toString())
+                            (formSchema[schemaKeys[props.id]] =
+                                value.toString())
                         }
                         className={"hover:bg-accent my-auto"}
                     >
@@ -327,18 +326,15 @@ export const ServiceRequests = (
 
     //End of Elements
 
-    const formValues = [] as string[];
     const submittedServiceData = [] as (typeof blankSchema)[];
 
     // Assign id to each element specified in layout based on order in the form,
     // determines where form values are sent on submit
     layout.map((field) => (field.id = layout.indexOf(field) - 1));
 
-    const handleSubmit = (e: FormEvent) => {
-        // Shallow copy of formSchema that is discarded after submit,
-        // Pushed to submittedServicesData and adheres to provided interface
-        const formData = { ...formSchema };
+    console.log(layout);
 
+    const handleSubmit = (e: FormEvent) => {
         // Prevent reload on submit
         e.preventDefault();
 
@@ -346,20 +342,15 @@ export const ServiceRequests = (
         // Using array of keys, maps data held in formValues to formData object
         // (lint doesn't like that formData doesn't have a promised type)
 
-        schemaKeys.map(
-            (field) =>
-                (formData[field] = formValues[schemaKeys.indexOf(field)]),
-        );
+        console.log(layout);
 
-        console.log(formValues);
+        console.log(formSchema);
 
         // Add current submission to array of submissions
-        submittedServiceData.push(formData);
-        sendForm(formData, apiPath);
+        submittedServiceData.push(formSchema);
+        sendForm(formSchema, apiPath);
 
         // Push submission to console
-        console.log(formData);
-
         // Push all submissions for current session to console
         console.log(submittedServiceData);
 

@@ -1,129 +1,115 @@
-import * as React from "react";
-import Autoplay from "embla-carousel-autoplay";
-import MedicineStore from "@/images/medicinestore.jpg";
-import Tylenol from "@/images/tylenol.jpg";
-import Advil from "@/images/advil.jpg";
-import Melatonin from "@/images/melatonin.jpg";
-import {
-    Carousel,
-    type CarouselApi,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel";
+// import * as React from "react";
+// import Autoplay from "embla-carousel-autoplay";
+// import MedicineStore from "@/images/medicinestore.jpg";
+// import Tylenol from "@/images/tylenol.jpg";
+// import Advil from "@/images/advil.jpg";
+// import Melatonin from "@/images/melatonin.jpg";
+// import {
+//     Carousel,
+//     type CarouselApi,
+//     CarouselContent,
+//     CarouselItem,
+//     CarouselNext,
+//     CarouselPrevious,
+// } from "@/components/ui/carousel";
 
 import { ServiceRequests } from "@/components/ServiceRequests";
-
-const defaultFormSchema = {
-    patientName: "",
-    roomNumber: "",
-    priority: "",
-    status: "",
-    drugName: "",
-    drugQuantity: "",
-    patientCondition: "Fever",
-
-};
+export default function DrugDelivery() {
+    // const [api, setApi] = React.useState<CarouselApi>();
+    // const [current, setCurrent] = React.useState(0);
+    // const [count, setCount] = React.useState(0);
+    const defaultFormSchema = {
+        patientName: "",
+        roomNumber: "",
+        priority: "",
+        status: "",
+        drugName: "",
+        drugQuantity: "",
+        patientCondition: "Fever",
+    };
 
 //Label is necessary, ids are calculated assuming that there is a title
 
-const defaultForm = [
-    {
-        content: "label",
-        title: "Drug Delivery Request",
-        type: "header",
-        id: 0,
-    },
-    {
-        content: "text",
-        type: "string",
-        title: "Patient Name",
-        placeholder: "First, Last",
-        required: true,
-        id: 0,
-    },
-    {
-        content: "text",
-        type: "number",
-        title: "Room Number",
-        placeholder: "Enter Room Number...",
-        required: true,
-        id: 0,
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Priority",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Priority",
-        options: ["Low", "Medium", "High", "Emergency",],
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Status",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed",],
-    },
-    {
-        content: "select",
-        type: "string",
-        title: "Medicine Type",
-        placeholder: "Select Medicine",
-        required: true,
-        id: 0,
-        label: "Options",
-        options: ["Tylenol - $5", "Advil - $7", "Melatonin - $10"],
-    },
-    {
-        content: "text",
-        type: "number",
-        title: "Drug Quantity",
-        placeholder: "Enter Drug Quantity...",
-        required: true,
-        id: 0,
-    },
+    const defaultForm = [
+        {
+            content: "label",
+            title: "Drug Delivery Request",
+            type: "header",
+            id: 0,
+        },
+        {
+            content: "text",
+            type: "string",
+            title: "Patient Name",
+            placeholder: "First, Last",
+            required: true,
+            id: 0,
+        },
+        {
+            content: "text",
+            type: "number",
+            title: "Room Number",
+            placeholder: "Enter Room Number...",
+            required: true,
+            id: 0,
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: "Priority",
+            placeholder: "Priority",
+            required: true,
+            id: 0,
+            label: "Request Priority",
+            options: ["Low", "Medium", "High", "Emergency",],
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: "Status",
+            placeholder: "Status",
+            required: true,
+            id: 0,
+            label: "Request Status",
+            options: ["Unassigned", "Assigned", "In Progress", "Closed",],
+        },
+        {
+            content: "select",
+            type: "string",
+            title: "Medicine Type",
+            placeholder: "Select Medicine",
+            required: true,
+            id: 0,
+            label: "Options",
+            options: ["Tylenol - $5", "Advil - $7", "Melatonin - $10"],
+        },
+        {
+            content: "text",
+            type: "number",
+            title: "Drug Quantity",
+            placeholder: "Enter Drug Quantity...",
+            required: true,
+            id: 0,
+        },
+    ];
 
-];
-function Form() {
-    return ServiceRequests(
-        defaultForm,
-        defaultFormSchema,
-        "/api/medicine",
-        "",
-    );
-}
-
-
-export default function DrugDelivery() {
-    const [api, setApi] = React.useState<CarouselApi>();
-    const [current, setCurrent] = React.useState(0);
-    const [count, setCount] = React.useState(0);
-
-    React.useEffect(() => {
-        if (!api) {
-            return;
-        }
-
-        setCount(api.scrollSnapList().length);
-        setCurrent(api.selectedScrollSnap() + 1);
-
-        api.on("select", () => {
-            setCurrent(api.selectedScrollSnap() + 1);
-        });
-    }, [api]);
+    // React.useEffect(() => {
+    //     if (!api) {
+    //         return;
+    //     }
+    //
+    //     setCount(api.scrollSnapList().length);
+    //     setCurrent(api.selectedScrollSnap() + 1);
+    //
+    //     api.on("select", () => {
+    //         setCurrent(api.selectedScrollSnap() + 1);
+    //     });
+    // }, [api]);
 
     return (
-        <>
-            <div className="relative z-50 mx-auto w-3/4">
+        <div>
+            {/*<div className="relative z-50 mx-auto w-3/4">
                 <div className="">
-                    {/*Advert Carousel*/}
                     <Carousel
                         className=""
                         setApi={setApi}
@@ -235,8 +221,13 @@ export default function DrugDelivery() {
                         {current} of {count}
                     </div>
                 </div>
-            </div>
-            {Form()}
-        </>
+            </div>*/}
+            {ServiceRequests(
+                defaultForm,
+                defaultFormSchema,
+                "/api/medicine",
+                "",
+            )}
+        </div>
     );
 };
