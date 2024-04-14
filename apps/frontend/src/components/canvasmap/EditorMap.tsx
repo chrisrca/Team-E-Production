@@ -23,6 +23,19 @@ interface CanvasMapProps {
     level: number;
 }
 
+// Define default values for DBNode properties
+const defaultNode: DBNode = {
+    building: "",
+    edges: [],
+    floor: "",
+    longName: "",
+    nodeID: "",
+    nodeType: "",
+    shortName: "",
+    xcoord: 0,
+    ycoord: 0,
+};
+
 // EditorMap component function
 export default function EditorMap(props: CanvasMapProps) {
     // Create a reference for the canvas element
@@ -33,7 +46,7 @@ export default function EditorMap(props: CanvasMapProps) {
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
     // State to manage the selected node and whether the node editor should be shown
-    const [selectedNode, setSelectedNode] = useState<DBNode | null>(null);
+    const [selectedNode, setSelectedNode] = useState<DBNode>(defaultNode);
     const [showNodeEditor, setShowNodeEditor] = useState(false);
 
     // Destructure props for easier access
@@ -88,8 +101,12 @@ export default function EditorMap(props: CanvasMapProps) {
     };
 
     // Function to handle node clicks
-    const handleNodeClick = (node: DBNode) => {
-        setSelectedNode(node);
+    const handleNodeClick = (node?: DBNode) => {
+        if (node) {
+            setSelectedNode(node);
+        } else {
+            setSelectedNode(defaultNode);
+        }
         setShowNodeEditor(true);
     };
 
@@ -236,15 +253,15 @@ export default function EditorMap(props: CanvasMapProps) {
             <NodeEditorButton openNodeEditor={() => setShowNodeEditor(true)} />
 
             {/* Conditionally render NodeEditor based on state */}
-            {showNodeEditor && selectedNode && (
+            {showNodeEditor && (
                 <NodeEditor
                     node={selectedNode}
-                    onSave={(updatedNode) => {
+                    handleSave={(updatedNode: DBNode) => {
                         console.log(updatedNode);
                         // Handle save logic here
                         setShowNodeEditor(false);
                     }}
-                    onCancel={() => setShowNodeEditor(false)}
+                    handleCancel={() => setShowNodeEditor(false)}
                 />
             )}
         </div>

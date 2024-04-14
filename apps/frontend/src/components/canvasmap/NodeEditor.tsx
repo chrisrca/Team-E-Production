@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { DBNode } from "common/src/types";
 
 interface NodeEditorProps {
-    node: DBNode | null;
-    onSave: (updatedNode: DBNode) => void;
-    onCancel: () => void;
+    node: DBNode | null; // Node to edit or null if none is provided
 }
 
 export default function NodeEditor({
     node,
-    onSave,
-    onCancel,
-}: NodeEditorProps) {
+    handleSave,
+    handleCancel,
+}: NodeEditorProps & {
+    handleSave: (updatedNode: DBNode) => void; // Function to handle saving changes
+    handleCancel: () => void; // Function to handle cancelling changes
+}) {
     const [editedNode, setEditedNode] = useState<DBNode | null>(node);
     const [blockedEdges, setBlockedEdges] = useState<string[]>([]);
 
@@ -51,7 +52,7 @@ export default function NodeEditor({
             );
             const updatedNode = { ...editedNode, edges: updatedEdges };
 
-            onSave(updatedNode);
+            handleSave(updatedNode); // Call the save handler with the updated node
         }
     }
 
@@ -73,7 +74,7 @@ export default function NodeEditor({
                     />
                 </label>
             </div>
-            {/* Repeat similar code blocks for other input fields */}
+            {/* Input fields for node coordinates */}
             <div>
                 <label>
                     X Coordinate:
@@ -114,9 +115,9 @@ export default function NodeEditor({
                 </div>
             ))}
 
-            {/* Save and cancel buttons */}
+            {/* Buttons to save and cancel */}
             <button onClick={handleSubmit}>Save</button>
-            <button onClick={onCancel}>Cancel</button>
+            <button onClick={handleCancel}>Cancel</button>
         </div>
     );
 }
