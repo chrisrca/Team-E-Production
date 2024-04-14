@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [start, setStart] = useState<string>("");
     const [end, setEnd] = useState<string>("");
-    const [algorithm, setAlgorithm] = useState<string>("");
+    const [algorithm, setAlgorithm] = useState<string>("ASTAR");
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
     const [level, setLevel] = useState<number>(1);
 
@@ -22,9 +22,17 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     useEffect(() => {
         async function fetchPathData() {
             try {
-                const res = await axios.get(
-                    `/api/path/${start}/${end}/${algorithm}`,
-                );
+                let res;
+                if (!algorithm) {
+                    res = await axios.get(
+                        `/api/path/${start}/${end}/${"ASTAR"}`,
+                    );
+                } else {
+                    res = await axios.get(
+                        `/api/path/${start}/${end}/${algorithm}`,
+                    );
+                }
+
                 setPathNodes(res.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
