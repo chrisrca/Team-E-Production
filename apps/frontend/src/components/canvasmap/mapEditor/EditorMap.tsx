@@ -201,6 +201,11 @@ export default function EditorMap(props: CanvasMapProps) {
         }
     }, [nodes, hoverNode, mousePosition, nullNode, level, nodeInfoPosition]);
 
+    // Define the function to handle the cancel action
+    const handleCancel = () => {
+        setSelectedNode(null); // Set selectedNode to null to close the node editor
+    };
+
     return (
         <>
             {/* Render node information */}
@@ -236,7 +241,9 @@ export default function EditorMap(props: CanvasMapProps) {
             )}
 
             {/* Node Editor */}
-            {selectedNode && <NodeEditor node={selectedNode} />}
+            {selectedNode && (
+                <NodeEditor node={selectedNode} onCancel={handleCancel} />
+            )}
 
             {/* Render map and canvas */}
             <TransformWrapper

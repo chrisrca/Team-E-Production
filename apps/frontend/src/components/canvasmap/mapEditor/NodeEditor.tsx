@@ -3,9 +3,10 @@ import { DBNode } from "common/src/types";
 
 interface NodeEditorProps {
     node: DBNode | null;
+    onCancel: () => void; // Add onCancel prop for handling cancel action
 }
 
-export default function NodeEditor({ node }: NodeEditorProps) {
+export default function NodeEditor({ node, onCancel }: NodeEditorProps) {
     const [editedNode, setEditedNode] = useState<DBNode | null>(node);
 
     // Sync state when the node prop changes
@@ -127,7 +128,8 @@ export default function NodeEditor({ node }: NodeEditorProps) {
             </div>
             <div>
                 <button onClick={handleSubmit}>Save</button>
-                <button onClick={() => setEditedNode(node)}>Cancel</button>
+                <button onClick={onCancel}>Cancel</button>{" "}
+                {/* Use onCancel prop */}
             </div>
         </div>
     );
