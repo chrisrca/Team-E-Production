@@ -44,4 +44,95 @@ export default function drawGraph(
 
     //NODE DRAWING
     drawNodes(ctx, nodeData, xMult, yMult, mapLevel, mousePosition);
+    drawElevators(ctx, pathData, xMult, yMult, floor[mapLevel], mousePosition);
+}
+
+function drawElevators(
+    ctx: CanvasRenderingContext2D,
+    pathData: DBNode[],
+    xMult: number,
+    yMult: number,
+    mapLevel: string,
+    mousePosition: { x: number; y: number },
+) {
+    for (let i = 0; i < pathData.length - 1; i++) {
+        if (
+            pathData[i].nodeType == "ELEV" &&
+            pathData[i + 1].nodeType == "ELEV"
+        ) {
+            drawNewFloor(
+                ctx,
+                pathData[i],
+                xMult,
+                yMult,
+                mapLevel,
+                mousePosition,
+                pathData[i + 1].floor,
+            );
+        }
+    }
+}
+
+function drawNewFloor(
+    ctx: CanvasRenderingContext2D,
+    node: DBNode,
+    xMult: number,
+    yMult: number,
+    mapLevel: string,
+    mousePosition: { x: number; y: number },
+    floor: string,
+) {
+    if (node.floor !== mapLevel) return;
+    let size = 12;
+    if (calculateDistance(mousePosition, node) < 12) {
+        size *= 2;
+    }
+    ctx.beginPath();
+    ctx.fillStyle = "#ffffff";
+    ctx.arc(node.xcoord * xMult, node.ycoord * yMult, size, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fillStyle = "#2596be";
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = "#ffffff";
+    if (calculateDistance(mousePosition, node) < 12) {
+        if (floor.length > 1) {
+            ctx.font = "30px Arial";
+            ctx.fillText(
+                floor,
+                node.xcoord * xMult - 15,
+                node.ycoord * yMult + 12,
+            );
+        } else {
+            ctx.font = "30px Arial";
+            ctx.fillText(
+                floor,
+                node.xcoord * xMult - 8,
+                node.ycoord * yMult + 12,
+            );
+        }
+    } else {
+        if (floor.length > 1) {
+            ctx.font = "14px Arial";
+            ctx.fillText(
+                floor,
+                node.xcoord * xMult - 7,
+                node.ycoord * yMult + 6,
+            );
+        } else {
+            ctx.font = "14px Arial";
+            ctx.fillText(
+                floor,
+                node.xcoord * xMult - 4,
+                node.ycoord * yMult + 6,
+            );
+        }
+    }
+}
+
+function calculateDistance(point1: { x: number; y: number }, node: DBNode) {
+    return Math.sqrt(
+        Math.pow(node.xcoord - point1.x, 2) +
+            Math.pow(node.ycoord - point1.y, 2),
+    );
 }
