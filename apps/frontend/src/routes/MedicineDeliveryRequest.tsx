@@ -28,7 +28,7 @@ export default function DrugDelivery() {
         patientCondition: "Fever",
     };
 
-//Label is necessary, ids are calculated assuming that there is a title
+    //Label is necessary, ids are calculated assuming that there is a title
 
     const defaultForm = [
         {
@@ -61,7 +61,7 @@ export default function DrugDelivery() {
             required: true,
             id: 0,
             label: "Request Priority",
-            options: ["Low", "Medium", "High", "Emergency",],
+            options: ["Low", "Medium", "High", "Emergency"],
         },
         {
             content: "radio",
@@ -71,7 +71,7 @@ export default function DrugDelivery() {
             required: true,
             id: 0,
             label: "Request Status",
-            options: ["Unassigned", "Assigned", "In Progress", "Closed",],
+            options: ["Unassigned", "Assigned", "In Progress", "Closed"],
         },
         {
             content: "select",
@@ -230,4 +230,4 @@ export default function DrugDelivery() {
             )}
         </div>
     );
-};
+}

@@ -43,7 +43,7 @@ const defaultForm = [
         required: true,
         id: 0,
         label: "Request Priority",
-        options: ["Low", "Medium", "High", "Emergency",],
+        options: ["Low", "Medium", "High", "Emergency"],
     },
     {
         content: "radio",
@@ -53,7 +53,7 @@ const defaultForm = [
         required: true,
         id: 0,
         label: "Request Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed",],
+        options: ["Unassigned", "Assigned", "In Progress", "Closed"],
     },
     {
         content: "select",
@@ -73,13 +73,7 @@ const defaultForm = [
         required: true,
         id: 0,
     },
-
 ];
 export default function Drugs() {
-    return ServiceRequests(
-        defaultForm,
-        defaultFormSchema,
-        "/api/medicine",
-        "",
-    );
+    return ServiceRequests(defaultForm, defaultFormSchema, "/api/medicine", "");
 }

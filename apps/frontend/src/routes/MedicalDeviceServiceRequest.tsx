@@ -42,7 +42,7 @@ const defaultForm = [
         required: true,
         id: 0,
         label: "Request Priority",
-        options: ["Low", "Medium", "High", "Emergency",],
+        options: ["Low", "Medium", "High", "Emergency"],
     },
     {
         content: "radio",
@@ -52,7 +52,7 @@ const defaultForm = [
         required: true,
         id: 0,
         label: "Request Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed",],
+        options: ["Unassigned", "Assigned", "In Progress", "Closed"],
     },
     {
         content: "checkbox",

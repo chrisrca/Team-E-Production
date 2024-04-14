@@ -37,9 +37,9 @@ import axios from "axios";
 import {
     Popover,
     PopoverContent,
-    PopoverTrigger
+    PopoverTrigger,
 } from "@/components/ui/popover";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import FormInput from "@/components/ui/formInput";
 
 type FormLabel = {
@@ -119,13 +119,21 @@ export const ServiceRequests = (
     const identifyComponent = (
         props: FormLabel | FormComponent | FormSelect,
     ) => {
-        if (props.content.includes("text")) { return inputComp(props as FormComponent); }
-        else if (props.content.includes("select")) { return selectComp(props as FormSelect); }
-        else if (props.content.includes("label")) { return labelComp(props as FormLabel); }
-        else if (props.content.includes("radio")) { return radioGroupComp(props as FormSelect); }
-        else if (props.content.includes("checkbox")) { return checkboxComp(props as FormComponent); }
-        else if (props.content.includes("popover")) { return PopoverComp(); }
-        else  { console.error("Failed to identify element - " + props.type); }
+        if (props.content.includes("text")) {
+            return inputComp(props as FormComponent);
+        } else if (props.content.includes("select")) {
+            return selectComp(props as FormSelect);
+        } else if (props.content.includes("label")) {
+            return labelComp(props as FormLabel);
+        } else if (props.content.includes("radio")) {
+            return radioGroupComp(props as FormSelect);
+        } else if (props.content.includes("checkbox")) {
+            return checkboxComp(props as FormComponent);
+        } else if (props.content.includes("popover")) {
+            return PopoverComp();
+        } else {
+            console.error("Failed to identify element - " + props.type);
+        }
     };
 
     //Beginning of Elements
@@ -145,7 +153,6 @@ export const ServiceRequests = (
         console.log("making input '" + props.title + "' id: " + props.id);
         return (
             <>
-
                 <div className="col-span-full">
                     <label
                         className={
@@ -248,7 +255,6 @@ export const ServiceRequests = (
                                         <Label className="ml-2 text-sm font-medium text-gray-700 dark:text-foreground flex-nowrap">
                                             {option}
                                         </Label>
-
                                     </div>
                                 ))}
                             </div>
@@ -263,11 +269,7 @@ export const ServiceRequests = (
         console.log("making checkbox '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div
-                    className={
-                        "flex col-span-full container:ml-0 pl-6 pt-2"
-                    }
-                >
+                <div className={"flex col-span-full container:ml-0 pl-6 pt-2"}>
                     <Checkbox
                         required={props.required}
                         onCheckedChange={(value: boolean) =>
@@ -286,7 +288,7 @@ export const ServiceRequests = (
         );
     };
 
-    const PopoverComp = () =>{
+    const PopoverComp = () => {
         return (
             <Popover>
                 <PopoverTrigger asChild>
@@ -295,7 +297,9 @@ export const ServiceRequests = (
                 <PopoverContent className="w-80">
                     <div className="grid gap-4">
                         <div className="space-y-2">
-                            <h4 className="font-medium leading-none">Dimensions</h4>
+                            <h4 className="font-medium leading-none">
+                                Dimensions
+                            </h4>
                             <p className="text-sm text-muted-foreground">
                                 Set the dimensions for the layer.
                             </p>
@@ -303,19 +307,15 @@ export const ServiceRequests = (
                         <div className="grid gap-2">
                             <div className="grid grid-cols-3 items-center gap-4">
                                 <Label htmlFor="width">Width</Label>
-
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
                                 <Label htmlFor="maxWidth">Max. width</Label>
-
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
                                 <Label htmlFor="height">Height</Label>
-
                             </div>
                             <div className="grid grid-cols-3 items-center gap-4">
                                 <Label htmlFor="maxHeight">Max. height</Label>
-
                             </div>
                         </div>
                     </div>
@@ -368,14 +368,9 @@ export const ServiceRequests = (
             <div className="flex justify-center container shrink-0 w-full h-dvh">
                 <div className="m-auto relative w-2/3 min-w-[35rem]">
                     <div className="block shadow-lg bg-secondary rounded-lg border-4 border-background">
-                        <form
-                            className="px-16 py-8"
-                            onSubmit={handleSubmit}
-                        >
+                        <form className="px-16 py-8" onSubmit={handleSubmit}>
                             {makeForm(layout)}
-                            <div
-                                className={"pt-16 grid grid-col grid-cols-3 "}
-                            >
+                            <div className={"pt-16 grid grid-col grid-cols-3 "}>
                                 <button
                                     className="bg-accent hover:bg-destructive text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
                                     type={"clear"}
