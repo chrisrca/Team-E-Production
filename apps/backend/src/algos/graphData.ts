@@ -1,7 +1,7 @@
 import fs from "fs";
 
-const edges: string = "./src/data/edges.csv";
-const nodes: string = "./src/data/nodes.csv";
+const edges: string = "./apps/backend/src/data/edges.csv";
+const nodes: string = "./apps/backend/src/data/nodes.csv";
 
 interface Coords {
     xcoord: number;
