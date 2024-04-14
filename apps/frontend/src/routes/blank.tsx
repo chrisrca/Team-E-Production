@@ -1,13 +1,13 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
 
 const defaultFormSchema = {
-    patientName: "",
-    roomNumber: "",
+    recipientName: "",
+    deliveryLocation: "",
     priority: "",
     status: "",
-    drugName: "",
-    drugQuantity: "",
-    patientCondition: "Fever",
+    message: "",
+    giftSize: "",
+    wrapping: "Default - $15",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -15,14 +15,14 @@ const defaultFormSchema = {
 const defaultForm = [
     {
         content: "label",
-        title: "Drug Delivery Request",
+        title: "Gift Delivery Request",
         type: "header",
         id: 0,
     },
     {
         content: "text",
         type: "string",
-        title: "Patient Name",
+        title: "Recipient Name",
         placeholder: "First, Last",
         required: true,
         id: 0,
@@ -56,24 +56,24 @@ const defaultForm = [
         options: ["Unassigned", "Assigned", "In Progress", "Closed"],
     },
     {
+        content: "text",
+        type: "string",
+        title: "Message",
+        placeholder: "Enter a Message... (Optional)",
+        required: true,
+        id: 0,
+    },
+    {
         content: "select",
         type: "string",
-        title: "Medicine Type",
-        placeholder: "Select Medicine",
+        title: "Gift Size",
+        placeholder: "Select Size",
         required: true,
         id: 0,
         label: "Options",
-        options: ["Tylenol - $5", "Advil - $7", "Melatonin - $10"],
-    },
-    {
-        content: "text",
-        type: "number",
-        title: "Drug Quantity",
-        placeholder: "Enter Drug Quantity...",
-        required: true,
-        id: 0,
+        options: ["Small", "Medium", "Large"],
     },
 ];
-export default function Drugs() {
-    return ServiceRequests(defaultForm, defaultFormSchema, "/api/medicine", "");
+export default function GiftServiceRequest() {
+    return ServiceRequests(defaultForm, defaultFormSchema, "/api/gift", "");
 }
