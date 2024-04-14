@@ -5,22 +5,25 @@ import {
     ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
 import { DBNode } from "common/src/types";
-import LLevel1 from "./mapImages/00_thelowerlevel1.png";
-import LLevel2 from "./mapImages/00_thelowerlevel2.png";
-import Level1 from "./mapImages/01_thefirstfloor.png";
-import Level2 from "./mapImages/02_thesecondfloor.png";
-import Level3 from "./mapImages/03_thethirdfloor.png";
-import drawGraph from "@/components/canvasmap/RenderGraph.tsx";
+import LLevel1 from "../mapImages/00_thelowerlevel1.png";
+import LLevel2 from "../mapImages/00_thelowerlevel2.png";
+import Level1 from "../mapImages/01_thefirstfloor.png";
+import Level2 from "../mapImages/02_thesecondfloor.png";
+import Level3 from "../mapImages/03_thethirdfloor.png";
+import drawGraph from "@/components/canvasmap/mapEditor/RenderGraph.tsx";
 
+// Array of map images for each level
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
+
+// Interface for the component's props
 interface CanvasMapProps {
     nodes: DBNode[];
-    path: DBNode[];
+    path: DBNode[][];
     level: number;
-    setLevel: (level: number) => void; // Add setLevel prop
 }
 
-export default function CanvasMap(nodes: CanvasMapProps) {
+// EditorMap component function
+export default function EditorMap(nodes: CanvasMapProps) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
@@ -49,7 +52,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
     const pathData = nodes.path;
     const mapLevel = nodes.level;
 
-    //RESIZING OF CANVAS
+    // Effect to handle image loading and updating container size
     useEffect(() => {
         const image = new Image();
         image.src = MapImage[mapLevel];
@@ -75,13 +78,13 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         });
     };
 
-    // Function to handle panning stopped event
+    // Function to handle panning stop events
     const handlePanningStopped = (e: ReactZoomPanPinchRef) => {
         const x = e.state.positionX;
         const y = e.state.positionY;
         const scale = e.state.scale;
 
-        // If image is smaller than the container, center it
+        // Center image if it's smaller than the container
         if (imageSize.width * scale < containerSize.width) {
             e.setTransform(
                 (containerSize.width - imageSize.width * scale) / 2,
@@ -92,13 +95,12 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         if (imageSize.height * scale < containerSize.height) {
             e.setTransform(
                 x,
-                (containerSize.width - imageSize.width * scale) / 2,
+                (containerSize.height - imageSize.height * scale) / 2,
                 scale,
             );
         }
     };
 
-    // This function took like 3 hours dont touch it
     // Map current mouse position onto canvas
     const handleMouseMoveCanvas = (
         event: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
@@ -138,19 +140,6 @@ export default function CanvasMap(nodes: CanvasMapProps) {
 
         if (hoverNode.longName !== "") {
             console.log(x, y, hoverNode.longName);
-        }
-
-        if (hoverNode.nodeType == "ELEV") {
-            for (let i = 0; i < pathData.length - 1; i++) {
-                if (
-                    pathData[i].nodeID == hoverNode.nodeID &&
-                    pathData[i].nodeType == "ELEV" &&
-                    pathData[i + 1].nodeType == "ELEV"
-                ) {
-                    const floor = ["L2", "L1", "1", "2", "3"];
-                    nodes.setLevel(floor.indexOf(pathData[i + 1].floor));
-                }
-            }
         }
     };
 
