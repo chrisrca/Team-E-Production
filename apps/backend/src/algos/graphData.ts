@@ -111,4 +111,12 @@ export async function processGraphData(): Promise<[Node[], Edge[]]> {
     return nodesandedges;
 }
 
+export function convertNodeID(path: Node[]): string[] {
+    const newPath: string[] = [path[0].nodeID];
+    for (let i = 1; i < path.length; i++) {
+        newPath.push(path[i].nodeID);
+    }
+    return newPath;
+}
+
 export default processGraphData();
