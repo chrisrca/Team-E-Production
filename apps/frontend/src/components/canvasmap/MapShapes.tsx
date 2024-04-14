@@ -17,37 +17,37 @@ export default function drawNodes(
                 drawSquare(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "CONF":
-                drawRectangle(ctx, node, xMult, yMult);
+                drawRectangle(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "DEPT":
-                drawCircle(ctx, node, xMult, yMult);
+                drawCircle(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "ELEV":
-                drawOval(ctx, node, xMult, yMult);
+                drawOval(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "EXIT":
-                drawHexagon(ctx, node, xMult, yMult);
+                drawHexagon(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "INFO":
-                drawTriangle(ctx, node, xMult, yMult);
+                drawTriangle(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "LABS":
-                drawRhombus(ctx, node, xMult, yMult);
+                drawRhombus(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "REST":
-                drawParallelogram(ctx, node, xMult, yMult);
+                drawParallelogram(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "BATH":
-                drawTrapezoid(ctx, node, xMult, yMult);
+                drawTrapezoid(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "RETL":
-                drawOctagon(ctx, node, xMult, yMult);
+                drawOctagon(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "STAI":
-                drawPentagon(ctx, node, xMult, yMult);
+                drawPentagon(ctx, node, xMult, yMult, mousePosition);
                 break;
             case "SERV":
-                drawSeptagon(ctx, node, xMult, yMult);
+                drawSeptagon(ctx, node, xMult, yMult, mousePosition);
                 break;
         }
     });
@@ -64,8 +64,13 @@ function drawHexagon(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number },
 ) {
-    const size = 7;
+    let size = 7;
+    if (calculateDistance(mousePosition, node) < 9) {
+        size *= 2;
+    }
+
     ctx.beginPath();
     ctx.fillStyle = "#ffffff";
 
@@ -91,10 +96,15 @@ function drawCircle(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number },
 ) {
+    let size = 6;
+    if (calculateDistance(mousePosition, node) < 9) {
+        size *= 2;
+    }
     ctx.beginPath();
     ctx.fillStyle = "#ffffff";
-    ctx.arc(node.xcoord * xMult, node.ycoord * yMult, 6, 0, 2 * Math.PI);
+    ctx.arc(node.xcoord * xMult, node.ycoord * yMult, size, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.fillStyle = "#e04545";
     ctx.fill();
@@ -110,7 +120,7 @@ function drawSquare(
 ) {
     ctx.beginPath();
     let size: number = 10;
-    if (calculateDistance(mousePosition, node) < 10) {
+    if (calculateDistance(mousePosition, node) < 9) {
         size *= 2;
     }
     const halfSize = size / 2;
@@ -128,9 +138,13 @@ function drawRectangle(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number },
 ) {
     ctx.beginPath();
-    const size = 10;
+    let size = 10;
+    if (calculateDistance(mousePosition, node) < 9) {
+        size *= 2;
+    }
     const halfSize = size / 2;
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
@@ -151,9 +165,13 @@ function drawTriangle(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number },
 ) {
     ctx.beginPath();
-    const size = 14;
+    let size = 14;
+    if (calculateDistance(mousePosition, node) < 9) {
+        size *= 2;
+    }
     const height = size * (Math.sqrt(3) / 2);
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult + 2;
@@ -173,12 +191,17 @@ function drawOval(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number },
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
-    const radiusX = 8;
-    const radiusY = 6;
+    let radiusX = 8;
+    let radiusY = 6;
+    if (calculateDistance(mousePosition, node) < 9) {
+        radiusX *= 2;
+        radiusY *= 2;
+    }
     const rotation = 0;
     ctx.ellipse(centerX, centerY, radiusX, radiusY, rotation, 0, 2 * Math.PI);
     ctx.fillStyle = "#da8f08";
@@ -191,12 +214,15 @@ function drawRhombus(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number },
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
-    const diag = 14;
-
+    let diag = 14;
+    if (calculateDistance(mousePosition, node) < 9) {
+        diag *= 2;
+    }
     ctx.moveTo(centerX, centerY - diag / 2);
     ctx.lineTo(centerX + diag / 2, centerY);
     ctx.lineTo(centerX, centerY + diag / 2);
@@ -213,14 +239,19 @@ function drawParallelogram(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number },
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
-    const base = 14;
-    const height = 9;
-    const skew = 4;
-
+    let base = 14;
+    let height = 9;
+    let skew = 4;
+    if (calculateDistance(mousePosition, node) < 9) {
+        base *= 2;
+        height *= 2;
+        skew *= 2;
+    }
     ctx.moveTo(centerX - base / 2, centerY + height / 2);
     ctx.lineTo(centerX + base / 2, centerY + height / 2);
     ctx.lineTo(centerX + base / 2 + skew, centerY - height / 2);
@@ -237,13 +268,19 @@ function drawTrapezoid(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number },
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
-    const base = 16;
-    const top = 9;
-    const height = 9;
+    let base = 16;
+    let top = 9;
+    let height = 9;
+    if (calculateDistance(mousePosition, node) < 9) {
+        base *= 2;
+        top *= 2;
+        height *= 2;
+    }
 
     ctx.moveTo(centerX - base / 2, centerY + height / 2);
     ctx.lineTo(centerX + base / 2, centerY + height / 2);
@@ -261,11 +298,15 @@ function drawOctagon(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number },
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
-    const side = 5;
+    let side = 5;
+    if (calculateDistance(mousePosition, node) < 9) {
+        side *= 2;
+    }
 
     const radius = side / (2 * Math.sin(Math.PI / 8));
 
@@ -292,11 +333,15 @@ function drawPentagon(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number },
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
-    const side = 8;
+    let side = 8;
+    if (calculateDistance(mousePosition, node) < 9) {
+        side *= 2;
+    }
 
     const radius = side / (2 * Math.sin(Math.PI / 5));
 
@@ -323,11 +368,15 @@ function drawSeptagon(
     node: DBNode,
     xMult: number,
     yMult: number,
+    mousePosition: { x: number; y: number },
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
-    const side = 6;
+    let side = 6;
+    if (calculateDistance(mousePosition, node) < 9) {
+        side *= 2;
+    }
 
     const radius = side / (2 * Math.sin(Math.PI / 7));
 
