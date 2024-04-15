@@ -95,17 +95,10 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                     </SelectContent>
                 </Select>
             </div>
-            <div
-                className={
-                    "flex flex-col rounded-2 border-white drop-shadow-xl"
-                }
-            >
-                <Select
-                    onValueChange={(value) => setAlgorithm(value)}
-                    value={algorithm}
-                >
+            <div className="flex flex-col rounded-2 border-white drop-shadow-xl">
+                <Select onValueChange={(value) => setAlgorithm(value)}>
                     <SelectTrigger>
-                        <SelectValue placeholder="Select Algorithm" />
+                        <SelectValue placeholder="A* (A-Star)" />
                     </SelectTrigger>
                     <SelectContent defaultValue="ASTAR">
                         <SelectItem value="BFS">
@@ -118,6 +111,7 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                     </SelectContent>
                 </Select>
             </div>
+
             <div
                 className={
                     "mt-5 grid grid-cols-2 justify-items-center space-x-5"

@@ -17,7 +17,9 @@ interface CanvasMapProps {
     nodes: DBNode[];
     path: DBNode[];
     level: number;
-    setLevel: (level: number) => void; // Add setLevel prop
+    setLevel: (level: number) => void;
+    start: (start: string) => void;
+    end: (end: string) => void;
 }
 
 export default function CanvasMap(nodes: CanvasMapProps) {
@@ -25,11 +27,6 @@ export default function CanvasMap(nodes: CanvasMapProps) {
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [nodeInfoPosition, setNodeInfoPosition] = useState({
-        x: 0,
-        y: 0,
-        z: 0,
-    });
     const nullNode: DBNode = useMemo(
         () => ({
             building: "",
@@ -116,11 +113,6 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         const y = (event.clientY - rect.top) * scaleY; // been adjusted to be relative to element
 
         setMousePosition({ x, y });
-        setNodeInfoPosition({
-            x: event.nativeEvent.clientX,
-            y: event.nativeEvent.clientY,
-            z: 9999,
-        });
     };
 
     const handleMouseClick = (
@@ -141,15 +133,43 @@ export default function CanvasMap(nodes: CanvasMapProps) {
             console.log(x, y, hoverNode.longName);
         }
 
-        if (hoverNode.nodeType == "ELEV") {
+        const floor = ["L2", "L1", "1", "2", "3"];
+
+        let tempHoverNode: DBNode = nullNode;
+
+        for (const node of nodeData) {
+            if (node.floor === floor[mapLevel]) {
+                if (calculateDistance(mousePosition, node) < 12) {
+                    sethoverNode(node);
+                    tempHoverNode = node;
+                    break;
+                }
+                sethoverNode(nullNode);
+            }
+        }
+
+        if (tempHoverNode.nodeType == "ELEV") {
             for (let i = 0; i < pathData.length - 1; i++) {
                 if (
-                    pathData[i].nodeID == hoverNode.nodeID &&
+                    pathData[i].nodeID == tempHoverNode.nodeID &&
                     pathData[i].nodeType == "ELEV" &&
                     pathData[i + 1].nodeType == "ELEV"
                 ) {
-                    const floor = ["L2", "L1", "1", "2", "3"];
+                    sethoverNode(nullNode);
                     nodes.setLevel(floor.indexOf(pathData[i + 1].floor));
+                }
+            }
+        }
+
+        if (tempHoverNode.nodeType == "ELEV") {
+            for (let i = pathData.length - 1; i > 0; i--) {
+                if (
+                    pathData[i].nodeID == tempHoverNode.nodeID &&
+                    pathData[i].nodeType == "ELEV" &&
+                    pathData[i - 1].nodeType == "ELEV"
+                ) {
+                    sethoverNode(nullNode);
+                    nodes.setLevel(floor.indexOf(pathData[i - 1].floor));
                 }
             }
         }
@@ -191,26 +211,34 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         );
     }
 
-    useEffect(() => {
-        const floor = ["L2", "L1", "1", "2", "3"];
-
-        for (const node of nodeData) {
-            if (node.floor === floor[mapLevel]) {
-                if (calculateDistance(mousePosition, node) < 9) {
-                    sethoverNode(node);
-                    break;
-                }
-                sethoverNode(nullNode);
-            }
+    function setColor(node: DBNode) {
+        switch (node.nodeType) {
+            case "HALL":
+                return "#0a2ce1";
+            case "CONF":
+                return "#25982a";
+            case "DEPT":
+                return "#e04545";
+            case "ELEV":
+                return "#da8f08";
+            case "EXIT":
+                return "#ddde1f";
+            case "INFO":
+                return "#1fe18a";
+            case "LABS":
+                return "#9608da";
+            case "REST":
+                return "#5cdbda";
+            case "BATH":
+                return "#ce24d4";
+            case "RETL":
+                return "#0b6009";
+            case "STAI":
+                return "#82a7f6";
+            case "SERV":
+                return "#67c537";
         }
-    }, [
-        nodeData,
-        hoverNode,
-        mousePosition,
-        nullNode,
-        mapLevel,
-        nodeInfoPosition,
-    ]);
+    }
 
     return (
         <>
@@ -225,25 +253,54 @@ export default function CanvasMap(nodes: CanvasMapProps) {
             ></div>
             {hoverNode.longName && (
                 <div
-                    className={
-                        "ml-4 justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"
-                    }
+                    className="absolute z-10 rounded-2xl bg-white shadow-lg"
                     style={{
-                        position: "absolute",
-                        top: `${nodeInfoPosition.y}px`,
-                        left: `${nodeInfoPosition.x}px`,
-                        zIndex: `${nodeInfoPosition.z}px`,
-                        background: "#ffffff",
-                        whiteSpace: "nowrap", // Prevent text from wrapping
-                        fontSize: "14px",
-                        padding: "5px", // Adjust padding as needed
-                        minWidth: "fit-content", // Allow the div to expand only as much as needed
-                        maxWidth: "calc(100% - 20px)", // Limit the maximum width to ensure it doesn't exceed the viewport
+                        top: `300px`,
+                        left: `60px`,
+                        zIndex: `9999px`,
+                        whiteSpace: "nowrap",
+                        minWidth: "fit-content",
+                        maxWidth: "calc(100% - 20px)",
                     }}
                 >
-                    {hoverNode.longName}
+                    {/* Top color bar */}
+                    <div
+                        className="text-white text-lg font-bold rounded-t-2xl px-4 py-2"
+                        style={{ backgroundColor: setColor(hoverNode) }}
+                    >
+                        {hoverNode.longName}
+                    </div>
+
+                    {/* Node details */}
+                    <div className="p-5 text-sm">
+                        <p>Building: {hoverNode.building}</p>
+                        <p>Floor: {hoverNode.floor}</p>
+                        <p>ID: {hoverNode.nodeID}</p>
+                        <p>Type: {hoverNode.nodeType}</p>
+                        <p>
+                            Coordinates: ({hoverNode.xcoord}, {hoverNode.ycoord}
+                            )
+                        </p>
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="flex justify-evenly pb-4">
+                        <button
+                            className="bg-green-500 text-white rounded-full px-4 py-2"
+                            onClick={() => nodes.start(hoverNode.nodeID)}
+                        >
+                            Set as Start
+                        </button>
+                        <button
+                            className="bg-red-500 text-white rounded-full px-4 py-2"
+                            onClick={() => nodes.end(hoverNode.nodeID)}
+                        >
+                            Set as End
+                        </button>
+                    </div>
                 </div>
             )}
+
             <TransformWrapper
                 initialScale={1.5}
                 centerOnInit={true}
