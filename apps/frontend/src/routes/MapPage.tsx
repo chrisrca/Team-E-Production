@@ -1,6 +1,6 @@
-import CanvasMap from "@/components/canvasmap/CanvasMap";
-import LevelButtons from "@/components/canvasmap/LevelButtons";
-import SearchBar from "@/components/canvasmap/MapUI";
+import CanvasMap from "@/components/canvasmap/map/CanvasMap.tsx";
+import LevelButtons from "@/components/canvasmap/map/LevelButtons.tsx";
+import SearchBar from "@/components/canvasmap/map/MapUI.tsx";
 import axios from "axios";
 import { DBNode } from "common/src/types";
 // import { DBNode } from "common/src/types";

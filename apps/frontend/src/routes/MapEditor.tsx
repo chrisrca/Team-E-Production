@@ -1,5 +1,5 @@
-import EditorMap from "@/components/canvasmap/EditorMap";
-import LevelButtons from "@/components/canvasmap/LevelButtons";
+import EditorMap from "@/components/canvasmap/mapEditor/EditorMap.tsx";
+import LevelButtons from "@/components/canvasmap/map/LevelButtons.tsx";
 import axios from "axios";
 import { DBNode } from "common/src/types";
 import { useEffect, useState } from "react";

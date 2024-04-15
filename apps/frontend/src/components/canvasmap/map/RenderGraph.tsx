@@ -1,5 +1,5 @@
 import { DBNode } from "common/src/types";
-import drawNodes from "@/components/canvasmap/MapShapes.tsx";
+import drawNodes from "@/components/canvasmap/map/MapShapes.tsx";
 
 export default function drawGraph(
     ctx: CanvasRenderingContext2D,

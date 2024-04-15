@@ -5,12 +5,12 @@ import {
     ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
 import { DBNode } from "common/src/types";
-import LLevel1 from "./mapImages/00_thelowerlevel1.png";
-import LLevel2 from "./mapImages/00_thelowerlevel2.png";
-import Level1 from "./mapImages/01_thefirstfloor.png";
-import Level2 from "./mapImages/02_thesecondfloor.png";
-import Level3 from "./mapImages/03_thethirdfloor.png";
-import drawGraph from "@/components/canvasmap/RenderGraph.tsx";
+import LLevel1 from "../mapImages/00_thelowerlevel1.png";
+import LLevel2 from "../mapImages/00_thelowerlevel2.png";
+import Level1 from "../mapImages/01_thefirstfloor.png";
+import Level2 from "../mapImages/02_thesecondfloor.png";
+import Level3 from "../mapImages/03_thethirdfloor.png";
+import drawGraph from "@/components/canvasmap/map/RenderGraph.tsx";
 
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
 interface CanvasMapProps {
