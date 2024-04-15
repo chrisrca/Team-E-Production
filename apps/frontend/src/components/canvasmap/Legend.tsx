@@ -3,35 +3,113 @@
 import { DBNode } from "common/src/types";
 
 export default function Legend() {
+    // make a bunch of small canvases to be able to draw node icon in legend
+    // im sorry for not abstracting :cry emoji:
+
+    // hall
     const canvas_hall = document.getElementById(
         "hall",
     ) as HTMLCanvasElement | null;
     const ctx_hall = canvas_hall?.getContext("2d");
 
+    // conference
     const canvas_conf = document.getElementById(
         "conf",
     ) as HTMLCanvasElement | null;
     const ctx_conf = canvas_conf?.getContext("2d");
 
+    // department
+    const canvas_dept = document.getElementById(
+        "dept",
+    ) as HTMLCanvasElement | null;
+    const ctx_dept = canvas_dept?.getContext("2d");
+
+    // elevator
+    const canvas_elev = document.getElementById(
+        "elev",
+    ) as HTMLCanvasElement | null;
+    const ctx_elev = canvas_elev?.getContext("2d");
+
+    // exit
+    const canvas_exit = document.getElementById(
+        "exit",
+    ) as HTMLCanvasElement | null;
+    const ctx_exit = canvas_exit?.getContext("2d");
+
+    // information
+    const canvas_info = document.getElementById(
+        "info",
+    ) as HTMLCanvasElement | null;
+    const ctx_info = canvas_info?.getContext("2d");
+
+    // labs
+    const canvas_labs = document.getElementById(
+        "labs",
+    ) as HTMLCanvasElement | null;
+    const ctx_labs = canvas_labs?.getContext("2d");
+
+    // restroom
+    const canvas_rest = document.getElementById(
+        "rest",
+    ) as HTMLCanvasElement | null;
+    const ctx_rest = canvas_rest?.getContext("2d");
+
+    // bathroom
+    const canvas_bath = document.getElementById(
+        "bath",
+    ) as HTMLCanvasElement | null;
+    const ctx_bath = canvas_bath?.getContext("2d");
+
+    // retail
+    const canvas_retl = document.getElementById(
+        "retl",
+    ) as HTMLCanvasElement | null;
+    const ctx_retl = canvas_retl?.getContext("2d");
+
+    // stairs
+    const canvas_stai = document.getElementById(
+        "stai",
+    ) as HTMLCanvasElement | null;
+    const ctx_stai = canvas_stai?.getContext("2d");
+
+    // service
+    const canvas_serv = document.getElementById(
+        "serv",
+    ) as HTMLCanvasElement | null;
+    const ctx_serv = canvas_serv?.getContext("2d");
+
+    // draw shapes in their respective mini-canvases
     if (ctx_hall) {
         drawSquare(ctx_hall, 7.5, 7.5);
     } else console.log("Canvas not supported or canvas element not found");
     if (ctx_conf) {
         drawRectangle(ctx_conf, 7.5, 7.5);
     } else console.log("Canvas not supported or canvas element not found");
+    if (ctx_dept) {
+        drawCircle(ctx_dept, 7.5, 7.5);
+    } else console.log("Canvas not supported or canvas element not found");
+    if (ctx_elev) {
+        drawOval(ctx_elev, 7.5, 7.5);
+    } else console.log("Canvas not supported or canvas element not found");
+    if (ctx_exit) {
+        drawHexagon(ctx_exit, 7.5, 7.5);
+    } else console.log("Canvas not supported or canvas element not found");
+    if (ctx_info) {
+        drawTriangle(ctx_info, 7.5, 7.5);
+    } else console.log("Canvas not supported or canvas element not found");
 
     return (
         <div className="flex rounded-2 border-white drop-shadow-xl z-10">
             <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-                <h2 className="text-xl font-bold mb-4">Legend</h2>
+                <h2 className="text-xl font-bold mb-4 text-center">Legend</h2>
                 <ul>
-                    <li className="flex items-center mb-2">
+                    <li className="flex items-center">
                         <canvas id="hall" width={15} height={15} />
-                        <span>Hall</span>
+                        <span className="mx-auto">Hall</span>
                     </li>
                     <li className="flex items-center mb-2">
                         <canvas id="conf" height={15} width={15} />
-                        <span>Conference</span>
+                        <span className="mx-auto">Conference</span>
                     </li>
                     <li className="flex items-center mb-2">
                         <span className="inline-block w-4 h-4 mr-2 rounded-full bg-blue-500"></span>
@@ -74,7 +152,6 @@ export default function Legend() {
 
 function drawHexagon(
     ctx: CanvasRenderingContext2D,
-    node: DBNode,
     xMult: number,
     yMult: number,
 ) {
@@ -85,8 +162,8 @@ function drawHexagon(
 
     for (let side = 0; side <= 6; side++) {
         const angle = ((2 * Math.PI) / 6) * side;
-        const x = node.xcoord * xMult + size * Math.cos(angle);
-        const y = node.ycoord * yMult + size * Math.sin(angle);
+        const x = xMult + size * Math.cos(angle);
+        const y = yMult + size * Math.sin(angle);
 
         if (side === 0) {
             ctx.moveTo(x, y);
@@ -102,7 +179,6 @@ function drawHexagon(
 
 function drawCircle(
     ctx: CanvasRenderingContext2D,
-    node: DBNode,
     xMult: number,
     yMult: number,
 ) {
@@ -110,7 +186,7 @@ function drawCircle(
 
     ctx.beginPath();
     ctx.fillStyle = "#ffffff";
-    ctx.arc(node.xcoord * xMult, node.ycoord * yMult, size, 0, 2 * Math.PI);
+    ctx.arc(xMult, yMult, size, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.fillStyle = "#e04545";
     ctx.fill();
@@ -156,7 +232,6 @@ function drawRectangle(
 
 function drawTriangle(
     ctx: CanvasRenderingContext2D,
-    node: DBNode,
     xMult: number,
     yMult: number,
 ) {
@@ -164,8 +239,8 @@ function drawTriangle(
     const size = 14;
 
     const height = size * (Math.sqrt(3) / 2);
-    const centerX = node.xcoord * xMult;
-    const centerY = node.ycoord * yMult + 2;
+    const centerX = xMult;
+    const centerY = yMult + 2;
 
     ctx.moveTo(centerX - size / 2, centerY + height / 3);
     ctx.lineTo(centerX + size / 2, centerY + height / 3);
@@ -177,21 +252,13 @@ function drawTriangle(
     ctx.stroke();
 }
 
-function drawOval(
-    ctx: CanvasRenderingContext2D,
-    node: DBNode,
-    xMult: number,
-    yMult: number,
-) {
+function drawOval(ctx: CanvasRenderingContext2D, xMult: number, yMult: number) {
     ctx.beginPath();
-    const centerX = node.xcoord * xMult;
-    const centerY = node.ycoord * yMult;
-
     const radiusX = 8;
     const radiusY = 6;
 
     const rotation = 0;
-    ctx.ellipse(centerX, centerY, radiusX, radiusY, rotation, 0, 2 * Math.PI);
+    ctx.ellipse(xMult, yMult, radiusX, radiusY, rotation, 0, 2 * Math.PI);
     ctx.fillStyle = "#da8f08";
     ctx.fill();
     ctx.stroke();
