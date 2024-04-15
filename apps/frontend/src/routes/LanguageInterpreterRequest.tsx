@@ -1,4 +1,5 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
+import LanguageInterpreter from "/src/images/LanguageInterpreter.png";
 
 const defaultFormSchema = {
     clientName: "",
@@ -75,7 +76,7 @@ const defaultForm = [
         content: "text",
         type: "string",
         title: "Additional Information",
-        placeholder: "Enter Additional Information...",
+        placeholder: "Enter Additional Information... (Optional)",
         required: false,
         id: 0,
     },
@@ -85,6 +86,6 @@ export default function InterpreterService() {
         defaultForm,
         defaultFormSchema,
         "/api/interpreter",
-        "",
+        LanguageInterpreter,
     );
 }

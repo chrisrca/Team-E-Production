@@ -1,4 +1,5 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
+import MedicalDevice from "/src/images/MedicalDevice.png";
 
 const defaultFormSchema = {
     employeeName: "",
@@ -78,6 +79,6 @@ export default function MedicalDeviceService() {
         defaultForm,
         defaultFormSchema,
         "/api/medical-device",
-        "",
+        MedicalDevice,
     );
 }

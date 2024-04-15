@@ -14,6 +14,7 @@
 // } from "@/components/ui/carousel";
 
 import { ServiceRequests } from "@/components/ServiceRequests";
+import medicinestore from "/src/images/medicinestore.jpg";
 export default function DrugDelivery() {
     // const [api, setApi] = React.useState<CarouselApi>();
     // const [current, setCurrent] = React.useState(0);
@@ -226,7 +227,7 @@ export default function DrugDelivery() {
                 defaultForm,
                 defaultFormSchema,
                 "/api/medicine",
-                "",
+                medicinestore,
             )}
         </div>
     );

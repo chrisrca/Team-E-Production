@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { FormEvent, ChangeEvent } from "react";
+import { FormEvent, useState, useRef, useEffect} from "react";
 //import { SubmitEvent } from "react";
 // import { zodResolver } from "@hookform/resolvers/zod";
 // import { useForm } from "react-hook-form";
@@ -10,6 +10,7 @@ import { FormEvent, ChangeEvent } from "react";
 //import { TestSchema } from "common/src/types";
 import { Label } from "@/components/ui/label";
 import { FlowerServiceRequest } from "common/src/types";
+import { DBNode } from "common/src/types";
 //import Lilacs from "/src/images/Lilacs.jpg";
 //import { BWH } from "@/src/images/BWH-high-res.jpg";
 //import {
@@ -41,6 +42,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import FormInput from "@/components/ui/formInput";
+import {Input} from "@/components/ui/input";
 
 type FormLabel = {
     content: string; //Element content - (input, select, switch, button, ect)
@@ -89,7 +91,8 @@ export const ServiceRequests = (
     apiPath: string,
     bgPath: string,
 ) => {
-    const formSchema = structuredClone(blankSchema);
+
+    const [formSchema, setFormSchema] = useState(structuredClone(blankSchema));
     const schemaKeys = [] as string[];
 
     Object.keys(formSchema).map((value) => {
@@ -115,7 +118,7 @@ export const ServiceRequests = (
             </>
         );
     };
-    // Identify element to return based on value of Component.type
+    // Identify element to return based on value of Component.content
     const identifyComponent = (
         props: FormLabel | FormComponent | FormSelect,
     ) => {
@@ -130,7 +133,7 @@ export const ServiceRequests = (
         } else if (props.content.includes("checkbox")) {
             return checkboxComp(props as FormComponent);
         } else if (props.content.includes("popover")) {
-            return PopoverComp();
+            return LocationComp(props as FormComponent);
         } else {
             console.error("Failed to identify element - " + props.type);
         }
@@ -166,11 +169,8 @@ export const ServiceRequests = (
                         placeholder={props.placeholder}
                         required={props.required}
                         variant={props.variant}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            /*(formValues[props.id] =
-                                e.target.value.toString())*/
-                            (formSchema[schemaKeys[props.id]] =
-                                e.target.value.toString())
+                        onChange={(e) =>
+                            (formSchema[schemaKeys[props.id]] = e.target.value.toString())
                         }
                         className={
                             "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
@@ -190,7 +190,7 @@ export const ServiceRequests = (
                     </label>
                     <Select
                         required={props.required}
-                        onValueChange={(value: string) =>
+                        onValueChange={(value) =>
                             (formSchema[schemaKeys[props.id]] =
                                 value.toString())
                         }
@@ -236,9 +236,9 @@ export const ServiceRequests = (
                         }
                     >
                         <RadioGroup
-                            onValueChange={(value: string) =>
+                            onChange={(e) =>
                                 (formSchema[schemaKeys[props.id]] =
-                                    value.toString())
+                                    e.target.value.toString())
                             }
                         >
                             {/* Map options to select */}
@@ -272,9 +272,9 @@ export const ServiceRequests = (
                 <div className={"flex col-span-full container:ml-0 pl-6 pt-2"}>
                     <Checkbox
                         required={props.required}
-                        onCheckedChange={(value: boolean) =>
+                        onChange={(e) =>
                             (formSchema[schemaKeys[props.id]] =
-                                value.toString())
+                                e.target.value.toString())
                         }
                         className={"hover:bg-accent my-auto"}
                     >
@@ -288,39 +288,87 @@ export const ServiceRequests = (
         );
     };
 
-    const PopoverComp = () => {
+    const LocationComp = (props: FormComponent) => {
+        console.log("making Popover(Location) '" + props.title + "' id: " + props.id);
+        console.log(formSchema[schemaKeys[props.id]]);
+
+        //const [location, setLocation] = useState("");
+
+
+        const [nodes, setNodes] = useState<DBNode[]>([]);
+
+        useEffect(() => {
+            async function fetchNodes() {
+                try {
+                    const response = await axios.get("/api/nodes");
+                    setNodes(response.data);
+                } catch (error) {
+                    console.error("Failed to fetch nodes: ", error);
+                }
+            }
+            fetchNodes();
+        }, []);
+
+        const [filteredNodes, setFilteredNodes] = useState(nodes);
+        const [searchTerm, setSearchTerm] = useState("");
+        const searchRef = useRef<HTMLInputElement>(null);
+
+        useEffect(() => {
+            setFilteredNodes(
+                nodes.filter((node) =>
+                    node.longName.toLowerCase().includes(searchTerm.toLowerCase()),
+                ),
+            );
+        }, [searchTerm, nodes]);
+
+
+        const handleLocationSelect = (longName: string) => {
+            console.log(longName);
+            setFormSchema({...formSchema,
+                [schemaKeys[props.id]]: longName});
+            setSearchTerm("");
+        };
+
+        console.log(nodes);
+
         return (
-            <Popover>
-                <PopoverTrigger asChild>
-                    <Button variant="outline">Open popover</Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-80">
-                    <div className="grid gap-4">
-                        <div className="space-y-2">
-                            <h4 className="font-medium leading-none">
-                                Dimensions
-                            </h4>
-                            <p className="text-sm text-muted-foreground">
-                                Set the dimensions for the layer.
-                            </p>
-                        </div>
-                        <div className="grid gap-2">
-                            <div className="grid grid-cols-3 items-center gap-4">
-                                <Label htmlFor="width">Width</Label>
+            <div>
+                <label
+                    className={
+                        "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+                    }
+                >
+                    {props.title}
+                </label>
+
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Button
+                            className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-background text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            {formSchema[schemaKeys[props.id]] || "Select Location"}
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent
+                        className="origin-top-right absolute mt-2 max-h-60 overflow-y-auto rounded-md shadow-lg">
+                        <Input
+                            ref={searchRef}
+                            className="w-full"
+                            placeholder="Search location..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        {filteredNodes.map((node) => (
+                            <div
+                                key={node.nodeID}
+                                className="p-2 hover:bg-secondary cursor-pointer rounded-md"
+                                onClick={() => handleLocationSelect(node.longName)}
+                                >
+                                {node.longName}
                             </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                                <Label htmlFor="maxWidth">Max. width</Label>
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                                <Label htmlFor="height">Height</Label>
-                            </div>
-                            <div className="grid grid-cols-3 items-center gap-4">
-                                <Label htmlFor="maxHeight">Max. height</Label>
-                            </div>
-                        </div>
-                    </div>
-                </PopoverContent>
-            </Popover>
+                        ))}
+                    </PopoverContent>
+                </Popover>
+            </div>
         );
     };
 

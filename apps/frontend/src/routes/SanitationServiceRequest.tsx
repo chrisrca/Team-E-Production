@@ -1,4 +1,5 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
+import Language from "/src/images/LanguageInterpreter.png";
 
 const defaultFormSchema = {
     patientName: "",
@@ -79,6 +80,6 @@ export default function SanitationService() {
         defaultForm,
         defaultFormSchema,
         "/api/sanitation",
-        "",
+        Language,
     );
 }

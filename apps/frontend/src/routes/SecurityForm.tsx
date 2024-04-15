@@ -48,6 +48,7 @@ export default function SecurityForm({ nodes }: { nodes: DBNode[] }) {
     }, [searchTerm, nodes]);
 
     //Handlers
+
     const handleLocationSelect = (nodeID: string, longName: string) => {
         setSecurityData((prevState) => ({
             ...prevState,
