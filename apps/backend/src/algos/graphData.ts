@@ -27,7 +27,11 @@ export interface Edge {
 
 export async function getNodesFromDatabase(): Promise<Node[]> {
     try {
-        const nodes = await client.node.findMany();
+        const nodes = await client.node.findMany({
+            where: {
+                blocked: false,
+            },
+        });
         return nodes.map((node) => ({
             nodeID: node.nodeID,
             coords: {
