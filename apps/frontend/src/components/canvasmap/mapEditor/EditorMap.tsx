@@ -49,6 +49,7 @@ export default function EditorMap(props: CanvasMapProps) {
             nodeID: "",
             nodeType: "",
             shortName: "",
+            blocked: false,
             xcoord: 0,
             ycoord: 0,
         }),

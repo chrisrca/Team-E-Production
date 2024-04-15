@@ -20,15 +20,6 @@ export default function NodeEditor({ node }: NodeEditorProps) {
         setEditedNode(node);
     }, [node]);
 
-    // Function to handle input changes
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const { name, value } = e.target;
-        setEditedNode((prevNode) => ({
-            ...prevNode!,
-            [name]: value,
-        }));
-    }
-
     // Function to handle blocking
     function handleBlock() {
         console.log("Block node logic here");
@@ -71,16 +62,7 @@ export default function NodeEditor({ node }: NodeEditorProps) {
         >
             <h3>Edit Node</h3>
             <div>
-                <label>
-                    Node ID:
-                    <input
-                        type="text"
-                        name="nodeID"
-                        value={editedNode.nodeID}
-                        onChange={handleInputChange}
-                        disabled
-                    />
-                </label>
+                <label>Node ID: {editedNode.nodeID}</label>
             </div>
             <div>
                 <label>
@@ -89,7 +71,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                         type="text"
                         name="longName"
                         value={editedNode.longName}
-                        onChange={handleInputChange}
+                        onChange={(e) =>
+                            setEditedNode({
+                                ...editedNode,
+                                longName: e.target.value,
+                            })
+                        }
                     />
                 </label>
             </div>
@@ -100,7 +87,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                         type="text"
                         name="nodeType"
                         value={editedNode.nodeType}
-                        onChange={handleInputChange}
+                        onChange={(e) =>
+                            setEditedNode({
+                                ...editedNode,
+                                nodeType: e.target.value,
+                            })
+                        }
                     />
                 </label>
             </div>
@@ -111,7 +103,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                         type="text"
                         name="building"
                         value={editedNode.building}
-                        onChange={handleInputChange}
+                        onChange={(e) =>
+                            setEditedNode({
+                                ...editedNode,
+                                building: e.target.value,
+                            })
+                        }
                     />
                 </label>
             </div>
@@ -122,7 +119,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                         type="text"
                         name="floor"
                         value={editedNode.floor}
-                        onChange={handleInputChange}
+                        onChange={(e) =>
+                            setEditedNode({
+                                ...editedNode,
+                                floor: e.target.value,
+                            })
+                        }
                     />
                 </label>
             </div>
@@ -133,7 +135,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                         type="number"
                         name="xcoord"
                         value={editedNode.xcoord}
-                        onChange={handleInputChange}
+                        onChange={(e) =>
+                            setEditedNode({
+                                ...editedNode,
+                                xcoord: parseInt(e.target.value),
+                            })
+                        }
                     />
                 </label>
             </div>
@@ -144,7 +151,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                         type="number"
                         name="ycoord"
                         value={editedNode.ycoord}
-                        onChange={handleInputChange}
+                        onChange={(e) =>
+                            setEditedNode({
+                                ...editedNode,
+                                ycoord: parseInt(e.target.value),
+                            })
+                        }
                     />
                 </label>
             </div>
