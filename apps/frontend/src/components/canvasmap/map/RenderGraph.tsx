@@ -68,7 +68,7 @@ function drawElevators(
                 mapLevel,
                 mousePosition,
                 pathData[i + 1].floor,
-                "#3f8f29"
+                "#3f8f29",
             );
         }
     }
@@ -86,7 +86,7 @@ function drawElevators(
                 mapLevel,
                 mousePosition,
                 pathData[i - 1].floor,
-                "#de1a24"
+                "#de1a24",
             );
         }
     }

@@ -34,10 +34,7 @@ function LevelButtons({
             <Button onClick={() => handleLevel(3)} style={getButtonStyle(3)}>
                 2
             </Button>
-            <Button
-                onClick={() => handleLevel(2)}
-                style={getButtonStyle(2)}
-            >
+            <Button onClick={() => handleLevel(2)} style={getButtonStyle(2)}>
                 1
             </Button>
             <Button onClick={() => handleLevel(1)} style={getButtonStyle(1)}>
