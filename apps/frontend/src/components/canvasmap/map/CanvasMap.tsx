@@ -41,6 +41,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
             shortName: "",
             xcoord: 0,
             ycoord: 0,
+            blocked: false,
         }),
         [],
     );

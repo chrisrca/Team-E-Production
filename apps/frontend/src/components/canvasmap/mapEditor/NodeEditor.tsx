@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { DBNode } from "common/src/types";
+import axios from "axios";
 
 interface NodeEditorProps {
     node: DBNode | null;
+}
+
+async function sendNodeOrder(editedNode: DBNode) {
+    axios.post("/api/mapeditor", editedNode).then((res) => {
+        console.log(res);
+    });
 }
 
 export default function NodeEditor({ node }: NodeEditorProps) {
@@ -22,9 +29,20 @@ export default function NodeEditor({ node }: NodeEditorProps) {
         }));
     }
 
+    // Function to handle blocking
+    function handleBlock() {
+        console.log("Block node logic here");
+        setEditedNode((prevNode) => ({
+            ...prevNode!,
+            blocked: true,
+        }));
+    }
     // Function to handle form submission
     function handleSubmit() {
-        console.log("Save node logic here");
+        if (editedNode != null) {
+            sendNodeOrder(editedNode);
+        }
+        setEditedNode(null);
     }
 
     // Function to handle cancel action
@@ -131,6 +149,7 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                 </label>
             </div>
             <div>
+                <button onClick={handleBlock}>Block</button>
                 <button onClick={handleSubmit}>Save</button>
                 <button onClick={handleCancel}>Cancel</button>{" "}
                 {/* Use onCancel prop */}

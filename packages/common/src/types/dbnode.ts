@@ -9,4 +9,5 @@ export interface DBNode {
     shortName: string;
     xcoord: number;
     ycoord: number;
+    blocked: boolean;
 }
