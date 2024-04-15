@@ -17,7 +17,9 @@ interface CanvasMapProps {
     nodes: DBNode[];
     path: DBNode[];
     level: number;
-    setLevel: (level: number) => void; // Add setLevel prop
+    setLevel: (level: number) => void;
+    start: (start: string) => void;
+    end: (end: string) => void;
 }
 
 export default function CanvasMap(nodes: CanvasMapProps) {
@@ -282,10 +284,16 @@ export default function CanvasMap(nodes: CanvasMapProps) {
 
                     {/* Action buttons */}
                     <div className="flex justify-evenly pb-4">
-                        <button className="bg-green-500 text-white rounded-full px-4 py-2">
+                        <button
+                            className="bg-green-500 text-white rounded-full px-4 py-2"
+                            onClick={() => nodes.start(hoverNode.nodeID)}
+                        >
                             Set as Start
                         </button>
-                        <button className="bg-red-500 text-white rounded-full px-4 py-2">
+                        <button
+                            className="bg-red-500 text-white rounded-full px-4 py-2"
+                            onClick={() => nodes.end(hoverNode.nodeID)}
+                        >
                             Set as End
                         </button>
                     </div>

@@ -54,6 +54,8 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 path={pathNodes}
                 nodes={nodes}
                 setLevel={setLevel}
+                start={setStart}
+                end={setEnd}
             />
         </div>
     );
