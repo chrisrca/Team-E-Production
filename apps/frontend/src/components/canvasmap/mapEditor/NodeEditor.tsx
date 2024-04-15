@@ -23,10 +23,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
     // Function to handle blocking
     function handleBlock() {
         console.log("Block node logic here");
-        setEditedNode((prevNode) => ({
-            ...prevNode!,
-            blocked: true,
-        }));
+        if (editedNode != null) {
+            setEditedNode({
+                ...editedNode!,
+                blocked: !editedNode.blocked,
+            });
+        }
     }
     // Function to handle form submission
     function handleSubmit() {
