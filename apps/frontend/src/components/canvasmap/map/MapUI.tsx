@@ -6,8 +6,8 @@ import {
     SelectTrigger,
     SelectValue,
     SelectItem,
-} from "../../components/ui/select";
-import { Button } from "../ui/button";
+} from "../../ui/select.tsx";
+import { Button } from "../../ui/button.tsx";
 // import { Path } from "common/src/types";
 // import axios from "axios";
 // import formInput, {FormInput} from "@/components/ui/formInput.tsx";
