@@ -1,4 +1,4 @@
-import EditorMap from "@/components/canvasmap/map/EditorMap.tsx";
+import EditorMap from "@/components/canvasmap/mapEditor/EditorMap.tsx";
 import LevelButtons from "@/components/canvasmap/map/LevelButtons.tsx";
 import axios from "axios";
 import { DBNode } from "common/src/types";
