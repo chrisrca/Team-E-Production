@@ -12,6 +12,7 @@ import {
     DrugDeliveryData,
     SanitationServiceRequest,
     RoomSchedulingForm,
+    MedicalDeviceServiceRequest,
 } from "common/src/types";
 import { Input } from "@/components/ui/input";
 
@@ -25,6 +26,7 @@ type DataViewerProps =
     | DrugDeliveryData[]
     | SanitationServiceRequest[]
     | RoomSchedulingForm[]
+    | MedicalDeviceServiceRequest[]
     | [];
 
 function DataViewer() {
@@ -44,6 +46,9 @@ function DataViewer() {
         SanitationServiceRequest[]
     >([]);
     const [roomData, setRoomData] = useState<RoomSchedulingForm[]>([]);
+    const [medicalDeviceData, setMedicalDeviceData] = useState<
+        MedicalDeviceServiceRequest[]
+    >([]);
 
     const [uploadData, setUploadData] = useState<File | null | undefined>();
 
@@ -136,7 +141,8 @@ function DataViewer() {
             | SecurityServiceRequest[]
             | DrugDeliveryData[]
             | SanitationServiceRequest[]
-            | RoomSchedulingForm[],
+            | RoomSchedulingForm[]
+            | MedicalDeviceServiceRequest[],
     ) => {
         const headers = Object.keys(data[0]).join(",");
         const csv = data.map((row) => Object.values(row).join(","));
@@ -230,12 +236,22 @@ function DataViewer() {
             }
         }
         fetchRoomData().then();
+
+        async function fetchMedicalDeviceData() {
+            try {
+                const res = await axios.get("/api/medical-device");
+                setMedicalDeviceData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchMedicalDeviceData().then();
     }, []);
 
     return (
         <div className="p-10 flex flex-auto flex-col items-center align-center">
             <div className="flex flex-row items-center">
-                <div className="space-x-1 flex flex-row">
+                <div className="space-x-1 flex flex-auto flex-row">
                     <Button onClick={() => setCurrData(nodeData)}>
                         Node Data
                     </Button>
@@ -255,7 +271,7 @@ function DataViewer() {
                         Security Data
                     </Button>
                     <Button onClick={() => setCurrData(drugData)}>
-                        Drug Data
+                        Medicine Delivery Data
                     </Button>
                     <Button onClick={() => setCurrData(sanitationData)}>
                         Sanitation Data
@@ -263,10 +279,14 @@ function DataViewer() {
                     <Button onClick={() => setCurrData(roomData)}>
                         Room Data
                     </Button>
+                    <Button onClick={() => setCurrData(medicalDeviceData)}>
+                        Medical Device Data
+                    </Button>
                 </div>
                 <div className=" px-10 flex flex-col space-y-2">
                     <div className="flex flex-row px-2 space-x-2">
                         <Input
+                            className="text-foreground bg-secondary"
                             type="file"
                             onChange={(e) => {
                                 if (e.target.files !== null) {
@@ -278,13 +298,11 @@ function DataViewer() {
                             Upload
                         </Button>
                     </div>
-
-                    <Button
-                        className="flex flex-row px-2 space-x-2"
-                        onClick={downloadCSV}
-                    >
-                        Download
-                    </Button>
+                    <div className="flex flex-row px-2">
+                        <Button className="w-full" onClick={downloadCSV}>
+                            Download
+                        </Button>
+                    </div>
                 </div>
             </div>
             {<ViewNodes data={currData} />}

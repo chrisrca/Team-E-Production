@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import {
     TransformWrapper,
     TransformComponent,
@@ -10,26 +10,57 @@ import LLevel2 from "../mapImages/00_thelowerlevel2.png";
 import Level1 from "../mapImages/01_thefirstfloor.png";
 import Level2 from "../mapImages/02_thesecondfloor.png";
 import Level3 from "../mapImages/03_thethirdfloor.png";
+import drawGraph from "@/components/canvasmap/mapEditor/RenderGraph.tsx";
+import NodeEditor from "./NodeEditor";
 
+// Array of map images for each level
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
+
+// Interface for the component's props
 interface CanvasMapProps {
     nodes: DBNode[];
     path: DBNode[][];
     level: number;
 }
 
-export default function EditorMap(nodes: CanvasMapProps) {
+// EditorMap component function
+export default function EditorMap(props: CanvasMapProps) {
+    const { nodes, path, level } = props;
+
+    // State for selected node
+    const [selectedNode, setSelectedNode] = useState<DBNode | null>(null);
+
+    // Existing states and refs
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-    const nodeData = nodes.nodes;
-    const pathData = nodes.path;
-    const mapLevel = nodes.level;
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [nodeInfoPosition, setNodeInfoPosition] = useState({
+        x: 0,
+        y: 0,
+        z: 0,
+    });
+    const nullNode: DBNode = useMemo(
+        () => ({
+            building: "",
+            edges: [],
+            floor: "",
+            longName: "",
+            nodeID: "",
+            nodeType: "",
+            shortName: "",
+            blocked: false,
+            xcoord: 0,
+            ycoord: 0,
+        }),
+        [],
+    );
+    const [hoverNode, setHoverNode] = useState(nullNode);
 
-    //RESIZING OF CANVAS
+    // Effect to handle image loading and updating container size
     useEffect(() => {
         const image = new Image();
-        image.src = MapImage[mapLevel];
+        image.src = MapImage[level];
         image.onload = () => {
             setImageSize({ width: image.width, height: image.height });
         };
@@ -42,7 +73,7 @@ export default function EditorMap(nodes: CanvasMapProps) {
         return () => {
             window.removeEventListener("resize", updateContainerSize);
         };
-    }, [mapLevel]);
+    }, [level]);
 
     // Function to update container size
     const updateContainerSize = () => {
@@ -52,13 +83,13 @@ export default function EditorMap(nodes: CanvasMapProps) {
         });
     };
 
-    // Function to handle panning stopped event
+    // Function to handle panning stop events
     const handlePanningStopped = (e: ReactZoomPanPinchRef) => {
         const x = e.state.positionX;
         const y = e.state.positionY;
         const scale = e.state.scale;
 
-        // If image is smaller than the container, center it
+        // Center image if it's smaller than the container
         if (imageSize.width * scale < containerSize.width) {
             e.setTransform(
                 (containerSize.width - imageSize.width * scale) / 2,
@@ -69,86 +100,65 @@ export default function EditorMap(nodes: CanvasMapProps) {
         if (imageSize.height * scale < containerSize.height) {
             e.setTransform(
                 x,
-                (containerSize.width - imageSize.width * scale) / 2,
+                (containerSize.height - imageSize.height * scale) / 2,
                 scale,
             );
         }
     };
 
+    // Map current mouse position onto canvas
+    const handleMouseMoveCanvas = (
+        event: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
+    ) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const rect = canvas.getBoundingClientRect();
+
+        const scaleX = canvas.width / rect.width; // relationship bitmap vs. element for X
+        const scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
+
+        const x = (event.clientX - rect.left) * scaleX; // scale mouse coordinates after they have
+        const y = (event.clientY - rect.top) * scaleY; // been adjusted to be relative to element
+
+        setMousePosition({ x, y });
+        setNodeInfoPosition({
+            x: event.nativeEvent.clientX,
+            y: event.nativeEvent.clientY,
+            z: 9999,
+        });
+    };
+
+    // Function to handle mouse click on canvas
+    const handleMouseClick = (
+        event: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
+    ) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const rect = canvas.getBoundingClientRect();
+
+        const scaleX = canvas.width / rect.width; // relationship bitmap vs. element for X
+        const scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
+
+        const x = (event.clientX - rect.left) * scaleX; // scale mouse coordinates after they have
+        const y = (event.clientY - rect.top) * scaleY; // been adjusted to be relative to element
+
+        // Check if a node is clicked and set it as selected
+        if (hoverNode.longName !== "") {
+            console.log(x, y, hoverNode.longName);
+            setSelectedNode(hoverNode);
+        }
+    };
+
     //DRAWING OF NODES AND PATH
     useEffect(() => {
-        const floor = ["L2", "L1", "1", "2", "3"];
         const xMult = imageSize.width / 5000;
         const yMult = imageSize.height / 3400;
-        function drawNodes(ctx: CanvasRenderingContext2D) {
-            //NODE DRAWING
-            nodeData.forEach((node) => {
-                if (node.floor !== floor[mapLevel]) return;
-                // Original Dot
-                ctx.beginPath();
-                ctx.fillStyle = "#002244"; // Color of the dot
-                ctx.arc(
-                    node.xcoord * xMult,
-                    node.ycoord * yMult,
-                    3, // Radius of the dot
-                    0,
-                    2 * Math.PI,
-                );
-                ctx.fill();
 
-                // Ring around the Dot
-                ctx.setLineDash([5, 0]);
-                ctx.beginPath();
-                ctx.strokeStyle = "#012d5a"; // Color of the ring
-                ctx.lineWidth = 2; // Width of the ring
-                ctx.arc(
-                    node.xcoord * xMult,
-                    node.ycoord * yMult,
-                    6, // Radius of the ring
-                    0,
-                    2 * Math.PI,
-                );
-                ctx.stroke();
-            });
-            //PATH DRAWING
-
-            if (pathData.length > 0) {
-                ctx.setLineDash([5, 0]);
-                ctx.strokeStyle = "#1d3e60";
-                ctx.lineWidth = 4;
-                // Iterate over each path group in pathData
-                for (const group of pathData) {
-                    // Start a new path for each group
-                    if (
-                        group.length > 0 &&
-                        group[0].floor === floor[mapLevel]
-                    ) {
-                        ctx.beginPath();
-                        ctx.moveTo(
-                            group[0].xcoord * xMult,
-                            group[0].ycoord * yMult,
-                        ); // Move to the start of this path
-
-                        // Draw lines to each subsequent node in the group
-                        for (let i = 1; i < group.length; i++) {
-                            const node = group[i];
-                            if (node.floor === floor[mapLevel]) {
-                                ctx.lineTo(
-                                    node.xcoord * xMult,
-                                    node.ycoord * yMult,
-                                );
-                            }
-                        }
-
-                        // Finish the path for this group
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
         //This shit supposed to draw the image and the nodes let's goooo
         const image = new Image();
-        image.src = MapImage[mapLevel];
+        image.src = MapImage[level];
         // Path to your image file
         if (canvasRef.current) {
             const canvas = canvasRef.current;
@@ -156,32 +166,106 @@ export default function EditorMap(nodes: CanvasMapProps) {
             if (context) {
                 image.onload = () => {
                     context.drawImage(image, 0, 0, canvas.width, canvas.height);
-                    drawNodes(context!);
+                    drawGraph(
+                        context!,
+                        xMult,
+                        yMult,
+                        path,
+                        nodes,
+                        level,
+                        mousePosition,
+                    );
                 };
             }
         }
-    }, [nodeData, pathData, imageSize, mapLevel]);
+    }, [nodes, path, imageSize, level, mousePosition]);
+
+    function calculateDistance(point1: { x: number; y: number }, node: DBNode) {
+        return Math.sqrt(
+            Math.pow(node.xcoord - point1.x, 2) +
+                Math.pow(node.ycoord - point1.y, 2),
+        );
+    }
+
+    // Effect to detect hover node
+    useEffect(() => {
+        const floor = ["L2", "L1", "1", "2", "3"];
+
+        for (const node of nodes) {
+            if (node.floor === floor[level]) {
+                if (calculateDistance(mousePosition, node) < 9) {
+                    setHoverNode(node);
+                    break;
+                }
+                setHoverNode(nullNode);
+            }
+        }
+    }, [nodes, hoverNode, mousePosition, nullNode, level, nodeInfoPosition]);
 
     return (
-        <TransformWrapper
-            initialScale={1.5}
-            centerOnInit={true}
-            limitToBounds={true}
-            minScale={1}
-            maxScale={4}
-            wheel={{ step: 0.5 }}
-            doubleClick={{ disabled: false }}
-            onPanningStop={handlePanningStopped}
-        >
-            <TransformComponent>
-                <canvas
-                    ref={canvasRef}
-                    height={3400}
-                    width={5000}
-                    style={{ width: "100%", height: "100%", display: "block" }}
-                    id="layer1"
-                />
-            </TransformComponent>
-        </TransformWrapper>
+        <>
+            {/* Render node information */}
+            <div
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    zIndex: 9999,
+                    pointerEvents: "none",
+                }}
+            ></div>
+            {hoverNode.longName && (
+                <div
+                    className={
+                        "ml-4 justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"
+                    }
+                    style={{
+                        position: "absolute",
+                        top: `${nodeInfoPosition.y}px`,
+                        left: `${nodeInfoPosition.x}px`,
+                        zIndex: `${nodeInfoPosition.z}px`,
+                        background: "#ffffff",
+                        whiteSpace: "nowrap", // Prevent text from wrapping
+                        fontSize: "14px",
+                        padding: "5px", // Adjust padding as needed
+                        minWidth: "fit-content", // Allow the div to expand only as much as needed
+                        maxWidth: "calc(100% - 20px)", // Limit the maximum width to ensure it doesn't exceed the viewport
+                    }}
+                >
+                    {hoverNode.longName}
+                </div>
+            )}
+
+            {/* Node Editor */}
+            {selectedNode && <NodeEditor node={selectedNode} />}
+
+            {/* Render map and canvas */}
+            <TransformWrapper
+                initialScale={1.5}
+                centerOnInit={true}
+                limitToBounds={true}
+                minScale={1}
+                maxScale={4}
+                wheel={{ step: 0.5 }}
+                doubleClick={{ disabled: false }}
+                onPanningStop={handlePanningStopped}
+            >
+                <TransformComponent>
+                    <canvas
+                        ref={canvasRef}
+                        height={3400}
+                        width={5000}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            display: "block",
+                        }}
+                        id="layer1"
+                        onMouseMove={handleMouseMoveCanvas}
+                        onClick={handleMouseClick}
+                    />
+                </TransformComponent>
+            </TransformWrapper>
+        </>
     );
 }

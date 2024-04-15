@@ -9,7 +9,6 @@ async function sendFlowerOrder(flowerOrder: FlowerServiceRequest) {
     });
 }
 
-// bare-bone basics for flower request form, template taken from tailwind
 export default function FlowerService() {
     const flowerOrderData = [];
     const [flowerOrder, setFlowerOrder] = useState<FlowerServiceRequest>({
