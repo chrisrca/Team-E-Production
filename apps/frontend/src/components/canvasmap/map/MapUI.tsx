@@ -107,11 +107,14 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                     <SelectTrigger>
                         <SelectValue placeholder="Select Algorithm" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent defaultValue="ASTAR">
                         <SelectItem value="BFS">
                             Breadth-First Search (BFS)
                         </SelectItem>
                         <SelectItem value="ASTAR">A* (A-Star)</SelectItem>
+                        <SelectItem value="DFS">
+                            Depth-First Search (DFS)
+                        </SelectItem>
                     </SelectContent>
                 </Select>
             </div>
