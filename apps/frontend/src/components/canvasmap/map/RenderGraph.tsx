@@ -1,5 +1,5 @@
 import { DBNode } from "common/src/types";
-import drawNodes from "@/components/canvasmap/MapShapes.tsx";
+import drawNodes from "@/components/canvasmap/map/MapShapes.tsx";
 
 export default function drawGraph(
     ctx: CanvasRenderingContext2D,
@@ -15,7 +15,7 @@ export default function drawGraph(
 
     //PATH DRAWING
     if (pathData.length > 0) {
-        ctx.setLineDash([7, 3]);
+        // ctx.setLineDash([7, 3]);
         ctx.strokeStyle = "#000000";
         ctx.lineWidth = 4;
         if (pathData[0].floor === floor[mapLevel]) {
@@ -68,6 +68,25 @@ function drawElevators(
                 mapLevel,
                 mousePosition,
                 pathData[i + 1].floor,
+                "#3f8f29"
+            );
+        }
+    }
+
+    for (let i = pathData.length - 1; i > 0; i--) {
+        if (
+            pathData[i].nodeType == "ELEV" &&
+            pathData[i - 1].nodeType == "ELEV"
+        ) {
+            drawNewFloor(
+                ctx,
+                pathData[i],
+                xMult,
+                yMult,
+                mapLevel,
+                mousePosition,
+                pathData[i - 1].floor,
+                "#de1a24"
             );
         }
     }
@@ -81,6 +100,7 @@ function drawNewFloor(
     mapLevel: string,
     mousePosition: { x: number; y: number },
     floor: string,
+    color: string,
 ) {
     if (node.floor !== mapLevel) return;
     let size = 12;
@@ -91,7 +111,7 @@ function drawNewFloor(
     ctx.fillStyle = "#ffffff";
     ctx.arc(node.xcoord * xMult, node.ycoord * yMult, size, 0, 2 * Math.PI);
     ctx.stroke();
-    ctx.fillStyle = "#2596be";
+    ctx.fillStyle = color;
     ctx.fill();
     ctx.stroke();
     ctx.fillStyle = "#ffffff";

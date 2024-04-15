@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button.tsx";
 import React, { useState } from "react"; // Make sure to import useState
 
 function LevelButtons({
@@ -36,7 +36,7 @@ function LevelButtons({
             </Button>
             <Button
                 onClick={() => handleLevel(2)}
-                style={getButtonStyle(2)} // This button starts with the yellow color
+                style={getButtonStyle(2)}
             >
                 1
             </Button>
