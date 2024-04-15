@@ -3,53 +3,68 @@
 import { DBNode } from "common/src/types";
 
 export default function Legend() {
+    const canvas_hall = document.getElementById(
+        "hall",
+    ) as HTMLCanvasElement | null;
+    const ctx_hall = canvas_hall?.getContext("2d");
+
+    const canvas_conf = document.getElementById(
+        "conf",
+    ) as HTMLCanvasElement | null;
+    const ctx_conf = canvas_conf?.getContext("2d");
+
+    if (ctx_hall) {
+        drawSquare(ctx_hall, 7.5, 7.5);
+    } else console.log("Canvas not supported or canvas element not found");
+    if (ctx_conf) {
+        drawRectangle(ctx_conf, 7.5, 7.5);
+    } else console.log("Canvas not supported or canvas element not found");
+
     return (
-        <div className="flex flex-col rounded-2 border-white drop-shadow-xl z-10">
-            <div className="flex flex-row">
-                <p className="">Hall</p>
-                <canvas
-                    height={30}
-                    width={30}
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        display: "block",
-                    }}
-                    id="hall"
-                />
-            </div>
-            <div className="flex flex-row">
-                <p className="">Conference</p>
-            </div>
-            <div className="flex flex-row">
-                <p className="">Department</p>
-            </div>
-            <div className="flex flex-row">
-                <p className="">Elevator</p>
-            </div>
-            <div className="flex flex-row">
-                <p className="">Exit</p>
-            </div>
-            <div className="flex flex-row">
-                <p className="">Info</p>
-            </div>
-            <div className="flex flex-row">
-                <p className="">Labs</p>
-            </div>
-            <div className="flex flex-row">
-                <p className="">Restroom</p>
-            </div>
-            <div className="flex flex-row">
-                <p className="">Bathroom</p>
-            </div>
-            <div className="flex flex-row">
-                <p className="">Retail</p>
-            </div>
-            <div className="flex flex-row">
-                <p className="">Stairs</p>
-            </div>
-            <div className="flex flex-row">
-                <p className="">Service</p>
+        <div className="flex rounded-2 border-white drop-shadow-xl z-10">
+            <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+                <h2 className="text-xl font-bold mb-4">Legend</h2>
+                <ul>
+                    <li className="flex items-center mb-2">
+                        <canvas id="hall" width={15} height={15} />
+                        <span>Hall</span>
+                    </li>
+                    <li className="flex items-center mb-2">
+                        <canvas id="conf" height={15} width={15} />
+                        <span>Conference</span>
+                    </li>
+                    <li className="flex items-center mb-2">
+                        <span className="inline-block w-4 h-4 mr-2 rounded-full bg-blue-500"></span>
+                        <span>Department</span>
+                    </li>
+                    <li className="flex items-center mb-2">
+                        <span>Elevator</span>
+                    </li>
+                    <li className="flex items-center mb-2">
+                        <span>Exit</span>
+                    </li>
+                    <li className="flex items-center mb-2">
+                        <span>Info</span>
+                    </li>
+                    <li className="flex items-center mb-2">
+                        <span>Labs</span>
+                    </li>
+                    <li className="flex items-center mb-2">
+                        <span>Restroom</span>
+                    </li>
+                    <li className="flex items-center mb-2">
+                        <span>Bathroom</span>
+                    </li>
+                    <li className="flex items-center mb-2">
+                        <span>Retail</span>
+                    </li>
+                    <li className="flex items-center mb-2">
+                        <span>Stairs</span>
+                    </li>
+                    <li className="flex items-center mb-2">
+                        <span>Service</span>
+                    </li>
+                </ul>
             </div>
         </div>
     );
@@ -104,18 +119,13 @@ function drawCircle(
 
 function drawSquare(
     ctx: CanvasRenderingContext2D,
-    node: DBNode,
     xMult: number,
     yMult: number,
 ) {
     ctx.beginPath();
     const size: number = 10;
 
-    const halfSize = size / 2;
-    const centerX = node.xcoord * xMult;
-    const centerY = node.ycoord * yMult;
-
-    ctx.rect(centerX - halfSize, centerY - halfSize, size, size);
+    ctx.rect(xMult - size / 2, yMult - size / 2, size, size);
     ctx.fillStyle = "#0a2ce1";
     ctx.fill();
     ctx.stroke();
@@ -123,7 +133,6 @@ function drawSquare(
 
 function drawRectangle(
     ctx: CanvasRenderingContext2D,
-    node: DBNode,
     xMult: number,
     yMult: number,
 ) {
@@ -131,8 +140,8 @@ function drawRectangle(
     const size = 10;
 
     const halfSize = size / 2;
-    const centerX = node.xcoord * xMult;
-    const centerY = node.ycoord * yMult;
+    const centerX = xMult;
+    const centerY = yMult;
 
     ctx.rect(
         centerX - halfSize - size * 0.25,
