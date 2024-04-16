@@ -34,7 +34,7 @@ export default function Hamburger() {
                     <SheetClose asChild>
                         <Link
                             to="/"
-                            className="rounded hover:bg-card pl-2 dark:bg-foreground dark:hover:bg-primary inline-block"
+                            className="rounded hover:bg-accent pl-2 dark:bg-foreground dark:hover:bg-primary inline-block"
                         >
                             <img
                                 src={bwhLogo}
@@ -44,7 +44,7 @@ export default function Hamburger() {
                         </Link>
                     </SheetClose>
                     <Collapsible className="grid gap-4 dark:bg-secondary">
-                        <CollapsibleTrigger className="flex rounded-sm p-1 hover:bg-card w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                        <CollapsibleTrigger className="flex rounded-sm p-2 px-4 hover:bg-accent w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
                             Services{" "}
                             <ChevronRight className="ml-auto w-4 h-4 transition-all" />
                         </CollapsibleTrigger>
@@ -52,7 +52,7 @@ export default function Hamburger() {
                             <div className="grid gap-3 bg-gray-150 px-3">
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                         to="services"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -62,7 +62,7 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                         to="flower-service"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -72,7 +72,7 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                         to="gift-service"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -82,7 +82,7 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                         to="drug-service"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -92,7 +92,7 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                         to="security"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -102,7 +102,7 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                         to="language-service"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -112,7 +112,7 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                         to="sanitation"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -122,7 +122,7 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                         to="room-service"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -132,7 +132,7 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                         to="medical-device-service"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -144,7 +144,7 @@ export default function Hamburger() {
                         </CollapsibleContent>
                     </Collapsible>
                     <Collapsible className="grid gap-4 dark:bg-secondary">
-                        <CollapsibleTrigger className="flex rounded-sm p-1 hover:bg-card w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                        <CollapsibleTrigger className="flex rounded-sm p-2 px-4 hover:bg-accent w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
                             Map{" "}
                             <ChevronRight className="ml-auto w-4 h-4 transition-all" />
                         </CollapsibleTrigger>
@@ -152,7 +152,7 @@ export default function Hamburger() {
                             <div className="grid gap-3 bg-gray-150 px-3">
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                         to="map"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -162,7 +162,7 @@ export default function Hamburger() {
                                 </SheetClose>
                                 <SheetClose asChild>
                                     <Link
-                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                         to="map-editor"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
@@ -175,7 +175,7 @@ export default function Hamburger() {
                     </Collapsible>
                     <SheetClose asChild>
                         <Link
-                            className="group rounded-sm p-1 grid hover:bg-card h-auto w-full justify-start gap-1"
+                            className="group rounded-sm p-2 px-4 grid hover:bg-accent h-auto w-full justify-start gap-1"
                             to="data"
                         >
                             <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
