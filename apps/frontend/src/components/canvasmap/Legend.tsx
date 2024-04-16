@@ -4,143 +4,116 @@ import { DBNode } from "common/src/types";
 
 export default function Legend() {
     // make a bunch of small canvases to be able to draw node icon in legend
-    // im sorry for not abstracting :cry emoji:
 
-    // hall
-    const canvas_hall = document.getElementById(
+    const canvasIds = [
         "hall",
-    ) as HTMLCanvasElement | null;
-    const ctx_hall = canvas_hall?.getContext("2d");
-
-    // conference
-    const canvas_conf = document.getElementById(
         "conf",
-    ) as HTMLCanvasElement | null;
-    const ctx_conf = canvas_conf?.getContext("2d");
-
-    // department
-    const canvas_dept = document.getElementById(
         "dept",
-    ) as HTMLCanvasElement | null;
-    const ctx_dept = canvas_dept?.getContext("2d");
-
-    // elevator
-    const canvas_elev = document.getElementById(
         "elev",
-    ) as HTMLCanvasElement | null;
-    const ctx_elev = canvas_elev?.getContext("2d");
-
-    // exit
-    const canvas_exit = document.getElementById(
         "exit",
-    ) as HTMLCanvasElement | null;
-    const ctx_exit = canvas_exit?.getContext("2d");
-
-    // information
-    const canvas_info = document.getElementById(
         "info",
-    ) as HTMLCanvasElement | null;
-    const ctx_info = canvas_info?.getContext("2d");
-
-    // labs
-    const canvas_labs = document.getElementById(
         "labs",
-    ) as HTMLCanvasElement | null;
-    const ctx_labs = canvas_labs?.getContext("2d");
-
-    // restroom
-    const canvas_rest = document.getElementById(
         "rest",
-    ) as HTMLCanvasElement | null;
-    const ctx_rest = canvas_rest?.getContext("2d");
-
-    // bathroom
-    const canvas_bath = document.getElementById(
         "bath",
-    ) as HTMLCanvasElement | null;
-    const ctx_bath = canvas_bath?.getContext("2d");
-
-    // retail
-    const canvas_retl = document.getElementById(
         "retl",
-    ) as HTMLCanvasElement | null;
-    const ctx_retl = canvas_retl?.getContext("2d");
-
-    // stairs
-    const canvas_stai = document.getElementById(
         "stai",
-    ) as HTMLCanvasElement | null;
-    const ctx_stai = canvas_stai?.getContext("2d");
-
-    // service
-    const canvas_serv = document.getElementById(
         "serv",
-    ) as HTMLCanvasElement | null;
-    const ctx_serv = canvas_serv?.getContext("2d");
+    ];
+    const contexts: { [key: string]: CanvasRenderingContext2D | null } = {};
+
+    for (let i = 0; i < canvasIds.length; i++) {
+        const canvas = document.getElementById(
+            canvasIds[i],
+        ) as HTMLCanvasElement | null;
+        const context = canvas?.getContext("2d");
+        if (context !== undefined) {
+            contexts[canvasIds[i]] = context;
+        }
+    }
 
     // draw shapes in their respective mini-canvases
-    if (ctx_hall) {
-        drawSquare(ctx_hall, 7.5, 7.5);
-    } else console.log("Canvas not supported or canvas element not found");
-    if (ctx_conf) {
-        drawRectangle(ctx_conf, 7.5, 7.5);
-    } else console.log("Canvas not supported or canvas element not found");
-    if (ctx_dept) {
-        drawCircle(ctx_dept, 7.5, 7.5);
-    } else console.log("Canvas not supported or canvas element not found");
-    if (ctx_elev) {
-        drawOval(ctx_elev, 7.5, 7.5);
-    } else console.log("Canvas not supported or canvas element not found");
-    if (ctx_exit) {
-        drawHexagon(ctx_exit, 7.5, 7.5);
-    } else console.log("Canvas not supported or canvas element not found");
-    if (ctx_info) {
-        drawTriangle(ctx_info, 7.5, 7.5);
-    } else console.log("Canvas not supported or canvas element not found");
+    for (const key in contexts) {
+        const context = contexts[key];
+        if (context) {
+            const drawFunction = {
+                hall: drawSquare,
+                conf: drawRectangle,
+                dept: drawCircle,
+                elev: drawOval,
+                exit: drawHexagon,
+                info: drawTriangle,
+                labs: drawRhombus,
+                rest: drawParallelogram,
+                bath: drawTrapezoid,
+                retl: drawOctagon,
+                stai: drawPentagon,
+                serv: drawSeptagon,
+            }[key];
+
+            if (drawFunction) {
+                drawFunction(context, 15, 15);
+            } else {
+                console.log(`No draw function found for key: ${key}`);
+            }
+        } else {
+            console.log(
+                `Canvas not supported or canvas element not found for key: ${key}`,
+            );
+        }
+    }
 
     return (
         <div className="flex rounded-2 border-white drop-shadow-xl z-10">
-            <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-                <h2 className="text-xl font-bold mb-4 text-center">Legend</h2>
+            <div className="bg-gray-100 p-3 rounded-lg shadow-md opacity-50 hover:opacity-100">
+                <h2 className="text-xl font-bold text-center">Legend</h2>
                 <ul>
                     <li className="flex items-center">
-                        <canvas id="hall" width={15} height={15} />
+                        <canvas id="hall" width={30} height={30} />
                         <span className="mx-auto">Hall</span>
                     </li>
-                    <li className="flex items-center mb-2">
-                        <canvas id="conf" height={15} width={15} />
+                    <li className="flex items-center">
+                        <canvas id="conf" height={30} width={30} />
                         <span className="mx-auto">Conference</span>
                     </li>
-                    <li className="flex items-center mb-2">
-                        <span className="inline-block w-4 h-4 mr-2 rounded-full bg-blue-500"></span>
-                        <span>Department</span>
+                    <li className="flex items-center">
+                        <canvas id="dept" height={30} width={30} />
+                        <span className="mx-auto">Department</span>
                     </li>
-                    <li className="flex items-center mb-2">
-                        <span>Elevator</span>
+                    <li className="flex items-center">
+                        <canvas id="elev" height={30} width={30} />
+                        <span className="mx-auto">Elevator</span>
                     </li>
-                    <li className="flex items-center mb-2">
-                        <span>Exit</span>
+                    <li className="flex items-center">
+                        <canvas id="exit" height={30} width={30} />
+                        <span className="mx-auto">Exit</span>
                     </li>
-                    <li className="flex items-center mb-2">
-                        <span>Info</span>
+                    <li className="flex items-center">
+                        <canvas id="info" height={30} width={30} />
+                        <span className="mx-auto">Info</span>
                     </li>
-                    <li className="flex items-center mb-2">
-                        <span>Labs</span>
+                    <li className="flex items-center">
+                        <canvas id="labs" height={30} width={30} />
+                        <span className="mx-auto">Labs</span>
                     </li>
-                    <li className="flex items-center mb-2">
-                        <span>Restroom</span>
+                    <li className="flex items-center">
+                        <canvas id="rest" height={30} width={30} />
+                        <span className="mx-auto">Restroom</span>
                     </li>
-                    <li className="flex items-center mb-2">
-                        <span>Bathroom</span>
+                    <li className="flex items-center">
+                        <canvas id="bath" height={30} width={30} />
+                        <span className="mx-auto">Bathroom</span>
                     </li>
-                    <li className="flex items-center mb-2">
-                        <span>Retail</span>
+                    <li className="flex items-center">
+                        <canvas id="retl" height={30} width={30} />
+                        <span className="mx-auto">Retail</span>
                     </li>
-                    <li className="flex items-center mb-2">
-                        <span>Stairs</span>
+                    <li className="flex items-center">
+                        <canvas id="stai" height={30} width={30} />
+                        <span className="mx-auto">Stairs</span>
                     </li>
-                    <li className="flex items-center mb-2">
-                        <span>Service</span>
+                    <li className="flex items-center">
+                        <canvas id="serv" height={30} width={30} />
+                        <span className="mx-auto">Service</span>
                     </li>
                 </ul>
             </div>
@@ -266,13 +239,12 @@ function drawOval(ctx: CanvasRenderingContext2D, xMult: number, yMult: number) {
 
 function drawRhombus(
     ctx: CanvasRenderingContext2D,
-    node: DBNode,
     xMult: number,
     yMult: number,
 ) {
     ctx.beginPath();
-    const centerX = node.xcoord * xMult;
-    const centerY = node.ycoord * yMult;
+    const centerX = xMult;
+    const centerY = yMult;
     const diag = 14;
 
     ctx.moveTo(centerX, centerY - diag / 2);
@@ -288,13 +260,12 @@ function drawRhombus(
 
 function drawParallelogram(
     ctx: CanvasRenderingContext2D,
-    node: DBNode,
     xMult: number,
     yMult: number,
 ) {
     ctx.beginPath();
-    const centerX = node.xcoord * xMult;
-    const centerY = node.ycoord * yMult;
+    const centerX = xMult;
+    const centerY = yMult;
     const base = 14;
     const height = 9;
     const skew = 4;
@@ -312,13 +283,12 @@ function drawParallelogram(
 
 function drawTrapezoid(
     ctx: CanvasRenderingContext2D,
-    node: DBNode,
     xMult: number,
     yMult: number,
 ) {
     ctx.beginPath();
-    const centerX = node.xcoord * xMult;
-    const centerY = node.ycoord * yMult;
+    const centerX = xMult;
+    const centerY = yMult;
     const base = 16;
     const top = 9;
     const height = 9;
@@ -336,13 +306,12 @@ function drawTrapezoid(
 
 function drawOctagon(
     ctx: CanvasRenderingContext2D,
-    node: DBNode,
     xMult: number,
     yMult: number,
 ) {
     ctx.beginPath();
-    const centerX = node.xcoord * xMult;
-    const centerY = node.ycoord * yMult;
+    const centerX = xMult;
+    const centerY = yMult;
     const side = 5;
 
     const radius = side / (2 * Math.sin(Math.PI / 8));
@@ -367,13 +336,12 @@ function drawOctagon(
 
 function drawPentagon(
     ctx: CanvasRenderingContext2D,
-    node: DBNode,
     xMult: number,
     yMult: number,
 ) {
     ctx.beginPath();
-    const centerX = node.xcoord * xMult;
-    const centerY = node.ycoord * yMult;
+    const centerX = xMult;
+    const centerY = yMult;
     const side = 8;
 
     const radius = side / (2 * Math.sin(Math.PI / 5));
@@ -398,13 +366,12 @@ function drawPentagon(
 
 function drawSeptagon(
     ctx: CanvasRenderingContext2D,
-    node: DBNode,
     xMult: number,
     yMult: number,
 ) {
     ctx.beginPath();
-    const centerX = node.xcoord * xMult;
-    const centerY = node.ycoord * yMult;
+    const centerX = xMult;
+    const centerY = yMult;
     const side = 6;
 
     const radius = side / (2 * Math.sin(Math.PI / 7));
