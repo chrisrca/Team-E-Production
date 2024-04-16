@@ -3,6 +3,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import {
     DBNode,
     Edge,
     FlowerServiceRequest,
@@ -251,37 +260,81 @@ function DataViewer() {
     return (
         <div className="p-10 flex flex-auto flex-col items-center align-center">
             <div className="flex flex-row items-center">
-                <div className="space-x-1 flex flex-auto flex-row">
-                    <Button onClick={() => setCurrData(nodeData)}>
-                        Node Data
-                    </Button>
-                    <Button onClick={() => setCurrData(edgeData)}>
-                        Edge Data
-                    </Button>
-                    <Button onClick={() => setCurrData(flowerData)}>
-                        Flower Data
-                    </Button>
-                    <Button onClick={() => setCurrData(giftData)}>
-                        Gift Data
-                    </Button>
-                    <Button onClick={() => setCurrData(interpreterData)}>
-                        Interpreter Data
-                    </Button>
-                    <Button onClick={() => setCurrData(securityData)}>
-                        Security Data
-                    </Button>
-                    <Button onClick={() => setCurrData(drugData)}>
-                        Medicine Delivery Data
-                    </Button>
-                    <Button onClick={() => setCurrData(sanitationData)}>
-                        Sanitation Data
-                    </Button>
-                    <Button onClick={() => setCurrData(roomData)}>
-                        Room Data
-                    </Button>
-                    <Button onClick={() => setCurrData(medicalDeviceData)}>
-                        Medical Device Data
-                    </Button>
+                <div>
+                    <Select
+                        onValueChange={(value) =>
+                            setCurrData(value)
+                        }
+                    >
+                        <SelectTrigger className="flex w-60 bg-secondary hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                            <SelectValue placeholder={"Select a Data Type"} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>{"Select Data Type"}</SelectLabel>
+                                <SelectItem
+                                    value={nodeData}
+                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                >
+                                    {"Node Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={edgeData}
+                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                >
+                                    {"Edge Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={flowerData}
+                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                >
+                                    {"Flower Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={giftData}
+                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                >
+                                    {"Gift Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={interpreterData}
+                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                >
+                                    {"Interpreter Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={securityData}
+                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                >
+                                    {"Security Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={drugData}
+                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                >
+                                    {"Drug Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={sanitationData}
+                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                >
+                                    {"Sanitation Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={roomData}
+                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                >
+                                    {"Room Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={medicalDeviceData}
+                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                >
+                                    {"Medical Device Data"}
+                                </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </div>
                 <div className=" px-10 flex flex-col space-y-2">
                     <div className="flex flex-row px-2 space-x-2">
