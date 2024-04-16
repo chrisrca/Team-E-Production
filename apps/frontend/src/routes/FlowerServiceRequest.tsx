@@ -33,7 +33,7 @@ const flowerForm = [
         type: "string",
         title: "Type of Flower",
         placeholder: "Please Select Flower",
-        required: false,
+        required: true,
         id: 0,
         label: "Status",
         options: ["Roses - $13", "Lilies - $50", "Chrysanthemums - $1000"],
@@ -81,15 +81,15 @@ const flowerForm = [
         type: "string",
         title: "Message",
         placeholder: "Enter Message (Optional)",
-        required: true,
+        required: false,
         id: 0,
     },
 ];
 export default function FlowerService() {
     return ServiceRequests(
-        flowerForm,
-        defaultFlowerSchema,
-        "/api/flower",
-        Lilacs,
-    );
+            flowerForm,
+            defaultFlowerSchema,
+            "/api/flower",
+            Lilacs,
+        );
 }

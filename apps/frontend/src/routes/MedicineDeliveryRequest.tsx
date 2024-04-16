@@ -90,7 +90,7 @@ export default function DrugDelivery() {
             content: "text",
             type: "number",
             title: "Drug Quantity",
-            placeholder: "Enter Drug Quantity...",
+            placeholder: "Enter Drug Quantity",
             required: true,
             id: 0,
         },
