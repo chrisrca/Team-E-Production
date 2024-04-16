@@ -471,7 +471,7 @@ export const ServiceRequests = (
                             </div>
                         </form>
                         <div>
-                            <p>{devNames}</p>
+                            <p>Developed by: {devNames}</p>
                         </div>
                     </div>
                 </div>

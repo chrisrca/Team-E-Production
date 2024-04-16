@@ -91,6 +91,6 @@ export default function FlowerService() {
         defaultFlowerSchema,
         "/api/flower",
         Lilacs,
-        "Marc and Colin",
+        "Marc, Colin, and Brendan",
     );
 }

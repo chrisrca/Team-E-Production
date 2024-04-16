@@ -78,5 +78,10 @@ const defaultForm = [
     },
 ];
 export default function GiftServiceRequest() {
-    return ServiceRequests(defaultForm, defaultFormSchema, "/api/gift", gifts);
+    return ServiceRequests(
+        defaultForm,
+        defaultFormSchema,
+        "/api/gift",
+        gifts,
+        "Devin and Marc");
 }
