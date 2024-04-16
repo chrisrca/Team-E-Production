@@ -40,7 +40,7 @@ export default function MapEditor({ nodes }: { nodes: DBNode[] }) {
     }, []);
     return (
         <div className="z-0 relative">
-            <div className="mr-5 mb-72 absolute bottom-0 right-0 z-10">
+            <div className="mr-5 mb-10 absolute bottom-0 right-0 z-10">
                 <Legend></Legend>
             </div>
             <LevelButtons levelProps={[level, setLevel]} />

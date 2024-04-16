@@ -45,14 +45,14 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
     }
 
     function clear() {
-        startFunction("");
-        endFunction("");
-        algorithmFunction("");
+        startFunction("Start Node");
+        endFunction("End Node");
+        algorithmFunction("A* Star");
     }
 
     return (
         <>
-            <div className="mr-5 mb-72 absolute bottom-0 right-0 z-10">
+            <div className="mr-5 mb-10 absolute bottom-0 right-0 z-10">
                 <Legend></Legend>
             </div>
             <div
