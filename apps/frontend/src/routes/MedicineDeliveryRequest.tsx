@@ -21,10 +21,10 @@ export default function DrugDelivery() {
     // const [count, setCount] = React.useState(0);
     const defaultFormSchema = {
         patientName: "",
+        drugName: "",
         roomNumber: "",
         priority: "",
         status: "",
-        drugName: "",
         drugQuantity: "",
         patientCondition: "Fever",
     };
@@ -47,12 +47,24 @@ export default function DrugDelivery() {
             id: 0,
         },
         {
-            content: "text",
-            type: "number",
-            title: "Room Number",
-            placeholder: "Enter Room Number...",
+            content: "select",
+            type: "string",
+            title: "Medicine Type",
+            placeholder: "Select Medicine",
             required: true,
             id: 0,
+            label: "Options",
+            options: ["Tylenol - $5", "Advil - $7", "Melatonin - $10"],
+        },
+        {
+            content: "popover",
+            type: "string",
+            title: "Select Location",
+            placeholder: "Select Placeholder 2",
+            required: true,
+            id: 0,
+            label: "",
+            options: [],
         },
         {
             content: "radio",
@@ -73,16 +85,6 @@ export default function DrugDelivery() {
             id: 0,
             label: "Request Status",
             options: ["Unassigned", "Assigned", "In Progress", "Closed"],
-        },
-        {
-            content: "select",
-            type: "string",
-            title: "Medicine Type",
-            placeholder: "Select Medicine",
-            required: true,
-            id: 0,
-            label: "Options",
-            options: ["Tylenol - $5", "Advil - $7", "Melatonin - $10"],
         },
         {
             content: "text",

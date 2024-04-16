@@ -195,7 +195,7 @@ export const ServiceRequests = (
                                 value.toString())
                         }
                     >
-                        <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent">
+                        <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground">
                             <SelectValue placeholder={props.placeholder} />
                         </SelectTrigger>
                         <SelectContent>
@@ -205,7 +205,7 @@ export const ServiceRequests = (
                                 {props.options.map((option) => (
                                     <SelectItem
                                         value={option.toString()}
-                                        className={""}
+                                        className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
                                     >
                                         {option}
                                     </SelectItem>
@@ -269,7 +269,7 @@ export const ServiceRequests = (
         console.log("making checkbox '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className={"flex col-span-full container:ml-0 pl-6 pt-2"}>
+                <div className={"flex col-span-1 container:ml-0 pl-6 pt-2"}>
                     <Checkbox
                         required={props.required}
                         onChange={(e) =>
@@ -332,7 +332,7 @@ export const ServiceRequests = (
         console.log(nodes);
 
         return (
-            <div>
+            <div className={"col-span-auto"}>
                 <label
                     className={
                         "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
@@ -344,15 +344,15 @@ export const ServiceRequests = (
                 <Popover>
                     <PopoverTrigger asChild>
                         <Button
-                            className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-background text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground">
                             {formSchema[schemaKeys[props.id]] || "Select Location"}
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent
-                        className="origin-top-right absolute mt-2 max-h-60 overflow-y-auto rounded-md shadow-lg">
+                        className="origin-top-right absolute max-h-60 overflow-y-auto rounded-md shadow-lg">
                         <Input
                             ref={searchRef}
-                            className="w-full"
+                            className="w-full mb-2"
                             placeholder="Search location..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
@@ -360,7 +360,7 @@ export const ServiceRequests = (
                         {filteredNodes.map((node) => (
                             <div
                                 key={node.nodeID}
-                                className="p-2 hover:bg-secondary cursor-pointer rounded-md"
+                                className="p-2 hover:bg-accent hover-text cursor-pointer rounded-md hover:text-accent-foreground"
                                 onClick={() => handleLocationSelect(node.longName)}
                                 >
                                 {node.longName}
@@ -408,7 +408,7 @@ export const ServiceRequests = (
     return (
         <>
             <section
-                className="fixed blur-[3px] top-0 bg-white bg-cover content-center size-full"
+                className="fixed blur-[5px] top-0 bg-white bg-cover content-center size-full"
                 style={{
                     backgroundImage: `url(${[bgPath]})`,
                 }}

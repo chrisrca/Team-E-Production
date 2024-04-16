@@ -1,12 +1,12 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
-import Language from "/src/images/LanguageInterpreter.png";
+import cleaning from "/src/images/cleaning.jpg";
 
 const defaultFormSchema = {
     patientName: "",
+    serviceType: "",
     location: "",
     priority: "",
     status: "",
-    serviceType: "",
     additionalInfo: "",
 };
 
@@ -28,12 +28,24 @@ const defaultForm = [
         id: 0,
     },
     {
-        content: "text",
+        content: "select",
         type: "string",
-        title: "Location",
-        placeholder: "Enter Location",
+        title: "Service Type",
+        placeholder: "Please Select Service",
         required: true,
         id: 0,
+        label: "Service Type",
+        options: ["Biohazard", "Human Waste", "Food", "General", "Other"],
+    },
+    {
+        content: "popover",
+        type: "string",
+        title: "Select Location",
+        placeholder: "Select Placeholder 2",
+        required: true,
+        id: 0,
+        label: "",
+        options: [],
     },
     {
         content: "radio",
@@ -56,16 +68,6 @@ const defaultForm = [
         options: ["Unassigned", "Assigned", "In Progress", "Closed"],
     },
     {
-        content: "select",
-        type: "string",
-        title: "Service Type",
-        placeholder: "Please Select Service",
-        required: true,
-        id: 0,
-        label: "Service Type",
-        options: ["Biohazard", "Human Waste", "Food", "General", "Other"],
-    },
-    {
         content: "text",
         type: "string",
         title: "Additional Information",
@@ -80,6 +82,6 @@ export default function SanitationService() {
         defaultForm,
         defaultFormSchema,
         "/api/sanitation",
-        Language,
+        cleaning,
     );
 }

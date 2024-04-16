@@ -3,12 +3,12 @@ import Lilacs from "/src/images/Lilacs.png";
 
 const defaultFlowerSchema = {
     patientName: "",
+    flowerType: "",
     roomNumber: "",
     priority: "",
     status: "",
     senderName: "",
     cardMessage: "",
-    flowerType: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -29,12 +29,24 @@ const flowerForm = [
         id: 0,
     },
     {
-        content: "text",
-        type: "number",
-        title: "Room Number",
-        placeholder: "Enter Room Number...",
+        content: "select",
+        type: "string",
+        title: "Type of Flower",
+        placeholder: "Please Select Flower",
+        required: false,
+        id: 0,
+        label: "Status",
+        options: ["Roses - $13", "Lilies - $50", "Chrysanthemums - $1000"],
+    },
+    {
+        content: "popover",
+        type: "string",
+        title: "Select Location",
+        placeholder: "Select Placeholder 2",
         required: true,
         id: 0,
+        label: "",
+        options: [],
     },
     {
         content: "radio",
@@ -71,16 +83,6 @@ const flowerForm = [
         placeholder: "Enter Message (Optional)",
         required: true,
         id: 0,
-    },
-    {
-        content: "select",
-        type: "string",
-        title: "Type of Flower",
-        placeholder: "Please Select Flower",
-        required: false,
-        id: 0,
-        label: "Status",
-        options: ["Roses - $13", "Lilies - $50", "Chrysanthemums - $1000"],
     },
 ];
 export default function FlowerService() {

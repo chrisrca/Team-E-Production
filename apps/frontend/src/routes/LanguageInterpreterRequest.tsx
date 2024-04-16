@@ -1,12 +1,12 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
-import LanguageInterpreter from "/src/images/LanguageInterpreter.png";
+import translation from "/src/images/translation.jpg";
 
 const defaultFormSchema = {
     clientName: "",
     language: "",
-    location: "",
     priority: "",
     status: "",
+    location: "",
     duration: "",
     additionalInfo: "",
 };
@@ -37,14 +37,6 @@ const defaultForm = [
         id: 0,
     },
     {
-        content: "text",
-        type: "string",
-        title: "Location",
-        placeholder: "Enter Location",
-        required: true,
-        id: 0,
-    },
-    {
         content: "radio",
         type: "string",
         title: "Priority",
@@ -63,6 +55,16 @@ const defaultForm = [
         id: 0,
         label: "Request Status",
         options: ["Unassigned", "Assigned", "In Progress", "Closed"],
+    },
+    {
+        content: "popover",
+        type: "string",
+        title: "Select Location",
+        placeholder: "Select Placeholder 2",
+        required: true,
+        id: 0,
+        label: "",
+        options: [],
     },
     {
         content: "text",
@@ -86,6 +88,6 @@ export default function InterpreterService() {
         defaultForm,
         defaultFormSchema,
         "/api/interpreter",
-        LanguageInterpreter,
+        translation,
     );
 }

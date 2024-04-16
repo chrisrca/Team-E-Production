@@ -3,11 +3,11 @@ import MedicalDevice from "/src/images/MedicalDevice.png";
 
 const defaultFormSchema = {
     employeeName: "",
+    selectedDevice: "",
     location: "",
     priority: "",
     status: "",
     withBalloons: "false",
-    selectedDevice: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -28,12 +28,24 @@ const defaultForm = [
         id: 0,
     },
     {
-        content: "text",
+        content: "select",
         type: "string",
-        title: "Location",
-        placeholder: "Enter Location",
+        title: "Service Type",
+        placeholder: "Please Select Service",
         required: true,
         id: 0,
+        label: "Service Type",
+        options: ["Hospital Bed", "IV Pump", "Recliner"],
+    },
+    {
+        content: "popover",
+        type: "string",
+        title: "Select Location",
+        placeholder: "Select Placeholder 2",
+        required: true,
+        id: 0,
+        label: "",
+        options: [],
     },
     {
         content: "radio",
@@ -62,16 +74,6 @@ const defaultForm = [
         placeholder: "With Balloons?",
         required: false,
         id: 0,
-    },
-    {
-        content: "select",
-        type: "string",
-        title: "Service Type",
-        placeholder: "Please Select Service",
-        required: true,
-        id: 0,
-        label: "Service Type",
-        options: ["Hospital Bed", "IV Pump", "Recliner"],
     },
 ];
 export default function MedicalDeviceService() {

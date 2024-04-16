@@ -15,16 +15,18 @@ async function getSecurityFromDB(): Promise<SecurityServiceRequest[] | null> {
 
 router.post("/", async (req: Request, res: Response) => {
     const securityRequest: SecurityServiceRequest = req.body;
+    const boolCheck: boolean = /^true$/i.test(securityRequest.alertAuthorities);
+    const intCheck: number = parseInt(securityRequest.employeeID);
     try {
         const createdSecurity = await client.security.create({
             data: {
                 employeeName: securityRequest.employeeName,
-                employeeID: securityRequest.employeeID,
+                employeeID: intCheck,
                 reqPriority: securityRequest.reqPriority,
                 location: securityRequest.location,
                 requestType: securityRequest.requestType,
                 reqStatus: securityRequest.reqStatus,
-                alertAuthorities: securityRequest.alertAuthorities,
+                alertAuthorities: boolCheck,
             },
         });
         res.json({

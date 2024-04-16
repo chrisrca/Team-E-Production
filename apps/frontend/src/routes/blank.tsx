@@ -1,13 +1,13 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
 
 const defaultFormSchema = {
-    recipientName: "",
-    deliveryLocation: "",
-    priority: "",
-    status: "",
-    message: "",
-    giftSize: "",
-    wrapping: "Default - $15",
+    employeeName: "",
+    employeeID: "0",
+    alertAuthorities: "false",
+    location: "",
+    reqPriority: "",
+    reqStatus: "",
+    requestType: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -15,14 +15,14 @@ const defaultFormSchema = {
 const defaultForm = [
     {
         content: "label",
-        title: "Gift Delivery Request",
+        title: "Security Request",
         type: "header",
         id: 0,
     },
     {
         content: "text",
         type: "string",
-        title: "Recipient Name",
+        title: "Employee Name",
         placeholder: "First, Last",
         required: true,
         id: 0,
@@ -30,10 +30,28 @@ const defaultForm = [
     {
         content: "text",
         type: "number",
-        title: "Room Number",
-        placeholder: "Enter Room Number...",
+        title: "Employee ID",
+        placeholder: "Enter Employee ID",
         required: true,
         id: 0,
+    },
+    {
+        content: "checkbox",
+        type: "string",
+        title: "Authorities",
+        placeholder: "Alert Authorities?",
+        required: false,
+        id: 0,
+    },
+    {
+        content: "popover",
+        type: "string",
+        title: "Select Location",
+        placeholder: "Select Placeholder 2",
+        required: true,
+        id: 0,
+        label: "",
+        options: [],
     },
     {
         content: "radio",
@@ -56,24 +74,16 @@ const defaultForm = [
         options: ["Unassigned", "Assigned", "In Progress", "Closed"],
     },
     {
-        content: "text",
-        type: "string",
-        title: "Message",
-        placeholder: "Enter a Message... (Optional)",
-        required: true,
-        id: 0,
-    },
-    {
         content: "select",
         type: "string",
-        title: "Gift Size",
-        placeholder: "Select Size",
+        title: "Type",
+        placeholder: "Request Type",
         required: true,
         id: 0,
         label: "Options",
-        options: ["Small", "Medium", "Large"],
+        options: ["Patient Threat", "Staff Threat",],
     },
 ];
 export default function GiftServiceRequest() {
-    return ServiceRequests(defaultForm, defaultFormSchema, "/api/gift", "");
+    return ServiceRequests(defaultForm, defaultFormSchema, "/api/security", "");
 }

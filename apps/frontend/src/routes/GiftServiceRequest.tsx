@@ -1,13 +1,13 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
-import gift from "/src/images/gift.png";
+import gifts from "/src/images/gifts.jpg";
 
 const defaultFormSchema = {
     recipientName: "",
+    giftSize: "",
     deliveryLocation: "",
     priority: "",
     status: "",
     message: "",
-    giftSize: "",
     wrapping: "Default - $15",
 };
 
@@ -29,12 +29,24 @@ const defaultForm = [
         id: 0,
     },
     {
-        content: "text",
-        type: "number",
-        title: "Room Number",
-        placeholder: "Enter Room Number...",
+        content: "select",
+        type: "string",
+        title: "Gift Size",
+        placeholder: "Select Size",
         required: true,
         id: 0,
+        label: "Options",
+        options: ["Small", "Medium", "Large"],
+    },
+    {
+        content: "popover",
+        type: "string",
+        title: "Select Location",
+        placeholder: "Select Placeholder 2",
+        required: true,
+        id: 0,
+        label: "",
+        options: [],
     },
     {
         content: "radio",
@@ -64,17 +76,7 @@ const defaultForm = [
         required: false,
         id: 0,
     },
-    {
-        content: "select",
-        type: "string",
-        title: "Gift Size",
-        placeholder: "Select Size",
-        required: true,
-        id: 0,
-        label: "Options",
-        options: ["Small", "Medium", "Large"],
-    },
 ];
 export default function GiftServiceRequest() {
-    return ServiceRequests(defaultForm, defaultFormSchema, "/api/gift", gift);
+    return ServiceRequests(defaultForm, defaultFormSchema, "/api/gift", gifts);
 }
