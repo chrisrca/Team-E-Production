@@ -204,30 +204,15 @@ export default function EditorMap(props: CanvasMapProps) {
 
     return (
         <>
-            {/* Render node information */}
-            <div
-                style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    zIndex: 9999,
-                    pointerEvents: "none",
-                }}
-            ></div>
             {hoverNode.longName && (
                 <div
                     className={
-                        "ml-4 justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"
+                        "ml-4 justify-items-center bg-background  absolute z-10 text-md rounded-md px-2 py-1 flex flex-col rounded-2 float-left top-0"
                     }
                     style={{
-                        position: "absolute",
                         top: `${nodeInfoPosition.y}px`,
                         left: `${nodeInfoPosition.x}px`,
-                        zIndex: `${nodeInfoPosition.z}px`,
-                        background: "#ffffff",
                         whiteSpace: "nowrap", // Prevent text from wrapping
-                        fontSize: "14px",
-                        padding: "5px", // Adjust padding as needed
                         minWidth: "fit-content", // Allow the div to expand only as much as needed
                         maxWidth: "calc(100% - 20px)", // Limit the maximum width to ensure it doesn't exceed the viewport
                     }}
