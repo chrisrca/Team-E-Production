@@ -34,7 +34,7 @@ export default function Hamburger() {
                     <SheetClose asChild>
                         <Link
                             to="/"
-                            className="rounded hover:bg-accent pl-2 dark:bg-foreground dark:hover:bg-primary inline-block"
+                            className="rounded hover:bg-accent pl-2 dark:bg-foreground dark:hover:bg-accent inline-block"
                         >
                             <img
                                 src={bwhLogo}
