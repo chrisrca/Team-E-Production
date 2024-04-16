@@ -7,6 +7,7 @@ import FormInput from "@/components/ui/formInput";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
+import Confetti from "react-confetti";
 import axios from "axios";
 import {
     Popover,
@@ -392,6 +393,7 @@ export const ServiceRequests = (
     //End of Elements
 
     const submittedServiceData = [] as (typeof blankSchema)[];
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     // Assign id to each element specified in layout based on order in the form,
     // determines where form values are sent on submit
@@ -419,6 +421,7 @@ export const ServiceRequests = (
         console.log(submittedServiceData);
         // Not really necessary but clear formValues for next submit
         handleClearForm(e);
+        setIsSubmitted(true);
     };
 
     const handleClearForm = (e: FormEvent) => {
@@ -429,6 +432,7 @@ export const ServiceRequests = (
         if (formElement) {
             formElement.reset();
         }
+        setIsSubmitted(false);
     };
 
     return (
@@ -439,6 +443,7 @@ export const ServiceRequests = (
                     backgroundImage: `url(${[bgPath]})`,
                 }}
             />
+            {isSubmitted && <Confetti />}
             <div className="flex justify-center container shrink-0 w-full h-dvh">
                 <div className="m-auto relative w-2/3 min-w-[35rem]">
                     <div className="block shadow-lg bg-secondary rounded-lg border-4 border-background">
