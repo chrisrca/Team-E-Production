@@ -10,7 +10,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "@/components/ui/button";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
@@ -20,14 +20,6 @@ export default function UserArea() {
 
     const { isAuthenticated, loginWithPopup, logout } = useAuth0();
 
-    const handleLogin = () => {
-        loginWithPopup();
-    };
-    const handleLogout = () => {
-        logout();
-    };
-
-    //dropdown logic
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (
@@ -48,75 +40,69 @@ export default function UserArea() {
         setIsOpen(false);
     }, [isAuthenticated]);
 
+    const handleLogin = () => {
+        loginWithPopup();
+    };
+
+    const handleLogout = () => {
+        logout();
+    };
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={() => setIsOpen(!isOpen)}>
-                <Button className="fixed top-0 right-0 mt-4 mr-4 z-50 bg-transparent">
-                    <Avatar className="">
-                        <AvatarImage
-                            src="https://github.com/shadcn.png"
-                            alt="@shadcn"
-                        />
-                        <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
+                <Button
+                    className={`fixed top-0 right-0 mt-4 mr-4 z-50 ${isAuthenticated ? "bg-transparent" : "hover:bg-accent"}`}
+                >
+                    {isAuthenticated ? (
+                        <Avatar>
+                            <AvatarImage
+                                src="https://github.com/shadcn.png"
+                                alt="user"
+                            />
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                    ) : (
+                        "Log-in"
+                    )}
                 </Button>
             </DropdownMenuTrigger>
-            {isOpen && (
-                <DropdownMenuContent
-                    side="right"
-                    className={`w-56 ${isOpen ? "z-50" : "z-0"}`}
-                >
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                        <DropdownMenuItem>
-                            <LogIn
-                                onClick={handleLogin}
-                                className="mr-2 h-4 w-4"
-                            />
-                            <span
-                                className="hover:underline hover:cursor-pointer"
-                                onClick={handleLogin}
-                            >
-                                Log-in
-                            </span>
-                        </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                </DropdownMenuContent>
-            )}
-            {isAuthenticated && (
-                <DropdownMenuContent
-                    side="right"
-                    className="`w-56 ${isOpen ? 'z-50' : 'z-0'}`"
-                >
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                        <DropdownMenuItem>
-                            <User className="mr-2 h-4 w-4" />
-                            <Link to="/profile">Profile</Link>
-                        </DropdownMenuItem>
+            {isOpen &&
+                (isAuthenticated ? (
+                    <DropdownMenuContent side="right" className="w-56 z-50">
+                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <Settings className="mr-2 h-4 w-4" />
-                            <Link to="/settings">Settings</Link>
-                        </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="bg-destructive">
-                        <LogOut
-                            onClick={handleLogout}
-                            className="mr-2 h-4 w-4"
-                        />
-                        <span
-                            className="hover:underline hover:cursor-pointer"
-                            onClick={handleLogout}
-                        >
-                            Log out
-                        </span>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            )}
+                        <DropdownMenuGroup>
+                            <DropdownMenuItem>
+                                <User className="mr-2 h-4 w-4" />
+                                <Link to="/profile">Profile</Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Settings className="mr-2 h-4 w-4" />
+                                <Link to="/settings">Settings</Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                                onClick={handleLogout}
+                                className="hover:bg-destructive"
+                            >
+                                <LogOut className="mr-2 h-4 w-4" />
+                                <span className="hover:underline">Log out</span>
+                            </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                ) : (
+                    <DropdownMenuContent side="right" className="w-56 z-50">
+                        <DropdownMenuLabel>Log In</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                            <DropdownMenuItem onClick={handleLogin}>
+                                <LogIn className="mr-2 h-4 w-4" />
+                                <span className="hover:underline">Log-in</span>
+                            </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                ))}
         </DropdownMenu>
     );
 }
