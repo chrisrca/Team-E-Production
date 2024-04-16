@@ -1,6 +1,5 @@
-/* eslint-disable */
+ 
 // when calling, should define length of div it's contained in as this will take up the full width of that
-import { DBNode } from "common/src/types";
 
 export default function Legend() {
     // make a bunch of small canvases to be able to draw node icon in legend

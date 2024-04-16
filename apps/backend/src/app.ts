@@ -19,6 +19,7 @@ import edgeUploadRoute from "./routes/edgeUploadRoute.ts";
 import nodeUploadRoute from "./routes/nodeUploadRoute.ts";
 import editorRoute from "./routes/editorRoute.ts";
 import mapEditorRoute from "./routes/mapEditorRoute.ts";
+//import { auth } from "express-oauth2-jwt-bearer";
 
 const app: Express = express(); // Setup the backend
 
@@ -34,16 +35,29 @@ app.use(
 app.use(express.json()); // This processes requests as JSON
 app.use(express.urlencoded({ extended: false })); // URL parser
 app.use(cookieParser()); // Cookie parser
-
+app.use("/api/path", pathRoute);
+app.use("/api/nodes", nodeRoute);
+app.use("/api/edges", edgeRoute);
+app.use("/api/edge", edgeUploadRoute);
+app.use("/api/node", nodeUploadRoute);
+app.use("/api/editor", editorRoute);
 // Setup routers. ALL ROUTERS MUST use /api as a start point, or they
 // won't be reached by the default proxy and prod setup
 app.use("/healthcheck", (req, res) => {
     res.status(200).send();
 });
+// if (!process.env["VITETEST"]) {
+//     app.use(
+//         auth({
+//             audience: "/api",
+//             issuerBaseURL: "https://dev-4m72lcr6jdjjoxgt.us.auth0.com",
+//             tokenSigningAlg: "RS256",
+//         }),
+//     );
+// } just for running test more easily without auth0 but giving me a little bit of trouble when committing so bye-bye for now :)
+
 // Don't delete above: MIDDLEWARE
-app.use("/api/path", pathRoute);
-app.use("/api/nodes", nodeRoute);
-app.use("/api/edges", edgeRoute);
+
 app.use("/api/flower", flowerRoute);
 app.use("/api/gift", giftRoute);
 app.use("/api/interpreter", interpreterRoute);
@@ -52,10 +66,7 @@ app.use("/api/medicine", medicineRoute);
 app.use("/api/sanitation", sanitationRoute);
 app.use("/api/room", roomRoute);
 app.use("/api/medical-device", medicalDeviceServiceRoute);
-app.use("/api/editor", editorRoute);
 app.use("/api/flower", flowerUploadRoute);
-app.use("/api/edge", edgeUploadRoute);
-app.use("/api/node", nodeUploadRoute);
 app.use("/api/medicine", medicineRoute);
 app.use("/api/medicine", medicineUploadRoute);
 app.use("/api/mapeditor", mapEditorRoute);
