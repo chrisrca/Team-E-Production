@@ -115,9 +115,7 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
             </div>
 
             <div
-                className={
-                    "mt-5 flex flex-auto justify-items-center space-x-5"
-                }
+                className={"mt-5 flex flex-auto justify-items-center space-x-5"}
             >
                 <Button
                     className={"w-32 px-5 py-2 rounded-3xl drop-shadow-xl"}
