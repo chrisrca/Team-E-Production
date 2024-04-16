@@ -4,7 +4,7 @@ import Lilacs from "/src/images/Lilacs.png";
 const defaultFlowerSchema = {
     patientName: "",
     flowerType: "",
-    roomNumber: "",
+    location: "",
     priority: "",
     status: "",
     senderName: "",

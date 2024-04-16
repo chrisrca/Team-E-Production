@@ -17,7 +17,7 @@ router.post("/", async (req: Request, res: Response) => {
         await client.flower.create({
             data: {
                 patientName: flowerRequest.patientName,
-                roomNumber: parseInt(flowerRequest.roomNumber),
+                location: flowerRequest.location,
                 senderName: flowerRequest.senderName,
                 cardMessage: flowerRequest.cardMessage,
                 flowerType: flowerRequest.flowerType,

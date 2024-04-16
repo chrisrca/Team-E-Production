@@ -9,7 +9,6 @@ import { FormEvent, useState, useRef, useEffect } from "react";
 // import { Button } from "@/components/ui/button";
 //import { TestSchema } from "common/src/types";
 import { Label } from "@/components/ui/label";
-import { FlowerServiceRequest } from "common/src/types";
 import { DBNode } from "common/src/types";
 //import Lilacs from "/src/images/Lilacs.jpg";
 //import { BWH } from "@/src/images/BWH-high-res.jpg";
@@ -101,7 +100,7 @@ export const ServiceRequests = (
     console.log(formSchema);
     console.log(schemaKeys);
 
-    async function sendForm(formData: FlowerServiceRequest, apiPath: string) {
+    async function sendForm(formData, apiPath: string) {
         axios.post([apiPath], formData).then((res) => {
             console.log(res);
         });
@@ -409,6 +408,10 @@ export const ServiceRequests = (
         // Not really necessary but clear formValues for next submit
     };
 
+    const handleClearForm = () => {
+        setFormSchema(structuredClone(blankSchema));
+    };
+
     return (
         <>
             <section
@@ -426,6 +429,7 @@ export const ServiceRequests = (
                                 <button
                                     className="bg-accent hover:bg-destructive text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
                                     type={"clear"}
+                                    onClick={handleClearForm}
                                 >
                                     Clear Form
                                 </button>

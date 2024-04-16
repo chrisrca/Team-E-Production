@@ -38,7 +38,7 @@ model path {
 model flower {
   id          Int      @id @default(autoincrement())
   patientName String
-  roomNumber  Int
+  location    String
   senderName  String
   cardMessage String
   flowerType  String
@@ -50,7 +50,7 @@ model flower {
 model gift {
   id               Int    @id @default(autoincrement())
   recipientName    String
-  deliveryLocation String
+  location String
   message          String
   giftSize         String
   status           String
@@ -83,7 +83,7 @@ model security {
 model medicine {
   id               Int      @id @default(autoincrement())
   patientName      String
-  roomNumber       Int
+  location       String
   patientCondition String
   drugName         String
   drugQuantity     String

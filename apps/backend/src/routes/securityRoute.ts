@@ -15,8 +15,14 @@ async function getSecurityFromDB(): Promise<SecurityServiceRequest[] | null> {
 
 router.post("/", async (req: Request, res: Response) => {
     const securityRequest: SecurityServiceRequest = req.body;
-    const boolCheck: boolean = /^true$/i.test(securityRequest.alertAuthorities);
-    const intCheck: number = parseInt(securityRequest.employeeID);
+    let boolCheck = securityRequest.alertAuthorities;
+    let intCheck = securityRequest.employeeID;
+    if (typeof securityRequest.alertAuthorities === "string") {
+        boolCheck = /^true$/i.test(securityRequest.alertAuthorities);
+    }
+    if (typeof securityRequest.employeeID === "string") {
+        intCheck = parseInt(securityRequest.employeeID);
+    }
     try {
         const createdSecurity = await client.security.create({
             data: {
