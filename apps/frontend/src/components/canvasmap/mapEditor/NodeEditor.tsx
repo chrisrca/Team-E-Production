@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { DBNode } from "common/src/types";
 import axios from "axios";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface NodeEditorProps {
     node: DBNode | null;
@@ -49,27 +52,16 @@ export default function NodeEditor({ node }: NodeEditorProps) {
 
     return (
         <div
-            className="node-editor"
-            style={{
-                position: "fixed",
-                left: 0,
-                top: "50%",
-                transform: "translateY(-50%)",
-                padding: "10px",
-                backgroundColor: "white",
-                border: "1px solid #ccc",
-                borderRadius: "5px",
-                zIndex: 1000,
-            }}
+            className="absolute bg-secondary rounded-lg p-5 space-y-2 z-50 top-[10vh] ml-10"
         >
             <h3>Edit Node</h3>
             <div>
-                <label>Node ID: {editedNode.nodeID}</label>
+                <Label>Node ID: {editedNode.nodeID}</Label>
             </div>
             <div>
-                <label>
+                <Label>
                     Long Name:
-                    <input
+                    <Input
                         type="text"
                         name="longName"
                         value={editedNode.longName}
@@ -80,12 +72,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                             })
                         }
                     />
-                </label>
+                </Label>
             </div>
             <div>
-                <label>
+                <Label>
                     Node Type:
-                    <input
+                    <Input
                         type="text"
                         name="nodeType"
                         value={editedNode.nodeType}
@@ -96,12 +88,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                             })
                         }
                     />
-                </label>
+                </Label>
             </div>
             <div>
-                <label>
+                <Label>
                     Building:
-                    <input
+                    <Input
                         type="text"
                         name="building"
                         value={editedNode.building}
@@ -112,12 +104,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                             })
                         }
                     />
-                </label>
+                </Label>
             </div>
             <div>
-                <label>
+                <Label>
                     Floor:
-                    <input
+                    <Input
                         type="text"
                         name="floor"
                         value={editedNode.floor}
@@ -128,12 +120,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                             })
                         }
                     />
-                </label>
+                </Label>
             </div>
             <div>
-                <label>
+                <Label>
                     X Coordinate:
-                    <input
+                    <Input
                         type="number"
                         name="xcoord"
                         value={editedNode.xcoord}
@@ -144,12 +136,12 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                             })
                         }
                     />
-                </label>
+                </Label>
             </div>
             <div>
-                <label>
+                <Label>
                     Y Coordinate:
-                    <input
+                    <Input
                         type="number"
                         name="ycoord"
                         value={editedNode.ycoord}
@@ -160,12 +152,14 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                             })
                         }
                     />
-                </label>
+                </Label>
             </div>
-            <div>
-                <button onClick={handleBlock}>Block</button>
-                <button onClick={handleSubmit}>Save</button>
-                <button onClick={handleCancel}>Cancel</button>{" "}
+            <div className="space-x-2">
+                <Button variant="destructive" onClick={handleBlock}>
+                    {editedNode.blocked ? "Unblock" : "Block"}
+                </Button>
+                <Button onClick={handleSubmit}>Save</Button>
+                <Button onClick={handleCancel}>Cancel</Button>{" "}
                 {/* Use onCancel prop */}
             </div>
         </div>

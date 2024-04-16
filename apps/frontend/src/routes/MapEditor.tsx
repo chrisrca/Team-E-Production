@@ -6,13 +6,9 @@ import { useEffect, useState } from "react";
 // import { PrismaClient } from "database";
 // const client = new PrismaClient();
 
-export default function MapPage({ nodes }: { nodes: DBNode[] }) {
+export default function MapEditor({ nodes }: { nodes: DBNode[] }) {
     const [pathNodes, setPathNodes] = useState<DBNode[][]>([]);
     const [level, setLevel] = useState<number>(1);
-
-    function handleLevelChange(level: number) {
-        setLevel(level);
-    }
 
     // function handleNodeChange(node: DBNode) {
     //     async function changeNodeInfo(node: DBNode) {
@@ -43,7 +39,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     }, []);
     return (
         <div className="z-0 relative">
-            <LevelButtons updateLevel={handleLevelChange} />
+            <LevelButtons levelProps={[level, setLevel]} />
             <EditorMap level={level} path={pathNodes} nodes={nodes} />
         </div>
     );
