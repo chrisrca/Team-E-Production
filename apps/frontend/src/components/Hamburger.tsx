@@ -26,7 +26,7 @@ export default function Hamburger() {
                     variant={"outline"}
                     size={"icon"}
                 >
-                    <Menu className={"invert-0 brightness-100 transition-all dark:-rotate-90 dark:scale-0"}/>
+                    <Menu className={"transition-all"}/>
                 </Button>
             </SheetTrigger>
             <SheetContent side="left" className="dark:bg-secondary">
@@ -34,7 +34,7 @@ export default function Hamburger() {
                     <SheetClose asChild>
                         <Link
                             to="/"
-                            className="rounded hover:bg-card pl-2 dark:bg-foreground dark:hover:bg-card inline-block"
+                            className="rounded hover:bg-card pl-2 dark:bg-foreground dark:hover:bg-primary inline-block"
                         >
                             <img
                                 src={bwhLogo}

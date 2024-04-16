@@ -22,7 +22,7 @@ export default function Services() {
         <div className={"px-10"}>
             <div
                 className={
-                    "px-16 py-8 bg-secondary border-background rounded-xl"
+                    "px-16 py-8 rounded-xl"
                 }
             >
                 <h1 className="text-3xl font-bold">Service Requests</h1>
@@ -31,7 +31,7 @@ export default function Services() {
                     us.
                 </h2>
                 <div className="grid lg:grid-cols-4 gap-5">
-                    <Card className="">
+                    <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 1*/}
                         <CardHeader>
                             <CardTitle>Flower Request</CardTitle>
@@ -55,7 +55,7 @@ export default function Services() {
                             </Link>
                         </CardFooter>
                     </Card>
-                    <Card className="">
+                    <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 2*/}
                         <CardHeader>
                             <CardTitle>Security Request</CardTitle>
@@ -79,7 +79,7 @@ export default function Services() {
                             </Link>
                         </CardFooter>
                     </Card>
-                    <Card className="">
+                    <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 3*/}
                         <CardHeader>
                             <CardTitle>Medicine Request</CardTitle>
@@ -102,7 +102,7 @@ export default function Services() {
                             </Link>
                         </CardFooter>
                     </Card>
-                    <Card className="">
+                    <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 4*/}
                         <CardHeader>
                             <CardTitle>Gift Request</CardTitle>
@@ -126,7 +126,7 @@ export default function Services() {
                             </Link>
                         </CardFooter>
                     </Card>
-                    <Card className="">
+                    <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {" "}
                         {/*card 5*/}
                         <CardHeader>
@@ -150,7 +150,7 @@ export default function Services() {
                             </Link>
                         </CardFooter>
                     </Card>
-                    <Card className="">
+                    <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 6*/}
                         <CardHeader>
                             <CardTitle>Sanitation Request</CardTitle>
@@ -173,7 +173,7 @@ export default function Services() {
                             </Link>
                         </CardFooter>
                     </Card>
-                    <Card className="">
+                    <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 7*/}
                         <CardHeader>
                             <CardTitle>Room Scheduling</CardTitle>
@@ -196,7 +196,7 @@ export default function Services() {
                             </Link>
                         </CardFooter>
                     </Card>
-                    <Card className="">
+                    <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 8*/}
                         <CardHeader>
                             <CardTitle>Medical Device Request</CardTitle>
