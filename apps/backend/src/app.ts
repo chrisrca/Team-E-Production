@@ -18,6 +18,7 @@ import medicalDeviceServiceRoute from "./routes/medicalDeviceServiceRoute.ts";
 import edgeUploadRoute from "./routes/edgeUploadRoute.ts";
 import nodeUploadRoute from "./routes/nodeUploadRoute.ts";
 import editorRoute from "./routes/editorRoute.ts";
+import mapEditorRoute from "./routes/mapEditorRoute.ts";
 //import { auth } from "express-oauth2-jwt-bearer";
 
 const app: Express = express(); // Setup the backend
@@ -68,6 +69,7 @@ app.use("/api/medical-device", medicalDeviceServiceRoute);
 app.use("/api/flower", flowerUploadRoute);
 app.use("/api/medicine", medicineRoute);
 app.use("/api/medicine", medicineUploadRoute);
+app.use("/api/mapeditor", mapEditorRoute);
 
 /**
  * Catch all 404 errors, and forward them to the error handler

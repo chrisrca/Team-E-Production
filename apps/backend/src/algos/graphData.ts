@@ -27,7 +27,11 @@ export interface Edge {
 
 export async function getNodesFromDatabase(): Promise<Node[]> {
     try {
-        const nodes = await client.node.findMany();
+        const nodes = await client.node.findMany({
+            where: {
+                blocked: false,
+            },
+        });
         return nodes.map((node) => ({
             nodeID: node.nodeID,
             coords: {
@@ -50,7 +54,8 @@ export async function getNodesFromDatabase(): Promise<Node[]> {
 export async function getEdgesFromDatabase(nodeList: Node[]): Promise<Edge[]> {
     try {
         const edges = await client.edge.findMany();
-        return edges.map((edge) => {
+        const edgeList: Edge[] = [];
+        edges.forEach((edge) => {
             const startNode = nodeList.find(
                 (node) => node.nodeID === edge.startNodeID,
             );
@@ -58,14 +63,16 @@ export async function getEdgesFromDatabase(nodeList: Node[]): Promise<Edge[]> {
                 (node) => node.nodeID === edge.endNodeID,
             );
             if (!startNode || !endNode) {
-                throw new Error("Node not found for edge");
+                console.log("Node not found for edge, skipping edge.");
+            } else {
+                edgeList.push({
+                    edgeID: edge.edgeID,
+                    start: startNode,
+                    end: endNode,
+                });
             }
-            return {
-                edgeID: edge.edgeID,
-                start: startNode,
-                end: endNode,
-            };
         });
+        return edgeList;
     } catch (error) {
         console.error("Error fetching edges from the database:", error);
         throw error;

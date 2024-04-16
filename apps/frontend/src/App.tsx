@@ -54,7 +54,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     <div>
                         <Hamburger />
                     </div>
-                    <div className="ml-auto">
+                    <div className="fixed right-0 top-0 z-50 pr-2 pt-2 flex">
                         <UserArea />
                     </div>
                 </div>

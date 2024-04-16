@@ -66,11 +66,11 @@ export default function UserArea() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={() => setIsOpen(!isOpen)}>
-                <Button className="top-0 pt-6 flex bg-transparent">
+                <Button className="flex bg-transparent">
                     <Avatar className="">
                         <AvatarImage
-                            src="https://github.com/shadcn.png"
-                            alt="@shadcn"
+                            src=""
+                            alt=""
                         />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
