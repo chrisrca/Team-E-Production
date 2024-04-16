@@ -19,7 +19,7 @@ function ProfilePage() {
     return (
         <div className="container mx-auto p-4">
             <div className="mb-8">
-                <h1 className="text-xl font-bold">User Profile</h1>
+                <h1 className="text-xl font-bold mt-12 m-4">User Profile</h1>
                 <p className="text-gray-700">Wong Man | adminD24E@gmail.com</p>
             </div>
             <div className="bg-white shadow-md rounded-lg p-4">
