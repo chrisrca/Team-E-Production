@@ -173,6 +173,33 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                 }
             }
         }
+
+        if (tempHoverNode.nodeType == "STAI") {
+            for (let i = 0; i < pathData.length - 1; i++) {
+                if (
+                    pathData[i].nodeID == tempHoverNode.nodeID &&
+                    pathData[i].nodeType == "STAI" &&
+                    pathData[i + 1].nodeType == "STAI"
+                ) {
+                    sethoverNode(nullNode);
+                    nodes.setLevel(floor.indexOf(pathData[i + 1].floor));
+                }
+            }
+        }
+
+        if (tempHoverNode.nodeType == "STAI") {
+            for (let i = pathData.length - 1; i > 0; i--) {
+                if (
+                    pathData[i].nodeID == tempHoverNode.nodeID &&
+                    pathData[i].nodeType == "STAI" &&
+                    pathData[i - 1].nodeType == "STAI"
+                ) {
+                    sethoverNode(nullNode);
+                    nodes.setLevel(floor.indexOf(pathData[i - 1].floor));
+                }
+            }
+        }
+
     };
 
     //DRAWING OF NODES AND PATH

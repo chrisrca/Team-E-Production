@@ -45,6 +45,7 @@ export default function drawGraph(
     //NODE DRAWING
     drawNodes(ctx, nodeData, xMult, yMult, mapLevel, mousePosition);
     drawElevators(ctx, pathData, xMult, yMult, floor[mapLevel], mousePosition);
+    drawStairs(ctx, pathData, xMult, yMult, floor[mapLevel], mousePosition);
 }
 
 function drawElevators(
@@ -77,6 +78,51 @@ function drawElevators(
         if (
             pathData[i].nodeType == "ELEV" &&
             pathData[i - 1].nodeType == "ELEV"
+        ) {
+            drawNewFloor(
+                ctx,
+                pathData[i],
+                xMult,
+                yMult,
+                mapLevel,
+                mousePosition,
+                pathData[i - 1].floor,
+                "#de1a24",
+            );
+        }
+    }
+}
+
+function drawStairs(
+    ctx: CanvasRenderingContext2D,
+    pathData: DBNode[],
+    xMult: number,
+    yMult: number,
+    mapLevel: string,
+    mousePosition: { x: number; y: number },
+) {
+    for (let i = 0; i < pathData.length - 1; i++) {
+        if (
+            pathData[i].nodeType == "STAI" &&
+            pathData[i + 1].nodeType == "STAI"
+        ) {
+            drawNewFloor(
+                ctx,
+                pathData[i],
+                xMult,
+                yMult,
+                mapLevel,
+                mousePosition,
+                pathData[i + 1].floor,
+                "#3f8f29",
+            );
+        }
+    }
+
+    for (let i = pathData.length - 1; i > 0; i--) {
+        if (
+            pathData[i].nodeType == "STAI" &&
+            pathData[i - 1].nodeType == "STAI"
         ) {
             drawNewFloor(
                 ctx,
