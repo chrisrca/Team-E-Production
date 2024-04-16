@@ -83,5 +83,6 @@ export default function GiftServiceRequest() {
         defaultFormSchema,
         "/api/gift",
         gifts,
-        "Devin and Marc");
+        "Devin and Marc",
+    );
 }

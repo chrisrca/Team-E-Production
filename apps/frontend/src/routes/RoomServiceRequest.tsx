@@ -91,6 +91,6 @@ export default function RoomScheduling() {
         defaultFormSchema,
         "/api/room",
         scheduling,
-        "Aksel and Christian"
+        "Aksel and Christian",
     );
 }

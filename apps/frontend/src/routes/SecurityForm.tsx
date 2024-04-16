@@ -91,6 +91,6 @@ export default function SecurityForm() {
         defaultFormSchema,
         "/api/security",
         security,
-        "Lorenzo and Kai"
+        "Lorenzo and Kai",
     );
 }

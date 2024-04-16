@@ -89,6 +89,6 @@ export default function InterpreterService() {
         defaultFormSchema,
         "/api/interpreter",
         translation,
-        "Tao"
+        "Tao",
     );
 }

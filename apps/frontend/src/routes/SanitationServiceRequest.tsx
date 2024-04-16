@@ -83,6 +83,6 @@ export default function SanitationService() {
         defaultFormSchema,
         "/api/sanitation",
         cleaning,
-        "Yan"
+        "Yan",
     );
 }
