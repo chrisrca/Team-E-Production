@@ -25,6 +25,12 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "@/components/ui/button.tsx";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function Welcome() {
     const [api, setApi] = React.useState<CarouselApi>();
@@ -59,7 +65,7 @@ export default function Welcome() {
 
     if (isAuthenticated) {
         return (
-            <div className="mx-auto pr-20 pl-20 bg-background shadow rounded-lg">
+            <div className="mx-auto pr-20 pl-20 bg-background shadow rounded-lg pb-8">
                 {" "}
                 {/* component wrapper*/}
                 <div className="">
@@ -335,6 +341,37 @@ export default function Welcome() {
                             </Card>
                         </div>
                     </div>
+                    <div>
+                        <h1 className="text-3xl font-bold">
+                            Frequently Asked Questions
+                        </h1>
+                        <h2 className="pt-4 text-xl ">
+                            Answers to some of our visitor's most common
+                            questions.
+                        </h2>
+                        <Accordion type="single" collapsible className="w-full">
+                            <AccordionItem value="item-1">
+                                <AccordionTrigger>
+                                    Where can I find my room?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Go to the{" "}
+                                    <Link className="hover:underline" to="/map">
+                                        Map
+                                    </Link>{" "}
+                                    and navigate from there.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-2">
+                                <AccordionTrigger>
+                                    Why is my service request taking so long?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Our apologies! Wongman is on the case!
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </div>
                 </div>
             </div>
         );
@@ -531,6 +568,44 @@ export default function Welcome() {
                                 <Skeleton className="h-4 w-[200px] bg-primary" />
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <h1 className="text-3xl font-bold">
+                            Frequently Asked Questions
+                        </h1>
+                        <h2 className="pt-4 text-xl ">
+                            Answers to some of our visitor's most common
+                            questions.
+                        </h2>
+                        <Accordion type="single" collapsible className="w-full">
+                            <AccordionItem value="item-1">
+                                <AccordionTrigger>
+                                    Why can't I see any service requests?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    <span
+                                        className="hover:underline hover:cursor-pointer"
+                                        onClick={handleLogin}
+                                    >
+                                        Log-in
+                                    </span>{" "}
+                                    to your account to access our services.
+                                    there.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-2">
+                                <AccordionTrigger>
+                                    Where can I find my room?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Go to the{" "}
+                                    <Link className="hover:underline" to="/map">
+                                        Map
+                                    </Link>{" "}
+                                    and navigate from there.
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
                     </div>
                 </div>
             </div>
