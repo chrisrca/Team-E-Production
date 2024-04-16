@@ -281,7 +281,7 @@ export default function Welcome() {
                                     <CardHeader>
                                         <CardTitle>Interpreter Request</CardTitle>
                                         <CardDescription>
-                                            Interpretation Language Needs Bonjour
+                                            Request a translator to help with documents or questions.
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent>
@@ -304,7 +304,7 @@ export default function Welcome() {
                                     <CardHeader>
                                         <CardTitle>Sanitation Request</CardTitle>
                                         <CardDescription>
-                                            For all your cleaning needs
+                                            For all your room cleaning needs, no matter what.
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent>
@@ -327,7 +327,7 @@ export default function Welcome() {
                                     <CardHeader>
                                         <CardTitle>Room Scheduling</CardTitle>
                                         <CardDescription>
-                                            Schedule a room for your needs
+                                            Schedule a room for whatever you need.
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent>
