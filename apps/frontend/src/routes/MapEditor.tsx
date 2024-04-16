@@ -1,16 +1,30 @@
-import EditorMap from "@/components/canvasmap/EditorMap";
-import LevelButtons from "@/components/canvasmap/LevelButtons";
+import EditorMap from "@/components/canvasmap/mapEditor/EditorMap.tsx";
+import LevelButtons from "@/components/canvasmap/map/LevelButtons.tsx";
 import axios from "axios";
 import { DBNode } from "common/src/types";
 import { useEffect, useState } from "react";
+// import { PrismaClient } from "database";
+// const client = new PrismaClient();
 
-export default function MapPage({ nodes }: { nodes: DBNode[] }) {
+export default function MapEditor({ nodes }: { nodes: DBNode[] }) {
     const [pathNodes, setPathNodes] = useState<DBNode[][]>([]);
     const [level, setLevel] = useState<number>(1);
 
-    function handleLevelChange(level: number) {
-        setLevel(level);
-    }
+    // function handleNodeChange(node: DBNode) {
+    //     async function changeNodeInfo(node: DBNode) {
+    //         await client.node.update({
+    //             where: {
+    //                 nodeID: node.nodeID,
+    //             },
+    //             data: {
+    //                 blocked: {
+    //                     set: true,
+    //                 },
+    //             },
+    //         });
+    //     }
+    //     changeNodeInfo(node);
+    // }
 
     useEffect(() => {
         async function fetchPathData() {
@@ -25,7 +39,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     }, []);
     return (
         <div className="z-0 relative">
-            <LevelButtons updateLevel={handleLevelChange} />
+            <LevelButtons levelProps={[level, setLevel]} />
             <EditorMap level={level} path={pathNodes} nodes={nodes} />
         </div>
     );
