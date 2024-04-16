@@ -51,9 +51,7 @@ export default function NodeEditor({ node }: NodeEditorProps) {
     if (!editedNode) return null;
 
     return (
-        <div
-            className="absolute bg-secondary rounded-lg p-5 space-y-2 z-50 top-[10vh] ml-10"
-        >
+        <div className="absolute bg-secondary rounded-lg p-5 space-y-2 z-50 top-[10vh] ml-10">
             <h3>Edit Node</h3>
             <div>
                 <Label>Node ID: {editedNode.nodeID}</Label>

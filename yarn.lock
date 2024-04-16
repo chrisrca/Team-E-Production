@@ -5394,7 +5394,7 @@ __metadata:
     eslint-plugin-react-refresh: "npm:^0.4.1"
     konva: "npm:^9.3.6"
     localforage: "npm:^1.10.0"
-    lucide-react: "npm:^0.363.0"
+    lucide-react: "npm:^0.368.0"
     match-sorter: "npm:^6.3.1"
     postcss: "npm:^8.4.38"
     prettier: "npm:latest"
@@ -6447,6 +6447,15 @@ __metadata:
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0
   checksum: a007e37428c7f99d5c7431703bd6970ce50c62c4592b0a91badd746bdab8ac578f87a67b9d6193d0d36bf1451c432de91795cbdc535dbcb4943510a1752d1cba
+  languageName: node
+  linkType: hard
+
+"lucide-react@npm:^0.368.0":
+  version: 0.368.0
+  resolution: "lucide-react@npm:0.368.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0
+  checksum: eadc5a83c304829ddb0ea94261cb5e48a770e257e18c9e4a5e3d9f6bc55ed2f8806c07d3e2d2b2b690f8f09e09890c515f31321a68c1cfbbe6de42a75e1aba01
   languageName: node
   linkType: hard
 

@@ -1,6 +1,7 @@
 import "./index.css";
 import Login from "./routes/Login.tsx";
 import Welcome from "./routes/Welcome.tsx";
+import Services from "@/routes/Services";
 import FlowerService from "@/routes/FlowerServiceRequest.tsx";
 import InterpreterService from "@/routes/LanguageInterpreterRequest.tsx";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
@@ -41,6 +42,7 @@ function App() {
                 <Hamburger />
                 <Routes>
                     <Route index element={<Welcome />} />
+                    <Route path="/services" element={<Services />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
                     <Route

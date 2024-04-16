@@ -19,13 +19,19 @@ import { ChevronRight } from "lucide-react";
 export default function Hamburger() {
     return (
         <Sheet>
-            <SheetTrigger className="fixed top-0 z-50 pl-2 pt-2 flex">
-                <img
-                    className="bg-secondary rounded-md"
-                    src={hamburgerIcon}
-                    alt="Hamburger Icon"
-                    style={{ height: "40px", width: "40px" }}
-                />
+            <SheetTrigger className="fixed top-0 z-50 pl-2 pt-2 flex ">
+                <div
+                    className={
+                        "fixed bg-secondary rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                    }
+                >
+                    <img
+                        className="invert-0 brightness-100 hover:delay-100 hover:brightness-0 hover:invert"
+                        src={hamburgerIcon}
+                        alt="Hamburger Icon"
+                        style={{ height: "40px", width: "40px" }}
+                    />
+                </div>
             </SheetTrigger>
             <SheetContent side="left" className="dark:bg-secondary">
                 <div className="grid gap-2 py-4">
@@ -48,6 +54,16 @@ export default function Hamburger() {
                         </CollapsibleTrigger>
                         <CollapsibleContent>
                             <div className="grid gap-3 bg-gray-150 px-3">
+                                <SheetClose asChild>
+                                    <Link
+                                        className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
+                                        to="services"
+                                    >
+                                        <div className="text-sm font-medium leading-none group-hover:underline">
+                                            All Services
+                                        </div>
+                                    </Link>
+                                </SheetClose>
                                 <SheetClose asChild>
                                     <Link
                                         className="group grid h-auto w-full rounded-sm p-1 hover:bg-card justify-start gap-1"
