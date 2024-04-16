@@ -1,6 +1,7 @@
 import * as React from "react";
 import Carousel1 from "/src/images/carousel-1.jpeg";
 import Carousel2 from "/src/images/carousel-2.jpeg";
+import Carousel3 from "/src/images/carousel-3.jpeg";
 import Flowers from "/src/images/flowers.jpeg";
 import Security from "/src/images/security.jpeg";
 import Medication from "/src/images/medication.jpeg";
@@ -98,7 +99,7 @@ export default function Welcome() {
                                 <div
                                     className="mt-5 rounded-lg"
                                     style={{
-                                        backgroundImage: `url(${Carousel1})`,
+                                        backgroundImage: `url(${Carousel3})`,
                                         backgroundSize: "cover",
                                         minHeight: "400px",
                                     }}
@@ -181,7 +182,7 @@ export default function Welcome() {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <img src={Flowers}></img>
+                                    <img alt="flowers" src={Flowers}></img>
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
                                     <Link
@@ -202,7 +203,7 @@ export default function Welcome() {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <img src={Security}></img>
+                                    <img alt="security" src={Security}></img>
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
                                     <Link
@@ -223,7 +224,10 @@ export default function Welcome() {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <img src={Medication}></img>
+                                    <img
+                                        alt="medication"
+                                        src={Medication}
+                                    ></img>
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
                                     <Link
@@ -243,7 +247,7 @@ export default function Welcome() {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <img src={Flowers}></img>
+                                    <img alt="gift" src={Flowers}></img>
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
                                     <Link
@@ -264,7 +268,10 @@ export default function Welcome() {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <img src={Flowers}></img>
+                                    <img
+                                        alt="language interpreter"
+                                        src={Flowers}
+                                    ></img>
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
                                     <Link
@@ -306,7 +313,10 @@ export default function Welcome() {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <img src={Flowers}></img>
+                                    <img
+                                        alt="room scheduling"
+                                        src={Flowers}
+                                    ></img>
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
                                     <Link
@@ -324,11 +334,14 @@ export default function Welcome() {
                                         Medical Device Request
                                     </CardTitle>
                                     <CardDescription>
-                                        Schedule a room for your needs
+                                        Request medical equipment to your room.
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <img src={Flowers}></img>
+                                    <img
+                                        alt="medical device"
+                                        src={Flowers}
+                                    ></img>
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
                                     <Link

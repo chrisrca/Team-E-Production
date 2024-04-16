@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 // when calling, should define length of div it's contained in as this will take up the full width of that
 
 export default function Legend() {
