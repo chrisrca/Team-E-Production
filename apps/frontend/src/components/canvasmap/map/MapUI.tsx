@@ -5,7 +5,8 @@ import {
     SelectTrigger,
     SelectValue,
     SelectItem,
-} from "../../ui/select.tsx";
+} from "../../ui/select.tsx"; 
+import Legend from "./Legend.tsx";
 import { Button } from "../../ui/button.tsx";
 // import { Path } from "common/src/types";
 // import axios from "axios";
@@ -50,12 +51,16 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
     }
 
     return (
-        <div
-            className={
-                "ml-10 mt-10 w-[300px] justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"
-            }
-        >
+        <>
+            <div className="mr-5 mb-72 absolute bottom-0 right-0 z-10">
+                <Legend></Legend>
+            </div>
             <div
+                className={
+                    "ml-10 mt-10 w-[300px] justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"
+                }
+            >
+                <div
                 className={
                     "flex flex-col rounded-2 border-white drop-shadow-xl"
                 }
@@ -75,7 +80,7 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                         ))}
                     </SelectContent>
                 </Select>
-            </div>
+                </div>
             <div
                 className={
                     "py-5 flex flex-col rounded-2 border-white drop-shadow-xl"
@@ -126,5 +131,6 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                 </Button>
             </div>
         </div>
+        </>
     );
 }
