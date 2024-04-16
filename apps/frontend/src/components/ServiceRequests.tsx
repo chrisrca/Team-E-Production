@@ -1,17 +1,40 @@
 "use client";
 import * as React from "react";
 import { FormEvent, useState, useRef, useEffect } from "react";
-//import { SubmitEvent } from "react";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { z } from "zod";
-// import axios from "axios";
-// import { Button } from "@/components/ui/button";
-//import { TestSchema } from "common/src/types";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import FormInput from "@/components/ui/formInput";
+import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import Confetti from "react-confetti";
+import axios from "axios";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { DBNode } from "common/src/types";
-//import Lilacs from "/src/images/Lilacs.jpg";
-//import { BWH } from "@/src/images/BWH-high-res.jpg";
+import {
+    MedicalDeviceServiceRequest,
+    GiftServiceRequest,
+    FlowerServiceRequest,
+    InterpreterServiceRequest,
+    DrugDeliveryData,
+    RoomSchedulingForm,
+    SanitationServiceRequest,
+    SecurityServiceRequest,
+} from "common/src/types";
+
 //import {
 //     Form,
 //     FormControl,
@@ -22,37 +45,26 @@ import { DBNode } from "common/src/types";
 //     FormMessage,
 //} from "@/components/ui/form";
 
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Checkbox } from "@/components/ui/checkbox";
-import axios from "axios";
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import FormInput from "@/components/ui/formInput";
-import { Input } from "@/components/ui/input";
+type FormSchemas =
+    | MedicalDeviceServiceRequest
+    | GiftServiceRequest
+    | FlowerServiceRequest
+    | InterpreterServiceRequest
+    | DrugDeliveryData
+    | RoomSchedulingForm
+    | SanitationServiceRequest
+    | SecurityServiceRequest;
 
 type FormLabel = {
     content: string; //Element content - (input, select, switch, button, ect)
     title: string; //Element title
     type: string; //Element type - (string, number, etc)
+    required: boolean; //Required field?
     id: number;
 };
 
 type FormComponent = FormLabel & {
     placeholder: string; //Displayed placeholder text
-    required: boolean; //Required field?
     variant: string;
 };
 
@@ -86,7 +98,7 @@ type FormSelect = FormComponent & {
 
 export const ServiceRequests = (
     layout: (FormLabel | FormComponent | FormSelect)[],
-    blankSchema: NonNullable<unknown>,
+    blankSchema: FormSchemas,
     apiPath: string,
     bgPath: string,
 ) => {
@@ -97,11 +109,8 @@ export const ServiceRequests = (
         schemaKeys.push(value);
     });
 
-    console.log(formSchema);
-    console.log(schemaKeys);
-
-    async function sendForm(formData, apiPath: string) {
-        axios.post([apiPath], formData).then((res) => {
+    async function sendForm(formData: FormSchemas, apiPath: string) {
+        axios.post(apiPath, formData).then((res) => {
             console.log(res);
         });
     }
@@ -165,8 +174,6 @@ export const ServiceRequests = (
                     <FormInput
                         type={props.type}
                         placeholder={props.placeholder}
-                        required={props.required}
-                        variant={props.variant}
                         onChange={(e) =>
                             (formSchema[schemaKeys[props.id]] =
                                 e.target.value.toString())
@@ -188,7 +195,6 @@ export const ServiceRequests = (
                         {props.title}
                     </label>
                     <Select
-                        required={props.required}
                         onValueChange={(value) =>
                             (formSchema[schemaKeys[props.id]] =
                                 value.toString())
@@ -272,7 +278,6 @@ export const ServiceRequests = (
             <>
                 <div className={"flex col-span-1 container:ml-0 pl-6 pt-2"}>
                     <Checkbox
-                        required={props.required}
                         onChange={(e) =>
                             (formSchema[schemaKeys[props.id]] =
                                 e.target.value.toString())
@@ -293,9 +298,6 @@ export const ServiceRequests = (
         console.log(
             "making Popover(Location) '" + props.title + "' id: " + props.id,
         );
-        console.log(formSchema[schemaKeys[props.id]]);
-
-        //const [location, setLocation] = useState("");
 
         const [nodes, setNodes] = useState<DBNode[]>([]);
 
@@ -340,7 +342,6 @@ export const ServiceRequests = (
         }, [searchTerm, nodes]);
 
         const handleLocationSelect = (longName: string) => {
-            console.log(longName);
             setFormSchema({ ...formSchema, [schemaKeys[props.id]]: longName });
             setSearchTerm("");
         };
@@ -392,6 +393,7 @@ export const ServiceRequests = (
     //End of Elements
 
     const submittedServiceData = [] as (typeof blankSchema)[];
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     // Assign id to each element specified in layout based on order in the form,
     // determines where form values are sent on submit
@@ -403,13 +405,12 @@ export const ServiceRequests = (
         // Prevent reload on submit
         e.preventDefault();
 
-        // Saving of data
-        // Using array of keys, maps data held in formValues to formData object
-        // (lint doesn't like that formData doesn't have a promised type)
-
-        console.log(layout);
-
-        console.log(formSchema);
+        for (const layoutElement of layout) {
+            if (layoutElement.required && formSchema[schemaKeys[layoutElement.id]] === ""){
+                alert("Please Fill Out All Required Fields");
+                return;
+            }
+        }
 
         // Add current submission to array of submissions
         submittedServiceData.push(formSchema);
@@ -420,6 +421,7 @@ export const ServiceRequests = (
         console.log(submittedServiceData);
         // Not really necessary but clear formValues for next submit
         handleClearForm(e);
+        setIsSubmitted(true);
     };
 
     const handleClearForm = (e: FormEvent) => {
@@ -430,6 +432,7 @@ export const ServiceRequests = (
         if (formElement) {
             formElement.reset();
         }
+        setIsSubmitted(false);
     };
 
     return (
@@ -440,6 +443,7 @@ export const ServiceRequests = (
                     backgroundImage: `url(${[bgPath]})`,
                 }}
             />
+            {isSubmitted && <Confetti />}
             <div className="flex justify-center container shrink-0 w-full h-dvh">
                 <div className="m-auto relative w-2/3 min-w-[35rem]">
                     <div className="block shadow-lg bg-secondary rounded-lg border-4 border-background">
