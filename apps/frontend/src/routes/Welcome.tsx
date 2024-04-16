@@ -1,6 +1,7 @@
 import * as React from "react";
 import Carousel1 from "/src/images/carousel-1.jpeg";
 import Carousel2 from "/src/images/carousel-2.jpeg";
+import Carousel3 from "/src/images/carousel-3.jpeg";
 import Flowers from "/src/images/flowers.jpeg";
 import Security from "/src/images/security.jpeg";
 import Medication from "/src/images/medication.jpeg";
@@ -98,7 +99,7 @@ export default function Welcome() {
                                 <div
                                     className="mt-5 rounded-lg"
                                     style={{
-                                        backgroundImage: `url(${Carousel1})`,
+                                        backgroundImage: `url(${Carousel3})`,
                                         backgroundSize: "cover",
                                         minHeight: "400px",
                                     }}
