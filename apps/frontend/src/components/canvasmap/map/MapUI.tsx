@@ -1,5 +1,4 @@
 import { DBNode } from "common/src/types";
-import { useState } from "react";
 import {
     Select,
     SelectContent,
@@ -14,16 +13,20 @@ import { Button } from "../../ui/button.tsx";
 
 interface PathSetFunctionProps {
     selection: DBNode[];
-    start: (start: string) => void;
-    end: (end: string) => void;
-    algorithm: (algorithm: string) => void;
+    start: [startPath: string, (start: string) => void];
+    end: [endPath: string, (end: string) => void];
+    algorithm: [algorithmChoice: string,(algorithm: string) => void];
 }
 
 export default function SearchBar(PathFunctions: PathSetFunctionProps) {
-    const [startPath, setStart] = useState<string>("");
-    const [endPath, setEnd] = useState<string>("");
+    const startFunction = PathFunctions.start[1];
+    const endFunction = PathFunctions.end[1];
+    const algorithmFunction = PathFunctions.algorithm[1];
+    const startPath = PathFunctions.start[0];
+    const endPath = PathFunctions.end[0];
+    const algorithm = PathFunctions.algorithm[0];
     const choices = removeHallNodes(PathFunctions.selection);
-    const [algorithm, setAlgorithm] = useState<string>("");
+    
 
     function removeHallNodes(nodes: DBNode[]): DBNode[] {
         return nodes
@@ -42,9 +45,9 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
     }
 
     async function submit() {
-        PathFunctions.start(startPath);
-        PathFunctions.end(endPath);
-        PathFunctions.algorithm(algorithm);
+        startFunction(startPath);
+        endFunction(endPath);
+        algorithmFunction(algorithm);
     }
 
     function clear() {
@@ -64,7 +67,7 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                     "flex flex-col rounded-2 border-white drop-shadow-xl"
                 }
             >
-                <Select onValueChange={(e) => setStart(e)} value={startPath}>
+                <Select onValueChange={(e) => startFunction(e)} value={startPath}>
                     <SelectTrigger>
                         <SelectValue placeholder="Start Node" />
                     </SelectTrigger>
@@ -82,7 +85,7 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                     "py-5 flex flex-col rounded-2 border-white drop-shadow-xl"
                 }
             >
-                <Select onValueChange={(e) => setEnd(e)} value={endPath}>
+                <Select onValueChange={(e) => endFunction(e)} value={endPath}>
                     <SelectTrigger>
                         <SelectValue placeholder="End Node" />
                     </SelectTrigger>
@@ -96,7 +99,7 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                 </Select>
             </div>
             <div className="flex flex-col rounded-2 border-white drop-shadow-xl">
-                <Select onValueChange={(value) => setAlgorithm(value)}>
+                <Select onValueChange={(value) => algorithmFunction(value)}>
                     <SelectTrigger>
                         <SelectValue placeholder="A* (A-Star)" />
                     </SelectTrigger>

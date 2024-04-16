@@ -242,18 +242,9 @@ export default function CanvasMap(nodes: CanvasMapProps) {
 
     return (
         <>
-            <div
-                style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    zIndex: 9999,
-                    pointerEvents: "none",
-                }}
-            ></div>
             {hoverNode.longName && (
                 <div
-                    className="absolute z-10 rounded-2xl bg-white shadow-lg"
+                    className="absolute z-10 rounded-md bg-background shadow-lg top-[300px] left-[60px] "
                     style={{
                         top: `300px`,
                         left: `60px`,
@@ -265,14 +256,14 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                 >
                     {/* Top color bar */}
                     <div
-                        className="text-white text-lg font-bold rounded-t-2xl px-4 py-2"
+                        className="text-foreground text-lg font-bold rounded-t-md px-4 py-2"
                         style={{ backgroundColor: setColor(hoverNode) }}
                     >
                         {hoverNode.longName}
                     </div>
 
                     {/* Node details */}
-                    <div className="p-5 text-sm">
+                    <div className="p-5 text-sm text-foreground">
                         <p>Building: {hoverNode.building}</p>
                         <p>Floor: {hoverNode.floor}</p>
                         <p>ID: {hoverNode.nodeID}</p>
@@ -284,15 +275,15 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                     </div>
 
                     {/* Action buttons */}
-                    <div className="flex justify-evenly pb-4">
+                    <div className="flex justify-evenly p-5 space-x-2">
                         <button
-                            className="bg-green-500 text-white rounded-full px-4 py-2"
+                            className="bg-accent text-foreground rounded-full px-4 py-2"
                             onClick={() => nodes.start(hoverNode.nodeID)}
                         >
                             Set as Start
                         </button>
                         <button
-                            className="bg-red-500 text-white rounded-full px-4 py-2"
+                            className="bg-destructive text-foreground rounded-full px-4 py-2"
                             onClick={() => nodes.end(hoverNode.nodeID)}
                         >
                             Set as End

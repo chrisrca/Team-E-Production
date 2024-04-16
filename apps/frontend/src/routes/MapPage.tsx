@@ -44,9 +44,9 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
         <div className="z-0 relative">
             <SearchBar
                 selection={nodes}
-                start={setStart}
-                end={setEnd}
-                algorithm={setAlgorithm}
+                start={[start, setStart]}
+                end={[end, setEnd]}
+                algorithm={[algorithm, setAlgorithm]}
             />
             <LevelButtons updateLevel={handleLevelChange} />
             <CanvasMap
