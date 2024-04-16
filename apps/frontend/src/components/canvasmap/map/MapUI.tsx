@@ -6,8 +6,8 @@ import {
     SelectTrigger,
     SelectValue,
     SelectItem,
-} from "../../components/ui/select";
-import { Button } from "../ui/button";
+} from "../../ui/select.tsx";
+import { Button } from "../../ui/button.tsx";
 // import { Path } from "common/src/types";
 // import axios from "axios";
 // import formInput, {FormInput} from "@/components/ui/formInput.tsx";
@@ -95,26 +95,23 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                     </SelectContent>
                 </Select>
             </div>
-            <div
-                className={
-                    "flex flex-col rounded-2 border-white drop-shadow-xl"
-                }
-            >
-                <Select
-                    onValueChange={(value) => setAlgorithm(value)}
-                    value={algorithm}
-                >
+            <div className="flex flex-col rounded-2 border-white drop-shadow-xl">
+                <Select onValueChange={(value) => setAlgorithm(value)}>
                     <SelectTrigger>
-                        <SelectValue placeholder="Select Algorithm" />
+                        <SelectValue placeholder="A* (A-Star)" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent defaultValue="ASTAR">
                         <SelectItem value="BFS">
                             Breadth-First Search (BFS)
                         </SelectItem>
                         <SelectItem value="ASTAR">A* (A-Star)</SelectItem>
+                        <SelectItem value="DFS">
+                            Depth-First Search (DFS)
+                        </SelectItem>
                     </SelectContent>
                 </Select>
             </div>
+
             <div
                 className={
                     "mt-5 grid grid-cols-2 justify-items-center space-x-5"
