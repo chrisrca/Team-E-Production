@@ -1,33 +1,13 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-    Cloud,
-    CreditCard,
-    Github,
-    Keyboard,
-    LifeBuoy,
-    LogIn,
-    LogOut,
-    Mail,
-    MessageSquare,
-    Plus,
-    PlusCircle,
-    Settings,
-    User,
-    UserPlus,
-    Users,
-} from "lucide-react";
+import { LogIn, LogOut, Settings, User } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
-    DropdownMenuPortal,
     DropdownMenuSeparator,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button.tsx";
@@ -116,66 +96,12 @@ export default function UserArea() {
                             <User className="mr-2 h-4 w-4" />
                             <Link to="/profile">Profile</Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <CreditCard className="mr-2 h-4 w-4" />
-                            <span>Billing</span>
-                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem>
                             <Settings className="mr-2 h-4 w-4" />
                             <Link to="/settings">Settings</Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <Keyboard className="mr-2 h-4 w-4" />
-                            <span>Keyboard shortcuts</span>
-                        </DropdownMenuItem>
                     </DropdownMenuGroup>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                        <DropdownMenuItem>
-                            <Users className="mr-2 h-4 w-4" />
-                            <span>Team</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuSub>
-                            <DropdownMenuSubTrigger>
-                                <UserPlus className="mr-2 h-4 w-4" />
-                                <span>Invite users</span>
-                            </DropdownMenuSubTrigger>
-                            <DropdownMenuPortal>
-                                <DropdownMenuSubContent>
-                                    <DropdownMenuItem>
-                                        <Mail className="mr-2 h-4 w-4" />
-                                        <span>Email</span>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        <MessageSquare className="mr-2 h-4 w-4" />
-                                        <span>Message</span>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem>
-                                        <PlusCircle className="mr-2 h-4 w-4" />
-                                        <span>More...</span>
-                                    </DropdownMenuItem>
-                                </DropdownMenuSubContent>
-                            </DropdownMenuPortal>
-                        </DropdownMenuSub>
-                        <DropdownMenuItem>
-                            <Plus className="mr-2 h-4 w-4" />
-                            <span>New Team</span>
-                        </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                        <Github className="mr-2 h-4 w-4" />
-                        <span>GitHub</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <LifeBuoy className="mr-2 h-4 w-4" />
-                        <span>Support</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem disabled>
-                        <Cloud className="mr-2 h-4 w-4" />
-                        <span>API</span>
-                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className="bg-destructive">
                         <LogOut
