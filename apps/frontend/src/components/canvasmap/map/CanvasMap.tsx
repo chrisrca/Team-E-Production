@@ -201,6 +201,16 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         }
     };
 
+    const [dashOffset, setDashOffset] = useState(0);
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setDashOffset((dashOffset) => dashOffset + 1);
+        }, 50); // Adjust timing as needed
+
+        return () => clearInterval(intervalId);
+    }, []);
+
     //DRAWING OF NODES AND PATH
     useEffect(() => {
         const xMult = imageSize.width / 5000;
@@ -224,11 +234,12 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                         nodeData,
                         mapLevel,
                         mousePosition,
+                        dashOffset,
                     );
                 };
             }
         }
-    }, [nodeData, pathData, imageSize, mapLevel, mousePosition]);
+    }, [nodeData, pathData, imageSize, mapLevel, mousePosition, dashOffset]);
 
     function calculateDistance(point1: { x: number; y: number }, node: DBNode) {
         return Math.sqrt(
