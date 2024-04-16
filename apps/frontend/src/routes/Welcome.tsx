@@ -120,7 +120,7 @@ export default function Welcome() {
                                 </h1>
                                 <div className="flex">
                                     <div className="flex">
-                                        <h2 className="z-1 text-white text-2xl pt-2 pl-8">
+                                        <h2 className="z-1 text-white text-2xl pt-2 pl-8 contrast-200">
                                             Find your way with our easy-to-use
                                             pathfinder located in the nearest
                                             kiosk!{" "}
@@ -209,7 +209,7 @@ export default function Welcome() {
                                 <CardHeader>
                                     <CardTitle>Medicine Request</CardTitle>
                                     <CardDescription>
-                                        Order your prescribed medications to your room.
+                                        Order your prescribed medications directly to your room.
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
