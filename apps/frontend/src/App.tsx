@@ -22,6 +22,8 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { useState, useEffect } from "react";
 import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
+import Profile from "@/routes/Profile.tsx";
+import Settings from "@/routes/Settings.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -64,7 +66,27 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
                     <Route
                         path="/map-editor"
-                        element={<MapEditor nodes={nodes} />}
+                        element={
+                            <ProtectedRoute>
+                                <MapEditor nodes={nodes} />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/profile"
+                        element={
+                            <ProtectedRoute>
+                                <Profile />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/settings"
+                        element={
+                            <ProtectedRoute>
+                                <Settings />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path="/flower-service"

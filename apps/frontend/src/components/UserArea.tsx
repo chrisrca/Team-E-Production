@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button.tsx";
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 export default function UserArea() {
     const [isOpen, setIsOpen] = useState(false);
@@ -63,10 +64,14 @@ export default function UserArea() {
         };
     }, []);
 
+    useEffect(() => {
+        setIsOpen(false);
+    }, [isAuthenticated]);
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={() => setIsOpen(!isOpen)}>
-                <Button className="top-0 pt-6 flex bg-transparent">
+                <Button className="fixed top-0 right-0 mt-4 mr-4 z-50 bg-transparent">
                     <Avatar className="">
                         <AvatarImage
                             src="https://github.com/shadcn.png"
@@ -89,7 +94,12 @@ export default function UserArea() {
                                 onClick={handleLogin}
                                 className="mr-2 h-4 w-4"
                             />
-                            <span onClick={handleLogin}>Log-in</span>
+                            <span
+                                className="hover:underline hover:cursor-pointer"
+                                onClick={handleLogin}
+                            >
+                                Log-in
+                            </span>
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
                 </DropdownMenuContent>
@@ -104,7 +114,7 @@ export default function UserArea() {
                     <DropdownMenuGroup>
                         <DropdownMenuItem>
                             <User className="mr-2 h-4 w-4" />
-                            <span>Profile</span>
+                            <Link to="/profile">Profile</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                             <CreditCard className="mr-2 h-4 w-4" />
@@ -112,7 +122,7 @@ export default function UserArea() {
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                             <Settings className="mr-2 h-4 w-4" />
-                            <span>Settings</span>
+                            <Link to="/settings">Settings</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                             <Keyboard className="mr-2 h-4 w-4" />
@@ -167,12 +177,17 @@ export default function UserArea() {
                         <span>API</span>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
+                    <DropdownMenuItem className="bg-destructive">
                         <LogOut
                             onClick={handleLogout}
                             className="mr-2 h-4 w-4"
                         />
-                        <span onClick={handleLogout}>Log out</span>
+                        <span
+                            className="hover:underline hover:cursor-pointer"
+                            onClick={handleLogout}
+                        >
+                            Log out
+                        </span>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             )}
