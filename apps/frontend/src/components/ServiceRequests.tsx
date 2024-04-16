@@ -408,8 +408,14 @@ export const ServiceRequests = (
         // Not really necessary but clear formValues for next submit
     };
 
-    const handleClearForm = () => {
+    const handleClearForm = (e: FormEvent) => {
+        e.preventDefault();
         setFormSchema(structuredClone(blankSchema));
+        // Reset the form fields
+        const formElement = e.currentTarget.closest('form');
+        if (formElement) {
+            formElement.reset();
+        }
     };
 
     return (
@@ -428,7 +434,7 @@ export const ServiceRequests = (
                             <div className={"pt-16 grid grid-col grid-cols-3 "}>
                                 <button
                                     className="bg-accent hover:bg-destructive text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
-                                    type={"clear"}
+                                    type="reset"
                                     onClick={handleClearForm}
                                 >
                                     Clear Form
@@ -436,7 +442,7 @@ export const ServiceRequests = (
                                 <div></div>
                                 <button
                                     className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
-                                    type={"submit"}
+                                    type="submit"
                                 >
                                     Submit
                                 </button>
