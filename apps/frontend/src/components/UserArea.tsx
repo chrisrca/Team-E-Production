@@ -69,7 +69,10 @@ export default function UserArea() {
             </DropdownMenuTrigger>
             {isOpen &&
                 (isAuthenticated ? (
-                    <DropdownMenuContent side="right" className="w-56 mt-2 z-50">
+                    <DropdownMenuContent
+                        side="right"
+                        className="w-56 mt-2 z-50"
+                    >
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>

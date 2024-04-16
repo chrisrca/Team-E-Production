@@ -87,9 +87,9 @@ const flowerForm = [
 ];
 export default function FlowerService() {
     return ServiceRequests(
-            flowerForm,
-            defaultFlowerSchema,
-            "/api/flower",
-            Lilacs,
-        );
+        flowerForm,
+        defaultFlowerSchema,
+        "/api/flower",
+        Lilacs,
+    );
 }

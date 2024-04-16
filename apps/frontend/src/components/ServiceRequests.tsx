@@ -406,7 +406,10 @@ export const ServiceRequests = (
         e.preventDefault();
 
         for (const layoutElement of layout) {
-            if (layoutElement.required && formSchema[schemaKeys[layoutElement.id]] === ""){
+            if (
+                layoutElement.required &&
+                formSchema[schemaKeys[layoutElement.id]] === ""
+            ) {
                 alert("Please Fill Out All Required Fields");
                 return;
             }
