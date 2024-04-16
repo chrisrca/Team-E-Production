@@ -303,7 +303,21 @@ export const ServiceRequests = (
             async function fetchNodes() {
                 try {
                     const response = await axios.get("/api/nodes");
-                    setNodes(response.data);
+                    const originalNodes = response.data;
+                    const returnNodes = originalNodes
+                        .filter((node) => {
+                            return node.nodeType != "HALL";
+                        })
+                        .sort(function (a, b) {
+                            if (a.longName < b.longName) {
+                                return -1;
+                            }
+                            if (a.longName > b.longName) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                    setNodes(returnNodes);
                 } catch (error) {
                     console.error("Failed to fetch nodes: ", error);
                 }
@@ -412,7 +426,7 @@ export const ServiceRequests = (
         e.preventDefault();
         setFormSchema(structuredClone(blankSchema));
         // Reset the form fields
-        const formElement = e.currentTarget.closest('form');
+        const formElement = e.currentTarget.closest("form");
         if (formElement) {
             formElement.reset();
         }
