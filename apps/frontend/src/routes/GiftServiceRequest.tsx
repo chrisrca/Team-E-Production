@@ -4,7 +4,7 @@ import gifts from "/src/images/gifts.jpg";
 const defaultFormSchema = {
     recipientName: "",
     giftSize: "",
-    deliveryLocation: "",
+    location: "",
     priority: "",
     status: "",
     message: "",
