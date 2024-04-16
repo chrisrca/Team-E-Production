@@ -1,6 +1,6 @@
 export interface FlowerServiceRequest {
     patientName: string;
-    roomNumber: string;
+    location: string;
     senderName: string;
     cardMessage: string;
     flowerType: string;

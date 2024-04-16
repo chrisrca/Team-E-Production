@@ -64,10 +64,7 @@ function App() {
                     <Route path="/data" element={<DataViewer />} />
                     <Route path="/sanitation" element={<SanitationService />} />
                     <Route path="/room-service" element={<RoomScheduling />} />
-                    <Route
-                        path="/security"
-                        element={<SecurityForm nodes={nodes} />}
-                    />
+                    <Route path="/security" element={<SecurityForm />} />
                 </Routes>
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
                     <ModeToggle />

@@ -17,7 +17,7 @@ router.post("/", async (req: Request, res: Response) => {
         await client.gift.create({
             data: {
                 recipientName: giftRequest.recipientName,
-                deliveryLocation: giftRequest.deliveryLocation,
+                location: giftRequest.location,
                 message: giftRequest.message,
                 giftSize: giftRequest.giftSize,
                 status: giftRequest.status,

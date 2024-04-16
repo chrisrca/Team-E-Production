@@ -13,6 +13,7 @@ async function getMedicalDeviceFromDB(): Promise<string> {
 
 router.post("/", async (req: Request, res: Response) => {
     const MedicalService: MedicalDeviceServiceRequest = req.body;
+    const boolCheck: boolean = /^true$/i.test(MedicalService.withBalloons);
     try {
         await client.medicaldevice.create({
             data: {
@@ -21,7 +22,7 @@ router.post("/", async (req: Request, res: Response) => {
                 location: MedicalService.location,
                 selectedDevice: MedicalService.selectedDevice,
                 status: MedicalService.status,
-                withBalloons: MedicalService.withBalloons,
+                withBalloons: boolCheck,
             },
         });
     } catch (e) {

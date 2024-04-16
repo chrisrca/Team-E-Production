@@ -4,5 +4,5 @@ export interface MedicalDeviceServiceRequest {
     location: string;
     selectedDevice: string;
     status: string;
-    withBalloons: boolean;
+    withBalloons: string;
 }
