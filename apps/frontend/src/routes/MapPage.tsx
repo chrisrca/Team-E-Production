@@ -15,10 +15,6 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
     const [level, setLevel] = useState<number>(1);
 
-    function handleLevelChange(level: number) {
-        setLevel(level);
-    }
-
     useEffect(() => {
         async function fetchPathData() {
             try {
@@ -36,6 +32,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 setPathNodes(res.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
+                setPathNodes([]);
             }
         }
         fetchPathData().then();
@@ -48,7 +45,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 end={[end, setEnd]}
                 algorithm={[algorithm, setAlgorithm]}
             />
-            <LevelButtons updateLevel={handleLevelChange} />
+            <LevelButtons levelProps={[level, setLevel]} />
             <CanvasMap
                 level={level}
                 path={pathNodes}

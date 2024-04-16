@@ -1,25 +1,24 @@
 import { Button } from "../../ui/button.tsx";
-import React, { useState } from "react"; // Make sure to import useState
 
-function LevelButtons({
-    updateLevel,
-}: {
-    updateLevel: (level: number) => void;
-}) {
-    const [activeLevel, setActiveLevel] = useState<number>(1);
+interface LevelButtonProps {
+    levelProps: [level: number, setLevel: (level: number) => void];
+}
+
+function LevelButtons(levelProps: LevelButtonProps) {
+    const level = levelProps.levelProps[0];
+    const updateLevel = levelProps.levelProps[1];
 
     function handleLevel(level: number) {
         updateLevel(level);
-        setActiveLevel(level); // Update the active level state
     }
 
     // Function to determine button style
-    function getButtonStyle(level: number) {
+    function getButtonStyle(activelevel: number) {
         return {
             padding: "10px",
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-            backgroundColor: activeLevel === level ? "#082c5c" : "white",
-            color: activeLevel === level ? "white" : "black",
+            backgroundColor: level === activelevel ? "#082c5c" : "white",
+            color: level === activelevel ? "white" : "black",
             margin: "5px",
             border: "none",
             cursor: "pointer",

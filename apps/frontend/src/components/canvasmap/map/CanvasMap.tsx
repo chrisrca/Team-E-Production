@@ -199,7 +199,6 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                 }
             }
         }
-
     };
 
     //DRAWING OF NODES AND PATH

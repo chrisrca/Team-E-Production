@@ -15,7 +15,7 @@ interface PathSetFunctionProps {
     selection: DBNode[];
     start: [startPath: string, (start: string) => void];
     end: [endPath: string, (end: string) => void];
-    algorithm: [algorithmChoice: string,(algorithm: string) => void];
+    algorithm: [algorithmChoice: string, (algorithm: string) => void];
 }
 
 export default function SearchBar(PathFunctions: PathSetFunctionProps) {
@@ -26,7 +26,6 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
     const endPath = PathFunctions.end[0];
     const algorithm = PathFunctions.algorithm[0];
     const choices = removeHallNodes(PathFunctions.selection);
-    
 
     function removeHallNodes(nodes: DBNode[]): DBNode[] {
         return nodes
@@ -44,22 +43,16 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
             });
     }
 
-    async function submit() {
-        startFunction(startPath);
-        endFunction(endPath);
-        algorithmFunction(algorithm);
-    }
-
     function clear() {
-        setEnd("");
-        setStart("");
-        setAlgorithm("");
+        startFunction("");
+        endFunction("");
+        algorithmFunction("");
     }
 
     return (
         <div
             className={
-                "ml-10 mt-10 justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"
+                "ml-10 mt-10 w-[300px] justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"
             }
         >
             <div
@@ -67,7 +60,10 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                     "flex flex-col rounded-2 border-white drop-shadow-xl"
                 }
             >
-                <Select onValueChange={(e) => startFunction(e)} value={startPath}>
+                <Select
+                    onValueChange={(e) => startFunction(e)}
+                    value={startPath}
+                >
                     <SelectTrigger>
                         <SelectValue placeholder="Start Node" />
                     </SelectTrigger>
@@ -99,7 +95,10 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                 </Select>
             </div>
             <div className="flex flex-col rounded-2 border-white drop-shadow-xl">
-                <Select onValueChange={(value) => algorithmFunction(value)}>
+                <Select
+                    value={algorithm}
+                    onValueChange={(value) => algorithmFunction(value)}
+                >
                     <SelectTrigger>
                         <SelectValue placeholder="A* (A-Star)" />
                     </SelectTrigger>
@@ -117,17 +116,9 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
 
             <div
                 className={
-                    "mt-5 grid grid-cols-2 justify-items-center space-x-5"
+                    "mt-5 flex flex-auto justify-items-center space-x-5"
                 }
             >
-                <Button
-                    className={"w-32 px-5 py-2 rounded-3xl drop-shadow-xl"}
-                    onClick={() => {
-                        submit().then().catch();
-                    }}
-                >
-                    Search
-                </Button>
                 <Button
                     className={"w-32 px-5 py-2 rounded-3xl drop-shadow-xl"}
                     variant="destructive"
