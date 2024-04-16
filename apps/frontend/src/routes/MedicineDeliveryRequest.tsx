@@ -22,7 +22,7 @@ export default function DrugDelivery() {
     const defaultFormSchema = {
         patientName: "",
         drugName: "",
-        roomNumber: "",
+        location: "",
         priority: "",
         status: "",
         drugQuantity: "",
