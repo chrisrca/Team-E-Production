@@ -1,7 +1,8 @@
 "use client";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import hamburgerIcon from "../images/hamburger.jpg";
+import {Menu} from "lucide-react";
+//import hamburgerIcon from "../images/hamburger.jpg";
 import bwhLogo from "../images/BWH logo.svg";
 import {
     Sheet,
@@ -15,23 +16,18 @@ import {
     CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ChevronRight } from "lucide-react";
+import { Button} from "@/components/ui/button";
 
 export default function Hamburger() {
     return (
         <Sheet>
             <SheetTrigger className="fixed top-0 z-50 pl-2 pt-2 flex ">
-                <div
-                    className={
-                        "fixed bg-secondary rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground"
-                    }
+                <Button
+                    variant={"outline"}
+                    size={"icon"}
                 >
-                    <img
-                        className="invert-0 brightness-100 hover:delay-100 hover:brightness-0 hover:invert"
-                        src={hamburgerIcon}
-                        alt="Hamburger Icon"
-                        style={{ height: "40px", width: "40px" }}
-                    />
-                </div>
+                    <Menu className={"invert-0 brightness-100 transition-all dark:-rotate-90 dark:scale-0"}/>
+                </Button>
             </SheetTrigger>
             <SheetContent side="left" className="dark:bg-secondary">
                 <div className="grid gap-2 py-4">
