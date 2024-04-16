@@ -418,8 +418,8 @@ export const ServiceRequests = (
         // Push submission to console
         // Push all submissions for current session to console
         console.log(submittedServiceData);
-
         // Not really necessary but clear formValues for next submit
+        handleClearForm(e);
     };
 
     const handleClearForm = (e: FormEvent) => {
