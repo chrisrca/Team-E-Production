@@ -81,7 +81,7 @@ const defaultForm = [
         required: true,
         id: 0,
         label: "Options",
-        options: ["Patient Threat", "Staff Threat",],
+        options: ["Patient Threat", "Staff Threat"],
     },
 ];
 export default function GiftServiceRequest() {

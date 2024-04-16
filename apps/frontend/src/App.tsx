@@ -2,7 +2,6 @@ import "./index.css";
 import Login from "./routes/Login.tsx";
 import Welcome from "./routes/Welcome.tsx";
 import FlowerService from "@/routes/FlowerServiceRequest.tsx";
-import { ServiceRequestForm } from "@/routes/ServiceRequestForms";
 import InterpreterService from "@/routes/LanguageInterpreterRequest.tsx";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Hamburger from "./components/Hamburger.tsx";
@@ -17,7 +16,6 @@ import SecurityForm from "./routes/SecurityForm";
 import SanitationService from "@/routes/SanitationServiceRequest.tsx";
 import RoomScheduling from "@/routes/RoomServiceRequest.tsx";
 import MedicalDeviceService from "@/routes/MedicalDeviceServiceRequest.tsx";
-import Drugs from "@/routes/blank.tsx";
 import { useState, useEffect } from "react";
 import { DBNode } from "common/src/types";
 import axios from "axios";
@@ -42,8 +40,6 @@ function App() {
             <BrowserRouter>
                 <Hamburger />
                 <Routes>
-                    <Route path="/drugs" element={<Drugs />} />
-                    <Route path="/services" element={<ServiceRequestForm />} />
                     <Route index element={<Welcome />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />

@@ -64,7 +64,7 @@ const defaultForm = [
         required: true,
         id: 0,
         label: "Options",
-        options: ["Patient Threat", "Staff Threat",],
+        options: ["Patient Threat", "Staff Threat"],
     },
     {
         content: "popover",
@@ -86,5 +86,10 @@ const defaultForm = [
     },
 ];
 export default function SecurityForm() {
-    return ServiceRequests(defaultForm, defaultFormSchema, "/api/security", security);
+    return ServiceRequests(
+        defaultForm,
+        defaultFormSchema,
+        "/api/security",
+        security,
+    );
 }

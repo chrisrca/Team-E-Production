@@ -86,5 +86,10 @@ const defaultForm = [
     },
 ];
 export default function RoomScheduling() {
-    return ServiceRequests(defaultForm, defaultFormSchema, "/api/room", scheduling);
+    return ServiceRequests(
+        defaultForm,
+        defaultFormSchema,
+        "/api/room",
+        scheduling,
+    );
 }

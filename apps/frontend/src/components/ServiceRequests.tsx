@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { FormEvent, useState, useRef, useEffect} from "react";
+import { FormEvent, useState, useRef, useEffect } from "react";
 //import { SubmitEvent } from "react";
 // import { zodResolver } from "@hookform/resolvers/zod";
 // import { useForm } from "react-hook-form";
@@ -42,7 +42,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import FormInput from "@/components/ui/formInput";
-import {Input} from "@/components/ui/input";
+import { Input } from "@/components/ui/input";
 
 type FormLabel = {
     content: string; //Element content - (input, select, switch, button, ect)
@@ -91,7 +91,6 @@ export const ServiceRequests = (
     apiPath: string,
     bgPath: string,
 ) => {
-
     const [formSchema, setFormSchema] = useState(structuredClone(blankSchema));
     const schemaKeys = [] as string[];
 
@@ -170,7 +169,8 @@ export const ServiceRequests = (
                         required={props.required}
                         variant={props.variant}
                         onChange={(e) =>
-                            (formSchema[schemaKeys[props.id]] = e.target.value.toString())
+                            (formSchema[schemaKeys[props.id]] =
+                                e.target.value.toString())
                         }
                         className={
                             "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
@@ -205,7 +205,9 @@ export const ServiceRequests = (
                                 {props.options.map((option) => (
                                     <SelectItem
                                         value={option.toString()}
-                                        className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                        className={
+                                            "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        }
                                     >
                                         {option}
                                     </SelectItem>
@@ -289,11 +291,12 @@ export const ServiceRequests = (
     };
 
     const LocationComp = (props: FormComponent) => {
-        console.log("making Popover(Location) '" + props.title + "' id: " + props.id);
+        console.log(
+            "making Popover(Location) '" + props.title + "' id: " + props.id,
+        );
         console.log(formSchema[schemaKeys[props.id]]);
 
         //const [location, setLocation] = useState("");
-
 
         const [nodes, setNodes] = useState<DBNode[]>([]);
 
@@ -316,16 +319,16 @@ export const ServiceRequests = (
         useEffect(() => {
             setFilteredNodes(
                 nodes.filter((node) =>
-                    node.longName.toLowerCase().includes(searchTerm.toLowerCase()),
+                    node.longName
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
                 ),
             );
         }, [searchTerm, nodes]);
 
-
         const handleLocationSelect = (longName: string) => {
             console.log(longName);
-            setFormSchema({...formSchema,
-                [schemaKeys[props.id]]: longName});
+            setFormSchema({ ...formSchema, [schemaKeys[props.id]]: longName });
             setSearchTerm("");
         };
 
@@ -343,13 +346,12 @@ export const ServiceRequests = (
 
                 <Popover>
                     <PopoverTrigger asChild>
-                        <Button
-                            className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground">
-                            {formSchema[schemaKeys[props.id]] || "Select Location"}
+                        <Button className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                            {formSchema[schemaKeys[props.id]] ||
+                                "Select Location"}
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent
-                        className="origin-top-right absolute max-h-60 overflow-y-auto rounded-md shadow-lg">
+                    <PopoverContent className="origin-top-right absolute max-h-60 overflow-y-auto rounded-md shadow-lg">
                         <Input
                             ref={searchRef}
                             className="w-full mb-2"
@@ -361,8 +363,10 @@ export const ServiceRequests = (
                             <div
                                 key={node.nodeID}
                                 className="p-2 hover:bg-accent hover-text cursor-pointer rounded-md hover:text-accent-foreground"
-                                onClick={() => handleLocationSelect(node.longName)}
-                                >
+                                onClick={() =>
+                                    handleLocationSelect(node.longName)
+                                }
+                            >
                                 {node.longName}
                             </div>
                         ))}
