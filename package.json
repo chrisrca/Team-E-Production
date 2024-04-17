@@ -30,7 +30,7 @@
     "lint:fix": "turbo run lint:fix",
     "postinstall": "husky install || exit 0",
     "build": "turbo run build",
-    "docker:upload": "turbo run docker:upload --concurrency=1"
+    "docker:upload": "turbo run docker:upload --continue --concurrency=1"
   },
   "packageManager": "yarn@4.0.2",
   "devDependencies": {
