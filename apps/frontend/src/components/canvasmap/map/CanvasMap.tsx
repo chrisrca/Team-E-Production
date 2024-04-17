@@ -10,6 +10,7 @@ import LLevel2 from "../mapImages/00_thelowerlevel2.png";
 import Level1 from "../mapImages/01_thefirstfloor.png";
 import Level2 from "../mapImages/02_thesecondfloor.png";
 import Level3 from "../mapImages/03_thethirdfloor.png";
+import { Button } from "@/components/ui/button";
 import drawGraph from "@/components/canvasmap/map/RenderGraph.tsx";
 
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
@@ -280,8 +281,8 @@ export default function CanvasMap(nodes: CanvasMapProps) {
     return (
         <>
             {hoverNode.longName && (
-                <div
-                    className="absolute z-10 rounded-md bg-background shadow-lg top-[300px] left-[60px] "
+                <div // ml-4 justify-items-center bg-background  absolute z-10 text-md rounded-md px-2 py-1 flex flex-col rounded-2 float-left top-0
+                    className="absolute z-10 rounded-md bg-background shadow-lg flex-col rounded-2 float-left top-[400px] left-[60px] "
                     style={{
                         top: `300px`,
                         left: `60px`,
@@ -293,7 +294,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                 >
                     {/* Top color bar */}
                     <div
-                        className="text-foreground text-lg font-bold rounded-t-md px-4 py-2"
+                        className="text-foreground text-white text-lg font-bold rounded-t-md px-4 py-2"
                         style={{ backgroundColor: setColor(hoverNode) }}
                     >
                         {hoverNode.longName}
@@ -313,18 +314,16 @@ export default function CanvasMap(nodes: CanvasMapProps) {
 
                     {/* Action buttons */}
                     <div className="flex justify-evenly p-5 space-x-2">
-                        <button
-                            className="bg-accent text-foreground rounded-full px-4 py-2"
+                        <Button
+                            className="space-x-2"
                             onClick={() => nodes.start(hoverNode.nodeID)}
                         >
                             Set as Start
-                        </button>
-                        <button
-                            className="bg-destructive text-foreground rounded-full px-4 py-2"
-                            onClick={() => nodes.end(hoverNode.nodeID)}
+                        </Button>
+                        <Button variant="destructive" onClick={() => nodes.end(hoverNode.nodeID)}
                         >
                             Set as End
-                        </button>
+                        </Button>
                     </div>
                 </div>
             )}
