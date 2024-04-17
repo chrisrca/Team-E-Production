@@ -241,9 +241,7 @@ export default function EditorMap(props: CanvasMapProps) {
                         height={3400}
                         width={5000}
                         style={{
-                            width: "100%",
-                            height: "100%",
-                            display: "block",
+                            width: "78%",
                         }}
                         id="layer1"
                         onMouseMove={handleMouseMoveCanvas}

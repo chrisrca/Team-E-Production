@@ -31,8 +31,8 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
 
                 setPathNodes(res.data);
             } catch (error) {
-                console.error("Error fetching data:", error);
                 setPathNodes([]);
+                console.error("Error fetching data:", error);
             }
         }
         fetchPathData().then();
