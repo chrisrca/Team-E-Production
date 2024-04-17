@@ -1,6 +1,7 @@
 import "./index.css";
 import Login from "./routes/Login.tsx";
 import Welcome from "./routes/Welcome.tsx";
+import Services from "@/routes/Services";
 import FlowerService from "@/routes/FlowerServiceRequest.tsx";
 import InterpreterService from "@/routes/LanguageInterpreterRequest.tsx";
 import { Routes, Route, BrowserRouter, useNavigate } from "react-router-dom";
@@ -64,6 +65,14 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     <Route path="/" element={<Welcome />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
+                    <Route
+                        path="/services"
+                        element={
+                            <ProtectedRoute>
+                                <Services />
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route
                         path="/map-editor"
                         element={

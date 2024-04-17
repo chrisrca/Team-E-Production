@@ -230,6 +230,7 @@ export default function DrugDelivery() {
                 defaultFormSchema,
                 "/api/medicine",
                 medicinestore,
+                "Tri and Brendan",
             )}
         </div>
     );

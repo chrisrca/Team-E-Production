@@ -101,6 +101,7 @@ export const ServiceRequests = (
     blankSchema: FormSchemas,
     apiPath: string,
     bgPath: string,
+    devNames: string,
 ) => {
     const [formSchema, setFormSchema] = useState(structuredClone(blankSchema));
     const schemaKeys = [] as string[];
@@ -406,7 +407,10 @@ export const ServiceRequests = (
         e.preventDefault();
 
         for (const layoutElement of layout) {
-            if (layoutElement.required && formSchema[schemaKeys[layoutElement.id]] === ""){
+            if (
+                layoutElement.required &&
+                formSchema[schemaKeys[layoutElement.id]] === ""
+            ) {
                 alert("Please Fill Out All Required Fields");
                 return;
             }
@@ -466,6 +470,9 @@ export const ServiceRequests = (
                                 </button>
                             </div>
                         </form>
+                        <div>
+                            <p>Developed by: {devNames}</p>
+                        </div>
                     </div>
                 </div>
             </div>
