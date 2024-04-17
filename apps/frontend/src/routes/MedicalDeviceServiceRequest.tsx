@@ -82,5 +82,6 @@ export default function MedicalDeviceService() {
         defaultFormSchema,
         "/api/medical-device",
         MedicalDevice,
+        "Brandon Yeu",
     );
 }
