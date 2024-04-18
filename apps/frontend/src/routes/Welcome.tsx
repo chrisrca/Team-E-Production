@@ -169,7 +169,7 @@ export default function Welcome() {
                                 <CardFooter className="flex justify-end items-center">
                                     <Link
                                         to="/map"
-                                        className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary"
+                                        className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
                                     >
                                         View Map
                                     </Link>
@@ -187,7 +187,7 @@ export default function Welcome() {
                                 <img src={ServiceImage} className="rounded-sm w-full overflow-hidden object-cover aspect-[16/9] h-[200px]"/>
                             </CardContent>
                             <CardFooter className="flex justify-end items-center">
-                                <Link to="/services" className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary">
+                                <Link to="/services" className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary">
                                     View Services
                                 </Link>
                             </CardFooter>
