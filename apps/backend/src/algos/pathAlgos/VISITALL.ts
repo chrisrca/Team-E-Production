@@ -1,4 +1,4 @@
-import { processGraphData, Edge, Node } from "./graphData";
+import { processGraphData, Edge, Node } from "../graphData.ts";
 
 async function runVISITALL(): Promise<
     {
