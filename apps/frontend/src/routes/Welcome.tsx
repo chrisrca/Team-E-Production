@@ -155,7 +155,7 @@ export default function Welcome() {
                             "grid gap-4 grid-cols-2"
                         }
                     >
-                            <Card className="bg-secondary h-full shadow-md hover:shadow-lg">
+                            <Card className="bg-secondary shadow-md hover:shadow-lg">
                                 {/*card 1*/}
                                 <CardHeader>
                                     <CardTitle>Map</CardTitle>
@@ -163,8 +163,8 @@ export default function Welcome() {
                                         Find the path to your destination on our interactive map.
                                     </CardDescription>
                                 </CardHeader>
-                                <CardContent>
-                                        <img src={MapImage} className="rounded-sm w-full h-full overflow-hidden object-cover aspect-[16/9] h-[200px]"/>
+                                <CardContent className="">
+                                        <img src={MapImage} className="rounded-sm w-full overflow-hidden object-cover aspect-[16/9] h-[200px]"/>
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
                                     <Link
@@ -184,7 +184,7 @@ export default function Welcome() {
                             </CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <img src={ServiceImage} className="rounded-sm w-full h-full overflow-hidden object-cover aspect-[16/9] h-[200px]"/>
+                                <img src={ServiceImage} className="rounded-sm w-full overflow-hidden object-cover aspect-[16/9] h-[200px]"/>
                             </CardContent>
                             <CardFooter className="flex justify-end items-center">
                                 <Link to="/services" className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary">
@@ -340,7 +340,7 @@ export default function Welcome() {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                        <img src={MapImage} className="rounded-sm w-full h-full overflow-hidden object-cover aspect-[16/9] h-[200px]"/>
+                                        <img src={MapImage} className="rounded-sm w-full object-cover object-top aspect-[16/9] h-[200px]"/>
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
                                     <Link
@@ -357,7 +357,7 @@ export default function Welcome() {
                                     <div className="text-lg font-bold p-2">Login to view Services.</div>
                                     <Link onClick={handleLogin} className=" bg-accent text-white text-md px-4 py-2 rounded hover:bg-primary">Log-in</Link>                                
                                 </div>
-                                <Card className="bg-secondary w-full h-full shadow-md hover:shadow-lg blur z-0">
+                                <Card className="bg-secondary w-full shadow-md hover:shadow-lg blur z-0">
                                     <CardHeader>
                                     <CardTitle>Services</CardTitle>
                                     <CardDescription>
@@ -365,7 +365,7 @@ export default function Welcome() {
                                     </CardDescription>
                                     </CardHeader>
                                     <CardContent>
-                                        <img src={ServiceImage} className="rounded-sm w-full h-full overflow-hidden object-cover aspect-[16/9] h-[200px]"/>
+                                        <img src={ServiceImage} className="rounded-sm w-full object-cover object-bottom aspect-[16/9] h-[200px]"/>
                                     </CardContent>
                                     <CardFooter className="flex justify-end items-center">
                                         <Link className="inline-block bg-accent text-white text-md py-2 px-4 rounded">
