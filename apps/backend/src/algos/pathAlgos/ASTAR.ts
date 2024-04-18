@@ -1,9 +1,6 @@
-import { processGraphData, Node } from "./graphData";
+import { Node } from "../graphData.ts";
 import TinyQueue from "tinyqueue";
-import { euclideanDistance } from "./euclideanDistance.ts";
-
-let startNodeIn: string;
-let endNodeIn: string;
+import { euclideanDistance } from "../euclideanDistance.ts";
 
 class PriorityQueue<T> extends TinyQueue<T> {
     constructor(
@@ -29,45 +26,7 @@ class PriorityQueue<T> extends TinyQueue<T> {
     }
 }
 
-async function runASTAR(start: string, end: string) {
-    console.log("Running A* Algorithm on Nodes:", start, end);
-    startNodeIn = start;
-    endNodeIn = end;
-    let path: Node[] | null = [];
-
-    await processGraphData().then((data) => {
-        const nodeList: Node[] = data[0];
-        let startNode, endNode;
-
-        for (let i = 0; i < nodeList.length; i++) {
-            if (nodeList[i].nodeID == startNodeIn) {
-                startNode = nodeList[i];
-            }
-            if (nodeList[i].nodeID == endNodeIn) {
-                endNode = nodeList[i];
-            }
-        }
-
-        if (startNode === undefined || endNode === undefined) {
-            console.error("Invalid Node Selected");
-            return;
-        }
-
-        path = astar(startNode!, endNode!);
-    });
-
-    let distance = 0;
-
-    for (let i = 0; i < path.length - 1; i++) {
-        distance += euclideanDistance(path[i], path[i + 1]);
-    }
-
-    console.log("Path Distance: " + distance);
-
-    return path;
-}
-
-function astar(start: Node, end: Node): Node[] | null {
+export default function astar(start: Node, end: Node): Node[] | null {
     const openSet = new PriorityQueue<Node>(
         [],
         (a, b) => (fScore.get(a) || Infinity) - (fScore.get(b) || Infinity),
@@ -118,5 +77,3 @@ function astar(start: Node, end: Node): Node[] | null {
     console.log("Bang! It's null.");
     return null;
 }
-
-export default runASTAR;
