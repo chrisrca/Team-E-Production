@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import {Menu} from "lucide-react";
+import { Menu } from "lucide-react";
 import { useAuth0 } from "@auth0/auth0-react";
 import bwhLogo from "../images/BWH logo.svg";
 import {
@@ -16,7 +16,7 @@ import {
     CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ChevronRight } from "lucide-react";
-import { Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 export default function Hamburger() {
     const { isAuthenticated } = useAuth0();
@@ -24,11 +24,8 @@ export default function Hamburger() {
     return (
         <Sheet>
             <SheetTrigger className="fixed top-0 z-50 pl-2 pt-2 flex ">
-                <Button
-                    variant={"outline"}
-                    size={"icon"}
-                >
-                    <Menu className={"transition-all"}/>
+                <Button variant={"outline"} size={"icon"}>
+                    <Menu className={"transition-all"} />
                 </Button>
             </SheetTrigger>
             <SheetContent side="left" className="dark:bg-secondary">
@@ -47,10 +44,9 @@ export default function Hamburger() {
                     </SheetClose>
                     {isAuthenticated && (
                         <Collapsible className="grid gap-4 dark:bg-secondary">
-                            <CollapsibleTrigger
-                                className="flex rounded-sm p-2 px-4 hover:bg-accent w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                            <CollapsibleTrigger className="flex rounded-sm p-2 px-4 hover:bg-accent w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
                                 Services{" "}
-                                <ChevronRight className="ml-auto w-4 h-4 transition-all"/>
+                                <ChevronRight className="ml-auto w-4 h-4 transition-all" />
                             </CollapsibleTrigger>
                             <CollapsibleContent>
                                 <div className="grid gap-3 bg-gray-150 px-3">
@@ -144,7 +140,7 @@ export default function Hamburger() {
                                             </div>
                                         </Link>
                                     </SheetClose>
-                                    <div className={""}/>
+                                    <div className={""} />
                                 </div>
                             </CollapsibleContent>
                         </Collapsible>

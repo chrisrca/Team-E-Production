@@ -2,7 +2,7 @@ import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 function SettingsPage() {
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-16">
             <div className="bg-white shadow-md rounded-lg p-8">
                 <h1 className="text-xl font-bold m-4">Settings</h1>
                 <div className="grid lg:grid-cols-4 gap-5 pt-5 pb-16">

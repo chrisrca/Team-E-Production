@@ -20,11 +20,7 @@ import Device from "/src/images/MedicalDevice.png";
 export default function Services() {
     return (
         <div className={"px-10"}>
-            <div
-                className={
-                    "px-16 py-8 rounded-xl"
-                }
-            >
+            <div className={"px-16 py-8 rounded-xl"}>
                 <h1 className="text-3xl font-bold">Service Requests</h1>
                 <h2 className="text-xl pb-4">
                     Choose from a selection of services to enrich your stay with

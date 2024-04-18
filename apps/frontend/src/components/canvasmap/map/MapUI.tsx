@@ -7,7 +7,6 @@ import {
     SelectItem,
 } from "../../ui/select.tsx";
 import Legend from "./Legend.tsx";
-import { Button } from "../../ui/button.tsx";
 // import { Path } from "common/src/types";
 // import axios from "axios";
 // import formInput, {FormInput} from "@/components/ui/formInput.tsx";
@@ -42,12 +41,6 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                 }
                 return 0;
             });
-    }
-
-    function clear() {
-        startFunction("Start Node");
-        endFunction("End Node");
-        algorithmFunction("A* Star");
     }
 
     return (
@@ -120,20 +113,6 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                             </SelectItem>
                         </SelectContent>
                     </Select>
-                </div>
-
-                <div
-                    className={
-                        "mt-5 flex flex-auto justify-items-center space-x-5"
-                    }
-                >
-                    <Button
-                        className={"w-32 px-5 py-2 rounded-3xl drop-shadow-xl"}
-                        variant="destructive"
-                        onClick={clear}
-                    >
-                        Clear
-                    </Button>
                 </div>
             </div>
         </>

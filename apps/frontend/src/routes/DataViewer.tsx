@@ -261,11 +261,7 @@ function DataViewer() {
         <div className="p-10 flex flex-auto flex-col items-center align-center">
             <div className="flex flex-row items-center">
                 <div>
-                    <Select
-                        onValueChange={(value) =>
-                            setCurrData(value)
-                        }
-                    >
+                    <Select onValueChange={(value) => setCurrData(value)}>
                         <SelectTrigger className="flex w-60 bg-secondary hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground">
                             <SelectValue placeholder={"Select a Data Type"} />
                         </SelectTrigger>
@@ -274,61 +270,81 @@ function DataViewer() {
                                 <SelectLabel>{"Select Data Type"}</SelectLabel>
                                 <SelectItem
                                     value={nodeData}
-                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
                                 >
                                     {"Node Data"}
                                 </SelectItem>
                                 <SelectItem
                                     value={edgeData}
-                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
                                 >
                                     {"Edge Data"}
                                 </SelectItem>
                                 <SelectItem
                                     value={flowerData}
-                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
                                 >
                                     {"Flower Data"}
                                 </SelectItem>
                                 <SelectItem
                                     value={giftData}
-                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
                                 >
                                     {"Gift Data"}
                                 </SelectItem>
                                 <SelectItem
                                     value={interpreterData}
-                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
                                 >
                                     {"Interpreter Data"}
                                 </SelectItem>
                                 <SelectItem
                                     value={securityData}
-                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
                                 >
                                     {"Security Data"}
                                 </SelectItem>
                                 <SelectItem
                                     value={drugData}
-                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
                                 >
                                     {"Drug Data"}
                                 </SelectItem>
                                 <SelectItem
                                     value={sanitationData}
-                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
                                 >
                                     {"Sanitation Data"}
                                 </SelectItem>
                                 <SelectItem
                                     value={roomData}
-                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
                                 >
                                     {"Room Data"}
                                 </SelectItem>
                                 <SelectItem
                                     value={medicalDeviceData}
-                                    className={"text-sm text-bold font-medium text-gray-700 dark:text-foreground"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
                                 >
                                     {"Medical Device Data"}
                                 </SelectItem>

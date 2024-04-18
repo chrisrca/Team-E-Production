@@ -2,14 +2,8 @@ import * as React from "react";
 import Carousel1 from "/src/images/carousel-1.jpeg";
 import Carousel2 from "/src/images/carousel-2.jpeg";
 import Carousel3 from "/src/images/carousel-3.jpeg";
-import Flowers from "/src/images/flowers.jpeg";
-import Security from "/src/images/security.jpeg";
-import Medication from "/src/images/medication.jpeg";
-import Gift from "/src/images/gift.png";
-import Language from "/src/images/Language.webp";
-import Sanitation from "/src/images/Sanitation.png";
-import Scheduling from "/src/images/scheduling.jpg";
-import Device from "/src/images/MedicalDevice.png";
+import MapImage from "/src/images/BWH-high-res.jpg";
+import ServiceImage from "/src/images/hospital-hero.jpg";
 import Autoplay from "embla-carousel-autoplay";
 import { type CarouselApi } from "@/components/ui/carousel";
 import {
@@ -20,23 +14,9 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Link } from "react-router-dom";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "@/components/ui/button.tsx";
-import { Skeleton } from "@/components/ui/skeleton";
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Welcome() {
     const [api, setApi] = React.useState<CarouselApi>();
@@ -71,11 +51,11 @@ export default function Welcome() {
 
     if (isAuthenticated) {
         return (
-            <div className="mx-auto pr-20 pl-20 bg-background shadow rounded-lg pb-8">
+            <div className="pr-20 pl-20 bg-background flex flex-col pb-8">
                 {" "}
                 {/* component wrapper*/}
-                <div className="">
-                    <h1 className="pt-20 text-4xl font-bold">
+                <div className="basis-1/2 flex flex-basis flex-col">
+                    <h1 className="pt-10 text-4xl font-bold">
                         Brigham and Women's Hospital
                     </h1>
                     <h2 className="text-xl ">
@@ -168,252 +148,92 @@ export default function Welcome() {
                     <div className="py-2 text-center text-sm text-muted-foreground">
                         {current} of {count}
                     </div>
-                    <div className={"px-10"}>
-                        <div
-                            className={
-                                "px-16 py-8 rounded-xl"
-                            }
-                        >
-                            <h1 className="text-3xl font-bold">Service Requests</h1>
-                            <h2 className="text-xl pb-4">
-                                Choose from a selection of services to enrich your stay with
-                                us.
-                            </h2>
-                            <div className="grid lg:grid-cols-4 gap-5">
-                                <Card className="bg-secondary shadow-md hover:shadow-lg">
-                                    {/*card 1*/}
-                                    <CardHeader>
-                                        <CardTitle>Flower Request</CardTitle>
-                                        <CardDescription>
-                                            Order some flowers directly to a loved one's
-                                            room.
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <img
-                                            src={Flowers}
-                                            className={"rounded-sm aspect-[16/9]"}
-                                        ></img>
-                                    </CardContent>
-                                    <CardFooter className="flex justify-end items-center">
-                                        <Link
-                                            to="/flower-service"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary"
-                                        >
-                                            Order
-                                        </Link>
-                                    </CardFooter>
-                                </Card>
-                                <Card className="bg-secondary shadow-md hover:shadow-lg">
-                                    {/*card 2*/}
-                                    <CardHeader>
-                                        <CardTitle>Security Request</CardTitle>
-                                        <CardDescription>
-                                            Feeling threatened? Order security to your
-                                            location.
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <img
-                                            src={Security}
-                                            className={"rounded-sm aspect-[16/9]"}
-                                        ></img>
-                                    </CardContent>
-                                    <CardFooter className="flex justify-end items-center">
-                                        <Link
-                                            to="/security"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
-                                        >
-                                            Request
-                                        </Link>
-                                    </CardFooter>
-                                </Card>
-                                <Card className="bg-secondary shadow-md hover:shadow-lg">
-                                    {/*card 3*/}
-                                    <CardHeader>
-                                        <CardTitle>Medicine Request</CardTitle>
-                                        <CardDescription>
-                                            Order your prescribed medications directly to your room.
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <img
-                                            src={Medication}
-                                            className={"rounded-sm aspect-[16/9]"}
-                                        ></img>
-                                    </CardContent>
-                                    <CardFooter className="flex justify-end items-center">
-                                        <Link
-                                            to="/drug-service"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
-                                        >
-                                            Order
-                                        </Link>
-                                    </CardFooter>
-                                </Card>
-                                <Card className="bg-secondary shadow-md hover:shadow-lg">
-                                    {/*card 4*/}
-                                    <CardHeader>
-                                        <CardTitle>Gift Request</CardTitle>
-                                        <CardDescription>
-                                            Get your friend a gift, you can even have it
-                                            wrapped!
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <img
-                                            src={Gift}
-                                            className={"rounded-sm aspect-[16/9]"}
-                                        ></img>
-                                    </CardContent>
-                                    <CardFooter className="flex justify-end items-center">
-                                        <Link
-                                            to="/gift-service"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
-                                        >
-                                            Order
-                                        </Link>
-                                    </CardFooter>
-                                </Card>
-                                <Card className="bg-secondary shadow-md hover:shadow-lg">
-                                    {" "}
-                                    {/*card 5*/}
-                                    <CardHeader>
-                                        <CardTitle>Interpreter Request</CardTitle>
-                                        <CardDescription>
-                                            Request a translator to help with documents or questions.
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <img
-                                            src={Language}
-                                            className={"rounded-sm aspect-[16/9]"}
-                                        ></img>
-                                    </CardContent>
-                                    <CardFooter className="flex justify-end items-center">
-                                        <Link
-                                            to="/language-service"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
-                                        >
-                                            Request
-                                        </Link>
-                                    </CardFooter>
-                                </Card>
-                                <Card className="bg-secondary shadow-md hover:shadow-lg">
-                                    {/*card 6*/}
-                                    <CardHeader>
-                                        <CardTitle>Sanitation Request</CardTitle>
-                                        <CardDescription>
-                                            For all your room cleaning needs, no matter what.
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <img
-                                            src={Sanitation}
-                                            className={"rounded-sm aspect-[16/9]"}
-                                        ></img>
-                                    </CardContent>
-                                    <CardFooter className="flex justify-end items-center">
-                                        <Link
-                                            to="/sanitation"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
-                                        >
-                                            Request
-                                        </Link>
-                                    </CardFooter>
-                                </Card>
-                                <Card className="bg-secondary shadow-md hover:shadow-lg">
-                                    {/*card 7*/}
-                                    <CardHeader>
-                                        <CardTitle>Room Scheduling</CardTitle>
-                                        <CardDescription>
-                                            Schedule a room for whatever you need.
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <img
-                                            src={Scheduling}
-                                            className={"rounded-sm aspect-[16/9]"}
-                                        ></img>
-                                    </CardContent>
-                                    <CardFooter className="flex justify-end items-center">
-                                        <Link
-                                            to="/room-service"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
-                                        >
-                                            Take me there
-                                        </Link>
-                                    </CardFooter>
-                                </Card>
-                                <Card className="bg-secondary shadow-md hover:shadow-lg">
-                                    {/*card 8*/}
-                                    <CardHeader>
-                                        <CardTitle>Medical Device Request</CardTitle>
-                                        <CardDescription>
-                                            Request a device for your patient
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <img
-                                            src={Device}
-                                            className={"rounded-sm aspect-[16/9]"}
-                                        ></img>
-                                    </CardContent>
-                                    <CardFooter className="flex justify-end items-center">
-                                        <Link
-                                            to="/medical-device-service"
-                                            className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
-                                        >
-                                            Request
-                                        </Link>
-                                    </CardFooter>
-                                </Card>
-                            </div>
-                        </div>
-                        <div>
-                            <h1 className="text-3xl font-bold">
-                                Frequently Asked Questions
-                            </h1>
-                            <h2 className="pt-4 text-xl ">
-                                Answers to some of our visitor's most common
-                                questions.
-                            </h2>
-                            <Accordion type="single" collapsible className="w-full">
-                                <AccordionItem value="item-1">
-                                    <AccordionTrigger>
-                                        Where can I find my room?
-                                    </AccordionTrigger>
-                                    <AccordionContent>
-                                        Go to the{" "}
-                                        <Link className="hover:underline" to="/map">
-                                            Map
-                                        </Link>{" "}
-                                        and navigate from there.
-                                    </AccordionContent>
-                                </AccordionItem>
-                                <AccordionItem value="item-2">
-                                    <AccordionTrigger>
-                                        Why is my service request taking so long?
-                                    </AccordionTrigger>
-                                    <AccordionContent>
-                                        Our apologies! Wongman is on the case!
-                                    </AccordionContent>
-                                </AccordionItem>
-                            </Accordion>
-                        </div>
+                </div>
+                <div className={""}>
+                    <div
+                        className={
+                            "grid gap-4 grid-cols-2"
+                        }
+                    >
+                            <Card className="bg-secondary h-full shadow-md hover:shadow-lg">
+                                {/*card 1*/}
+                                <CardHeader>
+                                    <CardTitle>Map</CardTitle>
+                                    <CardDescription>
+                                        Find the path to your destination on our interactive map.
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                        <img src={MapImage} className="rounded-sm w-full h-full overflow-hidden object-cover aspect-[16/9] h-[200px]"/>
+                                </CardContent>
+                                <CardFooter className="flex justify-end items-center">
+                                    <Link
+                                        to="/map"
+                                        className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary"
+                                    >
+                                        View Map
+                                    </Link>
+                                </CardFooter>
+                            </Card>
+
+                        <Card className="bg-secondary shadow-md hover:shadow-lg">
+                            <CardHeader>
+                            <CardTitle>Services</CardTitle>
+                            <CardDescription>
+                                View and request services here.
+                            </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <img src={ServiceImage} className="rounded-sm w-full h-full overflow-hidden object-cover aspect-[16/9] h-[200px]"/>
+                            </CardContent>
+                            <CardFooter className="flex justify-end items-center">
+                                <Link to="/services" className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary">
+                                    View Services
+                                </Link>
+                            </CardFooter>
+                        </Card>
                     </div>
+                    {/* <div>
+                        <h1 className="text-3xl font-bold">
+                            Frequently Asked Questions
+                        </h1>
+                        <h2 className="pt-4 text-xl ">
+                            Answers to some of our visitor's most common
+                            questions.
+                        </h2>
+                        <Accordion type="single" collapsible className="w-full">
+                            <AccordionItem value="item-1">
+                                <AccordionTrigger>
+                                    Where can I find my room?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Go to the{" "}
+                                    <Link className="hover:underline" to="/map">
+                                        Map
+                                    </Link>{" "}
+                                    and navigate from there.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-2">
+                                <AccordionTrigger>
+                                    Why is my service request taking so long?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Our apologies! One of our employees is on the case!
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </div> */}
                 </div>
             </div>
         );
     } else {
-
-
         return (
-            <div className="mx-auto pr-20 pl-20 bg-background shadow rounded-lg">
+            <div className="pr-20 pl-20 bg-background flex flex-col pb-8">
                 {" "}
                 {/* component wrapper*/}
-                <div className="">
-                    <h1 className="pt-20 text-4xl font-bold">
+                <div className="basis-1/2 flex flex-basis flex-col">
+                    <h1 className="pt-10 text-4xl font-bold">
                         Brigham and Women's Hospital
                     </h1>
                     <h2 className="text-xl ">
@@ -506,103 +326,57 @@ export default function Welcome() {
                     <div className="py-2 text-center text-sm text-muted-foreground">
                         {current} of {count}
                     </div>
-                    <h1 className="pt-10 text-3xl font-bold">
-                        Service Requests
-                    </h1>
-                    <h2 className="text-xl ">
-                        Log-in to view our selection of services.
-                    </h2>
-                    <div className="grid lg:grid-cols-4 gap-5 pt-5 pb-16">
-                        <div className="flex flex-col space-y-3">
-                            <Skeleton className="h-[125px] w-[250px] bg-primary rounded-xl"/>
-                            <div className="space-y-2">
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                            </div>
-                        </div>
-                        <div className="flex flex-col space-y-3">
-                            <Skeleton className="h-[125px] w-[250px] bg-primary rounded-xl"/>
-                            <div className="space-y-2">
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                            </div>
-                        </div>
-                        <div className="flex flex-col space-y-3">
-                            <Skeleton className="h-[125px] w-[250px] bg-primary rounded-xl"/>
-                            <div className="space-y-2">
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                            </div>
-                        </div>
-                        <div className="flex flex-col space-y-3">
-                            <Skeleton className="h-[125px] w-[250px] bg-primary rounded-xl"/>
-                            <div className="space-y-2">
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                            </div>
-                        </div>
-                        <div className="flex flex-col space-y-3">
-                            <Skeleton className="h-[125px] w-[250px] bg-primary rounded-xl"/>
-                            <div className="space-y-2">
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                            </div>
-                        </div>
-                        <div className="flex flex-col space-y-3">
-                            <Skeleton className="h-[125px] w-[250px] bg-primary rounded-xl"/>
-                            <div className="space-y-2">
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                            </div>
-                        </div>
-                        <div className="flex flex-col space-y-3">
-                            <Skeleton className="h-[125px] w-[250px] bg-primary rounded-xl"/>
-                            <div className="space-y-2">
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                            </div>
-                        </div>
-                        <div className="flex flex-col space-y-3">
-                            <Skeleton className="h-[125px] w-[250px] bg-primary rounded-xl"/>
-                            <div className="space-y-2">
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[250px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
-                                <Skeleton className="h-4 w-[200px] bg-primary"/>
+                    <div
+                        className={
+                            "grid gap-4 grid-cols-2"
+                        }
+                    >
+                            <Card className="bg-secondary h-full shadow-md hover:shadow-lg">
+                                {/*card 1*/}
+                                <CardHeader>
+                                    <CardTitle>Map</CardTitle>
+                                    <CardDescription>
+                                        Find the path to your destination on our interactive map.
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                        <img src={MapImage} className="rounded-sm w-full h-full overflow-hidden object-cover aspect-[16/9] h-[200px]"/>
+                                </CardContent>
+                                <CardFooter className="flex justify-end items-center">
+                                    <Link
+                                        to="/map"
+                                        className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary"
+                                    >
+                                        View Map
+                                    </Link>
+                                </CardFooter>
+                            </Card>
+                            <div>
+                            <div className="justify-center flex items-center">
+                                <div className="bg-secondary z-10 flex items-center justify-center flex-col rounded-sm p-2 fixed">
+                                    <div className="text-lg font-bold p-2">Login to view Services.</div>
+                                    <Link onClick={handleLogin} className=" bg-accent text-white text-md px-4 py-2 rounded hover:bg-primary">Log-in</Link>                                
+                                </div>
+                                <Card className="bg-secondary w-full h-full shadow-md hover:shadow-lg blur z-0">
+                                    <CardHeader>
+                                    <CardTitle>Services</CardTitle>
+                                    <CardDescription>
+                                        View and request services here.
+                                    </CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <img src={ServiceImage} className="rounded-sm w-full h-full overflow-hidden object-cover aspect-[16/9] h-[200px]"/>
+                                    </CardContent>
+                                    <CardFooter className="flex justify-end items-center">
+                                        <Link className="inline-block bg-accent text-white text-md py-2 px-4 rounded">
+                                            View Services
+                                        </Link>
+                                    </CardFooter>
+                                </Card>
                             </div>
                         </div>
                     </div>
-                    <div>
+                    {/* <div>
                         <h1 className="text-3xl font-bold">
                             Frequently Asked Questions
                         </h1>
@@ -639,7 +413,7 @@ export default function Welcome() {
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );

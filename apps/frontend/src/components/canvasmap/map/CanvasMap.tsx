@@ -279,6 +279,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
 
     return (
         <>
+            <div className=""></div>
             {hoverNode.longName && (
                 <div
                     className="absolute z-10 rounded-md bg-background shadow-lg top-[300px] left-[60px] "
@@ -345,8 +346,8 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                         height={3400}
                         width={5000}
                         style={{
-                            width: "78%",
-                        
+                            width: "88%",
+                            height: "100%",
                         }}
                         id="layer1"
                         onMouseMove={handleMouseMoveCanvas}
