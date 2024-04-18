@@ -15,6 +15,12 @@ async function sendNodeOrder(editedNode: DBNode) {
     });
 }
 
+async function sendNodeDelOrder(editedNode: DBNode) {
+    axios.post("/api/mapeditordel", editedNode).then((res) => {
+        console.log(res);
+    });
+}
+
 export default function NodeEditor({ node }: NodeEditorProps) {
     const [editedNode, setEditedNode] = useState<DBNode | null>(node);
 
@@ -44,6 +50,14 @@ export default function NodeEditor({ node }: NodeEditorProps) {
     // Function to handle cancel action
     function handleCancel() {
         console.log("Cancel node logic here");
+        setEditedNode(null);
+    }
+
+    function handleDelete() {
+        console.log("delete logic here");
+        if (editedNode != null) {
+            sendNodeDelOrder(editedNode);
+        }
         setEditedNode(null);
     }
 
@@ -158,7 +172,9 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                 </Button>
                 <Button onClick={handleSubmit}>Save</Button>
                 <Button onClick={handleCancel}>Cancel</Button>{" "}
-                {/* Use onCancel prop */}
+                <Button variant="destructive" onClick={handleDelete}>
+                    Delete
+                </Button>
             </div>
         </div>
     );
