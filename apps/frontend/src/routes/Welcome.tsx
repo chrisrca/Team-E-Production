@@ -258,37 +258,7 @@ export default function Welcome() {
                         }}
                     >
                         <CarouselContent>
-                            <CarouselItem>
-                                <div
-                                    className="mt-5 rounded-lg"
-                                    style={{
-                                        backgroundImage: `url(${Carousel1})`,
-                                        backgroundSize: "cover",
-                                        minHeight: "400px",
-                                    }}
-                                >
-                                    <h1 className="z-1 text-white text-4xl font-bold pt-[300px] pl-8">
-                                        Community member?
-                                    </h1>
-                                    <div className="flex">
-                                        <div className="flex">
-                                            <h2 className="z-1 text-white text-2xl pt-2 pl-8">
-                                                Log-in to your account and view your
-                                                services here!
-                                            </h2>
-                                        </div>
-                                        <div className="flex">
-                                            <Button
-                                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
-                                                onClick={handleLogin}
-                                            >
-                                                Log-in
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </CarouselItem>
-                            <CarouselItem>
+                        <CarouselItem>
                                 <div
                                     className="mt-5 rounded-lg"
                                     style={{
@@ -315,6 +285,36 @@ export default function Welcome() {
                                             >
                                                 Get Started
                                             </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </CarouselItem>
+                            <CarouselItem>
+                                <div
+                                    className="mt-5 rounded-lg"
+                                    style={{
+                                        backgroundImage: `url(${Carousel1})`,
+                                        backgroundSize: "cover",
+                                        minHeight: "400px",
+                                    }}
+                                >
+                                    <h1 className="z-1 text-white text-4xl font-bold pt-[300px] pl-8">
+                                        Community member?
+                                    </h1>
+                                    <div className="flex">
+                                        <div className="flex">
+                                            <h2 className="z-1 text-white text-2xl pt-2 pl-8">
+                                                Log-in to your account and view your
+                                                services here!
+                                            </h2>
+                                        </div>
+                                        <div className="flex">
+                                            <Button
+                                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
+                                                onClick={handleLogin}
+                                            >
+                                                Log-in
+                                            </Button>
                                         </div>
                                     </div>
                                 </div>
@@ -353,9 +353,8 @@ export default function Welcome() {
                             </Card>
                             <div>
                             <div className="justify-center flex items-center">
-                                <div className="bg-secondary z-10 flex items-center justify-center flex-col rounded-sm p-2 fixed">
-                                    <div className="text-lg font-bold p-2">Login to view Services.</div>
-                                    <Link onClick={handleLogin} className=" bg-accent text-white text-md px-4 py-2 rounded hover:bg-primary">Log-in</Link>                                
+                                <div className="bg-secondary z-10 flex items-center justify-center flex-col rounded-sm p-2 absolute">
+                                    <div className="text-lg font-bold p-2">Login to View Services</div>
                                 </div>
                                 <Card className="bg-secondary w-full shadow-md hover:shadow-lg blur z-0">
                                     <CardHeader>
