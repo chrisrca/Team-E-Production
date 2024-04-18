@@ -1,6 +1,6 @@
 export interface DrugDeliveryData {
     patientName: string;
-    roomNumber: string;
+    location: string;
     patientCondition: string;
     drugName: string;
     drugQuantity: string;

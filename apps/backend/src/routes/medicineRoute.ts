@@ -17,7 +17,7 @@ router.post("/", async (req: Request, res: Response) => {
         await client.medicine.create({
             data: {
                 patientName: medicineRequest.patientName,
-                roomNumber: parseInt(medicineRequest.roomNumber),
+                location: medicineRequest.location,
                 patientCondition: medicineRequest.patientCondition,
                 drugName: medicineRequest.drugName,
                 drugQuantity: medicineRequest.drugQuantity,

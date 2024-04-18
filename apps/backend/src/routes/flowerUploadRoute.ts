@@ -15,7 +15,7 @@ router.post("/upload", async (req: Request, res: Response) => {
             const row = rows[i];
             const [
                 patientName,
-                roomNumber,
+                location,
                 senderName,
                 cardMessage,
                 flowerType,
@@ -25,7 +25,7 @@ router.post("/upload", async (req: Request, res: Response) => {
 
             const flowerData: FlowerServiceRequest = {
                 patientName,
-                roomNumber,
+                location,
                 senderName,
                 cardMessage,
                 flowerType,
@@ -36,7 +36,7 @@ router.post("/upload", async (req: Request, res: Response) => {
             await client.flower.create({
                 data: {
                     patientName: flowerData.patientName,
-                    roomNumber: parseInt(flowerData.roomNumber), // Ensure roomNumber is parsed as an integer
+                    location: flowerData.location, // Ensure roomNumber is parsed as an integer
                     senderName: flowerData.senderName,
                     cardMessage: flowerData.cardMessage,
                     flowerType: flowerData.flowerType,

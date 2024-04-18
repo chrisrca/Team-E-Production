@@ -1,6 +1,6 @@
 export interface GiftServiceRequest {
     recipientName: string;
-    deliveryLocation: string;
+    location: string;
     message: string;
     giftSize: string;
     status: string;

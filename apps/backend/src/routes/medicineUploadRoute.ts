@@ -18,7 +18,7 @@ router.post("/upload", async (req: Request, res: Response) => {
             const row = rows[i];
             const [
                 patientName,
-                roomNumber,
+                location,
                 patientCondition,
                 drugName,
                 drugQuantity,
@@ -29,7 +29,7 @@ router.post("/upload", async (req: Request, res: Response) => {
             // Create a FlowerServiceRequest object
             const medicineData: DrugDeliveryData = {
                 patientName,
-                roomNumber,
+                location,
                 patientCondition,
                 drugName,
                 drugQuantity,
@@ -41,7 +41,7 @@ router.post("/upload", async (req: Request, res: Response) => {
             await client.medicine.create({
                 data: {
                     patientName: medicineData.patientName,
-                    roomNumber: parseInt(medicineData.roomNumber), // Ensure roomNumber is parsed as an integer
+                    location: medicineData.location, // Ensure roomNumber is parsed as an integer
                     patientCondition: medicineData.patientCondition,
                     drugName: medicineData.drugName,
                     drugQuantity: medicineData.drugQuantity,
