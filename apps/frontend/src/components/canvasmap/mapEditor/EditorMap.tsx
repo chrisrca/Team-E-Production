@@ -12,6 +12,7 @@ import Level2 from "../mapImages/02_thesecondfloor.png";
 import Level3 from "../mapImages/03_thethirdfloor.png";
 import drawGraph from "@/components/canvasmap/mapEditor/RenderGraph.tsx";
 import NodeEditor from "./NodeEditor";
+import NodeCreator from "./NodeCreator.tsx";
 
 // Array of map images for each level
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
@@ -222,6 +223,7 @@ export default function EditorMap(props: CanvasMapProps) {
             )}
 
             {/* Node Editor */}
+            {selectedNode === null && <NodeCreator />}
             {selectedNode && <NodeEditor node={selectedNode} />}
 
             {/* Render map and canvas */}
