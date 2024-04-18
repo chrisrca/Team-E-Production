@@ -3,7 +3,7 @@ module.exports = {
     important: true,
     darkMode: ["class"],
     content: [
-        "./index.html"
+        "./index.html",
         "./routes/**/*.{ts,tsx}",
         "./components/**/*.{ts,tsx}",
         "./app/**/*.{ts,tsx}",
