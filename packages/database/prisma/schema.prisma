@@ -22,7 +22,7 @@ model node {
   edges     String
   blocked   Boolean @default(false)
   createdAt DateTime @default(now())
-  updatedAt DateTime? @default(null)
+  updatedAt DateTime?
 }
 
 model edge {
@@ -30,7 +30,7 @@ model edge {
   startNodeID String
   endNodeID   String
   createdAt DateTime @default(now())
-  updatedAt DateTime? @default(null)
+  updatedAt DateTime?
 }
 
 model path {
@@ -38,9 +38,20 @@ model path {
   startNodeID String
   endNodeID   String
   createdAt DateTime @default(now())
-  empId Int @default(1)
-  employee employee @relation(fields: [empId], references: [ID])
+  //empId Int @default(1)
+  //employee employee @relation(fields: [empId], references: [ID])
 }
+model service {
+  id Int @id
+  location String
+  status String
+  Priority String
+  createdAt DateTime @default(now())
+  updatedAt DateTime?
+  //empId Int @default(1)
+  //employee employee @relation(fields: [empId], references: [ID])
+}
+
 
 model flower {
   id          Int      @id @default(autoincrement())
@@ -54,8 +65,8 @@ model flower {
   date        DateTime @default(now())
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  //empId Int @default(1)
+  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model gift {
@@ -69,8 +80,8 @@ model gift {
   wrapping      String
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  //empId Int @default(1)
+  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model interpreter {
@@ -84,8 +95,8 @@ model interpreter {
   additionalInfo String
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  //empId Int @default(1)
+  //employee Int @relation(fields: [empId], references: [ID])
 
 }
 
@@ -100,8 +111,8 @@ model security {
   alertAuthorities Boolean
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  //empId Int @default(1)
+  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model medicine {
@@ -116,8 +127,8 @@ model medicine {
   date             DateTime @default(now())
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  //empId Int @default(1)
+  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model sanitation {
@@ -130,8 +141,8 @@ model sanitation {
   additionalInfo String
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  //empId Int @default(1)
+  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model roomschedule {
@@ -145,8 +156,8 @@ model roomschedule {
   endTime      String
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  //empId Int @default(1)
+  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model medicaldevice {
@@ -159,8 +170,8 @@ model medicaldevice {
   withBalloons   Boolean
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  //empId Int @default(1)
+  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model employee {
