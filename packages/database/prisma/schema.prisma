@@ -56,6 +56,17 @@ model employee {
   createdAt DateTime @default(now())
 }
 
+enum ServiceType {
+  FLOWER
+  GIFT
+  INTERPRETER
+  SECURITY
+  MEDICINE
+  SANITATION
+  ROOMSCHEDULE
+  MEDICALDEVICE
+}
+
 model service {
   // normal service inputs
   location String
@@ -67,72 +78,94 @@ model service {
   createdAt DateTime @default(now())
   updatedAt DateTime?
 
-  //relation to specific service details
-  serviceType String @map("flower", "gift")
-  serviceId     Int @id
-  service       service  @relation(fields: [serviceId], references: [servId])
+  //potential types
+  serviceType ServiceType
+  flower       flower?
+  gift         gift?
+  interpreter  interpreter?
+  security     security?
+  medicine     medicine?
+  sanitation   sanitation?
+  roomschedule roomschedule?
+  medicaldevice medicaldevice?
 
-  // employee relation
-  empId Int
-  employee employee @relation(fields: [empId], references: [employeeID])
+  //service ID
+  serviceId Int @id @default(autoincrement())
 }
 
 
 model flower {
-  servId          Int      @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+  servId          Int @unique
   patientName String
   senderName  String
   cardMessage String
   flowerType  String
+  service        service @relation(fields: [servId], references: [serviceId])
 }
 
 model gift {
-  servId            Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+  servId            Int @unique
   recipientName String
   message       String
   giftSize      String
   wrapping      String
+  service        service  @relation(fields: [servId], references: [serviceId])
 }
 
 model interpreter {
-  servId             Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+  servId             Int @unique
   clientName     String
   language       String
   duration       String
   additionalInfo String
+  service        service  @relation(fields: [servId], references: [serviceId])
 }
 
 model security {
-  servId               Int     @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+  servId               Int @unique
   priority      String
   requestType      String
   alertAuthorities Boolean
+  service        service  @relation(fields: [servId], references: [serviceId])
 }
 
 model medicine {
-  servId               Int      @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+  servId               Int @unique
   patientName      String
   patientCondition String
   drugName         String
   drugQuantity     String
+  service        service  @relation(fields: [servId], references: [serviceId])
+
 }
 
 model sanitation {
-  id             Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+  servId             Int @unique
   patientName    String
   serviceType    String
   additionalInfo String
+  service        service  @relation(fields: [servId], references: [serviceId])
 }
 
 model roomschedule {
-  id           Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+  servId           Int @unique
   serviceType  String
   startTime    String
   endTime      String
+  service        service  @relation(fields: [servId], references: [serviceId])
 }
 
 model medicaldevice {
-  id             Int     @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+  servId             Int @unique
   selectedDevice String
   withBalloons   Boolean
+  service        service  @relation(fields: [servId], references: [serviceId])
 }
