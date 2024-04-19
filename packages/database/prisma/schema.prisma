@@ -41,146 +41,98 @@ model path {
   //empId Int @default(1)
   //employee employee @relation(fields: [empId], references: [ID])
 }
+
+model employee {
+  employeeID     Int      @default(autoincrement())
+  created_at String @id
+  email String
+  name String
+  //lastname
+  familyName String?
+  birthdate String?
+  phone_number String? @unique
+  position  String?
+  admin Boolean @default(false)
+  createdAt DateTime @default(now())
+}
+
 model service {
-  id Int @id
+  // normal service inputs
   location String
   status String
-  Priority String
+  priority String
+  date DateTime @default(now())
+
+  // track when it was created or changed
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  //empId Int @default(1)
-  //employee employee @relation(fields: [empId], references: [ID])
+
+  //relation to specific service details
+  serviceType String @map("flower", "gift")
+  serviceId     Int @id
+  service       service  @relation(fields: [serviceId], references: [servId])
+
+  // employee relation
+  empId Int
+  employee employee @relation(fields: [empId], references: [employeeID])
 }
 
 
 model flower {
-  id          Int      @id @default(autoincrement())
+  servId          Int      @id @default(autoincrement())
   patientName String
-  location    String
   senderName  String
   cardMessage String
   flowerType  String
-  status      String
-  priority    String
-  date        DateTime @default(now())
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  //empId Int @default(1)
-  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model gift {
-  id            Int    @id @default(autoincrement())
+  servId            Int    @id @default(autoincrement())
   recipientName String
-  location      String
   message       String
   giftSize      String
-  status        String
-  priority      String
   wrapping      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  //empId Int @default(1)
-  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model interpreter {
-  id             Int    @id @default(autoincrement())
+  servId             Int    @id @default(autoincrement())
   clientName     String
   language       String
   duration       String
-  location       String
-  status         String
-  priority       String
   additionalInfo String
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  //empId Int @default(1)
-  //employee Int @relation(fields: [empId], references: [ID])
-
 }
 
 model security {
-  id               Int     @id @default(autoincrement())
-  employeeName     String
-  employeeID       Int
-  reqPriority      String
-  location         String
+  servId               Int     @id @default(autoincrement())
+  priority      String
   requestType      String
-  reqStatus        String
   alertAuthorities Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  //empId Int @default(1)
-  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model medicine {
-  id               Int      @id @default(autoincrement())
+  servId               Int      @id @default(autoincrement())
   patientName      String
-  location         String
   patientCondition String
   drugName         String
   drugQuantity     String
-  status           String
-  priority         String
-  date             DateTime @default(now())
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  //empId Int @default(1)
-  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model sanitation {
   id             Int    @id @default(autoincrement())
   patientName    String
-  location       String
   serviceType    String
-  status         String
-  priority       String
   additionalInfo String
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  //empId Int @default(1)
-  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model roomschedule {
   id           Int    @id @default(autoincrement())
-  employeeName String
-  priority     String
-  location     String
   serviceType  String
-  status       String
   startTime    String
   endTime      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  //empId Int @default(1)
-  //employee Int @relation(fields: [empId], references: [ID])
 }
 
 model medicaldevice {
   id             Int     @id @default(autoincrement())
-  employeeName   String
-  priority       String
-  location       String
   selectedDevice String
-  status         String
   withBalloons   Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  //empId Int @default(1)
-  //employee Int @relation(fields: [empId], references: [ID])
-}
-
-model employee {
-  ID     Int      @id @default(autoincrement())
-  username  String
-  password  String
-  fName     String
-  lName     String
-  position  String
-  admin Boolean @default(false)
-  createdAt DateTime @default(now())
 }
