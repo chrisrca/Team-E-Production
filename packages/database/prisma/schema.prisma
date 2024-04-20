@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_URL")
+  url      = "postgresql://postgres:postgres@localhost:5432/postgres?schema=public"
 }
 
 model node {
@@ -41,16 +41,16 @@ model path {
   //empId Int @default(1)
   //employee employee @relation(fields: [empId], references: [ID])
 }
-model service {
-  id Int @id
-  location String
-  status String
-  Priority String
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  //empId Int @default(1)
-  //employee employee @relation(fields: [empId], references: [ID])
-}
+// model service {
+//   id Int @id
+//   location String
+//   status String
+//   Priority String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime?
+//   //empId Int @default(1)
+//   //employee employee @relation(fields: [empId], references: [ID])
+// }
 
 
 model flower {
@@ -65,8 +65,8 @@ model flower {
   date        DateTime @default(now())
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  //empId Int @default(1)
-  //employee Int @relation(fields: [empId], references: [ID])
+  // empId Int
+  // employee Int @relation(fields: [empId], references: [ID])
 }
 
 model gift {
@@ -80,8 +80,8 @@ model gift {
   wrapping      String
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  //empId Int @default(1)
-  //employee Int @relation(fields: [empId], references: [ID])
+  // empId Int
+  // employee Int @relation(fields: [empId], references: [ID])
 }
 
 model interpreter {
@@ -176,11 +176,7 @@ model medicaldevice {
 
 model employee {
   ID     Int      @id @default(autoincrement())
-  username  String
-  password  String
-  fName     String
-  lName     String
-  position  String
-  admin Boolean @default(false)
-  createdAt DateTime @default(now())
+  name  String
+  nickname String
+  phone_number String?
 }

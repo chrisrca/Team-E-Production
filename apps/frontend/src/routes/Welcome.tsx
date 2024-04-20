@@ -13,23 +13,81 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import FormInput from "@/components/ui/formInput";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import {useAuth0, User} from "@auth0/auth0-react";
 import { Button } from "@/components/ui/button.tsx";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import axios from "axios";
+import {useEffect, useState} from "react";
+import {useToast} from "@/components/ui/use-toast.ts";
 
 export default function Welcome() {
     const [api, setApi] = React.useState<CarouselApi>();
     const [current, setCurrent] = React.useState(0);
     const [count, setCount] = React.useState(0);
+    const [userInfo, setUserInfo] = useState<User | null>(null); // Initialize userInfo to null
+    const [firstLogin, setFirstLogin] = useState(false);
+    const { toast } = useToast();
 
-    const {loginWithRedirect, logout, isAuthenticated, isLoading} =
+    const {loginWithRedirect, logout, isAuthenticated, isLoading, user} =
         useAuth0();
     const handleLogin = () => {
         loginWithRedirect();
     };
     const handleLogout = () => {
         logout();
+    };
+
+    useEffect(() => {
+        if (user) {
+            setUserInfo(user); // Set userInfo to user when available
+        }
+    }, [user]);
+
+    //this shit ass being replaced
+    useEffect(() => {
+        const hasLoggedInBefore = localStorage.getItem('hasLoggedInBefore');
+        if (isAuthenticated && !hasLoggedInBefore && !userInfo?.phone_number) {
+            localStorage.setItem('hasLoggedInBefore', 'true');
+            setFirstLogin(true); // Set firstLogin to true when conditions are met
+        }
+    }, [isAuthenticated, userInfo?.phone_number]);
+
+
+    const handleUpdatePhoneNumber = async () => {
+        if (userInfo) {
+            try {
+                const response = await axios.post('/api/employee', {
+                    name: userInfo.name,
+                    nickname: userInfo.nickname,
+                    phone_number: userInfo.phone_number,
+                });
+
+                if (response.data) {
+                    console.log('User added:', response.data);
+                    toast({
+                        title: "Phone Number Added",
+                        description: "Your phone number has been successfully added.",
+                    });
+                } else {
+                    console.log('No data received from server');
+                }
+            } catch (error) {
+                console.error('Failed to add user:', error);
+            }
+        }
     };
 
     React.useEffect(() => {
@@ -51,6 +109,7 @@ export default function Welcome() {
 
     if (isAuthenticated) {
         return (
+            <div>
             <div className="pr-20 pl-20 bg-background flex flex-col pb-8">
                 {" "}
                 {/* component wrapper*/}
@@ -62,6 +121,33 @@ export default function Welcome() {
                         Helping our patients and their families get back to what
                         matters most.
                     </h2>
+                    {(firstLogin &&
+                        <div
+                            className="fixed bottom-4 right-4 text-sm text-gray-500 dark:text-gray-400 p-4 rounded-md shadow-md border border-gray-200 dark:border-gray-800 transition-all duration-300 ">
+                            <h2 className="text-bold">Hey there!</h2>
+                            <div className="flex">
+                                <p>Looks like this is your first login, please add some information to connect to authenticate.</p>
+                                <AlertDialog>
+                                    <AlertDialogTrigger asChild>
+                                        <Button variant="outline">Verify Info</Button>
+                                    </AlertDialogTrigger>
+                                    <AlertDialogContent>
+                                        <AlertDialogHeader>
+                                            <AlertDialogTitle>Add Phone Number</AlertDialogTitle>
+                                            <AlertDialogDescription>
+                                                This action will add your phone number to our database and authenticate you as an employee.
+                                            </AlertDialogDescription>
+                                        </AlertDialogHeader>
+                                        <FormInput placeholder="Phone Number"></FormInput>
+                                        <AlertDialogFooter>
+                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                            <AlertDialogAction onClick={handleUpdatePhoneNumber}>Continue</AlertDialogAction>
+                                        </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                </AlertDialog>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <div className="">
                     {" "}
@@ -175,7 +261,6 @@ export default function Welcome() {
                                     </Link>
                                 </CardFooter>
                             </Card>
-
                         <Card className="bg-secondary shadow-md hover:shadow-lg">
                             <CardHeader>
                             <CardTitle>Services</CardTitle>
@@ -193,38 +278,8 @@ export default function Welcome() {
                             </CardFooter>
                         </Card>
                     </div>
-                    {/* <div>
-                        <h1 className="text-3xl font-bold">
-                            Frequently Asked Questions
-                        </h1>
-                        <h2 className="pt-4 text-xl ">
-                            Answers to some of our visitor's most common
-                            questions.
-                        </h2>
-                        <Accordion type="single" collapsible className="w-full">
-                            <AccordionItem value="item-1">
-                                <AccordionTrigger>
-                                    Where can I find my room?
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                    Go to the{" "}
-                                    <Link className="hover:underline" to="/map">
-                                        Map
-                                    </Link>{" "}
-                                    and navigate from there.
-                                </AccordionContent>
-                            </AccordionItem>
-                            <AccordionItem value="item-2">
-                                <AccordionTrigger>
-                                    Why is my service request taking so long?
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                    Our apologies! One of our employees is on the case!
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
-                    </div> */}
                 </div>
+            </div>
             </div>
         );
     } else {
@@ -418,5 +473,7 @@ export default function Welcome() {
         );
     }
 }
+
+
 
 
