@@ -25,6 +25,7 @@ import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
 import Profile from "@/routes/Profile.tsx";
 import Settings from "@/routes/Settings.tsx";
+import BadRoutePage from "@/routes/404Page.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -169,7 +170,9 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                             </ProtectedRoute>
                         }
                     />
+                    <Route path="*" element = {<BadRoutePage/>}/>
                 </Routes>
+
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
                     <ModeToggle />
                 </div>
