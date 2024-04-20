@@ -4,37 +4,58 @@ import { InterpreterServiceRequest } from "common/src/types";
 
 const router = express.Router();
 
-let interp: string;
-
-async function getInterpsFromDB(): Promise<string> {
-    interp = await client.$queryRaw`SELECT * FROM interpreter`;
-    return interp;
+async function getInterpServicesFromDB(): Promise<string> {
+    const services = await client.service.findMany({
+        where: {
+            serviceType: "INTERPRETER",
+        },
+        include: {
+            interpreter: true,
+        },
+    });
+    return JSON.stringify(services);
 }
 
 router.post("/", async (req: Request, res: Response) => {
-    const interpRequest: InterpreterServiceRequest = req.body;
+    const serviceRequest: InterpreterServiceRequest = req.body;
     try {
-        await client.interpreter.create({
+        const createdService = await client.service.create({
             data: {
-                clientName: interpRequest.clientName,
-                language: interpRequest.language,
-                duration: interpRequest.duration,
-                location: interpRequest.location,
-                status: interpRequest.status,
-                priority: interpRequest.priority,
-                additionalInfo: interpRequest.additionalInfo,
+                location: serviceRequest.location,
+                status: serviceRequest.status,
+                priority: serviceRequest.priority,
+                serviceType: "INTERPRETER",
+                interpreter: {
+                    create: {
+                        clientName: serviceRequest.clientName,
+                        language: serviceRequest.language,
+                        duration: serviceRequest.duration,
+                        additionalInfo: serviceRequest.additionalInfo,
+                    },
+                },
+            },
+            include: {
+                flower: true,
             },
         });
+
+        res.send(
+            `Interpreter Service added to database: ${JSON.stringify(createdService)}`,
+        );
     } catch (e) {
-        console.log(e);
-        res.send("Failed to add interps to database");
+        console.error(e);
+        res.status(500).send("Failed to add service to database");
     }
-    res.send("Interps added to database");
 });
 
 router.get("/", async (req: Request, res: Response) => {
-    const msg = await getInterpsFromDB();
-    res.send(msg);
+    try {
+        const services = await getInterpServicesFromDB();
+        res.send(services);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send("Failed to retrieve services from database");
+    }
 });
 
 export default router;

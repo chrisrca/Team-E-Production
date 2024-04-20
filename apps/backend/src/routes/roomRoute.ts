@@ -4,37 +4,57 @@ import { RoomSchedulingForm } from "common/src/types";
 
 const router = express.Router();
 
-let room: string;
-
-async function getRoomsFromDB(): Promise<string> {
-    room = await client.$queryRaw`SELECT * FROM roomschedule`;
-    return room;
+async function getRoomServicesFromDB(): Promise<string> {
+    const services = await client.service.findMany({
+        where: {
+            serviceType: "ROOMSCHEDULE",
+        },
+        include: {
+            roomschedule: true,
+        },
+    });
+    return JSON.stringify(services);
 }
 
 router.post("/", async (req: Request, res: Response) => {
-    const RoomService: RoomSchedulingForm = req.body;
+    const serviceRequest: RoomSchedulingForm = req.body;
     try {
-        await client.roomschedule.create({
+        const createdService = await client.service.create({
             data: {
-                employeeName: RoomService.employeeName,
-                priority: RoomService.priority,
-                location: RoomService.location,
-                serviceType: RoomService.serviceType,
-                status: RoomService.status,
-                startTime: RoomService.startTime,
-                endTime: RoomService.endTime,
+                location: serviceRequest.location,
+                status: serviceRequest.status,
+                priority: serviceRequest.priority,
+                serviceType: "ROOMSCHEDULE",
+                roomschedule: {
+                    create: {
+                        serviceType: serviceRequest.serviceType,
+                        startTime: serviceRequest.startTime,
+                        endTime: serviceRequest.endTime,
+                    },
+                },
+            },
+            include: {
+                roomschedule: true,
             },
         });
+
+        res.send(
+            `Room Service added to database: ${JSON.stringify(createdService)}`,
+        );
     } catch (e) {
-        console.log(e);
-        res.send("Failed to add roomService to database");
+        console.error(e);
+        res.status(500).send("Failed to add service to database");
     }
-    res.send("RoomService added to database");
 });
 
 router.get("/", async (req: Request, res: Response) => {
-    const msg = await getRoomsFromDB();
-    res.send(msg);
+    try {
+        const services = await getRoomServicesFromDB();
+        res.send(services);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send("Failed to retrieve services from database");
+    }
 });
 
 export default router;

@@ -4,11 +4,11 @@ import gifts from "/src/images/gifts.jpg";
 const defaultFormSchema = {
     recipientName: "",
     giftSize: "",
-    location: "",
-    priority: "",
-    status: "",
     message: "",
     wrapping: "Default - $15",
+    location: "",
+    status: "",
+    priority: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -39,6 +39,14 @@ const defaultForm = [
         options: ["Small", "Medium", "Large"],
     },
     {
+        content: "text",
+        type: "string",
+        title: "Message",
+        placeholder: "Enter a Message... (Optional)",
+        required: false,
+        id: 0,
+    },
+    {
         content: "popover",
         type: "string",
         title: "Select Location",
@@ -51,16 +59,6 @@ const defaultForm = [
     {
         content: "radio",
         type: "string",
-        title: "Priority",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Priority",
-        options: ["Low", "Medium", "High", "Emergency"],
-    },
-    {
-        content: "radio",
-        type: "string",
         title: "Status",
         placeholder: "",
         required: true,
@@ -69,12 +67,14 @@ const defaultForm = [
         options: ["Unassigned", "Assigned", "In Progress", "Closed"],
     },
     {
-        content: "text",
+        content: "radio",
         type: "string",
-        title: "Message",
-        placeholder: "Enter a Message... (Optional)",
-        required: false,
+        title: "Priority",
+        placeholder: "",
+        required: true,
         id: 0,
+        label: "Request Priority",
+        options: ["Low", "Medium", "High", "Emergency"],
     },
 ];
 export default function GiftServiceRequest() {

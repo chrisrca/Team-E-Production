@@ -22,11 +22,11 @@ export default function DrugDelivery() {
     const defaultFormSchema = {
         patientName: "",
         drugName: "",
-        location: "",
-        priority: "",
-        status: "",
         drugQuantity: "",
         patientCondition: "Fever",
+        location: "",
+        status: "",
+        priority: "",
     };
 
     //Label is necessary, ids are calculated assuming that there is a title
@@ -57,6 +57,14 @@ export default function DrugDelivery() {
             options: ["Tylenol - $5", "Advil - $7", "Melatonin - $10"],
         },
         {
+            content: "text",
+            type: "number",
+            title: "Drug Quantity",
+            placeholder: "Enter Drug Quantity",
+            required: true,
+            id: 0,
+        },
+        {
             content: "popover",
             type: "string",
             title: "Select Location",
@@ -69,30 +77,22 @@ export default function DrugDelivery() {
         {
             content: "radio",
             type: "string",
-            title: "Priority",
-            placeholder: "Priority",
-            required: true,
-            id: 0,
-            label: "Request Priority",
-            options: ["Low", "Medium", "High", "Emergency"],
-        },
-        {
-            content: "radio",
-            type: "string",
             title: "Status",
-            placeholder: "Status",
+            placeholder: "",
             required: true,
             id: 0,
             label: "Request Status",
             options: ["Unassigned", "Assigned", "In Progress", "Closed"],
         },
         {
-            content: "text",
-            type: "number",
-            title: "Drug Quantity",
-            placeholder: "Enter Drug Quantity",
+            content: "radio",
+            type: "string",
+            title: "Priority",
+            placeholder: "",
             required: true,
             id: 0,
+            label: "Request Priority",
+            options: ["Low", "Medium", "High", "Emergency"],
         },
     ];
 

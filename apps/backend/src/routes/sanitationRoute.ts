@@ -4,36 +4,57 @@ import { SanitationServiceRequest } from "common/src/types";
 
 const router = express.Router();
 
-let sanit: string;
-
-async function getSanitationFromDB(): Promise<string> {
-    sanit = await client.$queryRaw`SELECT * FROM sanitation`;
-    return sanit;
+async function getSanitationServicesFromDB(): Promise<string> {
+    const services = await client.service.findMany({
+        where: {
+            serviceType: "SANITATION",
+        },
+        include: {
+            sanitation: true,
+        },
+    });
+    return JSON.stringify(services);
 }
 
 router.post("/", async (req: Request, res: Response) => {
-    const sanitRequest: SanitationServiceRequest = req.body;
+    const serviceRequest: SanitationServiceRequest = req.body;
     try {
-        await client.sanitation.create({
+        const createdService = await client.service.create({
             data: {
-                patientName: sanitRequest.patientName,
-                location: sanitRequest.location,
-                serviceType: sanitRequest.serviceType,
-                status: sanitRequest.status,
-                priority: sanitRequest.priority,
-                additionalInfo: sanitRequest.additionalInfo,
+                location: serviceRequest.location,
+                status: serviceRequest.status,
+                priority: serviceRequest.priority,
+                serviceType: "SANITATION",
+                sanitation: {
+                    create: {
+                        patientName: serviceRequest.patientName,
+                        serviceType: serviceRequest.serviceType,
+                        additionalInfo: serviceRequest.additionalInfo,
+                    },
+                },
+            },
+            include: {
+                sanitation: true,
             },
         });
+
+        res.send(
+            `Sanitation Service added to database: ${JSON.stringify(createdService)}`,
+        );
     } catch (e) {
-        console.log(e);
-        res.send("Failed to add sanit to database");
+        console.error(e);
+        res.status(500).send("Failed to add service to database");
     }
-    res.send("Sanit added to database");
 });
 
 router.get("/", async (req: Request, res: Response) => {
-    const msg = await getSanitationFromDB();
-    res.send(msg);
+    try {
+        const services = await getSanitationServicesFromDB();
+        res.send(services);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send("Failed to retrieve services from database");
+    }
 });
 
 export default router;

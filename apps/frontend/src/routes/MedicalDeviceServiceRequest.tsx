@@ -2,12 +2,11 @@ import { ServiceRequests } from "@/components/ServiceRequests";
 import MedicalDevice from "/src/images/MedicalDevice.png";
 
 const defaultFormSchema = {
-    employeeName: "",
     selectedDevice: "",
-    location: "",
-    priority: "",
-    status: "",
     withBalloons: "false",
+    location: "",
+    status: "",
+    priority: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -20,14 +19,6 @@ const defaultForm = [
         id: 0,
     },
     {
-        content: "text",
-        type: "string",
-        title: "Employee Name",
-        placeholder: "First, Last",
-        required: true,
-        id: 0,
-    },
-    {
         content: "select",
         type: "string",
         title: "Service Type",
@@ -36,6 +27,14 @@ const defaultForm = [
         id: 0,
         label: "Service Type",
         options: ["Hospital Bed", "IV Pump", "Recliner"],
+    },
+    {
+        content: "checkbox",
+        type: "boolean",
+        title: "withBalloons",
+        placeholder: "With Balloons?",
+        required: false,
+        id: 0,
     },
     {
         content: "popover",
@@ -50,16 +49,6 @@ const defaultForm = [
     {
         content: "radio",
         type: "string",
-        title: "Priority",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Priority",
-        options: ["Low", "Medium", "High", "Emergency"],
-    },
-    {
-        content: "radio",
-        type: "string",
         title: "Status",
         placeholder: "",
         required: true,
@@ -68,12 +57,14 @@ const defaultForm = [
         options: ["Unassigned", "Assigned", "In Progress", "Closed"],
     },
     {
-        content: "checkbox",
-        type: "boolean",
-        title: "withBalloons",
-        placeholder: "With Balloons?",
-        required: false,
+        content: "radio",
+        type: "string",
+        title: "Priority",
+        placeholder: "",
+        required: true,
         id: 0,
+        label: "Request Priority",
+        options: ["Low", "Medium", "High", "Emergency"],
     },
 ];
 export default function MedicalDeviceService() {

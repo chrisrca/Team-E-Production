@@ -4,10 +4,10 @@ import cleaning from "/src/images/cleaning.jpg";
 const defaultFormSchema = {
     patientName: "",
     serviceType: "",
-    location: "",
-    priority: "",
-    status: "",
     additionalInfo: "",
+    location: "",
+    status: "",
+    priority: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -38,6 +38,15 @@ const defaultForm = [
         options: ["Biohazard", "Human Waste", "Food", "General", "Other"],
     },
     {
+        content: "text",
+        type: "string",
+        title: "Additional Information",
+        placeholder: "Enter Additional Information...",
+        required: false,
+        id: 0,
+        variant: "large",
+    },
+    {
         content: "popover",
         type: "string",
         title: "Select Location",
@@ -50,16 +59,6 @@ const defaultForm = [
     {
         content: "radio",
         type: "string",
-        title: "Priority",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Priority",
-        options: ["Low", "Medium", "High", "Emergency"],
-    },
-    {
-        content: "radio",
-        type: "string",
         title: "Status",
         placeholder: "",
         required: true,
@@ -68,13 +67,14 @@ const defaultForm = [
         options: ["Unassigned", "Assigned", "In Progress", "Closed"],
     },
     {
-        content: "text",
+        content: "radio",
         type: "string",
-        title: "Additional Information",
-        placeholder: "Enter Additional Information...",
-        required: false,
+        title: "Priority",
+        placeholder: "",
+        required: true,
         id: 0,
-        variant: "large",
+        label: "Request Priority",
+        options: ["Low", "Medium", "High", "Emergency"],
     },
 ];
 export default function SanitationService() {

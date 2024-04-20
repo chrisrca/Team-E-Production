@@ -1,9 +1,10 @@
 export interface GiftServiceRequest {
-    recipientName: string;
     location: string;
-    message: string;
-    giftSize: string;
     status: string;
     priority: string;
+    date: string;
+    recipientName: string;
+    message: string;
+    giftSize: string;
     wrapping: string;
 }

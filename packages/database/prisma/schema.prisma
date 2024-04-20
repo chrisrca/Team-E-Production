@@ -43,17 +43,13 @@ model path {
 }
 
 model employee {
-  employeeID     Int      @default(autoincrement())
-  created_at String @id
-  email String
+  ID     Int    @id  @default(autoincrement())
   name String
-  //lastname
-  familyName String?
-  birthdate String?
+  nickname String
   phone_number String? @unique
-  position  String?
+  displayName String
   admin Boolean @default(false)
-  createdAt DateTime @default(now())
+  //createdAt DateTime @default(now())
 }
 
 enum ServiceType {
@@ -72,8 +68,6 @@ model service {
   location String
   status String
   priority String
-  date DateTime @default(now())
-
   // track when it was created or changed
   createdAt DateTime @default(now())
   updatedAt DateTime?
@@ -95,18 +89,16 @@ model service {
 
 
 model flower {
-  id Int @id @default(autoincrement())
-  servId          Int @unique
+  servId          Int @id
   patientName String
   senderName  String
   cardMessage String
   flowerType  String
-  service        service @relation(fields: [servId], references: [serviceId])
+  service service @relation(fields: [servId], references: [serviceId])
 }
 
 model gift {
-  id Int @id @default(autoincrement())
-  servId            Int @unique
+  servId            Int @id
   recipientName String
   message       String
   giftSize      String
@@ -115,8 +107,7 @@ model gift {
 }
 
 model interpreter {
-  id Int @id @default(autoincrement())
-  servId             Int @unique
+  servId             Int @id
   clientName     String
   language       String
   duration       String
@@ -125,17 +116,14 @@ model interpreter {
 }
 
 model security {
-  id Int @id @default(autoincrement())
-  servId               Int @unique
-  priority      String
+  servId               Int @id
   requestType      String
   alertAuthorities Boolean
   service        service  @relation(fields: [servId], references: [serviceId])
 }
 
 model medicine {
-  id Int @id @default(autoincrement())
-  servId               Int @unique
+  servId               Int @id
   patientName      String
   patientCondition String
   drugName         String
@@ -145,8 +133,7 @@ model medicine {
 }
 
 model sanitation {
-  id Int @id @default(autoincrement())
-  servId             Int @unique
+  servId             Int @id
   patientName    String
   serviceType    String
   additionalInfo String
@@ -154,8 +141,7 @@ model sanitation {
 }
 
 model roomschedule {
-  id Int @id @default(autoincrement())
-  servId           Int @unique
+  servId           Int @id
   serviceType  String
   startTime    String
   endTime      String
@@ -163,8 +149,7 @@ model roomschedule {
 }
 
 model medicaldevice {
-  id Int @id @default(autoincrement())
-  servId             Int @unique
+  servId             Int @id
   selectedDevice String
   withBalloons   Boolean
   service        service  @relation(fields: [servId], references: [serviceId])
