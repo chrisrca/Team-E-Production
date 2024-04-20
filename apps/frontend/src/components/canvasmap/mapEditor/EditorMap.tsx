@@ -21,11 +21,12 @@ interface CanvasMapProps {
     nodes: DBNode[];
     path: DBNode[][];
     level: number;
+    triggerRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // EditorMap component function
 export default function EditorMap(props: CanvasMapProps) {
-    const { nodes, path, level } = props;
+    const { nodes, path, level, triggerRefresh} = props;
 
     // State for selected node
     const [selectedNode, setSelectedNode] = useState<DBNode | null>(null);
@@ -37,11 +38,10 @@ export default function EditorMap(props: CanvasMapProps) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-    const [nodeInfoPosition, setNodeInfoPosition] = useState({ x: 0, y: 0, });
+    const [nodeInfoPosition, setNodeInfoPosition] = useState({ x: 0, y: 0 });
 
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [mouseState, setMouseState] = useState({ down: false });
-
 
     // Effect to handle image loading and updating container size
     useEffect(() => {
@@ -114,26 +114,39 @@ export default function EditorMap(props: CanvasMapProps) {
         });
 
         for (let i = 0; i < nodes.length; i++) {
-            if ((selectedNode?.nodeID == nodes[i].nodeID && mouseState.down) && isDragging) {
+            if (
+                selectedNode?.nodeID == nodes[i].nodeID &&
+                mouseState.down &&
+                isDragging
+            ) {
+                for (let i = 0; i < path.length; i++) {
+                    for (let j = 0; j < path[i].length; j++) {
+                        if (path[i][j].nodeID == selectedNode.nodeID) {
+                            path[i][j].xcoord = mousePosition.x;
+                            path[i][j].ycoord = mousePosition.y;
+                        }
+                    }
+                }
                 nodes[i].xcoord = mousePosition.x;
                 nodes[i].ycoord = mousePosition.y;
             }
         }
     };
 
-    const handleMouseDown = (
-    ) => {
+    const handleMouseDown = () => {
         setMouseState({ down: true });
         for (let i = 0; i < nodes.length; i++) {
-            if ((selectedNode?.nodeID == nodes[i].nodeID) && (calculateDistance(mousePosition, nodes[i]) < 9)) {
+            if (
+                selectedNode?.nodeID == nodes[i].nodeID &&
+                calculateDistance(mousePosition, nodes[i]) < 9
+            ) {
                 setDragNode(nodes[i]);
                 setIsDragging(true);
             }
         }
     };
 
-    const handleMouseUp = (
-    ) => {
+    const handleMouseUp = () => {
         setMouseState({ down: false });
         setDragNode(null);
         setIsDragging(false);
@@ -157,6 +170,7 @@ export default function EditorMap(props: CanvasMapProps) {
         // Check if a node is clicked and set it as selected
         if (hoverNode != null) {
             console.log(x, y, hoverNode.longName);
+            triggerRefresh(false);
             setSelectedNode(hoverNode);
         }
     };
@@ -216,7 +230,7 @@ export default function EditorMap(props: CanvasMapProps) {
     return (
         <>
             {/* Node Editor */}
-            {selectedNode && <NodeEditor node={selectedNode} />}
+            {selectedNode && <NodeEditor node={selectedNode} triggerRefresh={triggerRefresh}/>}
 
             {/* Render map and canvas */}
             <TransformWrapper

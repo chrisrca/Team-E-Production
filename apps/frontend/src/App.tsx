@@ -20,7 +20,7 @@ import MedicalDeviceService from "@/routes/MedicalDeviceServiceRequest.tsx";
 import { DBNode } from "common/src/types";
 import axios from "axios";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
 import Profile from "@/routes/Profile.tsx";
@@ -77,7 +77,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/map-editor"
                         element={
                             <ProtectedRoute>
-                                <MapEditor nodes={nodes} />
+                                <MapEditor/>
                             </ProtectedRoute>
                         }
                     />

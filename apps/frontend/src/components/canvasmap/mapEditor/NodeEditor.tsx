@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 
 interface NodeEditorProps {
     node: DBNode | null;
+    triggerRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 async function sendNodeOrder(editedNode: DBNode) {
@@ -15,7 +16,7 @@ async function sendNodeOrder(editedNode: DBNode) {
     });
 }
 
-export default function NodeEditor({ node }: NodeEditorProps) {
+export default function NodeEditor({ node, triggerRefresh }: NodeEditorProps) {
     const [editedNode, setEditedNode] = useState<DBNode | null>(node);
 
     // Sync state when the node prop changes
@@ -39,12 +40,14 @@ export default function NodeEditor({ node }: NodeEditorProps) {
             sendNodeOrder(editedNode);
         }
         setEditedNode(null);
+        triggerRefresh(true);
     }
 
     // Function to handle cancel action
     function handleCancel() {
         console.log("Cancel node logic here");
         setEditedNode(null);
+        triggerRefresh(true);
     }
 
     // If no node is provided, return null
