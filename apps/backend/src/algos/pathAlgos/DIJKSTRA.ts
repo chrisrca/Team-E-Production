@@ -33,9 +33,7 @@ export default function dijkstra(start: Node, end: Node): Node[] | null {
     );
     const cameFrom: Map<Node, Node> = new Map();
     const gScore: Map<Node, number> = new Map([[start, 0]]);
-    const fScore: Map<Node, number> = new Map([
-        [start, 0],
-    ]);
+    const fScore: Map<Node, number> = new Map([[start, 0]]);
     const closedSet: Set<Node> = new Set();
 
     openSet.push(start);
@@ -62,15 +60,11 @@ export default function dijkstra(start: Node, end: Node): Node[] | null {
                 gScore.get(current)! + euclideanDistance(current, neighbor);
 
             if (!openSet.has(neighbor)) openSet.push(neighbor);
-
             if (tentativeGScore >= (gScore.get(neighbor) || Infinity)) continue;
 
             cameFrom.set(neighbor, current);
             gScore.set(neighbor, tentativeGScore);
-            fScore.set(
-                neighbor,
-                tentativeGScore,
-            );
+            fScore.set(neighbor, tentativeGScore);
         }
     }
     // If the loop ends without finding a path
