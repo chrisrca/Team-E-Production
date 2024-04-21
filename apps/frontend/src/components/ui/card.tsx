@@ -80,7 +80,8 @@ CardFooter.displayName = "CardFooter";
 const PortraitCard: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, ...props }) => (
     <div
         className={cn(
-            "rounded-lg border bg-card text-card-foreground shadow-sm flex flex-col items-center p-6 pt-0", // Apply portrait card styles
+            "rounded-lg border bg-card text-card-foreground shadow-sm grid grid-cols-[auto,1fr] gap-x-6 p-6", // Apply portrait card styles
+            "items-center",
             className
         )}
         {...props}
