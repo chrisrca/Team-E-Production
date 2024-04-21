@@ -12,6 +12,13 @@ import Level2 from "../mapImages/02_thesecondfloor.png";
 import Level3 from "../mapImages/03_thethirdfloor.png";
 import drawGraph from "@/components/canvasmap/mapEditor/RenderGraph.tsx";
 import NodeEditor from "./NodeEditor";
+import axios from "axios";
+
+async function sendDragNodeOrder(editedNode: DBNode) {
+    axios.post("/api/mapeditordrag", editedNode).then((res) => {
+        console.log(res);
+    });
+}
 
 // Array of map images for each level
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
@@ -150,6 +157,10 @@ export default function EditorMap(props: CanvasMapProps) {
         setMouseState({ down: false });
         setDragNode(null);
         setIsDragging(false);
+        //Aksel added this post to db, shoulkd work but idk
+        if (dragNode != null) {
+            sendDragNodeOrder(dragNode);
+        }
     };
 
     // Function to handle mouse click on canvas
