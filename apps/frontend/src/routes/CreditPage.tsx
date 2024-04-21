@@ -15,7 +15,8 @@ const CreditPage: React.FC = () => {
             <p style={styles.text}>This project was made possible with the help of the following software (Clicking the software to their website):</p>
             <ul style={styles.list}>
                 <li style={styles.listItem}>
-                    <a href="https://www.jetbrains.com/webstorm/"><img src={webstormLogo} alt="Webstorm Logo" style={styles.logo}/></a>
+                    <a href="https://www.jetbrains.com/webstorm/"><img src={webstormLogo} alt="Webstorm Logo"
+                                                                       style={styles.logo}/></a>
                     <a href="https://www.jetbrains.com/webstorm/">Webstorm (2023.3.4)</a>
                 </li>
 
@@ -30,7 +31,8 @@ const CreditPage: React.FC = () => {
                 </li>
 
                 <li style={styles.listItem}>
-                    <a href="https://www.postgresql.org/"><img src={PostgreSQLLogo} alt="PostgreSQL Logo" style={styles.logo}/></a>
+                    <a href="https://www.postgresql.org/"><img src={PostgreSQLLogo} alt="PostgreSQL Logo"
+                                                               style={styles.logo}/></a>
                     <a href="https://www.postgresql.org/">PostgreSQL (16.2)</a>
                 </li>
 
@@ -59,8 +61,14 @@ const CreditPage: React.FC = () => {
                     <a href="https://www.diagrams.net/">Draw.io</a>
                 </li>
 
+                <li style={styles.listItem}>
+                    <a href="https://lucide.dev/"><img src={LucideLogo} alt="Lucide Logo" style={styles.logo}/></a>
+                    <a href="https://lucide.dev/">Lucide</a>
+                </li>
+
             </ul>
-            <p style={styles.thanks}>Special thanks to the creators of these tools for their invaluable contributions to our project.</p>
+            <p style={styles.thanks}>Special thanks to the creators of these tools for their invaluable contributions to
+                our project.</p>
         </div>
     );
 };
