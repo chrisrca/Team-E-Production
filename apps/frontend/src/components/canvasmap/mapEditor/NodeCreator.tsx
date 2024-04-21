@@ -19,7 +19,7 @@ const defaultNode = {
 };
 
 async function sendNodeCreateOrder(editedNode: DBNode) {
-    axios.post("/api/mapeditorcreate", editedNode).then((res) => {
+    axios.post("/api/mapeditorcreate/nodes", editedNode).then((res) => {
         console.log(res);
     });
 }

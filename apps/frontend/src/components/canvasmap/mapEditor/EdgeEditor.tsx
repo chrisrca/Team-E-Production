@@ -9,21 +9,37 @@ interface EdgeEditorProps {
     edgeID: string; // New prop for the edge ID
 }
 
-async function sendEdgeOrder(editedEdge: { startNode: DBNode | null; endNode: DBNode | null; edgeID: string }) {
+async function sendEdgeOrder(editedEdge: {
+    startNode: DBNode | null;
+    endNode: DBNode | null;
+    edgeID: string;
+}) {
     axios.post("/api/mapeditor/edges", editedEdge).then((res) => {
         console.log(res);
     });
 }
 
-async function sendEdgeDelOrder(editedEdge: { startNode: DBNode | null; endNode: DBNode | null; edgeID: string }) {
+async function sendEdgeDelOrder(editedEdge: {
+    startNode: DBNode | null;
+    endNode: DBNode | null;
+    edgeID: string;
+}) {
     axios.post("/api/mapeditordel/edges", editedEdge).then((res) => {
         console.log(res);
     });
 }
 
-const EdgeEditor: React.FC<EdgeEditorProps> = ({ startNode, endNode, edgeID }) => {
+const EdgeEditor: React.FC<EdgeEditorProps> = ({
+    startNode,
+    endNode,
+    edgeID,
+}) => {
     // State for the editable edge, initialized with the existing edge
-    const [editedEdge, setEditedEdge] = useState<{ startNode: DBNode | null; endNode: DBNode | null; edgeID: string }>({ startNode, endNode, edgeID });
+    const [editedEdge, setEditedEdge] = useState<{
+        startNode: DBNode | null;
+        endNode: DBNode | null;
+        edgeID: string;
+    }>({ startNode, endNode, edgeID });
 
     // Sync state when the edge ID prop changes
     useEffect(() => {
@@ -65,7 +81,9 @@ const EdgeEditor: React.FC<EdgeEditorProps> = ({ startNode, endNode, edgeID }) =
                     type="text"
                     id="edgeID"
                     value={editedEdge.edgeID} // Use the editedEdge state
-                    onChange={(e) => setEditedEdge({ ...editedEdge, edgeID: e.target.value })}
+                    onChange={(e) =>
+                        setEditedEdge({ ...editedEdge, edgeID: e.target.value })
+                    }
                 />
             </div>
             <div>

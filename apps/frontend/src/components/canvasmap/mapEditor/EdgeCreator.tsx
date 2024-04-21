@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Edge } from "common/src/types";
 import axios from "axios";
 import { Label } from "@/components/ui/label";
@@ -23,14 +23,40 @@ interface EdgeCreatorProps {
     endNodeID: string;
 }
 
-const EdgeCreator: React.FC<EdgeCreatorProps> = ({ edgeID, startNodeID, endNodeID }) => {
-    const [editedEdge, setEditedEdge] = useState<Edge>({ edgeID: edgeID, start: startNodeID, end: endNodeID });
+const EdgeCreator: React.FC<EdgeCreatorProps> = ({
+                                                     edgeID,
+                                                     startNodeID,
+                                                     endNodeID,
+                                                 }) => {
+    const [editedEdge, setEditedEdge] = useState<Edge>({
+        edgeID: edgeID,
+        start: startNodeID,
+        end: endNodeID,
+    });
+
+    // Update edgeID whenever startNodeID or endNodeID changes
+    useEffect(() => {
+        if (startNodeID && endNodeID) {
+            const generatedEdgeID = `${startNodeID}_${endNodeID}`;
+            setEditedEdge((prevEdge) => ({
+                ...prevEdge,
+                edgeID: generatedEdgeID,
+                start: startNodeID,
+                end: endNodeID,
+            }));
+        }
+    }, [startNodeID, endNodeID]);
+
+    // Log the start and end node IDs when the component renders or when they change
+    useEffect(() => {
+        console.log("Start Node ID:", startNodeID);
+        console.log("End Node ID:", endNodeID);
+    }, [startNodeID, endNodeID]);
 
     // Function to handle form submission
     function handleSubmit() {
         if (editedEdge != null) {
-            // Set the edgeID directly within editedEdge
-            editedEdge.edgeID = edgeID;
+            console.log("Submitting edge creation with data:", editedEdge); // Log the editedEdge object
             sendEdgeCreateOrder(editedEdge); // Call the function with editedEdge
         }
         setEditedEdge(defaultEdge);
@@ -38,14 +64,13 @@ const EdgeCreator: React.FC<EdgeCreatorProps> = ({ edgeID, startNodeID, endNodeI
 
     // Function to handle cancel action
     function handleCancel() {
-        console.log("Cancel edge logic here");
+        console.log("Cancel Edge");
         setEditedEdge(defaultEdge);
     }
 
     return (
         <div className="absolute bg-secondary rounded-lg p-5 space-y-2 z-50 top-[10vh] ml-10">
             <h3>Create Edge</h3>
-
             <div>
                 <Label>
                     Edge ID:
@@ -53,33 +78,20 @@ const EdgeCreator: React.FC<EdgeCreatorProps> = ({ edgeID, startNodeID, endNodeI
                         type="text"
                         name="edgeID"
                         value={editedEdge.edgeID}
-                        onChange={(e) =>
-                            setEditedEdge({
-                                ...editedEdge,
-                                edgeID: e.target.value,
-                            })
-                        }
+                        readOnly
                     />
                 </Label>
             </div>
             <div>
                 <Label>
                     Start Node ID:
-                    <Input
-                        type="text"
-                        name="start"
-                        value={startNodeID}
-                    />
+                    <Input type="text" name="start" value={startNodeID} />
                 </Label>
             </div>
             <div>
                 <Label>
                     End Node ID:
-                    <Input
-                        type="text"
-                        name="end"
-                        value={endNodeID}
-                    />
+                    <Input type="text" name="end" value={endNodeID} />
                 </Label>
             </div>
 
@@ -90,5 +102,6 @@ const EdgeCreator: React.FC<EdgeCreatorProps> = ({ edgeID, startNodeID, endNodeI
         </div>
     );
 };
+
 
 export default EdgeCreator;

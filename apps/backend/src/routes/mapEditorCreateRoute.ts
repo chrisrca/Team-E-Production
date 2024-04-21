@@ -47,6 +47,7 @@ async function getEdgesFromDB(): Promise<string> {
 
 router.post("/edges", async (req: Request, res: Response) => {
     const edgeData: Edge = req.body;
+    console.log("Attempting to create edge with data:", edgeData); // Log the edgeData object
     try {
         await client.edge.create({
             data: {

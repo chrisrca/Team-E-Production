@@ -273,14 +273,19 @@ export default function EditorMap(props: CanvasMapProps) {
     };
 
     // Function to check if an edge exists between start and end nodes
-    const edgeExists = (startNode: DBNode | null, endNode: DBNode | null): boolean => {
+    const edgeExists = (
+        startNode: DBNode | null,
+        endNode: DBNode | null,
+    ): boolean => {
         if (!startNode || !endNode) return false;
 
         // Check if there is an edge between start and end nodes
         for (const edge of path) {
             if (
-                (edge[0].nodeID === startNode.nodeID && edge[1].nodeID === endNode.nodeID) ||
-                (edge[0].nodeID === endNode.nodeID && edge[1].nodeID === startNode.nodeID)
+                (edge[0].nodeID === startNode.nodeID &&
+                    edge[1].nodeID === endNode.nodeID) ||
+                (edge[0].nodeID === endNode.nodeID &&
+                    edge[1].nodeID === startNode.nodeID)
             ) {
                 return true;
             }
@@ -289,13 +294,16 @@ export default function EditorMap(props: CanvasMapProps) {
     };
 
     // Function to find the edgeID based on the start and end nodes
-    const findEdgeID = (startNode: NodeIDOnly, endNode: NodeIDOnly): string | null => {
+    const findEdgeID = (
+        startNode: NodeIDOnly,
+        endNode: NodeIDOnly,
+    ): string | null => {
         const startID = startNode.nodeID.toString();
         const endID = endNode.nodeID.toString();
 
         // Check if an edge exists between start and end nodes
         if (!edgeExists(startNode as DBNode, endNode as DBNode)) {
-            console.log('Edge does not exist');
+            console.log("Edge does not exist");
             return null;
         }
 
@@ -306,12 +314,12 @@ export default function EditorMap(props: CanvasMapProps) {
                 (edge[0].nodeID === endID && edge[1].nodeID === startID)
             ) {
                 const edgeID = `${edge[0].nodeID}_${edge[1].nodeID}`;
-                console.log('Edge ID found:', edgeID);
+                console.log("Edge ID found:", edgeID);
                 return edgeID;
             }
         }
 
-        console.log('Edge ID not found');
+        console.log("Edge ID not found");
         return null;
     };
 
@@ -319,9 +327,9 @@ export default function EditorMap(props: CanvasMapProps) {
     const startNodeID = startNode ? extractNodeID(startNode) : null;
     const endNodeID = endNode ? extractNodeID(endNode) : null;
 
-
     // Pass extracted nodeIDs to findEdgeID function
-    const edgeID = startNodeID && endNodeID ? findEdgeID(startNodeID, endNodeID) : null;
+    const edgeID =
+        startNodeID && endNodeID ? findEdgeID(startNodeID, endNodeID) : null;
 
     return (
         <>
@@ -352,16 +360,23 @@ export default function EditorMap(props: CanvasMapProps) {
                         <p>ID: {selectedNode.nodeID}</p>
                         <p>Type: {selectedNode.nodeType}</p>
                         <p>
-                            Coordinates: ({selectedNode.xcoord}, {selectedNode.ycoord})
+                            Coordinates: ({selectedNode.xcoord},{" "}
+                            {selectedNode.ycoord})
                         </p>
                     </div>
 
                     {/* Action buttons */}
                     <div className="flex justify-evenly p-5 space-x-2">
-                        <Button className="space-x-2" onClick={handleSetStartNode}>
+                        <Button
+                            className="space-x-2"
+                            onClick={handleSetStartNode}
+                        >
                             Set as Start
                         </Button>
-                        <Button variant="destructive" onClick={handleSetEndNode}>
+                        <Button
+                            variant="destructive"
+                            onClick={handleSetEndNode}
+                        >
                             Set as End
                         </Button>
                     </div>
@@ -397,12 +412,21 @@ export default function EditorMap(props: CanvasMapProps) {
             {/* Node and Edge Editor */}
             {selectedNode === null && <NodeCreator />}
             {selectedNode && <NodeEditor node={selectedNode} />}
-            {selectedNode && !edgeExists(startNode, endNode) && <EdgeCreator startNodeID={startNode?.nodeID} endNodeID={endNode?.nodeID} />}
+            {selectedNode && !edgeExists(startNode, endNode) && (
+                <EdgeCreator
+                    startNodeID={startNode?.nodeID}
+                    endNodeID={endNode?.nodeID}
+                />
+            )}
             {startNode && endNode && edgeExists(startNode, endNode) && (
                 <>
-                    {console.log('Start Node:', startNode)}
-                    {console.log('End Node:', endNode)}
-                    <EdgeEditor startNode={startNode} endNode={endNode} edgeID={edgeID} />
+                    {console.log("Start Node:", startNode)}
+                    {console.log("End Node:", endNode)}
+                    <EdgeEditor
+                        startNode={startNode}
+                        endNode={endNode}
+                        edgeID={edgeID}
+                    />
                 </>
             )}
         </>
