@@ -8,6 +8,7 @@ import PrismaLogo from "/src/images/prisma-logo.svg";
 import FigmaLogo from "/src/images/figma-logo.png";
 import TaigaLogo from "/src/images/taiga-logo.png";
 import DrawioLogo from "/src/images/drawio-logo.png";
+import LucideLogo from "/src/images/lucide-logo.png";
 const CreditPage: React.FC = () => {
     return (
         <div style={styles.container}>
