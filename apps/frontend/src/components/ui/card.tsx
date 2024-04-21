@@ -76,4 +76,17 @@ const CardFooter = React.forwardRef<
 ));
 CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+// Portrait Card Component
+const PortraitCard: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, ...props }) => (
+    <div
+        className={cn(
+            "rounded-lg border bg-card text-card-foreground shadow-sm flex flex-col items-center p-6 pt-0", // Apply portrait card styles
+            className
+        )}
+        {...props}
+    />
+);
+
+PortraitCard.displayName = "PortraitCard";
+
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, PortraitCard };
