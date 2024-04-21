@@ -23,9 +23,11 @@ import {
 const CreditPage: React.FC = () => {
     return (
         <div style={{...styles.container, backgroundImage: `url(${Background})`}}>
+            <div style={styles.content}>
             <h1 style={styles.heading}>Credits</h1>
             <p style={styles.text}>This project was made possible with the help of the following software:</p>
             <div style={styles.cardContainer}>
+
                 <Card>
                     <CardHeader>
                         <img src={webstormLogo} alt="Webstorm Logo" style={styles.logo}/>
@@ -235,6 +237,7 @@ const CreditPage: React.FC = () => {
             </div>
             <p style={styles.thanks}>Special thanks to the creators of these tools for their invaluable contributions to
                 our project.</p>
+            </div>
         </div>
     );
 };
@@ -243,10 +246,14 @@ const styles = {
     container: {
         textAlign: 'center',
         margin: 'auto',
-        maxWidth: '800px',
-        padding: '20px',
+        minHeight: '100vh',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+    },
+    content: {
+        maxWidth: '800px',
+        padding: '20px',
+        margin: '0 auto',
     },
     heading: {
         fontSize: '36px',
