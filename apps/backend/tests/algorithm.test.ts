@@ -59,9 +59,12 @@ describe("BFS Algorithm Tests", () => {
             "CHALL003L1",
             "CLABS005L1",
         ]);
+
         expect(
             // Need to fix errors, but it still works since they shouldn't be null
+            // @ts-expect-error is not going to be null
             convertNodeID(await path1).toString() ==
+            // @ts-expect-error is not going to be null
                 convertNodeID(await path2).toString(),
         ).toBe(false);
     });
@@ -141,7 +144,10 @@ describe("A* Algorithm Tests", () => {
             "CLABS005L1",
         ]);
         expect(
-            convertNodeID(await path1).toString() == convertNodeID(await path2).toString(),
+            // @ts-expect-error is not going to be null
+            convertNodeID(await path1).toString() ==
+            // @ts-expect-error is not going to be null
+                convertNodeID(await path2).toString(),
         ).toBe(false);
     });
     test("Starts in elevator going to different floor immediately", async () => {
@@ -260,7 +266,10 @@ describe("Dijkstra Algorithm Tests", () => {
             "CLABS005L1",
         ]);
         expect(
-            convertNodeID(await path1).toString() == convertNodeID(await path2).toString(),
+            // @ts-expect-error is not going to be null
+            convertNodeID(await path1).toString() ==
+            // @ts-expect-error is not going to be null
+                convertNodeID(await path2).toString(),
         ).toBe(false);
     });
     test("Starts in elevator going to different floor immediately", async () => {
