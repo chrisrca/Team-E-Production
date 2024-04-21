@@ -14,9 +14,11 @@ import RadixLogo from "/src/images/radix-logo.png";
 import {
     Card,
     CardContent,
+    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+
 
 const CreditPage: React.FC = () => {
     return (
@@ -30,8 +32,16 @@ const CreditPage: React.FC = () => {
                         <CardTitle>Webstorm (2023.3.4)</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <a href="https://www.jetbrains.com/webstorm/">Learn more</a>
                     </CardContent>
+                    <CardFooter className="flex justify-center items-center">
+                        <a
+                            href="https://www.jetbrains.com/webstorm/"
+                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
+                            style={styles.link}
+                        >
+                            Learn more
+                        </a>
+                    </CardFooter>
                 </Card>
 
                 <Card>
@@ -139,7 +149,6 @@ const CreditPage: React.FC = () => {
         </div>
     );
 };
-
 const styles = {
     container: {
         textAlign: 'center',
@@ -174,6 +183,15 @@ const styles = {
         padding: '20px',
         flex: 1,
     },
+    footer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '10px 20px',
+        borderTop: '1px solid #ccc',
+        backgroundColor: '#f9f9f9',
+        borderRadius: '0 0 8px 8px',
+    },
     thanks: {
         fontSize: '16px',
         marginTop: '40px',
@@ -182,6 +200,13 @@ const styles = {
         width: '100px',
         alignSelf: 'center',
         margin: '20px auto 0',
+    },
+    link: {
+        textDecoration: 'none',
+        color: '#333',
+        padding: '8px 16px',
+        borderRadius: '4px',
+        transition: 'background-color 0.3s ease',
     },
 };
 
