@@ -9,6 +9,7 @@ import FigmaLogo from "/src/images/figma-logo.png";
 import TaigaLogo from "/src/images/taiga-logo.png";
 import DrawioLogo from "/src/images/drawio-logo.png";
 import LucideLogo from "/src/images/lucide-logo.png";
+import RadixLogo from "/src/images/radix-logo.png";
 const CreditPage: React.FC = () => {
     return (
         <div style={styles.container}>
@@ -58,13 +59,19 @@ const CreditPage: React.FC = () => {
                 </li>
 
                 <li style={styles.listItem}>
-                    <a href="https://www.diagrams.net/"><img src={DrawioLogo} alt="Draw.io Logo" style={styles.logo}/></a>
+                    <a href="https://www.diagrams.net/"><img src={DrawioLogo} alt="Draw.io Logo"
+                                                             style={styles.logo}/></a>
                     <a href="https://www.diagrams.net/">Draw.io</a>
                 </li>
 
                 <li style={styles.listItem}>
                     <a href="https://lucide.dev/"><img src={LucideLogo} alt="Lucide Logo" style={styles.logo}/></a>
                     <a href="https://lucide.dev/">Lucide</a>
+                </li>
+
+                <li style={styles.listItem}>
+                    <a href="https://www.radix-ui.com/"><img src={RadixLogo} alt="Radix Logo" style={styles.logo}/></a>
+                    <a href="https://www.radix-ui.com/">Radix-UI</a>
                 </li>
 
             </ul>
