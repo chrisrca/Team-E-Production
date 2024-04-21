@@ -25,6 +25,7 @@ module.exports = {
                 ring: "var(--ring)",
                 background: "var(--background)",
                 foreground: "var(--foreground)",
+                kiosk: "var(--kiosk)",
                 primary: {
                     DEFAULT: "var(--primary)",
                     foreground: "var(--primary-foreground)",

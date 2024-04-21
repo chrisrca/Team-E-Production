@@ -321,7 +321,9 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                         >
                             Set as Start
                         </Button>
-                        <Button variant="destructive" onClick={() => nodes.end(hoverNode.nodeID)}
+                        <Button
+                            variant="destructive"
+                            onClick={() => nodes.end(hoverNode.nodeID)}
                         >
                             Set as End
                         </Button>

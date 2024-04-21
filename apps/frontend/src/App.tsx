@@ -1,6 +1,6 @@
 import "./index.css";
 import Login from "./routes/Login.tsx";
-import Welcome from "./routes/Welcome.tsx";
+//import Welcome from "./routes/Welcome.tsx";
 import Services from "@/routes/Services";
 import FlowerService from "@/routes/FlowerServiceRequest.tsx";
 import InterpreterService from "@/routes/LanguageInterpreterRequest.tsx";
@@ -25,6 +25,7 @@ import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
 import Profile from "@/routes/Profile.tsx";
 import Settings from "@/routes/Settings.tsx";
+import WelcomePage from "@/routes/WelcomePage.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -62,7 +63,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     </div>
                 </div>
                 <Routes>
-                    <Route path="/" element={<Welcome />} />
+                    <Route path="/" element={<WelcomePage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
                     <Route
