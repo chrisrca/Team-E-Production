@@ -243,6 +243,9 @@ const styles = {
         margin: 'auto',
         maxWidth: '800px',
         padding: '20px',
+        backgroundImage: `url('/path/to/background-image.jpg')`, // Background image path
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
     },
     heading: {
         fontSize: '36px',
