@@ -249,6 +249,9 @@ const styles = {
         minHeight: '100vh',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     content: {
         maxWidth: '800px',
@@ -266,18 +269,19 @@ const styles = {
     },
     cardContainer: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        gridTemplateColumns: 'repeat(4, minmax(300px, 1fr))', // Display three cards per row
         gap: '20px',
+        justifyContent: 'center', // Center the cards horizontally
     },
     logo: {
-        width: '100px',
+        width: '150px', // Make the logos bigger
         alignSelf: 'center',
-        margin: '20px auto 0',
+        margin: '0 auto',
     },
     link: {
         textDecoration: 'none',
         color: '#fff',
-        padding: '8px 16px',
+        padding: '12px 24px', // Increase padding to make the button bigger
         borderRadius: '4px',
         transition: 'background-color 0.3s ease',
     },
@@ -286,5 +290,4 @@ const styles = {
         marginTop: '40px',
     },
 };
-
 export default CreditPage;
