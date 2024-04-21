@@ -56,7 +56,7 @@ const CreditPage: React.FC = () => {
                                     className="inline-block bg-accent text-foreground text-md py-2 px-12 rounded hover:bg-primary"
                                     style={styles.link}
                                 >
-                                    Learn more
+                                    LearnMore
                                 </a>
                             </CardFooter>
                         </Card>
@@ -109,7 +109,6 @@ const styles = {
     link: {
         textDecoration: 'none',
         color: '#fff',
-        padding: '8px 16px', // Adjust padding to fit in one line
         borderRadius: '4px',
         transition: 'background-color 0.3s ease',
     },
