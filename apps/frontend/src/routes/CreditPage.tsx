@@ -10,71 +10,130 @@ import TaigaLogo from "/src/images/taiga-logo.png";
 import DrawioLogo from "/src/images/drawio-logo.png";
 import LucideLogo from "/src/images/lucide-logo.png";
 import RadixLogo from "/src/images/radix-logo.png";
+
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+
 const CreditPage: React.FC = () => {
     return (
         <div style={styles.container}>
             <h1 style={styles.heading}>Credits</h1>
             <p style={styles.text}>This project was made possible with the help of the following software (Clicking the software to their website):</p>
-            <ul style={styles.list}>
-                <li style={styles.listItem}>
-                    <a href="https://www.jetbrains.com/webstorm/"><img src={webstormLogo} alt="Webstorm Logo"
-                                                                       style={styles.logo}/></a>
-                    <a href="https://www.jetbrains.com/webstorm/">Webstorm (2023.3.4)</a>
-                </li>
+            <div style={styles.cardContainer}>
+                <Card>
+                    <CardHeader>
+                        <img src={webstormLogo} alt="Webstorm Logo" style={styles.logo}/>
+                        <CardTitle>Webstorm (2023.3.4)</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <a href="https://www.jetbrains.com/webstorm/">Learn more</a>
+                    </CardContent>
+                </Card>
 
-                <li style={styles.listItem}>
-                    <a href="https://www.docker.com/"><img src={DockerLogo} alt="Docker Logo" style={styles.logo}/></a>
-                    <a href="https://www.docker.com/">Docker (4.28.0)</a>
-                </li>
+                <Card>
+                    <CardHeader>
+                        <img src={DockerLogo} alt="Docker Logo" style={styles.logo}/>
+                        <CardTitle>Docker (4.28.0)</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <a href="https://www.docker.com/">Learn more</a>
+                    </CardContent>
+                </Card>
 
-                <li style={styles.listItem}>
-                    <a href="https://nodejs.org/"><img src={NodejsLogo} alt="Node.js Logo" style={styles.logo}/></a>
-                    <a href="https://nodejs.org/">Node.js (v20.11.0)</a>
-                </li>
+                <Card>
+                    <CardHeader>
+                        <img src={NodejsLogo} alt="Node.js Logo" style={styles.logo}/>
+                        <CardTitle>Node.js (v20.11.0)</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <a href="https://nodejs.org/">Learn more</a>
+                    </CardContent>
+                </Card>
 
-                <li style={styles.listItem}>
-                    <a href="https://www.postgresql.org/"><img src={PostgreSQLLogo} alt="PostgreSQL Logo"
-                                                               style={styles.logo}/></a>
-                    <a href="https://www.postgresql.org/">PostgreSQL (16.2)</a>
-                </li>
+                <Card>
+                    <CardHeader>
+                        <img src={PostgreSQLLogo} alt="PostgreSQL Logo" style={styles.logo}/>
+                        <CardTitle>PostgreSQL (16.2)</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <a href="https://www.postgresql.org/">Learn more</a>
+                    </CardContent>
+                </Card>
 
-                <li style={styles.listItem}>
-                    <a href="https://slack.com/"><img src={SlackLogo} alt="Slack Logo" style={styles.logo}/></a>
-                    <a href="https://slack.com/">Slack (4.37.98)</a>
-                </li>
+                <Card>
+                    <CardHeader>
+                        <img src={SlackLogo} alt="Slack Logo" style={styles.logo}/>
+                        <CardTitle>Slack (4.37.98)</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <a href="https://slack.com/">Learn more</a>
+                    </CardContent>
+                </Card>
 
-                <li style={styles.listItem}>
-                    <a href="https://www.prisma.io/"><img src={PrismaLogo} alt="Prisma Logo" style={styles.logo}/></a>
-                    <a href="https://www.prisma.io/">Prisma ORM</a>
-                </li>
+                <Card>
+                    <CardHeader>
+                        <img src={PrismaLogo} alt="Prisma Logo" style={styles.logo}/>
+                        <CardTitle>Prisma ORM</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <a href="https://www.prisma.io/">Learn more</a>
+                    </CardContent>
+                </Card>
 
-                <li style={styles.listItem}>
-                    <a href="https://www.figma.com/"><img src={FigmaLogo} alt="Figma Logo" style={styles.logo}/></a>
-                    <a href="https://www.figma.com/">Figma</a>
-                </li>
+                <Card>
+                    <CardHeader>
+                        <img src={FigmaLogo} alt="Figma Logo" style={styles.logo}/>
+                        <CardTitle>Figma</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <a href="https://www.figma.com/">Learn more</a>
+                    </CardContent>
+                </Card>
 
-                <li style={styles.listItem}>
-                    <a href="https://www.taiga.io/"><img src={TaigaLogo} alt="Taiga Logo" style={styles.logo}/></a>
-                    <a href="https://www.taiga.io/">Taiga</a>
-                </li>
+                <Card>
+                    <CardHeader>
+                        <img src={TaigaLogo} alt="Taiga Logo" style={styles.logo}/>
+                        <CardTitle>Taiga</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <a href="https://www.taiga.io/">Learn more</a>
+                    </CardContent>
+                </Card>
 
-                <li style={styles.listItem}>
-                    <a href="https://www.diagrams.net/"><img src={DrawioLogo} alt="Draw.io Logo"
-                                                             style={styles.logo}/></a>
-                    <a href="https://www.diagrams.net/">Draw.io</a>
-                </li>
+                <Card>
+                    <CardHeader>
+                        <img src={DrawioLogo} alt="Draw.io Logo" style={styles.logo}/>
+                        <CardTitle>Draw.io</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <a href="https://www.diagrams.net/">Learn more</a>
+                    </CardContent>
+                </Card>
 
-                <li style={styles.listItem}>
-                    <a href="https://lucide.dev/"><img src={LucideLogo} alt="Lucide Logo" style={styles.logo}/></a>
-                    <a href="https://lucide.dev/">Lucide</a>
-                </li>
+                <Card>
+                    <CardHeader>
+                        <img src={LucideLogo} alt="Lucide Logo" style={styles.logo}/>
+                        <CardTitle>Lucide</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <a href="https://lucide.dev/">Learn more</a>
+                    </CardContent>
+                </Card>
 
-                <li style={styles.listItem}>
-                    <a href="https://www.radix-ui.com/"><img src={RadixLogo} alt="Radix Logo" style={styles.logo}/></a>
-                    <a href="https://www.radix-ui.com/">Radix-UI</a>
-                </li>
-
-            </ul>
+                <Card>
+                    <CardHeader>
+                        <img src={RadixLogo} alt="Radix Logo" style={styles.logo}/>
+                        <CardTitle>Radix-UI</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <a href="https://www.radix-ui.com/">Learn more</a>
+                    </CardContent>
+                </Card>
+            </div>
             <p style={styles.thanks}>Special thanks to the creators of these tools for their invaluable contributions to
                 our project.</p>
         </div>
@@ -85,35 +144,44 @@ const styles = {
     container: {
         textAlign: 'center',
         margin: 'auto',
-        maxWidth: '600px',
+        maxWidth: '800px',
         padding: '20px',
     },
     heading: {
-        fontSize: '28px',
+        fontSize: '36px',
         fontWeight: 'bold',
         marginBottom: '20px',
     },
     text: {
         fontSize: '18px',
-        marginBottom: '10px',
+        marginBottom: '20px',
     },
-    list: {
-        listStyle: 'none',
-        padding: 0,
-        textAlign: 'left',
+    cardContainer: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        gap: '20px',
     },
-    listItem: {
+    card: {
         display: 'flex',
-        alignItems: 'center',
-        marginBottom: '10px',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        height: '300px',
+        border: '1px solid #ccc',
+        borderRadius: '8px',
+        overflow: 'hidden',
+    },
+    cardContent: {
+        padding: '20px',
+        flex: 1,
     },
     thanks: {
         fontSize: '16px',
-        marginTop: '20px',
+        marginTop: '40px',
     },
     logo: {
-        width: '70px', // Adjust the size of the logo
-        marginRight: '30px', // Add some space between logo and software title
+        width: '100px',
+        alignSelf: 'center',
+        margin: '20px auto 0',
     },
 };
 
