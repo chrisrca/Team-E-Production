@@ -1,5 +1,5 @@
 import React from 'react';
-import webstormLogo from "/src/images/webstorm-logo.png";
+import WebstormLogo from "/src/images/webstorm-logo.png";
 import DockerLogo from "/src/images/docker-logo.png";
 import NodejsLogo from "/src/images/nodejs-logo.png";
 import PostgreSQLLogo from "/src/images/postgresql-logo.png";
@@ -21,222 +21,48 @@ import {
 } from "@/components/ui/card";
 
 const CreditPage: React.FC = () => {
+    const softwareList = [
+        { name: "Webstorm", logo: WebstormLogo, version: "2023.3.4", link: "https://www.jetbrains.com/webstorm/" },
+        { name: "Docker", logo: DockerLogo, version: "4.28.0", link: "https://www.docker.com/" },
+        { name: "Node.js", logo: NodejsLogo, version: "v20.11.0", link: "https://nodejs.org/" },
+        { name: "PostgreSQL", logo: PostgreSQLLogo, version: "16.2", link: "https://www.postgresql.org/" },
+        { name: "Slack", logo: SlackLogo, version: "4.37.98", link: "https://slack.com/" },
+        { name: "Prisma ORM", logo: PrismaLogo, link: "https://www.prisma.io/" },
+        { name: "Figma", logo: FigmaLogo, link: "https://www.figma.com/" },
+        { name: "Taiga", logo: TaigaLogo, link: "https://www.taiga.io/" },
+        { name: "Draw.io", logo: DrawioLogo, link: "https://www.diagrams.net/" },
+        { name: "Lucide", logo: LucideLogo, link: "https://lucide.dev/" },
+        { name: "Radix-UI", logo: RadixLogo, link: "https://www.radix-ui.com/" },
+    ];
+
     return (
-        <div style={{...styles.container, backgroundImage: `url(${Background})`}}>
+        <div style={{ ...styles.container, backgroundImage: `url(${Background})` }}>
             <div style={styles.content}>
-            <h1 style={styles.heading}>Credits</h1>
-            <p style={styles.text}>This project was made possible with the help of the following software:</p>
-            <div style={styles.cardContainer}>
-
-                <Card>
-                    <CardHeader>
-                        <img src={webstormLogo} alt="Webstorm Logo" style={styles.logo}/>
-                        <CardTitle>Webstorm (2023.3.4)</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                    </CardContent>
-                    <CardFooter className="flex justify-center items-center">
-                        <a
-                            href="https://www.jetbrains.com/webstorm/"
-                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                            style={styles.link}
-                        >
-                            Learn more
-                        </a>
-                    </CardFooter>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <img src={DockerLogo} alt="Docker Logo" style={styles.logo}/>
-                        <CardTitle>Docker (4.28.0)</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p></p>
-                    </CardContent>
-                    <CardFooter className="flex justify-center items-center">
-                        <a
-                            href="https://www.docker.com/"
-                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                            style={styles.link}
-                        >
-                            Learn more
-                        </a>
-                    </CardFooter>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <img src={NodejsLogo} alt="Node.js Logo" style={styles.logo}/>
-                        <CardTitle>Node.js (v20.11.0)</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p></p>
-                    </CardContent>
-                    <CardFooter className="flex justify-center items-center">
-                        <a
-                            href="https://nodejs.org/"
-                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                            style={styles.link}
-                        >
-                            Learn more
-                        </a>
-                    </CardFooter>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <img src={PostgreSQLLogo} alt="PostgreSQL Logo" style={styles.logo}/>
-                        <CardTitle>PostgreSQL (16.2)</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p></p>
-                    </CardContent>
-                    <CardFooter className="flex justify-center items-center">
-                        <a
-                            href="https://www.postgresql.org/"
-                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                            style={styles.link}
-                        >
-                            Learn more
-                        </a>
-                    </CardFooter>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <img src={SlackLogo} alt="Slack Logo" style={styles.logo}/>
-                        <CardTitle>Slack (4.37.98)</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p></p>
-                    </CardContent>
-                    <CardFooter className="flex justify-center items-center">
-                        <a
-                            href="https://slack.com/"
-                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                            style={styles.link}
-                        >
-                            Learn more
-                        </a>
-                    </CardFooter>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <img src={PrismaLogo} alt="Prisma Logo" style={styles.logo}/>
-                        <CardTitle>Prisma ORM</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p></p>
-                    </CardContent>
-                    <CardFooter className="flex justify-center items-center">
-                        <a
-                            href="https://www.prisma.io/"
-                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                            style={styles.link}
-                        >
-                            Learn more
-                        </a>
-                    </CardFooter>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <img src={FigmaLogo} alt="Figma Logo" style={styles.logo}/>
-                        <CardTitle>Figma</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p></p>
-                    </CardContent>
-                    <CardFooter className="flex justify-center items-center">
-                        <a
-                            href="https://www.figma.com/"
-                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                            style={styles.link}
-                        >
-                            Learn more
-                        </a>
-                    </CardFooter>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <img src={TaigaLogo} alt="Taiga Logo" style={styles.logo}/>
-                        <CardTitle>Taiga</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p></p>
-                    </CardContent>
-                    <CardFooter className="flex justify-center items-center">
-                        <a
-                            href="https://www.taiga.io/"
-                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                            style={styles.link}
-                        >
-                            Learn more
-                        </a>
-                    </CardFooter>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <img src={DrawioLogo} alt="Draw.io Logo" style={styles.logo}/>
-                        <CardTitle>Draw.io</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p></p>
-                    </CardContent>
-                    <CardFooter className="flex justify-center items-center">
-                        <a
-                            href="https://www.diagrams.net/"
-                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                            style={styles.link}
-                        >
-                            Learn more
-                        </a>
-                    </CardFooter>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <img src={LucideLogo} alt="Lucide Logo" style={styles.logo}/>
-                        <CardTitle>Lucide</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p></p>
-                    </CardContent>
-                    <CardFooter className="flex justify-center items-center">
-                        <a
-                            href="https://lucide.dev/"
-                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                            style={styles.link}
-                        >
-                            Learn more
-                        </a>
-                    </CardFooter>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <img src={RadixLogo} alt="Radix Logo" style={styles.logo}/>
-                        <CardTitle>Radix-UI</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p></p>
-                    </CardContent>
-                    <CardFooter className="flex justify-center items-center">
-                        <a
-                            href="https://www.radix-ui.com/"
-                            className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                            style={styles.link}
-                        >
-                            Learn more
-                        </a>
-                    </CardFooter>
-                </Card>
-            </div>
-            <p style={styles.thanks}>Special thanks to the creators of these tools for their invaluable contributions to
-                our project.</p>
+                <h1 style={styles.heading}>Credits</h1>
+                <p style={styles.text}>This project was made possible with the help of the following software:</p>
+                <div style={styles.cardContainer}>
+                    {softwareList.map((software, index) => (
+                        <Card key={index} style={styles.card}>
+                            <CardHeader>
+                                <img src={software.logo} alt={`${software.name} Logo`} style={styles.logo} />
+                                <CardTitle>{software.name} {software.version && `(${software.version})`}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                {/* Add any additional content for the card here */}
+                            </CardContent>
+                            <CardFooter className="flex justify-center items-center" style={styles.cardFooter}>
+                                <a
+                                    href={software.link}
+                                    className="inline-block bg-accent text-foreground text-md py-2 px-12 rounded hover:bg-primary"
+                                    style={styles.link}
+                                >
+                                    Learn more
+                                </a>
+                            </CardFooter>
+                        </Card>
+                    ))}
+                </div>
+                <p style={styles.thanks}>Special thanks to the creators of these tools for their invaluable contributions to our project.</p>
             </div>
         </div>
     );
@@ -249,9 +75,6 @@ const styles = {
         minHeight: '100vh',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     content: {
         maxWidth: '800px',
@@ -273,6 +96,11 @@ const styles = {
         gap: '20px',
         justifyContent: 'center', // Center the cards horizontally
     },
+    card: {
+        width: '250px', // Make the cards wider
+        height: '370px', // Make the cards taller
+        position: 'relative',
+    },
     logo: {
         width: '150px', // Make the logos bigger
         alignSelf: 'center',
@@ -281,7 +109,7 @@ const styles = {
     link: {
         textDecoration: 'none',
         color: '#fff',
-        padding: '12px 24px', // Increase padding to make the button bigger
+        padding: '8px 16px', // Adjust padding to fit in one line
         borderRadius: '4px',
         transition: 'background-color 0.3s ease',
     },
@@ -289,5 +117,12 @@ const styles = {
         fontSize: '16px',
         marginTop: '40px',
     },
+    cardFooter: {
+        position: 'absolute',
+        bottom: '10px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+    },
 };
+
 export default CreditPage;
