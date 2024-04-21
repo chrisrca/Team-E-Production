@@ -5,6 +5,7 @@ import axios from "axios";
 import { DBNode } from "common/src/types";
 // import { DBNode } from "common/src/types";
 import { useEffect, useState } from "react";
+import TextDirection from "../components/TextDirection.tsx";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
@@ -30,6 +31,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 }
 
                 setPathNodes(res.data);
+                TextDirection(res.data);
             } catch (error) {
                 setPathNodes([]);
                 console.error("Error fetching data:", error);
