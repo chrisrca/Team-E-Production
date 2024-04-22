@@ -5,7 +5,7 @@ import axios from "axios";
 import { DBNode } from "common/src/types";
 // import { DBNode } from "common/src/types";
 import { useEffect, useState } from "react";
-import TextDirection from "../components/TextDirection.tsx";
+import TextDirection, { TextDirectionComponent }  from "@/components/TextDirection.tsx";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
@@ -15,6 +15,9 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [algorithm, setAlgorithm] = useState<string>("ASTAR");
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
     const [level, setLevel] = useState<number>(1);
+
+    const [direction, setDirection] = useState<string[]>([""]);
+    //const direction = ["womp womp"];
 
     useEffect(() => {
         async function fetchPathData() {
@@ -31,7 +34,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 }
 
                 setPathNodes(res.data);
-                TextDirection(res.data);
+                setDirection(TextDirection(res.data));
             } catch (error) {
                 setPathNodes([]);
                 console.error("Error fetching data:", error);
@@ -39,23 +42,30 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
         }
         fetchPathData().then();
     }, [start, end, algorithm]);
+
     return (
-        <div className="z-0 relative">
-            <SearchBar
-                selection={nodes}
-                start={[start, setStart]}
-                end={[end, setEnd]}
-                algorithm={[algorithm, setAlgorithm]}
-            />
-            <LevelButtons levelProps={[level, setLevel]} />
-            <CanvasMap
-                level={level}
-                path={pathNodes}
-                nodes={nodes}
-                setLevel={setLevel}
-                start={setStart}
-                end={setEnd}
-            />
-        </div>
+        <>
+            <div className="">
+                <TextDirectionComponent directions={direction}/>
+            </div>
+            <div className="z-0 relative">
+                <SearchBar
+                    selection={nodes}
+                    start={[start, setStart]}
+                    end={[end, setEnd]}
+                    algorithm={[algorithm, setAlgorithm]}
+                />
+                <LevelButtons levelProps={[level, setLevel]}/>
+                <CanvasMap
+                    level={level}
+                    path={pathNodes}
+                    nodes={nodes}
+                    setLevel={setLevel}
+                    start={setStart}
+                    end={setEnd}
+                />
+            </div>
+        </>
+
     );
 }
