@@ -28,24 +28,24 @@ const Chats: React.FC<Props> = (props) => {
         if (messages.length === 0) {
             setMessages([
                 {
-                    purpose: "introduction",
+                    purpose: "intro",
                     message:
                         "Hi there. You are now talking to a Diagnosis Bot that will help with picking the right medicine just for you! What is your name?",
                     sender: "bot",
                 },
             ]);
         } else {
-            const tempArray = [...messages];
-            tempArray.push({
+            const holder = [...messages];
+            holder.push({
                 message: props.sendUserResponse,
                 sender: "patient",
             });
-            setMessages(tempArray);
+            setMessages(holder);
 
             setTimeout(() => {
-                const temp2 = [...tempArray];
-                temp2.push(props.botResponse);
-                setMessages(temp2);
+                const holder2 = [...holder];
+                holder2.push(props.botResponse);
+                setMessages(holder2);
             }, 1000);
         }
     }, [props.sendUserResponse, props.botResponse, messages]);
