@@ -173,9 +173,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     <Route
                         path="/credit-page"
                         element={
-                            <ProtectedRoute>
                                 <CreditPage  />
-                            </ProtectedRoute>
                         }
                     />
                 </Routes>

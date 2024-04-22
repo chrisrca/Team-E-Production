@@ -189,7 +189,6 @@ export default function Hamburger() {
                             </Link>
                         </SheetClose>
                     )}
-                    {isAuthenticated && (
                         <SheetClose asChild>
                             <Link
                                 className="group rounded-sm p-2 px-4 hover:bg-accent grid h-auto w-full justify-start gap-1"
@@ -200,7 +199,6 @@ export default function Hamburger() {
                                 </div>
                             </Link>
                         </SheetClose>
-                    )}
                 </div>
             </SheetContent>
         </Sheet>
