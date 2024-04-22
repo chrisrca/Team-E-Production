@@ -1,15 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Edge } from "common/src/types";
 import axios from "axios";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const defaultEdge = {
-    edgeID: "",
-    start: "",
-    end: "",
-};
 
 async function sendEdgeCreateOrder(editedEdge: Edge) {
     axios.post("/api/mapeditorcreate/edges", editedEdge).then((res) => {
@@ -21,12 +16,14 @@ interface EdgeCreatorProps {
     edgeID: string;
     startNodeID: string;
     endNodeID: string;
+    handleClose: () => void; // handleClose prop as a function
 }
 
 const EdgeCreator: React.FC<EdgeCreatorProps> = ({
     edgeID,
     startNodeID,
     endNodeID,
+    handleClose,
 }) => {
     const [editedEdge, setEditedEdge] = useState<Edge>({
         edgeID: edgeID,
@@ -59,13 +56,13 @@ const EdgeCreator: React.FC<EdgeCreatorProps> = ({
             console.log("Submitting edge creation with data:", editedEdge); // Log the editedEdge object
             sendEdgeCreateOrder(editedEdge); // Call the function with editedEdge
         }
-        setEditedEdge(defaultEdge);
+        handleClose();
     }
 
     // Function to handle cancel action
     function handleCancel() {
         console.log("Cancel Edge");
-        setEditedEdge(defaultEdge);
+        handleClose();
     }
 
     return (
@@ -97,7 +94,7 @@ const EdgeCreator: React.FC<EdgeCreatorProps> = ({
 
             <div className="space-x-2">
                 <Button onClick={handleSubmit}>Save</Button>
-                <Button onClick={handleCancel}>Cancel</Button>
+                <Button variant="destructive" onClick={handleCancel}>Cancel</Button>
             </div>
         </div>
     );

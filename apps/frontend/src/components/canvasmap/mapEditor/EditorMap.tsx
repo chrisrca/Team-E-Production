@@ -213,24 +213,36 @@ export default function EditorMap(props: CanvasMapProps) {
     // Action buttons for set as start and set as end
     const setAsStart = () => {
         if (selectedNode) {
+            if (selectedNode === endNode) {
+                // If selected node is the same as end node, reset end node
+                setEndNode(null);
+            }
             setStartNode(selectedNode);
+            setCloseEditor(false);
         }
     };
 
     const setAsEnd = () => {
         if (selectedNode) {
+            if (selectedNode === startNode) {
+                // If selected node is the same as end node, reset start node
+                setStartNode(null);
+            }
             setEndNode(selectedNode);
+            setCloseEditor(false);
         }
     };
 
     // Function to set the start node
     const handleSetStartNode = () => {
         setAsStart();
+        setCloseEditor(false);
     };
 
     // Function to set the end node
     const handleSetEndNode = () => {
         setAsEnd();
+        setCloseEditor(false);
     };
 
     function setColor(node: DBNode) {
@@ -331,14 +343,25 @@ export default function EditorMap(props: CanvasMapProps) {
     const edgeID =
         startNodeID && endNodeID ? findEdgeID(startNodeID, endNodeID) : null;
 
+    // State to control the visibility of the EdgeEditor and EdgeCreator
+    const [closeEditor, setCloseEditor] = useState(false);
+
+    // Effect to handle closing the EdgeEditor
+    useEffect(() => {
+        if (closeEditor) {
+            setStartNode(null);
+            setEndNode(null);
+        }
+    }, [closeEditor]);
+
     return (
         <>
             {selectedNode && (
                 <div
-                    className="absolute z-10 rounded-md bg-background shadow-lg flex-col rounded-2 float-left top-[400px] left-[60px] "
+                    className="absolute z-10 rounded-md bg-background shadow-lg flex-col rounded-2 float-left top-[30px] right-[100px] "
                     style={{
-                        top: `300px`,
-                        left: `60px`,
+                        top: `20px`,
+                        right: `20px`,
                         zIndex: `9999px`,
                         whiteSpace: "nowrap",
                         minWidth: "fit-content",
@@ -374,10 +397,12 @@ export default function EditorMap(props: CanvasMapProps) {
                             Set as Start
                         </Button>
                         <Button
-                            variant="destructive"
                             onClick={handleSetEndNode}
                         >
                             Set as End
+                        </Button>
+                        <Button className="w-full" variant="destructive" onClick={setCloseEditor}>
+                            Cancel
                         </Button>
                     </div>
                 </div>
@@ -410,15 +435,20 @@ export default function EditorMap(props: CanvasMapProps) {
             </TransformWrapper>
 
             {/* Node and Edge Editor */}
-            {selectedNode === null && <NodeCreator />}
-            {selectedNode && <NodeEditor node={selectedNode} />}
-            {selectedNode && !edgeExists(startNode, endNode) && startNode && endNode && (
-                <EdgeCreator
-                    startNodeID={startNode?.nodeID}
-                    endNodeID={endNode?.nodeID}
-                />
-            )}
-            {startNode && endNode && edgeExists(startNode, endNode) && (
+            {selectedNode === null && !startNode && !endNode && <NodeCreator />}
+            {selectedNode && !startNode && !endNode && <NodeEditor node={selectedNode} />}
+            {selectedNode &&
+                !closeEditor && !edgeExists(startNode, endNode) &&
+                startNode &&
+                endNode && (
+                    <EdgeCreator
+                        edgeID = {""}
+                        startNodeID={startNode?.nodeID}
+                        endNodeID={endNode?.nodeID}
+                        handleClose={() => setCloseEditor(true)}
+                    />
+                )}
+            {!closeEditor && startNode && endNode && edgeExists(startNode, endNode) && (
                 <>
                     {console.log("Start Node:", startNode)}
                     {console.log("End Node:", endNode)}
@@ -426,6 +456,7 @@ export default function EditorMap(props: CanvasMapProps) {
                         startNode={startNode}
                         endNode={endNode}
                         edgeID={edgeID}
+                        handleClose={() => setCloseEditor(true)}
                     />
                 </>
             )}
