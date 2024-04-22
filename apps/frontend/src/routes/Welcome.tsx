@@ -60,7 +60,10 @@ export default function Welcome() {
                     </h1>
                     <h2 className="text-xl ">
                         Helping our patients and their families get back to what
-                        matters most.
+                        matters most.<br/><br/>
+                        This website is a term project exercise for WPI CS 3733 Software
+                        Engineering (Prof. Wong) and is not to be confused with the actual Brigham & Women’s
+                        Hospital website.
                     </h2>
                 </div>
                 <div className="">
@@ -238,7 +241,10 @@ export default function Welcome() {
                     </h1>
                     <h2 className="text-xl ">
                         Helping our patients and their families get back to what
-                        matters most.
+                        matters most. <br/><br/>
+                        This website is a term project exercise for WPI CS 3733 Software
+                        Engineering (Prof. Wong) and is not to be confused with the actual Brigham & Women’s
+                        Hospital website.
                     </h2>
                 </div>
                 <div className="">
