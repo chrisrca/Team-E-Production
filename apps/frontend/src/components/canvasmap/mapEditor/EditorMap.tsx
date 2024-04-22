@@ -191,7 +191,7 @@ export default function EditorMap(props: CanvasMapProps) {
     function calculateDistance(point1: { x: number; y: number }, node: DBNode) {
         return Math.sqrt(
             Math.pow(node.xcoord - point1.x, 2) +
-            Math.pow(node.ycoord - point1.y, 2),
+                Math.pow(node.ycoord - point1.y, 2),
         );
     }
 
@@ -412,7 +412,7 @@ export default function EditorMap(props: CanvasMapProps) {
             {/* Node and Edge Editor */}
             {selectedNode === null && <NodeCreator />}
             {selectedNode && <NodeEditor node={selectedNode} />}
-            {selectedNode && !edgeExists(startNode, endNode) && (
+            {selectedNode && !edgeExists(startNode, endNode) && startNode && endNode && (
                 <EdgeCreator
                     startNodeID={startNode?.nodeID}
                     endNodeID={endNode?.nodeID}

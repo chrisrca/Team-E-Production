@@ -24,10 +24,10 @@ interface EdgeCreatorProps {
 }
 
 const EdgeCreator: React.FC<EdgeCreatorProps> = ({
-                                                     edgeID,
-                                                     startNodeID,
-                                                     endNodeID,
-                                                 }) => {
+    edgeID,
+    startNodeID,
+    endNodeID,
+}) => {
     const [editedEdge, setEditedEdge] = useState<Edge>({
         edgeID: edgeID,
         start: startNodeID,
@@ -102,6 +102,5 @@ const EdgeCreator: React.FC<EdgeCreatorProps> = ({
         </div>
     );
 };
-
 
 export default EdgeCreator;

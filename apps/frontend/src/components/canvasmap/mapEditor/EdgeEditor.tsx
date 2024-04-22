@@ -48,7 +48,9 @@ const EdgeEditor: React.FC<EdgeEditorProps> = ({
 
     // Function to handle form submission
     function handleSubmit() {
-        sendEdgeOrder(editedEdge);
+        if (editedEdge != null) {
+            sendEdgeOrder(editedEdge);
+        }
         setEditedEdge({ startNode: null, endNode: null, edgeID: "" });
     }
 
@@ -76,14 +78,12 @@ const EdgeEditor: React.FC<EdgeEditorProps> = ({
         >
             <h2>Edit Edge</h2>
             <div>
-                <label htmlFor="edgeID">Edge ID:</label>
+                <label htmlFor="edgeID">Edge ID: </label>
                 <input
                     type="text"
                     id="edgeID"
                     value={editedEdge.edgeID} // Use the editedEdge state
-                    onChange={(e) =>
-                        setEditedEdge({ ...editedEdge, edgeID: e.target.value })
-                    }
+                    readOnly
                 />
             </div>
             <div>
