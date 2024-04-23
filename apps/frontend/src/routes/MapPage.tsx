@@ -16,7 +16,8 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
     const [level, setLevel] = useState<number>(1);
 
-    const [direction, setDirection] = useState<string[]>([""]);
+    const [prompt, setPrompt] = useState<string[]>(['']);
+    const [turn, setTurn] = useState<string[]>(['']);
     //const direction = ["womp womp"];
 
     useEffect(() => {
@@ -34,7 +35,9 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 }
 
                 setPathNodes(res.data);
-                setDirection(TextDirection(res.data));
+                const { promptArr, turnArr } = TextDirection(res.data);
+                setPrompt(promptArr);
+                setTurn(turnArr);
             } catch (error) {
                 setPathNodes([]);
                 console.error("Error fetching data:", error);
@@ -45,8 +48,8 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
 
     return (
         <>
-            <div className="">
-                <TextDirectionComponent directions={direction}/>
+            <div className="ml-20">
+                <TextDirectionComponent prompts={prompt} turns={turn}/>
             </div>
             <div className="z-0 relative">
                 <SearchBar
