@@ -291,28 +291,27 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         if (viewportWidth >= widthFromHeight) {
             // If the viewport is wider than the height-based calculated width
             if (canvasRef.current) {
-                canvasRef.current.style.width = '100vw';
+                canvasRef.current.style.width = "100vw";
                 canvasRef.current.style.height = `${heightFromWidth}px`;
             }
         } else {
             // If the viewport is not as wide
             if (canvasRef.current) {
                 canvasRef.current.style.width = `${widthFromHeight}px`;
-                canvasRef.current.style.height = '100vh';
+                canvasRef.current.style.height = "100vh";
             }
         }
     };
 
     useEffect(() => {
-        window.addEventListener('resize', adjustCanvasSize);
+        window.addEventListener("resize", adjustCanvasSize);
         adjustCanvasSize(); // Call on initial render
 
         // Cleanup function to remove the event listener
         return () => {
-            window.removeEventListener('resize', adjustCanvasSize);
+            window.removeEventListener("resize", adjustCanvasSize);
         };
     }, []);
-
 
     return (
         <div>
@@ -383,8 +382,8 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                         height={3400}
                         width={5000}
                         style={{
-                            display: 'block',
-                            overflow: 'hidden'
+                            display: "block",
+                            overflow: "hidden",
                         }}
                         id="layer1"
                         onMouseMove={handleMouseMoveCanvas}
