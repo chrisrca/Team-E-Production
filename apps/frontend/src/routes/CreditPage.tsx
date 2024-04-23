@@ -93,7 +93,7 @@ const CreditPage: React.FC = () => {
                 </p>
                 <div style={styles.cardContainer}>
                     {softwareList.map((software, index) => (
-                        <Card key={index} style={styles.card} className="hover:scale-103 ease hover:animate-pulse hover:shadow-accent">
+                        <Card key={index} style={styles.card} className="hover:scale-105 ease hover:shadow-accent hover:delay-50 rounded p-4 shadow-lg transition-all duration-700">
                             <CardHeader>
                                 <img
                                     src={software.logo}
