@@ -2,7 +2,7 @@ import { DBParseNode } from "./dbparsenode.ts";
 import { DBNode } from "./dbnode.ts";
 import { Edge } from "./edge.ts";
 import { Coords } from "./coords.ts";
-import {Employee} from "./employee.ts";
+import { Employee } from "./employee.ts";
 //import { StartEnd } from "./start_end.ts";
 import { Test1 } from "./test.ts";
 import { FlowerServiceRequest } from "./flowerrequest.ts";

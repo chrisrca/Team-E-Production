@@ -396,7 +396,7 @@ export const ServiceRequests = (
 
     const EmployeeComp = (props: FormComponent) => {
         console.log(
-        "making Popover(Location) '" + props.title + "' id: " + props.id,
+            "making Popover(Location) '" + props.title + "' id: " + props.id,
         );
         const [employees, setEmployee] = useState<Employee[]>([]);
 
@@ -473,10 +473,6 @@ export const ServiceRequests = (
             </div>
         );
     };
-
-
-
-
 
     //End of Elements
 

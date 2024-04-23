@@ -1,4 +1,3 @@
-
 generator client {
   provider   = "prisma-client-js"
   output     = "../.prisma/client"
@@ -11,7 +10,7 @@ datasource db {
 }
 
 model node {
-  nodeID    String  @id
+  nodeID    String    @id
   xcoord    Int
   ycoord    Int
   floor     String
@@ -20,32 +19,32 @@ model node {
   longName  String
   shortName String
   edges     String
-  blocked   Boolean @default(false)
-  createdAt DateTime @default(now())
+  blocked   Boolean   @default(false)
+  createdAt DateTime  @default(now())
   updatedAt DateTime?
 }
 
 model edge {
-  edgeID      String @id
+  edgeID      String    @id
   startNodeID String
   endNodeID   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
 }
 
 model path {
-  uniqueID    Int    @id @default(autoincrement())
+  uniqueID    Int      @id @default(autoincrement())
   startNodeID String
   endNodeID   String
-  createdAt DateTime @default(now())
+  createdAt   DateTime @default(now())
   //empId Int @default(1)
   //employee employee @relation(fields: [empId], references: [ID])
 }
 
 model employee {
-  ID     Int    @id  @default(autoincrement())
-  name String
-  nickname String
+  ID           Int     @id @default(autoincrement())
+  name         String
+  nickname     String
   phone_number String? @unique
   //createdAt DateTime @default(now())
 }
@@ -63,93 +62,91 @@ enum ServiceType {
 
 model service {
   // normal service inputs
-  location String
-  status String
-  priority String
+  location     String
+  status       String
+  priority     String
   employeeName String
   // track when it was created or changed
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime?
 
   //potential types
-  serviceType ServiceType
-  flower       flower?
-  gift         gift?
-  interpreter  interpreter?
-  security     security?
-  medicine     medicine?
-  sanitation   sanitation?
-  roomschedule roomschedule?
+  serviceType   ServiceType
+  flower        flower?
+  gift          gift?
+  interpreter   interpreter?
+  security      security?
+  medicine      medicine?
+  sanitation    sanitation?
+  roomschedule  roomschedule?
   medicaldevice medicaldevice?
 
   //service ID
   serviceId Int @id @default(autoincrement())
 }
 
-
 model flower {
-  servId          Int @id
+  servId      Int     @id
   patientName String
   senderName  String
   cardMessage String
   flowerType  String
-  service service @relation(fields: [servId], references: [serviceId])
+  service     service @relation(fields: [servId], references: [serviceId])
 }
 
 model gift {
-  servId            Int @id
+  servId        Int     @id
   recipientName String
   message       String
   giftSize      String
   wrapping      String
-  service        service  @relation(fields: [servId], references: [serviceId])
+  service       service @relation(fields: [servId], references: [serviceId])
 }
 
 model interpreter {
-  servId             Int @id
+  servId         Int     @id
   clientName     String
   language       String
   duration       String
   additionalInfo String
-  service        service  @relation(fields: [servId], references: [serviceId])
+  service        service @relation(fields: [servId], references: [serviceId])
 }
 
 model security {
-  servId               Int @id
+  servId           Int     @id
   requestType      String
   alertAuthorities Boolean
-  service        service  @relation(fields: [servId], references: [serviceId])
+  service          service @relation(fields: [servId], references: [serviceId])
 }
 
 model medicine {
-  servId               Int @id
+  servId           Int     @id
   patientName      String
   patientCondition String
   drugName         String
   drugQuantity     String
-  service        service  @relation(fields: [servId], references: [serviceId])
-
+  service          service @relation(fields: [servId], references: [serviceId])
 }
 
 model sanitation {
-  servId             Int @id
+  servId         Int     @id
   patientName    String
   serviceType    String
   additionalInfo String
-  service        service  @relation(fields: [servId], references: [serviceId])
+  service        service @relation(fields: [servId], references: [serviceId])
 }
 
 model roomschedule {
-  servId           Int @id
-  serviceType  String
-  startTime    String
-  endTime      String
-  service        service  @relation(fields: [servId], references: [serviceId])
+  servId      Int     @id
+  serviceType String
+  startTime   String
+  endTime     String
+  service     service @relation(fields: [servId], references: [serviceId])
 }
 
 model medicaldevice {
-  servId             Int @id
+  servId         Int     @id
   selectedDevice String
   withBalloons   Boolean
-  service        service  @relation(fields: [servId], references: [serviceId])
+  service        service @relation(fields: [servId], references: [serviceId])
 }
