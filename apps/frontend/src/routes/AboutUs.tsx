@@ -21,61 +21,85 @@ export default function AboutUs() {
         {
             name: "Yan Acevedo",
             role: "Project Manager",
+            major: "",
+            class: "202X",
             image: yan,
         },
         {
             name: "Kai Davidson",
             role: "Lead Developer",
+            major: "",
+            class: "202X",
             image: kai,
         },
         {
             name: "Aksel Jensen",
             role: "Assistant Lead Developer",
+            major: "",
+            class: "202X",
             image: aksel,
         },
         {
             name: "Tri Vien Le",
             role: "Scrum Master",
+            major: "",
+            class: "202X",
             image: tri,
         },
         {
             name: "Lorenzo Manfredi Segato",
             role: "Assistant Lead Software Engineer",
+            major: "",
+            class: "202X",
             image: lorenzo,
         },
         {
             name: "Devin Mihaichuk",
             role: "Algorithms",
+            major: "",
+            class: "202X",
             image: devin,
         },
         {
             name: "Brendan Reilly",
             role: "Backend Database Engineer",
+            major: "",
+            class: "202X",
             image: brendan,
         },
         {
             name: "Christian Reynolds",
             role: "Algorithms",
+            major: "",
+            class: "202X",
             image: christian,
         },
         {
             name: "Marc Wehbe",
             role: "Frontend",
+            major: "",
+            class: "202X",
             image: marc,
         },
         {
             name: "Colin Williams",
             role: "Frontend",
+            major: "",
+            class: "202X",
             image: colin,
         },
         {
             name: "Brandan Yeu",
             role: "Product Owner",
+            major: "",
+            class: "202X",
             image: brandon,
         },
         {
             name: "Tao Zou",
             role: "Documentation Analyst",
+            major: "",
+            class: "202X",
             image: tao,
         },
     ];
@@ -92,9 +116,11 @@ export default function AboutUs() {
                         <CardContent>
                             <img src={member.image} alt={member.name}/>
                         </CardContent>
-                        <div>
+                        <div className="">
                             <CardTitle>{member.name}</CardTitle>
                             <CardDescription>{member.role}</CardDescription>
+                            <CardDescription>{member.major} Major</CardDescription>
+                            <CardDescription>Class of {member.class}</CardDescription>
                             <br/>
                             <audio controls>
                                 <source src={funny} type="audio/mp3"/>
