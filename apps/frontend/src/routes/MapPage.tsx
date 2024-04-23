@@ -17,8 +17,12 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [level, setLevel] = useState<number>(1);
 
     const handleRandomize = () => {
-        const randomStart = nodes[Math.floor(Math.random() * nodes.length)].nodeID;
-        const randomEnd = nodes[Math.floor(Math.random() * nodes.length)].nodeID;
+        const nonHallNodes = nodes
+            .filter((node) => {
+                return node.nodeType != "HALL";
+            });
+        const randomStart = nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
+        const randomEnd = nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
         const algorithms = ["ASTAR", "Dijkstra", "BFS", "DFS"];
         const randomAlgo = algorithms[Math.floor(Math.random() * algorithms.length)];
 
