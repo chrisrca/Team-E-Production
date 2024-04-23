@@ -109,7 +109,7 @@ export default function AboutUs() {
             <div className="flex items-center justify-center pt-10 text-4xl font-bold">
                 <h1>About Us</h1>
             </div>
-            <div className="grid gap-x-3 gap-y-6 grid-cols-3 auto-rows-auto pt-10 p-10">
+            <div className="grid gap-x-3 gap-y-3 grid-cols-3 auto-rows-auto pt-10 p-10">
                 {/* Iterate over the teamMembers array and render each team member */}
                 {teamMembers.map((member, index) => (
                     <PortraitCard key={index} className="bg-secondary shadow-md hover:cursor-pointer hover:outline">
