@@ -39,7 +39,7 @@ export default function TextDirection(nodes: DBNode[]) {
         /////////////////////////////////////////////////////////////////////////
 
         // entering new building on the same floor
-        if (
+        else if (
             currNode.floor === nextNode.floor &&
             currNode.building !== nextNode.building
         ) {
@@ -53,6 +53,27 @@ export default function TextDirection(nodes: DBNode[]) {
             previousAngle = prevAngle;
             prompts = promptArr;
             turns = turnArr;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////
+
+        // entering new floor
+        else if (
+            currNode.floor !== nextNode.floor
+        ) {
+            const promptType:string = "diff floor";
+            const {
+                promptArr,
+                turnArr,
+                prevAngle
+            } = determinePrompt(nextNode,currNode,previousAngle,prompts,turns,promptType);
+
+            previousAngle = prevAngle;
+            prompts = promptArr;
+            turns = turnArr;
+        } else {
+            prompts.push('Bang! Unexpected node condition.');
+            turns.push('Error');
         }
     }
 
@@ -93,7 +114,20 @@ export function TextDirectionComponent(props:TextDirectionProps) {
 
 function initTextDirection(nodes:DBNode[]) {
     const distance = Math.round(euclideanDistance(nodes[0],nodes[1]));
-    const prompts= [`Head towards ${nodes[1].longName} in building ${nodes[1].building} for ${distance} units of distance.`]; // stores prompts
+    const prompts= [`Text Directions from ${nodes[0].longName} to ${nodes[nodes.length-1].longName}:`]; // stores prompts
+
+    // decide how to start the directions
+    if(nodes[0].floor===nodes[1].floor && nodes[0].building===nodes[1].building) { // same floor same building
+        prompts.push(`Head towards ${nodes[1].longName} for ${distance} units of distance.`);
+    } else if(nodes[0].floor===nodes[1].floor && nodes[0].building!==nodes[1].building) { // same floor different building
+        prompts.push(`Head towards ${nodes[1].longName} in building ${nodes[1].building} for ${distance} units of distance.`);
+    } else if(nodes[0].floor!==nodes[1].floor) { // different floor
+        let medium:string;
+        if(nodes[0].nodeType==='ELEV') medium = 'elevator';
+        else if(nodes[0].nodeType==='STAI') medium = 'stairs';
+        else medium = '';
+        prompts.push(`Take the ${medium} to floor ${nodes[1].floor}.`);
+    } else prompts.push('Bang! If you see this there is an error.');
     const turns = ["S"]; // stores turns at each node
 
     const deltaX = nodes[1].xcoord - nodes[0].xcoord;
@@ -107,7 +141,7 @@ function initTextDirection(nodes:DBNode[]) {
 }
 
 function determinePrompt(nextNode:DBNode,currNode:DBNode,prevAngle:number,promptArr:string[],turnArr:string[],promptType:string) {
-    let scriptArr:string[];
+    let scriptArr:string[] = [''];
     if(promptType==='same building and floor') {
         const distance = Math.round(euclideanDistance(currNode,nextNode));
         scriptArr = [
@@ -130,8 +164,17 @@ function determinePrompt(nextNode:DBNode,currNode:DBNode,prevAngle:number,prompt
             `Take a slight left into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
             `Head straight into building ${nextNode.building} for ${distance} units of distance until you reach ${nextNode.shortName}.`
         ];
+    } else if(promptType==='diff floor') {
+        let medium:string;
+        if(currNode.nodeType==='ELEV') medium = 'elevator';
+        else if(currNode.nodeType==='STAI') medium = 'stairs';
+        else medium = '';
 
-    } else scriptArr=[''];
+        for(let i=0;i<7;i++) {
+            scriptArr[i] = `Take the ${medium} to floor ${nextNode.floor}.`;
+        }
+
+    } else scriptArr=['Bang! Should not be possible to see this :/'];
 
     const deltaX = nextNode.xcoord - currNode.xcoord;
     const deltaY = nextNode.ycoord - currNode.ycoord; // flip y-axis for ease of computation
