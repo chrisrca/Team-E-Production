@@ -14,8 +14,9 @@ import drawGraph from "@/components/canvasmap/mapEditor/RenderGraph.tsx";
 import NodeEditor from "./NodeEditor";
 import axios from "axios";
 
-async function sendDragNodeOrder(editedNode: DBNode) {
-    axios.post("/api/mapeditordrag", editedNode).then((res) => {
+async function sendDragNodeOrder(updatedNode: DBNode) {
+    axios.post("/api/mapeditordrag/update", updatedNode).then((res) => {
+        console.log("Updated node data:", updatedNode); // Log the updatedNode data
         console.log(res);
     });
 }
@@ -154,13 +155,15 @@ export default function EditorMap(props: CanvasMapProps) {
     };
 
     const handleMouseUp = () => {
+        if (dragNode != null) {
+            dragNode.xcoord = Math.round(dragNode.xcoord);
+            dragNode.ycoord = Math.round(dragNode.ycoord);
+            sendDragNodeOrder(dragNode);
+        }
         setMouseState({ down: false });
         setDragNode(null);
         setIsDragging(false);
-        //Aksel added this post to db, shoulkd work but idk
-        if (dragNode != null) {
-            sendDragNodeOrder(dragNode);
-        }
+        //Aksel added this post to db, should work but idk
     };
 
     // Function to handle mouse click on canvas

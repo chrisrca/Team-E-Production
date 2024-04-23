@@ -11,16 +11,18 @@ async function getNodesFromDB(): Promise<string> {
     return node;
 }
 
-router.post("/", async (req: Request, res: Response) => {
+router.post("/update", async (req: Request, res: Response) => {
     const nodeReq: DBNode = req.body;
+    console.log("Received request to update node position with data:", nodeReq); // Log the request body
     try {
+        console.log("Ball out");
         await client.node.update({
             where: {
                 nodeID: nodeReq.nodeID,
             },
             data: {
-                xcoord: nodeReq.xcoord,
-                ycoord: nodeReq.ycoord,
+                xcoord: Math.floor(nodeReq.xcoord),
+                ycoord: Math.floor(nodeReq.ycoord),
             },
         });
     } catch (e) {
