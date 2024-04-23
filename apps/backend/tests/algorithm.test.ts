@@ -64,7 +64,7 @@ describe("BFS Algorithm Tests", () => {
             // Need to fix errors, but it still works since they shouldn't be null
             // @ts-expect-error is not going to be null
             convertNodeID(await path1).toString() ==
-            // @ts-expect-error is not going to be null
+                // @ts-expect-error is not going to be null
                 convertNodeID(await path2).toString(),
         ).toBe(false);
     });
@@ -146,7 +146,7 @@ describe("A* Algorithm Tests", () => {
         expect(
             // @ts-expect-error is not going to be null
             convertNodeID(await path1).toString() ==
-            // @ts-expect-error is not going to be null
+                // @ts-expect-error is not going to be null
                 convertNodeID(await path2).toString(),
         ).toBe(false);
     });
@@ -268,7 +268,7 @@ describe("Dijkstra Algorithm Tests", () => {
         expect(
             // @ts-expect-error is not going to be null
             convertNodeID(await path1).toString() ==
-            // @ts-expect-error is not going to be null
+                // @ts-expect-error is not going to be null
                 convertNodeID(await path2).toString(),
         ).toBe(false);
     });

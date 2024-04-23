@@ -170,12 +170,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                             </ProtectedRoute>
                         }
                     />
-                    <Route
-                        path="/credit-page"
-                        element={
-                                <CreditPage  />
-                        }
-                    />
+                    <Route path="/credit-page" element={<CreditPage />} />
                 </Routes>
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
                     <ModeToggle />
