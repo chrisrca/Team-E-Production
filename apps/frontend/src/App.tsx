@@ -25,6 +25,7 @@ import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
 import Profile from "@/routes/Profile.tsx";
 import Settings from "@/routes/Settings.tsx";
+import ThreeSixty from "./routes/360Image.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -166,6 +167,14 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         element={
                             <ProtectedRoute>
                                 <SecurityForm nodes={nodes} />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/meettheteam"
+                        element={
+                            <ProtectedRoute>
+                                <ThreeSixty />
                             </ProtectedRoute>
                         }
                     />
