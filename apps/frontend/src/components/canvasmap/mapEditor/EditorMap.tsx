@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
     TransformWrapper,
     TransformComponent,
@@ -16,6 +16,14 @@ import NodeCreator from "./NodeCreator.tsx";
 import EdgeCreator from "./EdgeCreator.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import EdgeEditor from "@/components/canvasmap/mapEditor/EdgeEditor.tsx";
+import axios from "axios";
+
+async function sendDragNodeOrder(updatedNode: DBNode) {
+    axios.post("/api/mapeditordrag/update", updatedNode).then((res) => {
+        console.log("Updated node data:", updatedNode); // Log the updatedNode data
+        console.log(res);
+    });
+}
 
 // Array of map images for each level
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
@@ -25,14 +33,18 @@ interface CanvasMapProps {
     nodes: DBNode[];
     path: DBNode[][];
     level: number;
+    triggerRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // EditorMap component function
 export default function EditorMap(props: CanvasMapProps) {
-    const { nodes, path, level } = props;
+    const { nodes, path, level, triggerRefresh} = props;
 
     // State for selected node
     const [selectedNode, setSelectedNode] = useState<DBNode | null>(null);
+    const [hoverNode, setHoverNode] = useState<DBNode | null>(null);
+    const [dragNode, setDragNode] = useState<DBNode | null>(null);
+    const [isDragging, setIsDragging] = useState<boolean>(false);
 
     // State to track selected start and end nodes
     const [startNode, setStartNode] = useState<DBNode | null>(null);
@@ -42,28 +54,10 @@ export default function EditorMap(props: CanvasMapProps) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+    const [nodeInfoPosition, setNodeInfoPosition] = useState({ x: 0, y: 0 });
+
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [nodeInfoPosition, setNodeInfoPosition] = useState({
-        x: 0,
-        y: 0,
-        z: 0,
-    });
-    const nullNode: DBNode = useMemo(
-        () => ({
-            building: "",
-            edges: [],
-            floor: "",
-            longName: "",
-            nodeID: "",
-            nodeType: "",
-            shortName: "",
-            blocked: false,
-            xcoord: 0,
-            ycoord: 0,
-        }),
-        [],
-    );
-    const [hoverNode, setHoverNode] = useState(nullNode);
+    const [mouseState, setMouseState] = useState({ down: false });
 
     // Effect to handle image loading and updating container size
     useEffect(() => {
@@ -133,8 +127,51 @@ export default function EditorMap(props: CanvasMapProps) {
         setNodeInfoPosition({
             x: event.nativeEvent.clientX,
             y: event.nativeEvent.clientY,
-            z: 9999,
         });
+
+        for (let i = 0; i < nodes.length; i++) {
+            if (
+                selectedNode?.nodeID == nodes[i].nodeID &&
+                mouseState.down &&
+                isDragging
+            ) {
+                for (let i = 0; i < path.length; i++) {
+                    for (let j = 0; j < path[i].length; j++) {
+                        if (path[i][j].nodeID == selectedNode.nodeID) {
+                            path[i][j].xcoord = mousePosition.x;
+                            path[i][j].ycoord = mousePosition.y;
+                        }
+                    }
+                }
+                nodes[i].xcoord = mousePosition.x;
+                nodes[i].ycoord = mousePosition.y;
+            }
+        }
+    };
+
+    const handleMouseDown = () => {
+        setMouseState({ down: true });
+        for (let i = 0; i < nodes.length; i++) {
+            if (
+                selectedNode?.nodeID == nodes[i].nodeID &&
+                calculateDistance(mousePosition, nodes[i]) < 9
+            ) {
+                setDragNode(nodes[i]);
+                setIsDragging(true);
+            }
+        }
+    };
+
+    const handleMouseUp = () => {
+        if (dragNode != null) {
+            dragNode.xcoord = Math.round(dragNode.xcoord);
+            dragNode.ycoord = Math.round(dragNode.ycoord);
+            sendDragNodeOrder(dragNode);
+        }
+        setMouseState({ down: false });
+        setDragNode(null);
+        setIsDragging(false);
+        //Aksel added this post to db, should work but idk
     };
 
     // Function to handle mouse click on canvas
@@ -153,8 +190,9 @@ export default function EditorMap(props: CanvasMapProps) {
         const y = (event.clientY - rect.top) * scaleY; // been adjusted to be relative to element
 
         // Check if a node is clicked and set it as selected
-        if (hoverNode.longName !== "") {
+        if (hoverNode != null) {
             console.log(x, y, hoverNode.longName);
+            triggerRefresh(false);
             setSelectedNode(hoverNode);
         }
     };
@@ -182,11 +220,12 @@ export default function EditorMap(props: CanvasMapProps) {
                         nodes,
                         level,
                         mousePosition,
+                        dragNode,
                     );
                 };
             }
         }
-    }, [nodes, path, imageSize, level, mousePosition]);
+    }, [nodes, path, imageSize, level, mousePosition, dragNode]);
 
     function calculateDistance(point1: { x: number; y: number }, node: DBNode) {
         return Math.sqrt(
@@ -205,10 +244,10 @@ export default function EditorMap(props: CanvasMapProps) {
                     setHoverNode(node);
                     break;
                 }
-                setHoverNode(nullNode);
+                setHoverNode(null);
             }
         }
-    }, [nodes, hoverNode, mousePosition, nullNode, level, nodeInfoPosition]);
+    }, [nodes, hoverNode, mousePosition, level, nodeInfoPosition]);
 
     // Action buttons for set as start and set as end
     const setAsStart = () => {
@@ -356,6 +395,10 @@ export default function EditorMap(props: CanvasMapProps) {
 
     return (
         <>
+            {/* Node Editor */}
+            {selectedNode && <NodeEditor node={selectedNode} triggerRefresh={triggerRefresh}/>}
+
+            {/* Render map and canvas */}
             {selectedNode && (
                 <div
                     className="absolute z-10 rounded-md bg-background shadow-lg flex-col rounded-2 float-left top-[30px] right-[100px] "
@@ -407,7 +450,7 @@ export default function EditorMap(props: CanvasMapProps) {
                     </div>
                 </div>
             )}
-
+        
             <TransformWrapper
                 initialScale={1.5}
                 centerOnInit={true}
@@ -417,6 +460,7 @@ export default function EditorMap(props: CanvasMapProps) {
                 wheel={{ step: 0.5 }}
                 doubleClick={{ disabled: false }}
                 onPanningStop={handlePanningStopped}
+                disabled={isDragging}
             >
                 <TransformComponent>
                     <canvas
@@ -430,6 +474,8 @@ export default function EditorMap(props: CanvasMapProps) {
                         id="layer1"
                         onMouseMove={handleMouseMoveCanvas}
                         onClick={handleMouseClick}
+                        onMouseDown={handleMouseDown}
+                        onMouseUp={handleMouseUp}
                     />
                 </TransformComponent>
             </TransformWrapper>
