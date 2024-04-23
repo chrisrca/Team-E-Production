@@ -4,6 +4,7 @@ export default function TextDirection(nodes: DBNode[]) {
     let {
         prompts,
         turns,
+        floors,
         previousAngle
     } = initTextDirection(nodes);
 
@@ -28,12 +29,14 @@ export default function TextDirection(nodes: DBNode[]) {
             const {
                 promptArr,
                 turnArr,
+                floorArr,
                 prevAngle
-            } = determinePrompt(nextNode,currNode,previousAngle,prompts,turns,promptType);
+            } = determinePrompt(nextNode,currNode,previousAngle,prompts,turns,floors,promptType);
 
             previousAngle = prevAngle;
             prompts = promptArr;
             turns = turnArr;
+            floors = floorArr;
         }
 
         /////////////////////////////////////////////////////////////////////////
@@ -47,12 +50,14 @@ export default function TextDirection(nodes: DBNode[]) {
             const {
                 promptArr,
                 turnArr,
+                floorArr,
                 prevAngle
-            } = determinePrompt(nextNode,currNode,previousAngle,prompts,turns,promptType);
+            } = determinePrompt(nextNode,currNode,previousAngle,prompts,turns,floors,promptType);
 
             previousAngle = prevAngle;
             prompts = promptArr;
             turns = turnArr;
+            floors = floorArr;
         }
 
         ///////////////////////////////////////////////////////////////////////////
@@ -65,42 +70,69 @@ export default function TextDirection(nodes: DBNode[]) {
             const {
                 promptArr,
                 turnArr,
+                floorArr,
                 prevAngle
-            } = determinePrompt(nextNode,currNode,previousAngle,prompts,turns,promptType);
+            } = determinePrompt(nextNode,currNode,previousAngle,prompts,turns,floors,promptType);
 
             previousAngle = prevAngle;
             prompts = promptArr;
             turns = turnArr;
-        } else {
+            floors = floorArr;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        else {
             prompts.push('Bang! Unexpected node condition.');
             turns.push('Error');
+            floors.push('Error');
         }
     }
 
     // promptArr.push(`${nodes}`);
-    return {prompts,turns};
+    return {prompts,turns,floors};
 }
 
 //////////////////////////////////////////////////////////
 
 interface TextDirectionProps {
-    prompts: string[]
+    prompts: string[];
     turns: string[];
+    floors: string[];
+    currFloor: number;
 }
 
 export function TextDirectionComponent(props:TextDirectionProps) {
-    const promptArr = props.prompts;
-    //const nodeArr = props.nodes;
+    let promptArr = props.prompts;
+    let turnArr = props.turns;
+    //const floorArr = props.floors;
+    //const currFloor = props.currFloor;
+
+    // convert number to string
+    // const floor:string = currFloor===0 ? 'L2' :
+    //                          currFloor===1 ? 'L1' :
+    //                              currFloor=== 2 ? '1' :
+    //                                  currFloor===3 ? '2' : '3';
+
+    //promptArr = promptArr.filter((_, index) => floorArr[index] === floor);
+    //turnArr = turnArr.filter((_, index) => floorArr[index] === floor);
+    //turnArr = turnArr.filter((turn:string,index) => turn!==turnArr[index+1]);
+
     return (
-        <div className="flex flex-col">
-
-            {promptArr.map((prompt) =>
-                <div className="flex flex-row">
-                    <div>
-
+        <div className="flex flex-col p-3 w-1/2">
+            {promptArr.map((prompt,index) =>
+                <div className="flex flex-row rounded-2 p-3 border border-black drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg">
+                    <div className="px-3">
+                        {turnArr[index]==='SLR' ? '/>' :
+                            turnArr[index]==='R' ? '->' :
+                                turnArr[index]==='SHR' ? '>' :
+                                    turnArr[index]==='SHL' ? '<' :
+                                        turnArr[index]==='L' ? '<-' :
+                                            turnArr[index]==='SLL' ? '<\\' :
+                                                turnArr[index]==='S' ? '^' : '?'}
                     </div>
                     <div
-                        className="border border-black flex rounded-2 drop-shadow-xl z-10 bg-secondary p-3 rounded-lg shadow-md text-foreground">
+                        className="">
                         {prompt}
                     </div>
                 </div>
@@ -114,21 +146,27 @@ export function TextDirectionComponent(props:TextDirectionProps) {
 
 function initTextDirection(nodes:DBNode[]) {
     const distance = Math.round(euclideanDistance(nodes[0],nodes[1]));
-    const prompts= [`Text Directions from ${nodes[0].longName} to ${nodes[nodes.length-1].longName}:`]; // stores prompts
+    const prompts= [`Directions from ${nodes[0].longName} to ${nodes[nodes.length-1].longName}:`]; // stores prompts
 
     // decide how to start the directions
     if(nodes[0].floor===nodes[1].floor && nodes[0].building===nodes[1].building) { // same floor same building
         prompts.push(`Head towards ${nodes[1].longName} for ${distance} units of distance.`);
-    } else if(nodes[0].floor===nodes[1].floor && nodes[0].building!==nodes[1].building) { // same floor different building
+    }
+    else if(nodes[0].floor===nodes[1].floor && nodes[0].building!==nodes[1].building) { // same floor different building
         prompts.push(`Head towards ${nodes[1].longName} in building ${nodes[1].building} for ${distance} units of distance.`);
-    } else if(nodes[0].floor!==nodes[1].floor) { // different floor
+    }
+    else if(nodes[0].floor!==nodes[1].floor) { // different floor
         let medium:string;
         if(nodes[0].nodeType==='ELEV') medium = 'elevator';
         else if(nodes[0].nodeType==='STAI') medium = 'stairs';
         else medium = '';
         prompts.push(`Take the ${medium} to floor ${nodes[1].floor}.`);
-    } else prompts.push('Bang! If you see this there is an error.');
-    const turns = ["S"]; // stores turns at each node
+    }
+    else prompts.push('Bang! If you see this there is an error.');
+
+    const turns = [""]; // stores turns at each node, start assuming user is facing direction of line
+    turns.push('S');
+    const floors = [`${nodes[0].floor}`]; // stores floor of each node
 
     const deltaX = nodes[1].xcoord - nodes[0].xcoord;
     const deltaY = nodes[1].ycoord - nodes[0].ycoord;
@@ -137,10 +175,10 @@ function initTextDirection(nodes:DBNode[]) {
     if(absoluteAngle<0) absoluteAngle += 360;
     const previousAngle = absoluteAngle; // previous absolute angle, start in same dir as path
 
-    return {prompts,turns,previousAngle};
+    return {prompts,turns,floors,previousAngle};
 }
 
-function determinePrompt(nextNode:DBNode,currNode:DBNode,prevAngle:number,promptArr:string[],turnArr:string[],promptType:string) {
+function determinePrompt(nextNode:DBNode,currNode:DBNode,prevAngle:number,promptArr:string[],turnArr:string[],floorArr:string[],promptType:string) {
     let scriptArr:string[] = [''];
     if(promptType==='same building and floor') {
         const distance = Math.round(euclideanDistance(currNode,nextNode));
@@ -177,7 +215,7 @@ function determinePrompt(nextNode:DBNode,currNode:DBNode,prevAngle:number,prompt
     } else scriptArr=['Bang! Should not be possible to see this :/'];
 
     const deltaX = nextNode.xcoord - currNode.xcoord;
-    const deltaY = nextNode.ycoord - currNode.ycoord; // flip y-axis for ease of computation
+    const deltaY = nextNode.ycoord - currNode.ycoord;
     //      promptArr.push(`|||| ${nextNode.ycoord} ${currNode.ycoord}`);
 
     let absoluteAngle = (Math.atan2(deltaY, deltaX) * 180) / Math.PI; // degrees
@@ -223,7 +261,9 @@ function determinePrompt(nextNode:DBNode,currNode:DBNode,prevAngle:number,prompt
 
     prevAngle = absoluteAngle;
 
-    return {promptArr,turnArr,prevAngle};
+    floorArr.push(`${currNode.floor}`);
+
+    return {promptArr,turnArr,floorArr,prevAngle};
 }
 
 // adjusted to take DBNode
