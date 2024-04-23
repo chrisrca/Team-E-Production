@@ -15,24 +15,16 @@ async function getNodesFromDB(): Promise<string> {
 router.post("/nodes", async (req: Request, res: Response) => {
     const nodeReq: DBNode = req.body;
     try {
-        await client.node.update({
+        await client.node.delete({
             where: {
                 nodeID: nodeReq.nodeID,
-            },
-            data: {
-                longName: nodeReq.longName,
-                nodeType: nodeReq.nodeType,
-                shortName: nodeReq.shortName,
-                xcoord: nodeReq.xcoord,
-                ycoord: nodeReq.ycoord,
-                blocked: nodeReq.blocked,
             },
         });
     } catch (e) {
         console.log(e);
-        res.send("Failed to update node to database");
+        res.send("Failed to delete node from the database");
     }
-    res.send("node update sent to database");
+    res.send("Node deleted from the database");
 });
 
 router.get("/nodes", async (req: Request, res: Response) => {
@@ -48,21 +40,16 @@ async function getEdgesFromDB(): Promise<string> {
 router.post("/edges", async (req: Request, res: Response) => {
     const edgeReq: Edge = req.body;
     try {
-        await client.edge.update({
+        await client.edge.delete({
             where: {
                 edgeID: edgeReq.edgeID,
-            },
-            data: {
-                edgeID: edgeReq.edgeID,
-                startNodeID: edgeReq.start,
-                endNodeID: edgeReq.end,
             },
         });
     } catch (e) {
         console.log(e);
-        res.send("Failed to update edge to database");
+        res.send("Failed to delete edge from the database");
     }
-    res.send("edge update sent to database");
+    res.send("Edge deleted from the database");
 });
 
 router.get("/edges", async (req: Request, res: Response) => {

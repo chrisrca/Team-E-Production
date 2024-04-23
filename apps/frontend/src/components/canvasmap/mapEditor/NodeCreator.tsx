@@ -5,73 +5,64 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-interface NodeEditorProps {
-    node: DBNode | null;
-    triggerRefresh: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const defaultNode = {
+    nodeID: "",
+    xcoord: 0,
+    ycoord: 0,
+    floor: "",
+    building: "",
+    nodeType: "",
+    longName: "",
+    shortName: "",
+    edges: [],
+    blocked: false,
+};
 
-async function sendNodeOrder(editedNode: DBNode) {
-    axios.post("/api/mapeditor/nodes", editedNode).then((res) => {
+async function sendNodeCreateOrder(editedNode: DBNode) {
+    axios.post("/api/mapeditorcreate/nodes", editedNode).then((res) => {
         console.log(res);
     });
 }
 
-async function sendNodeDelOrder(editedNode: DBNode) {
-    axios.post("/api/mapeditordel/nodes", editedNode).then((res) => {
-        console.log(res);
-    });
-}
-
-export default function NodeEditor({ node, triggerRefresh }: NodeEditorProps) {
-    const [editedNode, setEditedNode] = useState<DBNode | null>(node);
+export default function NodeCreator() {
+    const [editedNode, setEditedNode] = useState<DBNode>(defaultNode);
 
     // Sync state when the node prop changes
-    useEffect(() => {
-        setEditedNode(node);
-    }, [node]);
+    useEffect(() => {});
 
-    // Function to handle blocking
-    function handleBlock() {
-        console.log("Block node logic here");
-        if (editedNode != null) {
-            setEditedNode({
-                ...editedNode!,
-                blocked: !editedNode.blocked,
-            });
-        }
-    }
     // Function to handle form submission
     function handleSubmit() {
         if (editedNode != null) {
-            sendNodeOrder(editedNode);
+            sendNodeCreateOrder(editedNode);
         }
-        setEditedNode(null);
-        triggerRefresh(true);
+        setEditedNode(defaultNode);
     }
 
     // Function to handle cancel action
     function handleCancel() {
         console.log("Cancel node logic here");
-        setEditedNode(null);
-        triggerRefresh(true);
+        setEditedNode(defaultNode);
     }
-
-    function handleDelete() {
-        console.log("delete logic here");
-        if (editedNode != null) {
-            sendNodeDelOrder(editedNode);
-        }
-        setEditedNode(null);
-    }
-
-    // If no node is provided, return null
-    if (!editedNode) return null;
 
     return (
         <div className="absolute bg-secondary rounded-lg p-5 space-y-2 z-50 top-[10vh] ml-10">
             <h3>Edit Node</h3>
             <div>
-                <Label>Node ID: {editedNode.nodeID}</Label>
+                <Label>
+                    {" "}
+                    Node ID:
+                    <Input
+                        type="text"
+                        name="nodeID"
+                        value={editedNode.nodeID}
+                        onChange={(e) =>
+                            setEditedNode({
+                                ...editedNode,
+                                nodeID: e.target.value,
+                            })
+                        }
+                    />
+                </Label>
             </div>
             <div>
                 <Label>
@@ -84,6 +75,22 @@ export default function NodeEditor({ node, triggerRefresh }: NodeEditorProps) {
                             setEditedNode({
                                 ...editedNode,
                                 longName: e.target.value,
+                            })
+                        }
+                    />
+                </Label>
+            </div>
+            <div>
+                <Label>
+                    Short Name:
+                    <Input
+                        type="text"
+                        name="longName"
+                        value={editedNode.shortName}
+                        onChange={(e) =>
+                            setEditedNode({
+                                ...editedNode,
+                                shortName: e.target.value,
                             })
                         }
                     />
@@ -169,15 +176,10 @@ export default function NodeEditor({ node, triggerRefresh }: NodeEditorProps) {
                     />
                 </Label>
             </div>
+            <Label>Form Defaults to No Edges and Unblocked</Label>
             <div className="space-x-2">
-                <Button variant="destructive" onClick={handleBlock}>
-                    {editedNode.blocked ? "Unblock" : "Block"}
-                </Button>
                 <Button onClick={handleSubmit}>Save</Button>
                 <Button onClick={handleCancel}>Cancel</Button>{" "}
-                <Button variant="destructive" onClick={handleDelete}>
-                    Delete
-                </Button>
             </div>
         </div>
     );

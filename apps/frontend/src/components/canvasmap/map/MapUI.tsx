@@ -111,6 +111,7 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                             <SelectItem value="DFS">
                                 Depth-First Search (DFS)
                             </SelectItem>
+                            <SelectItem value="DIJKSTRA">Dijkstra</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

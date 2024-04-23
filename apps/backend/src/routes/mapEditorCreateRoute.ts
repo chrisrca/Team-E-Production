@@ -13,26 +13,26 @@ async function getNodesFromDB(): Promise<string> {
 }
 
 router.post("/nodes", async (req: Request, res: Response) => {
-    const nodeReq: DBNode = req.body;
+    const nodeData: DBNode = req.body;
     try {
-        await client.node.update({
-            where: {
-                nodeID: nodeReq.nodeID,
-            },
+        await client.node.create({
             data: {
-                longName: nodeReq.longName,
-                nodeType: nodeReq.nodeType,
-                shortName: nodeReq.shortName,
-                xcoord: nodeReq.xcoord,
-                ycoord: nodeReq.ycoord,
-                blocked: nodeReq.blocked,
+                nodeID: nodeData.nodeID,
+                xcoord: nodeData.xcoord,
+                ycoord: nodeData.ycoord,
+                floor: nodeData.floor,
+                building: nodeData.building,
+                nodeType: nodeData.nodeType,
+                longName: nodeData.longName,
+                shortName: nodeData.shortName,
+                edges: "[]",
             },
         });
     } catch (e) {
         console.log(e);
-        res.send("Failed to update node to database");
+        res.send("Failed to create node in the database");
     }
-    res.send("node update sent to database");
+    res.send("Node created in the database");
 });
 
 router.get("/nodes", async (req: Request, res: Response) => {
@@ -41,28 +41,26 @@ router.get("/nodes", async (req: Request, res: Response) => {
 });
 
 async function getEdgesFromDB(): Promise<string> {
-    edge = await client.$queryRaw`SELECT * FROM edge`;
+    node = await client.$queryRaw`SELECT * FROM edge`;
     return edge;
 }
 
 router.post("/edges", async (req: Request, res: Response) => {
-    const edgeReq: Edge = req.body;
+    const edgeData: Edge = req.body;
+    console.log("Attempting to create edge with data:", edgeData); // Log the edgeData object
     try {
-        await client.edge.update({
-            where: {
-                edgeID: edgeReq.edgeID,
-            },
+        await client.edge.create({
             data: {
-                edgeID: edgeReq.edgeID,
-                startNodeID: edgeReq.start,
-                endNodeID: edgeReq.end,
+                edgeID: edgeData.edgeID,
+                startNodeID: edgeData.start,
+                endNodeID: edgeData.end,
             },
         });
     } catch (e) {
         console.log(e);
-        res.send("Failed to update edge to database");
+        res.send("Failed to create edge in the database");
     }
-    res.send("edge update sent to database");
+    res.send("Edge created in the database");
 });
 
 router.get("/edges", async (req: Request, res: Response) => {
