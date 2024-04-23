@@ -27,21 +27,21 @@
 // }
 
 import bgImage from "/src/images/brighamandwomensbuildingimage.jpeg";
-import {MapPinned, CircleUserRound, HandPlatter} from "lucide-react";
+import { MapPinned, CircleUserRound, HandPlatter } from "lucide-react";
 import "../index.css";
 import { Link } from "react-router-dom";
-import {useAuth0} from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "@/components/ui/button.tsx";
 
 export default function WelcomePage() {
-
-    const { loginWithRedirect, isAuthenticated } =
-        useAuth0();
+    const { loginWithRedirect, isAuthenticated } = useAuth0();
     const handleLogin = () => {
-        loginWithRedirect();
+        loginWithRedirect({
+            appState: {returnTo: "/home"}
+        });
     };
 
-    if (isAuthenticated){
+    if (isAuthenticated) {
         return (
             <div
                 className="absolute bg-gradient-to-l from-30% from-kiosk"
@@ -69,23 +69,22 @@ export default function WelcomePage() {
                 <div className="absolute right-0 flex flex-col justify-center items-center pr-14 size-1/4 h-full pt-28 pb-28 space-y-6">
                     <Link
                         to="/map"
-                        className="bg-white text-kiosk p-4 rounded-md size-full flex flex-col items-center justify-center sm:text-20 lg:text-6xl"
+                        className="bg-white text-kiosk p-4 rounded-md size-full flex flex-col items-center justify-center sm:text-20 lg:text-6xl hover:bg-amber-400"
                     >
                         <MapPinned className="lg:size-40 sm:size-20" />
                         <div>Map</div>
                     </Link>
                     <Link
                         to="/services"
-                        className="bg-white text-kiosk p-4 rounded-md size-full flex flex-col items-center justify-center sm:text-20 lg:text-6xl"
+                        className="bg-white text-kiosk p-4 rounded-md size-full flex flex-col items-center justify-center sm:text-20 lg:text-6xl hover:bg-amber-400"
                     >
-                        <HandPlatter className="lg:size-36 sm:size-16" />
+                        <HandPlatter className="lg:size-40 sm:size-20" />
                         <div>Services</div>
                     </Link>
                 </div>
             </div>
         );
-    }
-    else{
+    } else {
         return (
             <div
                 className="absolute bg-gradient-to-l from-30% from-kiosk"
@@ -113,14 +112,14 @@ export default function WelcomePage() {
                 <div className="absolute right-0 flex flex-col justify-center items-center pr-14 size-1/4 h-full pt-28 pb-28 space-y-6">
                     <Link
                         to="/map"
-                        className="bg-white text-kiosk p-4 rounded-md size-full flex flex-col items-center justify-center sm:text-20 lg:text-6xl"
+                        className="bg-white text-kiosk p-4 rounded-md size-full flex flex-col items-center justify-center sm:text-20 lg:text-6xl hover:bg-amber-400"
                     >
                         <MapPinned className="lg:size-40 sm:size-20" />
                         <div>Map</div>
                     </Link>
                     <Button
                         onClick={handleLogin}
-                        className="bg-white text-kiosk p-4 rounded-md size-full flex flex-col items-center justify-center sm:text-20 lg:text-6xl"
+                        className="bg-white text-kiosk p-4 rounded-md size-full flex flex-col items-center justify-center sm:text-20 lg:text-6xl hover:bg-amber-400"
                     >
                         <CircleUserRound className="lg:size-36 sm:size-16" />
                         <div>Login</div>
@@ -129,5 +128,4 @@ export default function WelcomePage() {
             </div>
         );
     }
-
 }

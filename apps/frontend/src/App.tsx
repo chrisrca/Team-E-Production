@@ -64,7 +64,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                 </div>
                 <Routes>
                     <Route path="/" element={<WelcomePage />} />
-                    <Route path="/home" element={<Welcome/>} />
+                    <Route path="/home" element={<Welcome />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
                     <Route
