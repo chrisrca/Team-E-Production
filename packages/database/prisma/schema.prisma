@@ -21,25 +21,25 @@ model node {
   shortName String
   edges     String
   blocked   Boolean @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime? @default(null)
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime? @default(null)
 }
 
 model edge {
   edgeID      String @id
   startNodeID String
   endNodeID   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime? @default(null)
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime? @default(null)
 }
 
 model path {
   uniqueID    Int    @id @default(autoincrement())
   startNodeID String
   endNodeID   String
-  createdAt DateTime @default(now())
-  empId Int @default(1)
-  employee employee @relation(fields: [empId], references: [ID])
+  // createdAt DateTime @default(now())
+  // empId Int @default(1)
+  // employee employee @relation(fields: [empId], references: [ID])
 }
 
 model flower {
@@ -52,10 +52,10 @@ model flower {
   status      String
   priority    String
   date        DateTime @default(now())
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime?
+  // empId Int @default(1)
+  // employee Int @relation(fields: [empId], references: [ID])
 }
 
 model gift {
@@ -67,10 +67,10 @@ model gift {
   status        String
   priority      String
   wrapping      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime?
+  // empId Int @default(1)
+  // employee Int @relation(fields: [empId], references: [ID])
 }
 
 model interpreter {
@@ -82,10 +82,10 @@ model interpreter {
   status         String
   priority       String
   additionalInfo String
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime?
+  // empId Int @default(1)
+  // employee Int @relation(fields: [empId], references: [ID])
 
 }
 
@@ -98,10 +98,10 @@ model security {
   requestType      String
   reqStatus        String
   alertAuthorities Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime?
+  // empId Int @default(1)
+  // employee Int @relation(fields: [empId], references: [ID])
 }
 
 model medicine {
@@ -114,10 +114,10 @@ model medicine {
   status           String
   priority         String
   date             DateTime @default(now())
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime?
+  // empId Int @default(1)
+  // employee Int @relation(fields: [empId], references: [ID])
 }
 
 model sanitation {
@@ -128,10 +128,10 @@ model sanitation {
   status         String
   priority       String
   additionalInfo String
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime?
+  // empId Int @default(1)
+  // employee Int @relation(fields: [empId], references: [ID])
 }
 
 model roomschedule {
@@ -143,10 +143,10 @@ model roomschedule {
   status       String
   startTime    String
   endTime      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime?
+  // empId Int @default(1)
+  // employee Int @relation(fields: [empId], references: [ID])
 }
 
 model medicaldevice {
@@ -157,10 +157,10 @@ model medicaldevice {
   selectedDevice String
   status         String
   withBalloons   Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  empId Int @default(1)
-  employee Int @relation(fields: [empId], references: [ID])
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime?
+  // empId Int @default(1)
+  // employee Int @relation(fields: [empId], references: [ID])
 }
 
 model employee {
@@ -171,5 +171,5 @@ model employee {
   lName     String
   position  String
   admin Boolean @default(false)
-  createdAt DateTime @default(now())
+  // createdAt DateTime @default(now())
 }
