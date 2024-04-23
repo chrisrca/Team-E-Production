@@ -4,37 +4,59 @@ import { DrugDeliveryData } from "common/src/types";
 
 const router = express.Router();
 
-let medicine: string;
-
-async function getMedsFromDB(): Promise<string> {
-    medicine = await client.$queryRaw`SELECT * FROM medicine`;
-    return medicine;
+async function getMedServicesFromDB(): Promise<string> {
+    const services = await client.service.findMany({
+        where: {
+            serviceType: "MEDICINE",
+        },
+        include: {
+            medicine: true,
+        },
+    });
+    return JSON.stringify(services);
 }
 
 router.post("/", async (req: Request, res: Response) => {
-    const medicineRequest: DrugDeliveryData = req.body;
+    const serviceRequest: DrugDeliveryData = req.body;
     try {
-        await client.medicine.create({
+        const createdService = await client.service.create({
             data: {
-                patientName: medicineRequest.patientName,
-                location: medicineRequest.location,
-                patientCondition: medicineRequest.patientCondition,
-                drugName: medicineRequest.drugName,
-                drugQuantity: medicineRequest.drugQuantity,
-                status: medicineRequest.status,
-                priority: medicineRequest.priority,
+                location: serviceRequest.location,
+                status: serviceRequest.status,
+                priority: serviceRequest.priority,
+                employeeName: serviceRequest.employeeName,
+                serviceType: "MEDICINE",
+                medicine: {
+                    create: {
+                        patientName: serviceRequest.patientName,
+                        patientCondition: serviceRequest.patientCondition,
+                        drugName: serviceRequest.drugName,
+                        drugQuantity: serviceRequest.drugQuantity,
+                    },
+                },
+            },
+            include: {
+                medicine: true,
             },
         });
+
+        res.send(
+            `Medicine Service added to database: ${JSON.stringify(createdService)}`,
+        );
     } catch (e) {
-        console.log(e);
-        res.send("Failed to add meds to database");
+        console.error(e);
+        res.status(500).send("Failed to add service to database");
     }
-    res.send("Meds added to database");
 });
 
 router.get("/", async (req: Request, res: Response) => {
-    const msg = await getMedsFromDB();
-    res.send(msg);
+    try {
+        const services = await getMedServicesFromDB();
+        res.send(services);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send("Failed to retrieve services from database");
+    }
 });
 
 export default router;
