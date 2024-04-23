@@ -109,7 +109,7 @@ import {
                             setValueFilter(value);
                         }}
                         >
-                        <SelectTrigger className="flex w-40 hover:bg-secondary hover:ring-0 focus:ring-0 hover:bg-accent hover:text-background text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                        <SelectTrigger className="flex min-w-32 max-w-40 hover:bg-secondary hover:ring-0 focus:ring-0 hover:bg-accent hover:text-background text-sm text-bold font-medium text-gray-700 dark:text-foreground">
                             <SelectValue placeholder={"Select Filter"} />
                         </SelectTrigger>
                         <SelectContent>
@@ -135,7 +135,7 @@ import {
             onChange={(event) =>
               table.getColumn(valueFilter)?.setFilterValue(event.target.value)
             }
-            className="max-w-sm"
+            className="w-full hover:ring-0 focus:ring-0"
           >
             </Input>
           <DropdownMenu>
