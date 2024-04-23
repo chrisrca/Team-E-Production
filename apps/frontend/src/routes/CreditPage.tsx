@@ -10,6 +10,7 @@ import TaigaLogo from "/src/images/taiga-logo.png";
 import DrawioLogo from "/src/images/drawio-logo.png";
 import LucideLogo from "/src/images/lucide-logo.png";
 import RadixLogo from "/src/images/radix-logo.png";
+import ShadCNLogo from "/src/images/shadcn.jpg";
 import Background from "/src/images/background.png";
 
 import {
@@ -69,6 +70,11 @@ const CreditPage: React.FC = () => {
             name: "Radix-UI",
             logo: RadixLogo,
             link: "https://www.radix-ui.com/",
+        },
+        {
+            name: "ShadCN",
+            logo: ShadCNLogo,
+            link: "https://ui.shadcn.com"
         },
     ];
 
