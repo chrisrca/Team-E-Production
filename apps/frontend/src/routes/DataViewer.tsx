@@ -41,7 +41,6 @@ type DataViewerProps =
 function DataViewer() {
     const [nodeData, setNodeData] = useState<DBNode[]>([]);
     const [edgeData, setEdgeData] = useState<Edge[]>([]);
-    const [currData, setCurrData] = useState<DataViewerProps>(nodeData);
     const [flowerData, setFlowerData] = useState<FlowerServiceRequest[]>([]);
     const [giftData, setGiftData] = useState<GiftServiceRequest[]>([]);
     const [interpreterData, setInterpreterData] = useState<
@@ -60,6 +59,7 @@ function DataViewer() {
     >([]);
 
     const [uploadData, setUploadData] = useState<File | null | undefined>();
+    const [currData, setCurrData] = useState<DataViewerProps>(nodeData);
 
     const uploadCSV = async (file: File | null | undefined) => {
         if (file === null || file === undefined) {
@@ -257,15 +257,13 @@ function DataViewer() {
         fetchMedicalDeviceData().then();
     }, []);
 
-    
-
     return (
         <div className="p-10 flex flex-auto flex-col items-center align-center">
             <div className="flex flex-row items-center">
                 <div>
                     <Select onValueChange={(value) => setCurrData(value)}>
                         <SelectTrigger className="flex w-60 bg-secondary hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground">
-                            <SelectValue placeholder={"Select A Data Type"}/>
+                            <SelectValue placeholder={"Select a Data Type"} />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
@@ -376,7 +374,7 @@ function DataViewer() {
                     </div>
                 </div>
             </div>
-            {<ViewNodes data={currData}  />}
+            {<ViewNodes data={currData} />}
         </div>
     );
 }

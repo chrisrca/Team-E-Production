@@ -11,6 +11,7 @@ import {
     MedicalDeviceServiceRequest,
 } from "common/src/types";
 import React from "react";
+import {useState } from "react";
 import { Input } from "@/components/ui/input";
 import { ViewNodes } from "@/components";
 import { Button } from "@/components/ui/button";
@@ -94,7 +95,9 @@ import {
       },
     });
 
-	const valueFilter = Object.keys(data[0])[0];
+	const [pageCount, setPageCount] = useState(1);
+	//const [pageMax, setPageMax] = useState(1);
+	const [valueFilter, setValueFilter] = useState(Object.keys(data[0])[0]);
 	console.log(getCoreRowModel);
    
     return (
@@ -102,9 +105,9 @@ import {
         <div className="flex items-center py-4">
 
         <Select
-                        onValueChange={(value) =>
-                            (console.log(value))
-                        }
+                        onValueChange={(value) => {
+                            setValueFilter(value);
+                        }}
                         >
                         <SelectTrigger className="flex w-40 hover:bg-secondary hover:ring-0 focus:ring-0 hover:bg-accent hover:text-background text-sm text-bold font-medium text-gray-700 dark:text-foreground">
                             <SelectValue placeholder={"Select Filter"} />
@@ -214,23 +217,33 @@ import {
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="flex-1 text-sm text-muted-foreground">
-		  	{} of
-            {Math.round(table.getFilteredRowModel().rows.length / 10 + .5)} pages.
+			{"Page "}{pageCount}{" of "}
+            {Math.round(table.getFilteredRowModel().rows.length / 10 + .4)} Pages.
           </div>
           <div className="space-x-2">
             <Button
               variant="outline"
               size="sm"
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
+              onClick={() => {
+				table.previousPage();
+				if(pageCount > 1){
+					setPageCount(pageCount - 1);
+				}
+			}}
+              
             >
               Previous
             </Button>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
+              onClick={() => {
+				table.nextPage();
+				if(pageCount < 58){
+					setPageCount(pageCount + 1);
+				}
+			}}
+              
             >
               Next
             </Button>
@@ -310,64 +323,8 @@ export default function ViewNodes(inputData: {
         //const isDBNodeData = data.length > 0 && "edges" in data[0];
 
         return (
-            <div className="relative py-10 overflow-x-auto flex flex-col items-center justify-center">
-                {/* <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            {Object.keys(data[0]).map((value, index) =>
-                                isDBNodeData && value === "edges" ? null : (
-                                    <th
-                                        key={index}
-                                        scope="col"
-                                        className="px-6 py-3"
-                                    >
-                                        {value}
-                                    </th>
-                                ),
-                            )}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((currentValue, index) => (
-                            <tr
-                                key={index}
-                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                            >
-                                {Object.entries(currentValue).map(
-                                    ([key, value], index) =>
-                                        isDBNodeData &&
-                                        key === "edges" ? null : isDBNodeData &&
-                                          key === "blocked" &&
-                                          value === false ? (
-                                            <td
-                                                key={index}
-                                                className="px-6 py-4 text-green-500"
-                                            >
-                                                Unblocked
-                                            </td>
-                                        ) : isDBNodeData &&
-                                          key === "blocked" &&
-                                          value === true ? (
-                                            <td
-                                                key={index}
-                                                className="px-6 py-4 text-red-500"
-                                            >
-                                                Blocked
-                                            </td>
-                                        ) : (
-                                            <td
-                                                key={index}
-                                                className="px-6 py-4"
-                                            >
-                                                {value}
-                                            </td>
-                                        ),
-                                )}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table> */}
-                <div>
+            <div className="relative py-10 mx-2 overflow-x-auto flex flex-col items-center justify-center">
+                <div className="mx-auto">
                 {DataTableDemo(data, columns)}
                 </div>
             </div>
