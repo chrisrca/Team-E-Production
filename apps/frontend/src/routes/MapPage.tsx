@@ -46,14 +46,21 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 algorithm={[algorithm, setAlgorithm]}
             />
             <LevelButtons levelProps={[level, setLevel]} />
-            <CanvasMap
-                level={level}
-                path={pathNodes}
-                nodes={nodes}
-                setLevel={setLevel}
-                start={setStart}
-                end={setEnd}
-            />
+            <div
+                style={{
+                    height: "100vh",
+                    overflow: "hidden",
+                }}
+            >
+                <CanvasMap
+                    level={level}
+                    path={pathNodes}
+                    nodes={nodes}
+                    setLevel={setLevel}
+                    start={setStart}
+                    end={setEnd}
+                />
+            </div>
         </div>
     );
 }

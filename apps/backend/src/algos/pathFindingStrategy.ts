@@ -2,6 +2,7 @@ import { processGraphData, Node, Edge } from "./graphData.ts";
 import bfs from "./pathAlgos/BFS.ts";
 import dfs from "./pathAlgos/DFS.ts";
 import astar from "./pathAlgos/ASTAR.ts";
+import dijkstra from "./pathAlgos/DIJKSTRA.ts";
 
 export class PathFinder {
     private strategy: PathFindingStrategy;
@@ -44,6 +45,16 @@ export class DFS implements PathFindingStrategy {
         const nodes = await getStartEnd(start, end);
         if (nodes[0] && nodes[1]) {
             return dfs(nodes[0], nodes[1]);
+        }
+        return null;
+    }
+}
+
+export class DIJKSTRA implements PathFindingStrategy {
+    async findPath(start: string, end: string): Promise<Node[] | null> {
+        const nodes = await getStartEnd(start, end);
+        if (nodes[0] && nodes[1]) {
+            return dijkstra(nodes[0], nodes[1]);
         }
         return null;
     }

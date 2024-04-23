@@ -21,6 +21,7 @@ import editorRoute from "./routes/editorRoute.ts";
 import mapEditorRoute from "./routes/mapEditorRoute.ts";
 import mapEditorDelRoute from "./routes/mapEditorDelRoute.ts";
 import mapEditorCreateRoute from "./routes/mapEditorCreateRoute.ts";
+import employeeRoute from "./routes/employeeRoute.ts";
 //import { auth } from "express-oauth2-jwt-bearer";
 
 const app: Express = express(); // Setup the backend
@@ -74,6 +75,7 @@ app.use("/api/medicine", medicineUploadRoute);
 app.use("/api/mapeditor", mapEditorRoute);
 app.use("/api/mapeditordel", mapEditorDelRoute);
 app.use("/api/mapeditorcreate", mapEditorCreateRoute);
+app.use("/api/employee", employeeRoute);
 
 /**
  * Catch all 404 errors, and forward them to the error handler
