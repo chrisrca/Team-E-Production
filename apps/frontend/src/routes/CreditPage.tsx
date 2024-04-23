@@ -74,7 +74,7 @@ const CreditPage: React.FC = () => {
         {
             name: "ShadCN",
             logo: ShadCNLogo,
-            link: "https://ui.shadcn.com"
+            link: "https://ui.shadcn.com",
         },
     ];
 
@@ -93,7 +93,7 @@ const CreditPage: React.FC = () => {
                 </p>
                 <div style={styles.cardContainer}>
                     {softwareList.map((software, index) => (
-                        <Card key={index} style={styles.card}>
+                        <Card key={index} style={styles.card} className="hover:scale-103 ease hover:animate-pulse hover:shadow-accent">
                             <CardHeader>
                                 <img
                                     src={software.logo}
