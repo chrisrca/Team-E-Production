@@ -35,9 +35,9 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 }
 
                 setPathNodes(res.data);
-                const { promptArr, turnArr } = TextDirection(res.data);
-                setPrompt(promptArr);
-                setTurn(turnArr);
+                const { prompts, turns } = TextDirection(res.data);
+                setPrompt(prompts);
+                setTurn(turns);
             } catch (error) {
                 setPathNodes([]);
                 console.error("Error fetching data:", error);
