@@ -176,7 +176,7 @@ model medicaldevice {
 
 model employee {
   ID     Int      @id @default(autoincrement())
-  name  String
+  name  String @unique
   nickname String
   phone_number String?
 }

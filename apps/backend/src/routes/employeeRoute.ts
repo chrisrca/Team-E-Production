@@ -4,30 +4,74 @@ import { EmployeeType } from "common/src/types";
 
 const router = express.Router();
 
+// Function to get an employee by name
+async function getEmployeeByName(name: string): Promise<EmployeeType | null> {
+    return client.employee.findFirst({
+        where: { name },
+    });
+}
+
+// Function to add or update an employee based on the presence of an employee record
+async function addOrUpdateEmployee(
+    employeeData: EmployeeType,
+): Promise<string> {
+    const existingEmployee = await getEmployeeByName(employeeData.name);
+    if (existingEmployee) {
+        // Update the existing employee's phone number if it's not set
+        if (employeeData.phone_number && !existingEmployee.phone_number) {
+            await client.employee.update({
+                where: { name: existingEmployee.name },
+                data: { phone_number: employeeData.phone_number },
+            });
+            return "Phone number updated in database";
+        }
+        return "Employee already exists and has a phone number";
+    } else {
+        // Create a new employee if not found
+        await client.employee.create({
+            data: employeeData,
+        });
+        return "Employee added to database";
+    }
+}
+
+// Route to add or update an employee
 router.post("/", async (req: Request, res: Response) => {
+    console.log("Received data:", req.body);
     const employeeReq: EmployeeType = req.body;
     try {
-        await client.employee.create({
-            data: {
-                name: employeeReq.name,
-                nickname: employeeReq.nickname,
-                phone_number: employeeReq.phone_number,
-            },
-        });
-        res.send("Employee added to database"); // Send success message here inside try block
+        const message = await addOrUpdateEmployee(employeeReq);
+        res.send(message);
     } catch (e) {
-        console.error(e); // Log the error to console
-        res.status(500).send("Failed to add employee to database"); // Send failure message with status code
+        console.error(e);
+        res.status(500).send("Failed to add or update employee in database");
     }
 });
 
+// Route to get all employees
 router.get("/", async (req: Request, res: Response) => {
     try {
-        const employee = await client.$queryRaw`SELECT * FROM employee`;
-        res.send(employee); // Directly send the fetched employee
+        const employees = await client.employee.findMany();
+        res.json(employees);
     } catch (e) {
-        console.error(e); // Log the error to console
+        console.error(e);
         res.status(500).send("Failed to retrieve employees");
+    }
+});
+
+// Route to get a specific employee by name
+router.get("/:name", async (req: Request, res: Response) => {
+    const name = req.params.name;
+    try {
+        const employee = await getEmployeeByName(name);
+        if (employee) {
+            res.json(employee);
+        } else {
+            res.status(404).send("Employee not found");
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
     }
 });
 
