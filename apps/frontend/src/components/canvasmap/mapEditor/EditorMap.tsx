@@ -13,6 +13,9 @@ import Level3 from "../mapImages/03_thethirdfloor.png";
 import drawGraph from "@/components/canvasmap/mapEditor/RenderGraph.tsx";
 import NodeEditor from "./NodeEditor";
 import NodeCreator from "./NodeCreator.tsx";
+import EdgeCreator from "./EdgeCreator.tsx";
+import { Button } from "@/components/ui/button.tsx";
+import EdgeEditor from "@/components/canvasmap/mapEditor/EdgeEditor.tsx";
 
 // Array of map images for each level
 const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
@@ -30,6 +33,10 @@ export default function EditorMap(props: CanvasMapProps) {
 
     // State for selected node
     const [selectedNode, setSelectedNode] = useState<DBNode | null>(null);
+
+    // State to track selected start and end nodes
+    const [startNode, setStartNode] = useState<DBNode | null>(null);
+    const [endNode, setEndNode] = useState<DBNode | null>(null);
 
     // Existing states and refs
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -203,30 +210,204 @@ export default function EditorMap(props: CanvasMapProps) {
         }
     }, [nodes, hoverNode, mousePosition, nullNode, level, nodeInfoPosition]);
 
+    // Action buttons for set as start and set as end
+    const setAsStart = () => {
+        if (selectedNode) {
+            if (selectedNode === endNode) {
+                // If selected node is the same as end node, reset end node
+                setEndNode(null);
+            }
+            setStartNode(selectedNode);
+            setCloseEditor(false);
+        }
+    };
+
+    const setAsEnd = () => {
+        if (selectedNode) {
+            if (selectedNode === startNode) {
+                // If selected node is the same as end node, reset start node
+                setStartNode(null);
+            }
+            setEndNode(selectedNode);
+            setCloseEditor(false);
+        }
+    };
+
+    // Function to set the start node
+    const handleSetStartNode = () => {
+        setAsStart();
+        setCloseEditor(false);
+    };
+
+    // Function to set the end node
+    const handleSetEndNode = () => {
+        setAsEnd();
+        setCloseEditor(false);
+    };
+
+    function setColor(node: DBNode) {
+        switch (node.nodeType) {
+            case "HALL":
+                return "#0a2ce1";
+            case "CONF":
+                return "#25982a";
+            case "DEPT":
+                return "#e04545";
+            case "ELEV":
+                return "#da8f08";
+            case "EXIT":
+                return "#ddde1f";
+            case "INFO":
+                return "#1fe18a";
+            case "LABS":
+                return "#9608da";
+            case "REST":
+                return "#5cdbda";
+            case "BATH":
+                return "#ce24d4";
+            case "RETL":
+                return "#0b6009";
+            case "STAI":
+                return "#82a7f6";
+            case "SERV":
+                return "#67c537";
+        }
+    }
+
+    // Interface for a simplified node containing only the nodeID
+    interface NodeIDOnly {
+        nodeID: string;
+    }
+
+    // Function to extract the nodeID from a DBNode
+    const extractNodeID = (node: DBNode): NodeIDOnly => {
+        return { nodeID: node.nodeID };
+    };
+
+    // Function to check if an edge exists between start and end nodes
+    const edgeExists = (
+        startNode: DBNode | null,
+        endNode: DBNode | null,
+    ): boolean => {
+        if (!startNode || !endNode) return false;
+
+        // Check if there is an edge between start and end nodes
+        for (const edge of path) {
+            if (
+                (edge[0].nodeID === startNode.nodeID &&
+                    edge[1].nodeID === endNode.nodeID) ||
+                (edge[0].nodeID === endNode.nodeID &&
+                    edge[1].nodeID === startNode.nodeID)
+            ) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    // Function to find the edgeID based on the start and end nodes
+    const findEdgeID = (
+        startNode: NodeIDOnly,
+        endNode: NodeIDOnly,
+    ): string | null => {
+        const startID = startNode.nodeID.toString();
+        const endID = endNode.nodeID.toString();
+
+        // Check if an edge exists between start and end nodes
+        if (!edgeExists(startNode as DBNode, endNode as DBNode)) {
+            console.log("Edge does not exist");
+            return null;
+        }
+
+        // Iterate through the path to find the edge
+        for (const edge of path) {
+            if (
+                (edge[0].nodeID === startID && edge[1].nodeID === endID) ||
+                (edge[0].nodeID === endID && edge[1].nodeID === startID)
+            ) {
+                const edgeID = `${edge[0].nodeID}_${edge[1].nodeID}`;
+                console.log("Edge ID found:", edgeID);
+                return edgeID;
+            }
+        }
+
+        console.log("Edge ID not found");
+        return null;
+    };
+
+    // Extract nodeID for startNode and endNode if they are not null
+    const startNodeID = startNode ? extractNodeID(startNode) : null;
+    const endNodeID = endNode ? extractNodeID(endNode) : null;
+
+    // Pass extracted nodeIDs to findEdgeID function
+    const edgeID =
+        startNodeID && endNodeID ? findEdgeID(startNodeID, endNodeID) : null;
+
+    // State to control the visibility of the EdgeEditor and EdgeCreator
+    const [closeEditor, setCloseEditor] = useState(false);
+
+    // Effect to handle closing the EdgeEditor
+    useEffect(() => {
+        if (closeEditor) {
+            setStartNode(null);
+            setEndNode(null);
+        }
+    }, [closeEditor]);
+
     return (
         <>
-            {hoverNode.longName && (
+            {selectedNode && (
                 <div
-                    className={
-                        "ml-4 justify-items-center bg-background  absolute z-10 text-md rounded-md px-2 py-1 flex flex-col rounded-2 float-left top-0"
-                    }
+                    className="absolute z-10 rounded-md bg-background shadow-lg flex-col rounded-2 float-left top-[30px] right-[100px] "
                     style={{
-                        top: `${nodeInfoPosition.y}px`,
-                        left: `${nodeInfoPosition.x}px`,
-                        whiteSpace: "nowrap", // Prevent text from wrapping
-                        minWidth: "fit-content", // Allow the div to expand only as much as needed
-                        maxWidth: "calc(100% - 20px)", // Limit the maximum width to ensure it doesn't exceed the viewport
+                        top: `20px`,
+                        right: `20px`,
+                        zIndex: `9999px`,
+                        whiteSpace: "nowrap",
+                        minWidth: "fit-content",
+                        maxWidth: "calc(100% - 20px)",
                     }}
                 >
-                    {hoverNode.longName}
+                    {/* Top color bar */}
+                    <div
+                        className="text-foreground text-white text-lg font-bold rounded-t-md px-4 py-2"
+                        style={{ backgroundColor: setColor(selectedNode) }}
+                    >
+                        {selectedNode.longName}
+                    </div>
+
+                    {/* Node details */}
+                    <div className="p-5 text-sm text-foreground">
+                        <p>Building: {selectedNode.building}</p>
+                        <p>Floor: {selectedNode.floor}</p>
+                        <p>ID: {selectedNode.nodeID}</p>
+                        <p>Type: {selectedNode.nodeType}</p>
+                        <p>
+                            Coordinates: ({selectedNode.xcoord},{" "}
+                            {selectedNode.ycoord})
+                        </p>
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="flex justify-evenly p-5 space-x-2">
+                        <Button
+                            className="space-x-2"
+                            onClick={handleSetStartNode}
+                        >
+                            Set as Start
+                        </Button>
+                        <Button
+                            onClick={handleSetEndNode}
+                        >
+                            Set as End
+                        </Button>
+                        <Button className="w-full" variant="destructive" onClick={setCloseEditor}>
+                            Cancel
+                        </Button>
+                    </div>
                 </div>
             )}
 
-            {/* Node Editor */}
-            {selectedNode === null && <NodeCreator />}
-            {selectedNode && <NodeEditor node={selectedNode} />}
-
-            {/* Render map and canvas */}
             <TransformWrapper
                 initialScale={1.5}
                 centerOnInit={true}
@@ -243,7 +424,8 @@ export default function EditorMap(props: CanvasMapProps) {
                         height={3400}
                         width={5000}
                         style={{
-                            width: "78%",
+                            width: "88%",
+                            height: "100%",
                         }}
                         id="layer1"
                         onMouseMove={handleMouseMoveCanvas}
@@ -251,6 +433,33 @@ export default function EditorMap(props: CanvasMapProps) {
                     />
                 </TransformComponent>
             </TransformWrapper>
+
+            {/* Node and Edge Editor */}
+            {selectedNode === null && !startNode && !endNode && <NodeCreator />}
+            {selectedNode && !startNode && !endNode && <NodeEditor node={selectedNode} />}
+            {selectedNode &&
+                !closeEditor && !edgeExists(startNode, endNode) &&
+                startNode &&
+                endNode && (
+                    <EdgeCreator
+                        edgeID = {""}
+                        startNodeID={startNode?.nodeID}
+                        endNodeID={endNode?.nodeID}
+                        handleClose={() => setCloseEditor(true)}
+                    />
+                )}
+            {!closeEditor && startNode && endNode && edgeExists(startNode, endNode) && (
+                <>
+                    {console.log("Start Node:", startNode)}
+                    {console.log("End Node:", endNode)}
+                    <EdgeEditor
+                        startNode={startNode}
+                        endNode={endNode}
+                        edgeID={edgeID}
+                        handleClose={() => setCloseEditor(true)}
+                    />
+                </>
+            )}
         </>
     );
 }

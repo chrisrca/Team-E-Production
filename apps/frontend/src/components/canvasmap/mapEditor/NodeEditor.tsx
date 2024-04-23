@@ -10,13 +10,13 @@ interface NodeEditorProps {
 }
 
 async function sendNodeOrder(editedNode: DBNode) {
-    axios.post("/api/mapeditor", editedNode).then((res) => {
+    axios.post("/api/mapeditor/nodes", editedNode).then((res) => {
         console.log(res);
     });
 }
 
 async function sendNodeDelOrder(editedNode: DBNode) {
-    axios.post("/api/mapeditordel", editedNode).then((res) => {
+    axios.post("/api/mapeditordel/nodes", editedNode).then((res) => {
         console.log(res);
     });
 }
