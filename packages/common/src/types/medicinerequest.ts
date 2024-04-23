@@ -2,6 +2,7 @@ export interface DrugDeliveryData {
     location: string;
     status: string;
     priority: string;
+    employeeName: string;
     date: string;
     patientName: string;
     patientCondition: string;

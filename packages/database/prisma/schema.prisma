@@ -47,8 +47,6 @@ model employee {
   name String
   nickname String
   phone_number String? @unique
-  displayName String
-  admin Boolean @default(false)
   //createdAt DateTime @default(now())
 }
 
@@ -68,6 +66,7 @@ model service {
   location String
   status String
   priority String
+  employeeName String
   // track when it was created or changed
   createdAt DateTime @default(now())
   updatedAt DateTime?
