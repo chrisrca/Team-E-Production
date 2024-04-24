@@ -21,9 +21,10 @@ export default function AboutUs() {
         {
             name: "Yan Acevedo",
             role: "Project Manager",
-            major: "",
-            class: "202X",
+            major: "Robotics Engineering",
+            class: "2025",
             image: yan,
+            audio: funny,
         },
         {
             name: "Kai Davidson",
@@ -31,13 +32,15 @@ export default function AboutUs() {
             major: "",
             class: "202X",
             image: kai,
+            audio: funny,
         },
         {
             name: "Aksel Jensen",
             role: "Assistant Lead Developer",
-            major: "",
-            class: "202X",
+            major: "Computer Science / Bioinformatics and Computational Biology",
+            class: "2026",
             image: aksel,
+            audio: funny,
         },
         {
             name: "Tri Vien Le",
@@ -45,6 +48,7 @@ export default function AboutUs() {
             major: "",
             class: "202X",
             image: tri,
+            audio: funny,
         },
         {
             name: "Lorenzo Manfredi Segato",
@@ -52,13 +56,15 @@ export default function AboutUs() {
             major: "",
             class: "202X",
             image: lorenzo,
+            audio: funny,
         },
         {
             name: "Devin Mihaichuk",
             role: "Algorithms",
-            major: "",
-            class: "202X",
+            major: "Computer Science",
+            class: "2026",
             image: devin,
+            audio: funny,
         },
         {
             name: "Brendan Reilly",
@@ -66,6 +72,7 @@ export default function AboutUs() {
             major: "",
             class: "202X",
             image: brendan,
+            audio: funny,
         },
         {
             name: "Christian Reynolds",
@@ -73,6 +80,7 @@ export default function AboutUs() {
             major: "",
             class: "202X",
             image: christian,
+            audio: funny,
         },
         {
             name: "Marc Wehbe",
@@ -80,6 +88,7 @@ export default function AboutUs() {
             major: "",
             class: "202X",
             image: marc,
+            audio: funny,
         },
         {
             name: "Colin Williams",
@@ -87,13 +96,15 @@ export default function AboutUs() {
             major: "",
             class: "202X",
             image: colin,
+            audio: funny,
         },
         {
-            name: "Brandan Yeu",
+            name: "Brandon Yeu",
             role: "Product Owner",
-            major: "",
-            class: "202X",
+            major: "Computer Science / Data Science",
+            class: "2026",
             image: brandon,
+            audio: funny,
         },
         {
             name: "Tao Zou",
@@ -101,6 +112,7 @@ export default function AboutUs() {
             major: "",
             class: "202X",
             image: tao,
+            audio: funny,
         },
     ];
 
@@ -123,7 +135,7 @@ export default function AboutUs() {
                             <CardDescription>Class of {member.class}</CardDescription>
                             <br/>
                             <audio controls>
-                                <source src={funny} type="audio/mp3"/>
+                                <source src={member.audio} type="audio/mp3"/>
                             </audio>
                         </div>
                     </PortraitCard>
