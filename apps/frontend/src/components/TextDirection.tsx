@@ -7,7 +7,9 @@ import { MoveUpRight } from 'lucide-react';
 import { MoveUp } from 'lucide-react';
 import { Goal } from 'lucide-react';
 import { Map } from 'lucide-react';
+import { ArrowUpDown } from 'lucide-react';
 import { DBNode } from "common/src/types";
+import React from 'react';
 
 export default function TextDirection(nodes: DBNode[]) {
     let { prompts, turns, floors, previousAngle } = initTextDirection(nodes);
@@ -23,6 +25,7 @@ export default function TextDirection(nodes: DBNode[]) {
                 `You have reached your destination, ${currNode.longName}.`,
             );
             turns.push('end');
+            floors.push(`${currNode.floor}`);
             break;
         }
 
@@ -96,6 +99,7 @@ export default function TextDirection(nodes: DBNode[]) {
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////
+
         else {
             prompts.push("Bang! Unexpected node condition.");
             turns.push("Error");
@@ -116,55 +120,54 @@ interface TextDirectionProps {
     currFloor: number;
 }
 
+// this is what actually displays to screen
 export function TextDirectionComponent(props: TextDirectionProps) {
-    const promptArr = props.prompts;
-    const turnArr = props.turns;
-    //const floorArr = props.floors;
-    //const currFloor = props.currFloor;
+    const prompts = props.prompts;
+    const turns = props.turns;
+    const floors = props.floors;
+    const currFloor = props.currFloor;
 
-    // convert number to string
-    // const floor:string = currFloor===0 ? 'L2' :
-    //                          currFloor===1 ? 'L1' :
-    //                              currFloor=== 2 ? '1' :
-    //                                  currFloor===3 ? '2' : '3';
+    // Define a mapping object
+    const componentMapping: { [key: string]: React.ComponentType} = {
+        "SLR": MoveUpRight,
+        "R": CornerUpRight,
+        "SHR": MoveDownRight,
+        "SHL": MoveDownLeft,
+        "L": CornerUpLeft,
+        "SLL": MoveUpLeft,
+        "S": MoveUp,
+        "start": Map,
+        "end": Goal,
+        "arise": ArrowUpDown
+    };
 
-    //promptArr = promptArr.filter((_, index) => floorArr[index] === floor);
-    //turnArr = turnArr.filter((_, index) => floorArr[index] === floor);
-    //turnArr = turnArr.filter((turn:string,index) => turn!==turnArr[index+1]);
+    const floor = currFloor === 0 ? 'L2' :
+        currFloor === 1 ? 'L1' :
+            currFloor === 2 ? '1' :
+                currFloor === 3 ? '2' : '3';
+
+    const filteredPrompts = prompts.filter((_, index) => floors[index] === floor);
+    const filteredTurns = turns.filter((_, index) => floors[index] === floor);
 
     return (
-        <div className="flex flex-col p-3">
-            {promptArr.map((prompt, index) => (
-                <div className="flex flex-row p-2 border border-black drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg">
-                    <div className="border border-black rounded-lg p-1"> {/*forgive my sins*/}
-                        {turnArr[index] === "SLR"
-                            ? <MoveUpRight/>
-                            : turnArr[index] === "R"
-                              ? <CornerUpRight/>
-                              : turnArr[index] === "SHR"
-                                    ? <MoveDownRight/>
-                                    : turnArr[index] === "SHL"
-                                        ? <MoveDownLeft/>
-                                        : turnArr[index] === "L"
-                                            ? <CornerUpLeft/>
-                                            : turnArr[index] === "SLL"
-                                                ? <MoveUpLeft/>
-                                                : turnArr[index] === "S"
-                                                    ? <MoveUp/>
-                                                    : turnArr[index] === "start"
-                                                        ?  <Map/>
-                                                        : turnArr[index] === "end"
-                                                            ? <Goal/> : "?"}
+        <div className="p-3 inline-block">
+            {filteredPrompts?.map((prompt, index) => (
+                <div key={index}
+                     className="flex-row p-2 border drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg flex items-center">
+                    <div className="border-black rounded-lg p-1">
+                        {componentMapping[filteredTurns[index]] ? React.createElement(componentMapping[filteredTurns[index]]) : `?`}
                     </div>
                     <div className="px-3">{prompt}</div>
                 </div>
             ))}
         </div>
+
     );
 }
 
 //////////////////REFACTORED FOR CODE REUSE////////////////////////////////////
 
+// first directions, establishes orientation
 function initTextDirection(nodes: DBNode[]) {
     const distance = Math.round(euclideanDistance(nodes[0], nodes[1]));
     const prompts = [
@@ -172,24 +175,11 @@ function initTextDirection(nodes: DBNode[]) {
     ]; // stores prompts
 
     // decide how to start the directions
-    if (
-        nodes[0].floor === nodes[1].floor &&
-        nodes[0].building === nodes[1].building
-    ) {
-        // same floor same building
-        prompts.push(
-            `Head towards ${nodes[1].longName} for ${distance} units of distance.`,
-        );
-    } else if (
-        nodes[0].floor === nodes[1].floor &&
-        nodes[0].building !== nodes[1].building
-    ) {
-        // same floor different building
-        prompts.push(
-            `Head towards ${nodes[1].longName} in building ${nodes[1].building} for ${distance} units of distance.`,
-        );
-    } else if (nodes[0].floor !== nodes[1].floor) {
-        // different floor
+    if (nodes[0].floor === nodes[1].floor && nodes[0].building === nodes[1].building) {        // same floor same building
+        prompts.push(`Head towards ${nodes[1].longName} for ${distance} units of distance.`);
+    } else if (nodes[0].floor === nodes[1].floor && nodes[0].building !== nodes[1].building) { // same floor different building
+        prompts.push(`Head towards ${nodes[1].longName} in building ${nodes[1].building} for ${distance} units of distance.`);
+    } else if (nodes[0].floor !== nodes[1].floor) {                                            // different floor
         let medium: string;
         if (nodes[0].nodeType === "ELEV") medium = "elevator";
         else if (nodes[0].nodeType === "STAI") medium = "stairs";
@@ -199,7 +189,7 @@ function initTextDirection(nodes: DBNode[]) {
 
     const turns = ["start"]; // stores turns at each node, start assuming user is facing direction of line
     turns.push("S");
-    const floors = [`${nodes[0].floor}`]; // stores floor of each node
+    const floors = [`${nodes[0].floor}`,`${nodes[0].floor}`]; // stores floor of each node
 
     const deltaX = nodes[1].xcoord - nodes[0].xcoord;
     const deltaY = nodes[1].ycoord - nodes[0].ycoord;
@@ -211,6 +201,7 @@ function initTextDirection(nodes: DBNode[]) {
     return { prompts, turns, floors, previousAngle };
 }
 
+// determines the next prompt to store in array based on the inputs provided
 function determinePrompt(
     nextNode: DBNode,
     currNode: DBNode,
@@ -220,8 +211,9 @@ function determinePrompt(
     floorArr: string[],
     promptType: string,
 ) {
-    let scriptArr: string[] = [""];
-    if (promptType === "same building and floor") {
+    let scriptArr: string[] = [""]; // set of listed possible prompts
+    let turnScriptArr: string[] = ['']; // set of listed possible turns
+    if (promptType === "same building and floor") { // same building and floor between this node and the next
         const distance = Math.round(euclideanDistance(currNode, nextNode));
         scriptArr = [
             `Take a slight right and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
@@ -232,7 +224,8 @@ function determinePrompt(
             `Take a slight left and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
             `Head straight for ${distance} units of distance until you reach ${nextNode.shortName}.`,
         ];
-    } else if (promptType === "diff building same floor") {
+        turnScriptArr = ['SLR','R','SHR','SHL','L','SLL','S'];
+    } else if (promptType === "diff building same floor") { // different building but same floor between this node and the next
         const distance = Math.round(euclideanDistance(currNode, nextNode));
         scriptArr = [
             `Take a slight right into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
@@ -243,34 +236,32 @@ function determinePrompt(
             `Take a slight left into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
             `Head straight into building ${nextNode.building} for ${distance} units of distance until you reach ${nextNode.shortName}.`,
         ];
-    } else if (promptType === "diff floor") {
+        turnScriptArr = ['SLR','R','SHR','SHL','L','SLL','S'];
+    } else if (promptType === "diff floor") { // different floor between this node and the next, so elevator or stairs
         let medium: string;
         if (currNode.nodeType === "ELEV") medium = "elevator";
         else if (currNode.nodeType === "STAI") medium = "stairs";
-        else medium = "";
+        else medium = ""; // set medium to be elevator or stairs, depending on node type
 
-        for (let i = 0; i < 7; i++) {
-            scriptArr[i] = `Take the ${medium} to floor ${nextNode.floor}.`;
-        }
+        for (let i = 0; i < 7; i++) scriptArr[i] = `Take the ${medium} to floor ${nextNode.floor}.`;
+        for (let i = 0; i < 7; i++) turnScriptArr[i] = 'arise';
     } else scriptArr = ["Bang! Should not be possible to see this :/"];
 
     const deltaX = nextNode.xcoord - currNode.xcoord;
     const deltaY = nextNode.ycoord - currNode.ycoord;
-    //      promptArr.push(`|||| ${nextNode.ycoord} ${currNode.ycoord}`);
 
     let absoluteAngle = (Math.atan2(deltaY, deltaX) * 180) / Math.PI; // degrees
-    //      promptArr.push(`||| ${deltaY} ${deltaX}`);
     if (absoluteAngle < 0) absoluteAngle += 360; // shift range to be from 0-360
 
     // indicates rotation direction and amount
     let relativeAngle =
-        absoluteAngle - prevAngle < -180
-            ? absoluteAngle - prevAngle + 360
-            : absoluteAngle - prevAngle;
+        (absoluteAngle - prevAngle < -180)
+            ? (absoluteAngle - prevAngle + 360) // keeps relative angle in the right 'domain'
+            : (absoluteAngle - prevAngle);      // keeps relative angel in the right 'domain'
     if (relativeAngle > 180) relativeAngle -= 360;
 
-    //        promptArr.push(`|| ${relativeAngle} ${absoluteAngle} ${prevAngle}`);
-
+    // by taking the difference of current heading and last heading, relativeAngle indicates relative rotation
+    // -90 left turn, 90 right turn, etc.
     const SlightRight = 25 <= relativeAngle && relativeAngle <= 60;
     const Right = 60 < relativeAngle && relativeAngle < 120;
     const SharpRight = 120 <= relativeAngle && relativeAngle <= 155;
@@ -279,33 +270,20 @@ function determinePrompt(
     const Left = -60 > relativeAngle && relativeAngle > -120;
     const SlightLeft = -25 >= relativeAngle && relativeAngle >= -60;
 
-    if (SlightRight) {
-        promptArr.push(scriptArr[0]);
-        turnArr.push("SLR");
-    } else if (Right) {
-        promptArr.push(scriptArr[1]);
-        turnArr.push("R");
-    } else if (SharpRight) {
-        promptArr.push(scriptArr[2]);
-        turnArr.push("SHR");
-    } else if (SharpLeft) {
-        promptArr.push(scriptArr[3]);
-        turnArr.push("SHL");
-    } else if (Left) {
-        promptArr.push(scriptArr[4]);
-        turnArr.push("L");
-    } else if (SlightLeft) {
-        promptArr.push(scriptArr[5]);
-        turnArr.push("SLL");
-    } else {
-        promptArr.push(scriptArr[6]);
-        turnArr.push("S");
-    }
+    // select correct prompt to push
+    const index =
+        SlightRight ? 0 :
+            Right ? 1 :
+                SharpRight ? 2 :
+                    SharpLeft ? 3 :
+                        Left ? 4 :
+                            SlightLeft ? 5 : 6;
 
-    prevAngle = absoluteAngle;
+    promptArr.push(scriptArr[index]);   // for this node, display this prompt
+    turnArr.push(turnScriptArr[index]); // for this node, the next direction will be this turn
+    floorArr.push(`${currNode.floor}`); // keep track of which floor current node is on
 
-    floorArr.push(`${currNode.floor}`);
-
+    prevAngle = absoluteAngle; // used to determine relative direction for next node
     return { promptArr, turnArr, floorArr, prevAngle };
 }
 
