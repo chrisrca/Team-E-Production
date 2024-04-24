@@ -150,7 +150,7 @@ export function TextDirectionComponent(props: TextDirectionProps) {
     const filteredTurns = turns.filter((_, index) => floors[index] === floor);
 
     return (
-        <div className="p-3 inline-block">
+        <div className="z-10 scrollbar scrollbar-track-rounded-full scrollbar-track-background scrollbar-thumb-rounded-full  scrollbar-thumb-primary w-[400px] h-[300px] absolute ml-14 top-2/3 mb-10 flex flex-col grow overflow-auto">
             {filteredPrompts?.map((prompt, index) => (
                 <div key={index}
                      className="flex-row p-2 border drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg flex items-center">

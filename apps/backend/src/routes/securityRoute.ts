@@ -4,56 +4,60 @@ import { SecurityServiceRequest } from "common/src/types";
 
 const router = express.Router();
 
-async function getSecurityFromDB(): Promise<SecurityServiceRequest[] | null> {
-    try {
-        return await client.security.findMany();
-    } catch (error) {
-        console.error("Error fetching security data from DB:", error);
-        throw error;
-    }
+async function getSecurityServicesFromDB(): Promise<string> {
+    const services = await client.service.findMany({
+        where: {
+            serviceType: "SECURITY",
+        },
+        include: {
+            security: true,
+        },
+    });
+    return JSON.stringify(services);
 }
 
 router.post("/", async (req: Request, res: Response) => {
-    const securityRequest: SecurityServiceRequest = req.body;
-    let boolCheck = securityRequest.alertAuthorities;
-    let intCheck = securityRequest.employeeID;
-    if (typeof securityRequest.alertAuthorities === "string") {
-        boolCheck = /^true$/i.test(securityRequest.alertAuthorities);
-    }
-    if (typeof securityRequest.employeeID === "string") {
-        intCheck = parseInt(securityRequest.employeeID);
+    const serviceRequest: SecurityServiceRequest = req.body;
+    let boolCheck = serviceRequest.alertAuthorities;
+    if (typeof serviceRequest.alertAuthorities === "string") {
+        boolCheck = serviceRequest.alertAuthorities === "true";
     }
     try {
-        const createdSecurity = await client.security.create({
+        const createdService = await client.service.create({
             data: {
-                employeeName: securityRequest.employeeName,
-                employeeID: intCheck,
-                reqPriority: securityRequest.reqPriority,
-                location: securityRequest.location,
-                requestType: securityRequest.requestType,
-                reqStatus: securityRequest.reqStatus,
-                alertAuthorities: boolCheck,
+                location: serviceRequest.location,
+                status: serviceRequest.status,
+                priority: serviceRequest.priority,
+                employeeName: serviceRequest.employeeName,
+                serviceType: "SECURITY",
+                security: {
+                    create: {
+                        requestType: serviceRequest.requestType,
+                        alertAuthorities: boolCheck,
+                    },
+                },
+            },
+            include: {
+                security: true,
             },
         });
-        res.json({
-            message: "Security form added to database",
-            data: createdSecurity,
-        });
-    } catch (error) {
-        console.error("Failed to add security form to database:", error);
-        res.status(500).json({
-            message: "Failed to add security form to database",
-            error: error,
-        });
+
+        res.send(
+            `Security Service added to database: ${JSON.stringify(createdService)}`,
+        );
+    } catch (e) {
+        console.error(e);
+        res.status(500).send("Failed to add service to database");
     }
 });
 
 router.get("/", async (req: Request, res: Response) => {
     try {
-        const securityData = await getSecurityFromDB();
-        res.json(securityData);
-    } catch (error) {
-        res.status(500).send("Failed to fetch security data from database");
+        const services = await getSecurityServicesFromDB();
+        res.send(services);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send("Failed to retrieve services from database");
     }
 });
 

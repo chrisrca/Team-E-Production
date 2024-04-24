@@ -1,6 +1,11 @@
 import express, { Router } from "express";
-import { ASTAR, DFS, PathFinder } from "../algos/pathFindingStrategy.ts";
-import { BFS } from "../algos/pathFindingStrategy.ts";
+import {
+    BFS,
+    ASTAR,
+    DFS,
+    DIJKSTRA,
+    PathFinder,
+} from "../algos/pathFindingStrategy.ts";
 
 const router: Router = express.Router();
 router.get("/:start/:end/:algo", async (req, res) => {
@@ -12,6 +17,8 @@ router.get("/:start/:end/:algo", async (req, res) => {
         pathFinder = new PathFinder(new ASTAR());
     } else if (algo == "DFS") {
         pathFinder = new PathFinder(new DFS());
+    } else if (algo == "DIJKSTRA") {
+        pathFinder = new PathFinder(new DIJKSTRA());
     }
     await pathFinder!.executeStrategy(start, end).then((path) => {
         const simplifiedPath = path!.map((node) => {

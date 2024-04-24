@@ -6,7 +6,6 @@ import {
     SelectValue,
     SelectItem,
 } from "../../ui/select.tsx";
-import Legend from "./Legend.tsx";
 // import { Path } from "common/src/types";
 // import axios from "axios";
 // import formInput, {FormInput} from "@/components/ui/formInput.tsx";
@@ -45,9 +44,6 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
 
     return (
         <>
-            <div className="mr-5 mb-10 absolute bottom-0 right-0 z-10">
-                <Legend></Legend>
-            </div>
             <div
                 className={
                     "ml-10 mt-10 w-[300px] justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"
@@ -111,6 +107,7 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                             <SelectItem value="DFS">
                                 Depth-First Search (DFS)
                             </SelectItem>
+                            <SelectItem value="DIJKSTRA">Dijkstra</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
