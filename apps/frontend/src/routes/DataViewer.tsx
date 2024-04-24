@@ -259,10 +259,9 @@ function DataViewer() {
 
     return (
         <div className="p-10 flex flex-auto flex-col items-center align-center">
-            <div className="flex flex-row items-center">
-                <div>
+            <div className="flex flex-row">
                     <Select onValueChange={(value) => setCurrData(value)}>
-                        <SelectTrigger className="flex w-60 bg-secondary hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                        <SelectTrigger className="flex h-30 w-60 bg-secondary hover:ring-2 ring-accent text-xl text-bold font-medium text-gray-700 dark:text-foreground">
                             <SelectValue placeholder={"Select a Data Type"} />
                         </SelectTrigger>
                         <SelectContent>
@@ -271,7 +270,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={nodeData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        " text-sm text-bold font-medium text-gray-700 dark:text-foreground"
                                     }
                                 >
                                     {"Node Data"}
@@ -351,8 +350,7 @@ function DataViewer() {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                </div>
-                <div className=" px-10 flex flex-col space-y-2">
+                <div className="flex flex-col space-y-2">
                     <div className="flex flex-row px-2 space-x-2">
                         <Input
                             className="text-foreground bg-secondary"

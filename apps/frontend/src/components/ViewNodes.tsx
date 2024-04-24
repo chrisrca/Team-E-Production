@@ -97,7 +97,7 @@ export function DataTableDemo(data, columns) {
     const [pageCount, setPageCount] = useState(1);
     //const [pageMax, setPageMax] = useState(1);
     const [valueFilter, setValueFilter] = useState(Object.keys(data[0])[0]);
-    console.log(getCoreRowModel);
+
 
     return (
         <div className="w-full">
