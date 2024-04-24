@@ -19,6 +19,7 @@ import edgeUploadRoute from "./routes/edgeUploadRoute.ts";
 import nodeUploadRoute from "./routes/nodeUploadRoute.ts";
 import editorRoute from "./routes/editorRoute.ts";
 import mapEditorRoute from "./routes/mapEditorRoute.ts";
+import mapEditorDragRoute from "./routes/mapEditorDragRoute.ts";
 import mapEditorDelRoute from "./routes/mapEditorDelRoute.ts";
 import mapEditorCreateRoute from "./routes/mapEditorCreateRoute.ts";
 import employeeRoute from "./routes/employeeRoute.ts";
@@ -73,8 +74,10 @@ app.use("/api/flower", flowerUploadRoute);
 app.use("/api/medicine", medicineRoute);
 app.use("/api/medicine", medicineUploadRoute);
 app.use("/api/mapeditor", mapEditorRoute);
+app.use("/api/mapeditordrag", mapEditorDragRoute);
 app.use("/api/mapeditordel", mapEditorDelRoute);
 app.use("/api/mapeditorcreate", mapEditorCreateRoute);
+app.use("/api/employee", employeeRoute);
 
 /**
  * Catch all 404 errors, and forward them to the error handler

@@ -353,9 +353,9 @@ export default function Welcome() {
                                     <div className="flex">
                                         <div className="flex">
                                             <h2 className="z-1 text-white text-2xl pt-2 pl-8 contrast-200">
-                                                Find your way with our easy-to-use
-                                                pathfinder located in the nearest
-                                                kiosk!{" "}
+                                                Find your way with our
+                                                easy-to-use pathfinder located
+                                                in the nearest kiosk!{" "}
                                             </h2>
                                         </div>
                                         <div className="flex">
@@ -384,8 +384,8 @@ export default function Welcome() {
                                     <div className="flex">
                                         <div className="flex">
                                             <h2 className="z-1 text-white text-2xl pt-2 pl-8">
-                                                Log-in to your account and view your
-                                                services here!
+                                                Log-in to your account and view
+                                                your services here!
                                             </h2>
                                         </div>
                                         <div className="flex">
@@ -400,51 +400,56 @@ export default function Welcome() {
                                 </div>
                             </CarouselItem>
                         </CarouselContent>
-                        <CarouselPrevious className=""/>
-                        <CarouselNext className=""/>
+                        <CarouselPrevious className="" />
+                        <CarouselNext className="" />
                     </Carousel>
                     <div className="py-2 text-center text-sm text-muted-foreground">
                         {current} of {count}
                     </div>
-                    <div
-                        className={
-                            "grid gap-4 grid-cols-2"
-                        }
-                    >
-                            <Card className="bg-secondary h-full shadow-md hover:shadow-lg">
-                                {/*card 1*/}
-                                <CardHeader>
-                                    <CardTitle>Map</CardTitle>
-                                    <CardDescription>
-                                        Find the path to your destination on our interactive map.
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                        <img src={MapImage} className="rounded-sm w-full object-cover object-top aspect-[16/9] h-[200px]"/>
-                                </CardContent>
-                                <CardFooter className="flex justify-end items-center">
-                                    <Link
-                                        to="/map"
-                                        className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary"
-                                    >
-                                        View Map
-                                    </Link>
-                                </CardFooter>
-                            </Card>
-                            <div>
+                    <div className={"grid gap-4 grid-cols-2"}>
+                        <Card className="bg-secondary h-full shadow-md hover:shadow-lg">
+                            {/*card 1*/}
+                            <CardHeader>
+                                <CardTitle>Map</CardTitle>
+                                <CardDescription>
+                                    Find the path to your destination on our
+                                    interactive map.
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <img
+                                    src={MapImage}
+                                    className="rounded-sm w-full object-cover object-top aspect-[16/9] h-[200px]"
+                                />
+                            </CardContent>
+                            <CardFooter className="flex justify-end items-center">
+                                <Link
+                                    to="/map"
+                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary"
+                                >
+                                    View Map
+                                </Link>
+                            </CardFooter>
+                        </Card>
+                        <div>
                             <div className="justify-center flex items-center">
                                 <div className="bg-secondary z-10 flex items-center justify-center flex-col rounded-sm p-2 absolute">
-                                    <div className="text-lg font-bold p-2">Login to View Services</div>
+                                    <div className="text-lg font-bold p-2">
+                                        Login to View Services
+                                    </div>
                                 </div>
                                 <Card className="bg-secondary w-full shadow-md hover:shadow-lg blur z-0">
                                     <CardHeader>
-                                    <CardTitle>Services</CardTitle>
-                                    <CardDescription>
-                                        View and request services here.
-                                    </CardDescription>
+                                        <CardTitle>Services</CardTitle>
+                                        <CardDescription>
+                                            View and request services here.
+                                        </CardDescription>
                                     </CardHeader>
                                     <CardContent>
-                                        <img src={ServiceImage} className="rounded-sm w-full object-cover object-bottom aspect-[16/9] h-[200px]"/>
+                                        <img
+                                            src={ServiceImage}
+                                            className="rounded-sm w-full object-cover object-bottom aspect-[16/9] h-[200px]"
+                                        />
                                     </CardContent>
                                     <CardFooter className="flex justify-end items-center">
                                         <Link className="inline-block bg-accent text-white text-md py-2 px-4 rounded">

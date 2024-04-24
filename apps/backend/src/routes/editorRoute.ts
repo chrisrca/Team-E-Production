@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import runVISITALL from "../algos/pathAlgos/VISITALL.ts";
+import runVISITALL from "../algos/VISITALL.ts";
 
 const router: Router = express.Router();
 let path;
