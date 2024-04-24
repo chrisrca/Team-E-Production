@@ -1129,6 +1129,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-alert-dialog@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@radix-ui/react-alert-dialog@npm:1.0.5"
+  dependencies:
+    "@babel/runtime": "npm:^7.13.10"
+    "@radix-ui/primitive": "npm:1.0.1"
+    "@radix-ui/react-compose-refs": "npm:1.0.1"
+    "@radix-ui/react-context": "npm:1.0.1"
+    "@radix-ui/react-dialog": "npm:1.0.5"
+    "@radix-ui/react-primitive": "npm:1.0.3"
+    "@radix-ui/react-slot": "npm:1.0.2"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0
+    react-dom: ^16.8 || ^17.0 || ^18.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 966eeef94056caa4105278686018bc8ec5ec10584191d9e878944b1785ae88a355cbff0b754af4c3878bd97af8d954583b7a2e4819b928ccf6839cd2962e8a09
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-arrow@npm:1.0.3":
   version: 1.0.3
   resolution: "@radix-ui/react-arrow@npm:1.0.3"
@@ -5440,6 +5465,7 @@ __metadata:
     "@auth0/auth0-react": "npm:^2.2.4"
     "@popperjs/core": "npm:^2.11.8"
     "@radix-ui/react-accordion": "npm:^1.1.2"
+    "@radix-ui/react-alert-dialog": "npm:^1.0.5"
     "@radix-ui/react-avatar": "npm:^1.0.4"
     "@radix-ui/react-checkbox": "npm:^1.0.4"
     "@radix-ui/react-collapsible": "npm:^1.0.3"
@@ -5498,6 +5524,7 @@ __metadata:
     shadcn-ui: "npm:^0.8.0"
     sort-by: "npm:^1.2.0"
     tailwind-merge: "npm:^2.2.2"
+    tailwind-scrollbar: "npm:^3.1.0"
     tailwindcss: "npm:^3.4.3"
     tailwindcss-animate: "npm:^1.0.7"
     tsconfig-custom: "workspace:*"
@@ -9077,6 +9104,15 @@ __metadata:
   dependencies:
     "@babel/runtime": "npm:^7.24.0"
   checksum: f7ec370e58d1d8f12ed6509d93333f2dacfcb43110334c5424db50ae456d14939ad32cff1ef7e31d1d10a6fff9d2e80be11560ef1ebb3fe5c83de6d465a7f7b8
+  languageName: node
+  linkType: hard
+
+"tailwind-scrollbar@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "tailwind-scrollbar@npm:3.1.0"
+  peerDependencies:
+    tailwindcss: 3.x
+  checksum: c51a4788e72a9113155e2a8c472f45b280da190db999a7fc817f042adef7bc3890c15719f7d18bf34cf4817a414b29f42f622ed20d20658d06f654ad85dee20b
   languageName: node
   linkType: hard
 

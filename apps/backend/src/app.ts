@@ -61,7 +61,7 @@ app.use("/healthcheck", (req, res) => {
 // } just for running test more easily without auth0 but giving me a little bit of trouble when committing so bye-bye for now :)
 
 // Don't delete above: MIDDLEWARE
-
+app.use("/api/employee", employeeRoute);
 app.use("/api/flower", flowerRoute);
 app.use("/api/gift", giftRoute);
 app.use("/api/interpreter", interpreterRoute);

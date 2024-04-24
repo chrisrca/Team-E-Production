@@ -395,14 +395,6 @@ export default function EditorMap(props: CanvasMapProps) {
 
     return (
         <>
-            {/* Node Editor */}
-            {selectedNode && (
-                <NodeEditor
-                    node={selectedNode}
-                    triggerRefresh={triggerRefresh}
-                />
-            )}
-
             {/* Render map and canvas */}
             {selectedNode && (
                 <div
@@ -485,11 +477,9 @@ export default function EditorMap(props: CanvasMapProps) {
                 </TransformComponent>
             </TransformWrapper>
 
-            {/* Node and Edge Editor */}
-            {selectedNode === null && !startNode && !endNode && <NodeCreator />}
-            {selectedNode && !startNode && !endNode && (
-                <NodeEditor node={selectedNode} />
-            )}
+            {/* Node and Edge Editors */}
+            {selectedNode === null && !startNode && !endNode && <NodeCreator triggerRefresh={triggerRefresh}/>}
+            {selectedNode && !startNode && !endNode && <NodeEditor node={selectedNode} triggerRefresh={triggerRefresh}/>}
             {selectedNode &&
                 !closeEditor &&
                 !edgeExists(startNode, endNode) &&
@@ -500,23 +490,22 @@ export default function EditorMap(props: CanvasMapProps) {
                         startNodeID={startNode?.nodeID}
                         endNodeID={endNode?.nodeID}
                         handleClose={() => setCloseEditor(true)}
+                        triggerRefresh={triggerRefresh}
                     />
                 )}
-            {!closeEditor &&
-                startNode &&
-                endNode &&
-                edgeExists(startNode, endNode) && (
-                    <>
-                        {console.log("Start Node:", startNode)}
-                        {console.log("End Node:", endNode)}
-                        <EdgeEditor
-                            startNode={startNode}
-                            endNode={endNode}
-                            edgeID={edgeID}
-                            handleClose={() => setCloseEditor(true)}
-                        />
-                    </>
-                )}
+            {!closeEditor && startNode && endNode && edgeExists(startNode, endNode) && (
+                <>
+                    {console.log("Start Node:", startNode)}
+                    {console.log("End Node:", endNode)}
+                    <EdgeEditor
+                        startNode={startNode}
+                        endNode={endNode}
+                        edgeID={edgeID}
+                        handleClose={() => setCloseEditor(true)}
+                        triggerRefresh={triggerRefresh}
+                    />
+                </>
+            )}
         </>
     );
 }
