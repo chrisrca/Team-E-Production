@@ -48,7 +48,7 @@ export default function drawGraph(
     ctx.strokeStyle = "#000000";
 
     //NODE DRAWING
-    drawNodes(ctx, nodeData, xMult, yMult, mapLevel, mousePosition);
+    drawNodes(ctx, nodeData, pathData, xMult, yMult, mapLevel, mousePosition);
     drawElevators(ctx, pathData, xMult, yMult, floor[mapLevel], mousePosition);
     drawStairs(ctx, pathData, xMult, yMult, floor[mapLevel], mousePosition);
 }
