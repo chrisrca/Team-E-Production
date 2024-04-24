@@ -10,6 +10,7 @@ interface EdgeEditorProps {
     endNode: DBNode | null;
     edgeID: string; // New prop for the edge ID
     handleClose: () => void; // handleClose prop as a function
+    triggerRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // async function sendEdgeOrder(editedEdge: {
@@ -37,6 +38,7 @@ const EdgeEditor: React.FC<EdgeEditorProps> = ({
     endNode,
     edgeID,
     handleClose,
+    triggerRefresh,
 }) => {
     // State for the editable edge, initialized with the existing edge
     const [editedEdge, setEditedEdge] = useState<{
@@ -61,11 +63,13 @@ const EdgeEditor: React.FC<EdgeEditorProps> = ({
     // Function to handle cancel action
     function handleCancel() {
         handleClose();
+        triggerRefresh(true);
     }
 
     function handleDelete() {
         sendEdgeDelOrder(editedEdge);
         handleClose();
+        triggerRefresh(true);
     }
 
     return (
