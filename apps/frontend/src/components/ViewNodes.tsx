@@ -1,15 +1,3 @@
-import {
-    DBNode,
-    Edge,
-    FlowerServiceRequest,
-    GiftServiceRequest,
-    InterpreterServiceRequest,
-    SecurityServiceRequest,
-    DrugDeliveryData,
-    SanitationServiceRequest,
-    RoomSchedulingForm,
-    MedicalDeviceServiceRequest,
-} from "common/src/types";
 import React from "react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -27,14 +15,14 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, MoreHorizontal } from "lucide-react";
+import { ChevronDown, /*MoreHorizontal*/ } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
+    // DropdownMenuItem,
+    // DropdownMenuLabel,
+    // DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -100,8 +88,8 @@ export function DataTableDemo(data, columns) {
 
 
     return (
-        <div className="w-full">
-            <div className="flex items-center py-4 space-x-2">
+        <div className="w-screen p-10 overflow-auto">
+            <div className="flex grow items-center py-4 space-x-2">
                 <Select
                     onValueChange={(value) => {
                         setValueFilter(value);
@@ -236,11 +224,10 @@ export function DataTableDemo(data, columns) {
                         variant="outline"
                         size="sm"
                         onClick={() => {
+                            setPageCount(pageCount - 1);
                             table.previousPage();
-                            if (pageCount > 1) {
-                                setPageCount(pageCount - 1);
-                            }
                         }}
+                        disabled={!table.getCanPreviousPage()}
                     >
                         Previous
                     </Button>
@@ -248,11 +235,10 @@ export function DataTableDemo(data, columns) {
                         variant="outline"
                         size="sm"
                         onClick={() => {
+                            setPageCount(pageCount + 1);
                             table.nextPage();
-                            if (pageCount < 58) {
-                                setPageCount(pageCount + 1);
-                            }
                         }}
+                        disabled={!table.getCanNextPage()}
                     >
                         Next
                     </Button>
@@ -277,7 +263,7 @@ export default function ViewNodes(inputData: {
 }) {
     const columns = [];
 
-    const data = inputData.data;
+    let data = inputData.data;
 
     if (data[0] != undefined) {
         Object.keys(data[0]).map((value) => {
@@ -288,40 +274,39 @@ export default function ViewNodes(inputData: {
         });
     }
 
-    columns.push({
-        id: "actions",
-        enableHiding: false,
-        cell: ({ row }) => {
-            const payment = row.original;
+    // columns.push({
+    //     id: "actions",
+    //     enableHiding: false,
+    //     cell: ({ row }) => {
+    //         const payment = row.original;
 
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() =>
-                                navigator.clipboard.writeText(payment.id)
-                            }
-                        >
-                            Copy payment ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>View customer</DropdownMenuItem>
-                        <DropdownMenuItem>
-                            View payment details
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            );
-        },
-    });
-
+    //         return (
+    //             <DropdownMenu>
+    //                 <DropdownMenuTrigger asChild>
+    //                     <Button variant="ghost" className="h-8 w-8 p-0">
+    //                         <span className="sr-only">Open menu</span>
+    //                         <MoreHorizontal className="h-4" />
+    //                     </Button>
+    //                 </DropdownMenuTrigger>
+    //                 <DropdownMenuContent align="end">
+    //                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
+    //                     <DropdownMenuItem
+    //                         onClick={() =>
+    //                             navigator.clipboard.writeText(payment.id)
+    //                         }
+    //                     >
+    //                         Copy payment ID
+    //                     </DropdownMenuItem>
+    //                     <DropdownMenuSeparator />
+    //                     <DropdownMenuItem>View customer</DropdownMenuItem>
+    //                     <DropdownMenuItem>
+    //                         View payment details
+    //                     </DropdownMenuItem>
+    //                 </DropdownMenuContent>
+    //             </DropdownMenu>
+    //         );
+    //     },
+    // });
     if (data.length !== 0) {
         //const isDBNodeData = data.length > 0 && "edges" in data[0];
 

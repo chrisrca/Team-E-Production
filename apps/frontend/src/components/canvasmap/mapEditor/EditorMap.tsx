@@ -393,16 +393,43 @@ export default function EditorMap(props: CanvasMapProps) {
         }
     }, [closeEditor]);
 
+    const adjustCanvasSize = () => {
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const aspectRatio = 5000 / 3400;
+        const aspectHeight = 3400 / 5000;
+
+        // Calculate both potential widths and heights
+        const widthFromHeight = viewportHeight * aspectRatio;
+        const heightFromWidth = viewportWidth * aspectHeight;
+
+        if (viewportWidth >= widthFromHeight) {
+            // If the viewport is wider than the height-based calculated width
+            if (canvasRef.current) {
+                canvasRef.current.style.width = "100vw";
+                canvasRef.current.style.height = `${heightFromWidth}px`;
+            }
+        } else {
+            // If the viewport is not as wide
+            if (canvasRef.current) {
+                canvasRef.current.style.width = `${widthFromHeight}px`;
+                canvasRef.current.style.height = "100vh";
+            }
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("resize", adjustCanvasSize);
+        adjustCanvasSize(); // Call on initial render
+
+        // Cleanup function to remove the event listener
+        return () => {
+            window.removeEventListener("resize", adjustCanvasSize);
+        };
+    }, []);
+
     return (
         <>
-            {/* Node Editor */}
-            {selectedNode && (
-                <NodeEditor
-                    node={selectedNode}
-                    triggerRefresh={triggerRefresh}
-                />
-            )}
-
             {/* Render map and canvas */}
             {selectedNode && (
                 <div
@@ -473,8 +500,8 @@ export default function EditorMap(props: CanvasMapProps) {
                         height={3400}
                         width={5000}
                         style={{
-                            width: "88%",
-                            height: "100%",
+                            display: "block",
+                            overflow: "hidden",
                         }}
                         id="layer1"
                         onMouseMove={handleMouseMoveCanvas}
@@ -485,11 +512,9 @@ export default function EditorMap(props: CanvasMapProps) {
                 </TransformComponent>
             </TransformWrapper>
 
-            {/* Node and Edge Editor */}
-            {selectedNode === null && !startNode && !endNode && <NodeCreator />}
-            {selectedNode && !startNode && !endNode && (
-                <NodeEditor node={selectedNode} />
-            )}
+            {/* Node and Edge Editors */}
+            {selectedNode === null && !startNode && !endNode && <NodeCreator triggerRefresh={triggerRefresh}/>}
+            {selectedNode && !startNode && !endNode && <NodeEditor node={selectedNode} triggerRefresh={triggerRefresh}/>}
             {selectedNode &&
                 !closeEditor &&
                 !edgeExists(startNode, endNode) &&
@@ -500,23 +525,22 @@ export default function EditorMap(props: CanvasMapProps) {
                         startNodeID={startNode?.nodeID}
                         endNodeID={endNode?.nodeID}
                         handleClose={() => setCloseEditor(true)}
+                        triggerRefresh={triggerRefresh}
                     />
                 )}
-            {!closeEditor &&
-                startNode &&
-                endNode &&
-                edgeExists(startNode, endNode) && (
-                    <>
-                        {console.log("Start Node:", startNode)}
-                        {console.log("End Node:", endNode)}
-                        <EdgeEditor
-                            startNode={startNode}
-                            endNode={endNode}
-                            edgeID={edgeID}
-                            handleClose={() => setCloseEditor(true)}
-                        />
-                    </>
-                )}
+            {!closeEditor && startNode && endNode && edgeExists(startNode, endNode) && (
+                <>
+                    {console.log("Start Node:", startNode)}
+                    {console.log("End Node:", endNode)}
+                    <EdgeEditor
+                        startNode={startNode}
+                        endNode={endNode}
+                        edgeID={edgeID}
+                        handleClose={() => setCloseEditor(true)}
+                        triggerRefresh={triggerRefresh}
+                    />
+                </>
+            )}
         </>
     );
 }

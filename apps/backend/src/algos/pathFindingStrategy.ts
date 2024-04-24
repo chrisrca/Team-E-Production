@@ -1,8 +1,6 @@
 import { processGraphData, Node, Edge } from "./graphData.ts";
-import bfs from "./pathAlgos/BFS.ts";
-import dfs from "./pathAlgos/DFS.ts";
-import astar from "./pathAlgos/ASTAR.ts";
-import dijkstra from "./pathAlgos/DIJKSTRA.ts";
+import euclideanDistance from "./euclideanDistance.ts";
+import TinyQueue from "tinyqueue";
 
 export class PathFinder {
     private strategy: PathFindingStrategy;
@@ -20,43 +18,158 @@ export interface PathFindingStrategy {
     findPath(start: string, end: string): Promise<Node[] | null>;
 }
 
-export class BFS implements PathFindingStrategy {
+export abstract class firstSearchAlgos implements PathFindingStrategy {
+    add(list: Node[], neighbor: Node) {
+        list.push(neighbor);
+    }
     async findPath(start: string, end: string): Promise<Node[] | null> {
         const nodes = await getStartEnd(start, end);
         if (nodes[0] && nodes[1]) {
-            return bfs(nodes[0], nodes[1]);
+            const queue: Node[] = [nodes[0]];
+            const visited: Set<Node> = new Set([nodes[0]]);
+            const parentMap: Map<Node, Node> = new Map();
+
+            while (queue.length > 0) {
+                let current: Node = queue.shift() as Node;
+
+                // When the end is found, reconstruct the path from end to start
+                if (current === nodes[1]) {
+                    const path: Node[] = [];
+                    while (current) {
+                        path.unshift(current);
+                        current = parentMap.get(current) as Node;
+                    }
+                    return path;
+                }
+
+                // Explore neighbors
+                for (const edge of current.edges) {
+                    const neighbor =
+                        edge.start === current ? edge.end : edge.start;
+                    if (!visited.has(neighbor)) {
+                        visited.add(neighbor);
+                        this.add(queue, neighbor);
+                        parentMap.set(neighbor, current); // Track the path
+                    }
+                }
+            }
+            // If the loop ends without finding a path
+            console.log("Bang! It's null.");
+            return null;
         }
         return null;
     }
 }
 
-export class ASTAR implements PathFindingStrategy {
+export abstract class weightedSearchAlgos implements PathFindingStrategy {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    weight(start: Node, end: Node) {
+        return 0;
+    }
     async findPath(start: string, end: string): Promise<Node[] | null> {
         const nodes = await getStartEnd(start, end);
         if (nodes[0] && nodes[1]) {
-            return astar(nodes[0], nodes[1]);
+            const openSet = new PriorityQueue<Node>(
+                [],
+                (a, b) =>
+                    (fScore.get(a) || Infinity) - (fScore.get(b) || Infinity),
+            );
+            const cameFrom: Map<Node, Node> = new Map();
+            const gScore: Map<Node, number> = new Map([[nodes[0], 0]]);
+            const fScore: Map<Node, number> = new Map([
+                [nodes[0], this.weight(nodes[0], nodes[1])],
+            ]);
+            const closedSet: Set<Node> = new Set();
+
+            openSet.push(nodes[0]);
+
+            while (!openSet.isEmpty()) {
+                let current = openSet.pop()!;
+
+                if (current === nodes[1]) {
+                    const path: Node[] = [];
+                    while (current) {
+                        path.unshift(current);
+                        current = cameFrom.get(current)!;
+                    }
+                    return path;
+                }
+
+                closedSet.add(current);
+
+                for (const edge of current.edges) {
+                    const neighbor =
+                        edge.start === current ? edge.end : edge.start;
+                    if (closedSet.has(neighbor)) continue;
+
+                    const tentativeGScore =
+                        gScore.get(current)! +
+                        euclideanDistance(current, neighbor);
+
+                    if (!openSet.has(neighbor)) openSet.push(neighbor);
+
+                    if (tentativeGScore >= (gScore.get(neighbor) || Infinity))
+                        continue;
+
+                    cameFrom.set(neighbor, current);
+                    gScore.set(neighbor, tentativeGScore);
+                    fScore.set(
+                        neighbor,
+                        tentativeGScore + euclideanDistance(neighbor, nodes[1]),
+                    );
+                }
+            }
+            // If the loop ends without finding a path
+            console.log("Bang! It's null.");
+            return null;
         }
         return null;
     }
 }
 
-export class DFS implements PathFindingStrategy {
-    async findPath(start: string, end: string): Promise<Node[] | null> {
-        const nodes = await getStartEnd(start, end);
-        if (nodes[0] && nodes[1]) {
-            return dfs(nodes[0], nodes[1]);
+class PriorityQueue<T> extends TinyQueue<T> {
+    constructor(
+        items?: T[],
+        private readonly comparator?: (a: T, b: T) => number,
+    ) {
+        super(items, comparator);
+    }
+
+    public push(...items: T[]): number {
+        for (const item of items) {
+            super.push(item);
         }
-        return null;
+        return this.length;
+    }
+
+    public isEmpty(): boolean {
+        return this.length === 0;
+    }
+
+    public has(item: T): boolean {
+        return this.data.includes(item);
     }
 }
 
-export class DIJKSTRA implements PathFindingStrategy {
-    async findPath(start: string, end: string): Promise<Node[] | null> {
-        const nodes = await getStartEnd(start, end);
-        if (nodes[0] && nodes[1]) {
-            return dijkstra(nodes[0], nodes[1]);
-        }
-        return null;
+export class BFS extends firstSearchAlgos {
+    add(list: Node[], neighbor: Node) {
+        list.push(neighbor);
+    }
+}
+export class DFS extends firstSearchAlgos {
+    add(list: Node[], neighbor: Node) {
+        list.unshift(neighbor);
+    }
+}
+export class ASTAR extends weightedSearchAlgos {
+    weight(start: Node, end: Node) {
+        return euclideanDistance(start, end);
+    }
+}
+export class DIJKSTRA extends weightedSearchAlgos {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    weight(start: Node, end: Node) {
+        return 0;
     }
 }
 

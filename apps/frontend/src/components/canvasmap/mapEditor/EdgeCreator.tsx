@@ -16,6 +16,7 @@ interface EdgeCreatorProps {
     startNodeID: string;
     endNodeID: string;
     handleClose: () => void; // handleClose prop as a function
+    triggerRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const EdgeCreator: React.FC<EdgeCreatorProps> = ({
@@ -23,6 +24,7 @@ const EdgeCreator: React.FC<EdgeCreatorProps> = ({
     startNodeID,
     endNodeID,
     handleClose,
+    triggerRefresh,
 }) => {
     const [editedEdge, setEditedEdge] = useState<Edge>({
         edgeID: edgeID,
@@ -56,12 +58,14 @@ const EdgeCreator: React.FC<EdgeCreatorProps> = ({
             sendEdgeCreateOrder(editedEdge); // Call the function with editedEdge
         }
         handleClose();
+        triggerRefresh(true);
     }
 
     // Function to handle cancel action
     function handleCancel() {
         console.log("Cancel Edge");
         handleClose();
+        triggerRefresh(true);
     }
 
     return (
