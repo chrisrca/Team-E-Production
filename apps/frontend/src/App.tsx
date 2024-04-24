@@ -86,7 +86,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/map-editor"
                         element={
                             <ProtectedRoute>
-                                <MapEditor/>
+                                <MapEditor />
                             </ProtectedRoute>
                         }
                     />

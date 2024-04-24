@@ -38,7 +38,7 @@ interface CanvasMapProps {
 
 // EditorMap component function
 export default function EditorMap(props: CanvasMapProps) {
-    const { nodes, path, level, triggerRefresh} = props;
+    const { nodes, path, level, triggerRefresh } = props;
 
     // State for selected node
     const [selectedNode, setSelectedNode] = useState<DBNode | null>(null);
@@ -436,18 +436,18 @@ export default function EditorMap(props: CanvasMapProps) {
                         >
                             Set as Start
                         </Button>
+                        <Button onClick={handleSetEndNode}>Set as End</Button>
                         <Button
-                            onClick={handleSetEndNode}
+                            className="w-full"
+                            variant="destructive"
+                            onClick={setCloseEditor}
                         >
-                            Set as End
-                        </Button>
-                        <Button className="w-full" variant="destructive" onClick={setCloseEditor}>
                             Cancel
                         </Button>
                     </div>
                 </div>
             )}
-        
+
             <TransformWrapper
                 initialScale={1.5}
                 centerOnInit={true}
@@ -481,11 +481,12 @@ export default function EditorMap(props: CanvasMapProps) {
             {selectedNode === null && !startNode && !endNode && <NodeCreator triggerRefresh={triggerRefresh}/>}
             {selectedNode && !startNode && !endNode && <NodeEditor node={selectedNode} triggerRefresh={triggerRefresh}/>}
             {selectedNode &&
-                !closeEditor && !edgeExists(startNode, endNode) &&
+                !closeEditor &&
+                !edgeExists(startNode, endNode) &&
                 startNode &&
                 endNode && (
                     <EdgeCreator
-                        edgeID = {""}
+                        edgeID={""}
                         startNodeID={startNode?.nodeID}
                         endNodeID={endNode?.nodeID}
                         handleClose={() => setCloseEditor(true)}

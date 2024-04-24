@@ -2,9 +2,9 @@ import { ServiceRequests } from "@/components/ServiceRequests";
 import MedicalDevice from "/src/images/MedicalDevice.png";
 
 const defaultFormSchema = {
+    location: "",
     selectedDevice: "",
     withBalloons: "false",
-    location: "",
     status: "",
     priority: "",
     employeeName: "",
@@ -18,6 +18,16 @@ const defaultForm = [
         title: "Medical Device Request",
         type: "header",
         id: 0,
+    },
+    {
+        content: "popover",
+        type: "string",
+        title: "Select Location",
+        placeholder: "Select Placeholder 2",
+        required: true,
+        id: 0,
+        label: "",
+        options: [],
     },
     {
         content: "select",
@@ -36,16 +46,6 @@ const defaultForm = [
         placeholder: "With Balloons?",
         required: false,
         id: 0,
-    },
-    {
-        content: "popover",
-        type: "string",
-        title: "Select Location",
-        placeholder: "Select Placeholder 2",
-        required: true,
-        id: 0,
-        label: "",
-        options: [],
     },
     {
         content: "radio",

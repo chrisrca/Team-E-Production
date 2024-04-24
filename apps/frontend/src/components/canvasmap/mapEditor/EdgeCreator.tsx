@@ -5,7 +5,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-
 async function sendEdgeCreateOrder(editedEdge: Edge) {
     axios.post("/api/mapeditorcreate/edges", editedEdge).then((res) => {
         console.log(res);
@@ -98,7 +97,9 @@ const EdgeCreator: React.FC<EdgeCreatorProps> = ({
 
             <div className="space-x-2">
                 <Button onClick={handleSubmit}>Save</Button>
-                <Button variant="destructive" onClick={handleCancel}>Cancel</Button>
+                <Button variant="destructive" onClick={handleCancel}>
+                    Cancel
+                </Button>
             </div>
         </div>
     );

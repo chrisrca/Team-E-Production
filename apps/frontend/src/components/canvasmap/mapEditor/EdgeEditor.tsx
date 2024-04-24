@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { DBNode } from "common/src/types";
 import { Button } from "@/components/ui/button.tsx";
 import axios from "axios";
-import {Input} from "@/components/ui/input.tsx";
-import {Label} from "@/components/ui/label.tsx";
+import { Input } from "@/components/ui/input.tsx";
+import { Label } from "@/components/ui/label.tsx";
 
 interface EdgeEditorProps {
     startNode: DBNode | null;
@@ -78,7 +78,11 @@ const EdgeEditor: React.FC<EdgeEditorProps> = ({
             <div>
                 <Label>
                     Edge ID:
-                    <Input type="text" name="start" value={editedEdge?.edgeID} />
+                    <Input
+                        type="text"
+                        name="start"
+                        value={editedEdge?.edgeID}
+                    />
                 </Label>
                 <Label>
                     Start Node ID:
