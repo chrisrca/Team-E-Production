@@ -7,6 +7,8 @@
         --background: #f1f1f1;
         --foreground: #0c0a09;
 
+        --kiosk: #012d5a;
+
         --card: #e5e7eb;
         --card-foreground: #0c0a09;
 
@@ -38,6 +40,8 @@
     .dark {
         --background: #012d5a;
         --foreground: #f1f1f1;
+
+        --kiosk: #012d5a;
 
         --card: #014c97;
         --card-foreground: #fafaf9;
