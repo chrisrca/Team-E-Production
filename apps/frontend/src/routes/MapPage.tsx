@@ -5,6 +5,7 @@ import axios from "axios";
 import { DBNode } from "common/src/types";
 // import { DBNode } from "common/src/types";
 import { useEffect, useState } from "react";
+import {Button} from "@/components/ui/button.tsx";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
@@ -14,6 +15,21 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [algorithm, setAlgorithm] = useState<string>("ASTAR");
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
     const [level, setLevel] = useState<number>(1);
+
+    const handleRandomize = () => {
+        const nonHallNodes = nodes
+            .filter((node) => {
+                return node.nodeType != "HALL";
+            });
+        const randomStart = nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
+        const randomEnd = nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
+        const algorithms = ["ASTAR", "Dijkstra", "BFS", "DFS"];
+        const randomAlgo = algorithms[Math.floor(Math.random() * algorithms.length)];
+
+        setStart(randomStart);
+        setEnd(randomEnd);
+        setAlgorithm(randomAlgo);
+    };
 
     useEffect(() => {
         async function fetchPathData() {
@@ -45,21 +61,17 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 end={[end, setEnd]}
                 algorithm={[algorithm, setAlgorithm]}
             />
-            <LevelButtons levelProps={[level, setLevel]} />
-            <div
-                style={{
-                    height: "100vh",
-                    overflow: "hidden",
-                }}
-            >
-                <CanvasMap
-                    level={level}
-                    path={pathNodes}
-                    nodes={nodes}
-                    setLevel={setLevel}
-                    start={setStart}
-                    end={setEnd}
-                />
+            <LevelButtons levelProps={[level, setLevel]}/>
+            <CanvasMap
+                level={level}
+                path={pathNodes}
+                nodes={nodes}
+                setLevel={setLevel}
+                start={setStart}
+                end={setEnd}
+            />
+            <div style={{position: "absolute", top: "240px", left: "60px"}}>
+                <Button onClick={handleRandomize}>I'm Feeling Lucky</Button>
             </div>
         </div>
     );
