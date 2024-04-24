@@ -20,12 +20,15 @@ import MedicalDeviceService from "@/routes/MedicalDeviceServiceRequest.tsx";
 import { DBNode } from "common/src/types";
 import axios from "axios";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
 import Profile from "@/routes/Profile.tsx";
 import Settings from "@/routes/Settings.tsx";
 import WelcomePage from "@/routes/WelcomePage.tsx";
+import { Toaster } from "@/components/ui/toaster.tsx";
+import { ToastProvider } from "@radix-ui/react-toast";
+import CreditPage from "@/routes/CreditPage.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -62,6 +65,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         <UserArea />
                     </div>
                 </div>
+                <Toaster />
                 <Routes>
                     <Route path="/" element={<WelcomePage />} />
                     <Route path="/home" element={<Welcome />} />
@@ -79,7 +83,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/map-editor"
                         element={
                             <ProtectedRoute>
-                                <MapEditor nodes={nodes} />
+                                <MapEditor/>
                             </ProtectedRoute>
                         }
                     />
@@ -171,6 +175,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                             </ProtectedRoute>
                         }
                     />
+                    <Route path="/credit-page" element={<CreditPage />} />
                 </Routes>
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
                     <ModeToggle />
@@ -197,7 +202,9 @@ function App() {
 
     return (
         <BrowserRouter>
+            <ToastProvider>
             <AuthProviderWrapper nodes={nodesIn} />
+            </ToastProvider>
         </BrowserRouter>
     );
 }

@@ -1,9 +1,10 @@
 export interface RoomSchedulingForm {
-    employeeName: string;
-    priority: string;
     location: string;
-    serviceType: string;
     status: string;
+    priority: string;
+    employeeName: string;
+    date: string;
+    serviceType: string;
     startTime: string;
     endTime: string;
 }
