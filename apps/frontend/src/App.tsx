@@ -25,6 +25,7 @@ import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
 import Profile from "@/routes/Profile.tsx";
 import Settings from "@/routes/Settings.tsx";
+import AboutUs from "@/routes/AboutUs.tsx";
 import WelcomePage from "@/routes/WelcomePage.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import { ToastProvider } from "@radix-ui/react-toast";
@@ -71,6 +72,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     <Route path="/home" element={<Welcome />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
+                    <Route path="/about-us" element={<AboutUs/>} />
                     <Route
                         path="/services"
                         element={

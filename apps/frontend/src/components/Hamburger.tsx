@@ -208,6 +208,16 @@ export default function Hamburger() {
                     <SheetClose asChild>
                         <Link
                             className="group rounded-sm p-2 px-4 hover:bg-accent grid h-auto w-full justify-start gap-1"
+                            to="about-us"
+                        >
+                            <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                                About Us
+                            </div>
+                        </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Link
+                            className="group rounded-sm p-2 px-4 hover:bg-accent grid h-auto w-full justify-start gap-1"
                             to="credit-page"
                         >
                             <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
