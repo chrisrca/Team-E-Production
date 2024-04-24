@@ -4,12 +4,12 @@ import translation from "/src/images/translation.jpg";
 const defaultFormSchema = {
     clientName: "",
     language: "",
+    location: "",
+    employeeName: "",
     duration: "",
     additionalInfo: "",
-    location: "",
     status: "",
     priority: "",
-    employeeName: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -38,6 +38,26 @@ const defaultForm = [
         id: 0,
     },
     {
+        content: "popover",
+        type: "string",
+        title: "Select Location",
+        placeholder: "Select Placeholder 2",
+        required: true,
+        id: 0,
+        label: "",
+        options: [],
+    },
+    {
+        content: "employee",
+        type: "string",
+        title: "Assign Employee",
+        placeholder: "Select Employee",
+        required: false,
+        id: 0,
+        label: "",
+        options: [],
+    },
+    {
         content: "text",
         type: "string",
         title: "Duration",
@@ -52,16 +72,6 @@ const defaultForm = [
         placeholder: "Enter Additional Information... (Optional)",
         required: false,
         id: 0,
-    },
-    {
-        content: "popover",
-        type: "string",
-        title: "Select Location",
-        placeholder: "Select Placeholder 2",
-        required: true,
-        id: 0,
-        label: "",
-        options: [],
     },
     {
         content: "radio",
@@ -82,16 +92,6 @@ const defaultForm = [
         id: 0,
         label: "Request Priority",
         options: ["Low", "Medium", "High", "Emergency"],
-    },
-    {
-        content: "employee",
-        type: "string",
-        title: "Assign Employee",
-        placeholder: "Select Employee",
-        required: false,
-        id: 0,
-        label: "",
-        options: [],
     },
 ];
 export default function InterpreterService() {

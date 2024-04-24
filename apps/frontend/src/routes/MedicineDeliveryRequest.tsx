@@ -23,11 +23,11 @@ export default function DrugDelivery() {
         patientName: "",
         drugName: "",
         drugQuantity: "",
-        patientCondition: "Fever",
         location: "",
         status: "",
         priority: "",
         employeeName: "",
+        patientCondition: "Fever",
     };
 
     //Label is necessary, ids are calculated assuming that there is a title

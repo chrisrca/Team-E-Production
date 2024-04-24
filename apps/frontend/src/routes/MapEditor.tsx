@@ -39,7 +39,12 @@ export default function MapEditor() {
                 <Legend></Legend>
             </div>
             <LevelButtons levelProps={[level, setLevel]} />
-            <EditorMap level={level} path={pathNodes} nodes={nodes} triggerRefresh={setTriggerFetch}/>
+            <EditorMap
+                level={level}
+                path={pathNodes}
+                nodes={nodes}
+                triggerRefresh={setTriggerFetch}
+            />
         </div>
     );
 }

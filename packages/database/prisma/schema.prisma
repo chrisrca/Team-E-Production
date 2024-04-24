@@ -43,7 +43,7 @@ model path {
 
 model employee {
   ID           Int     @id @default(autoincrement())
-  name         String @unique
+  name         String  @unique
   nickname     String
   phone_number String? @unique
   //createdAt DateTime @default(now())
