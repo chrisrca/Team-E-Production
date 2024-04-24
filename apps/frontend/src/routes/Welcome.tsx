@@ -117,6 +117,7 @@ export default function Welcome() {
         if (!api) {
             return;
         }
+
         setCount(api.scrollSnapList().length);
         setCurrent(api.selectedScrollSnap() + 1);
 
@@ -308,6 +309,37 @@ export default function Welcome() {
                             </Card>
                         </div>
                     </div>
+                    {/* <div>
+                        <h1 className="text-3xl font-bold">
+                            Frequently Asked Questions
+                        </h1>
+                        <h2 className="pt-4 text-xl ">
+                            Answers to some of our visitor's most common
+                            questions.
+                        </h2>
+                        <Accordion type="single" collapsible className="w-full">
+                            <AccordionItem value="item-1">
+                                <AccordionTrigger>
+                                    Where can I find my room?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Go to the{" "}
+                                    <Link className="hover:underline" to="/map">
+                                        Map
+                                    </Link>{" "}
+                                    and navigate from there.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-2">
+                                <AccordionTrigger>
+                                    Why is my service request taking so long?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Our apologies! One of our employees is on the case!
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </div> */}
                 </div>
             </div>
         );
@@ -510,3 +542,5 @@ export default function Welcome() {
         );
     }
 }
+
+
