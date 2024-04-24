@@ -65,7 +65,6 @@ export default function WelcomePage() {
                         zIndex: -1,
                     }}
                 ></div>
-
                 <div className="absolute right-0 flex flex-col justify-center items-center pr-14 size-1/4 h-full pt-28 pb-28 space-y-6">
                     <Link
                         to="/map"
@@ -108,7 +107,9 @@ export default function WelcomePage() {
                         zIndex: -1,
                     }}
                 ></div>
-
+                  <div className="top-0 w-screen items-center align-center text-center absolute bg-accent text-sm">
+                    This website is a term project exercise for CS 3733 Software Engineering (Prof. Wong) <br/> and is not to be confused with the acutal Brigham and Women's Hospital website.
+                </div>
                 <div className="absolute right-0 flex flex-col justify-center items-center pr-14 size-1/4 h-full pt-28 pb-28 space-y-6">
                     <Link
                         to="/map"
