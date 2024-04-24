@@ -101,14 +101,14 @@ export function DataTableDemo(data, columns) {
 
     return (
         <div className="w-full">
-            <div className="flex items-center py-4">
+            <div className="flex items-center py-4 space-x-2">
                 <Select
                     onValueChange={(value) => {
                         setValueFilter(value);
                     }}
                 >
-                    <SelectTrigger className="flex min-w-32 max-w-40 hover:bg-secondary hover:ring-0 focus:ring-0 hover:bg-accent hover:text-background text-sm text-bold font-medium text-gray-700 dark:text-foreground">
-                        <SelectValue placeholder={"Select Filter"} />
+                    <SelectTrigger className="flex min-w-48 max-w-40 hover:bg-secondary hover:ring-0 focus:ring-0 hover:bg-accent hover:text-background text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                        <SelectValue placeholder={"Select Field to Filter"} />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
@@ -128,7 +128,7 @@ export function DataTableDemo(data, columns) {
                     </SelectContent>
                 </Select>
                 <Input
-                    placeholder="Filter ..."
+                    placeholder={"Filter " + valueFilter}
                     value={
                         (table
                             .getColumn(valueFilter)
@@ -144,7 +144,7 @@ export function DataTableDemo(data, columns) {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className="ml-auto">
-                            Columns <ChevronDown className="ml-2 h-4 w-4" />
+                            Display Fields <ChevronDown className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -168,8 +168,8 @@ export function DataTableDemo(data, columns) {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="rounded-md border">
-                <Table>
+            <div className="min-w-full rounded-md border">
+                <Table className={"min-w-full"}>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
@@ -326,8 +326,8 @@ export default function ViewNodes(inputData: {
         //const isDBNodeData = data.length > 0 && "edges" in data[0];
 
         return (
-            <div className="relative py-10 mx-2 overflow-x-auto flex flex-col items-center justify-center">
-                <div className="mx-auto">{DataTableDemo(data, columns)}</div>
+            <div className="py-10 mx-2 overflow-x-auto flex flex-col items-center justify-center min-w-full">
+                <div className="w-full">{DataTableDemo(data, columns)}</div>
             </div>
         );
     }
