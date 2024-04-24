@@ -1,9 +1,11 @@
 export interface FlowerServiceRequest {
-    patientName: string;
     location: string;
+    status: string;
+    priority: string;
+    employeeName: string;
+    date: string;
+    patientName: string;
     senderName: string;
     cardMessage: string;
     flowerType: string;
-    status: string;
-    priority: string;
 }

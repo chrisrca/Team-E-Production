@@ -126,7 +126,7 @@ export default function AboutUs() {
                 {teamMembers.map((member, index) => (
                     <PortraitCard key={index} className="bg-secondary shadow-md hover:cursor-pointer hover:outline">
                         <CardContent>
-                            <img src={member.image} alt={member.name}/>
+                            <img className="rounded-md" src={member.image} alt={member.name}/>
                         </CardContent>
                         <div className="">
                             <CardTitle>{member.name}</CardTitle>
@@ -134,9 +134,9 @@ export default function AboutUs() {
                             <CardDescription>{member.major} Major</CardDescription>
                             <CardDescription>Class of {member.class}</CardDescription>
                             <br/>
-                            <audio controls>
+                            {/* <audio controls>
                                 <source src={member.audio} type="audio/mp3"/>
-                            </audio>
+                            </audio> */}
                         </div>
                     </PortraitCard>
                 ))}
