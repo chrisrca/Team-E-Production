@@ -5,11 +5,11 @@ const defaultFormSchema = {
     recipientName: "",
     giftSize: "",
     message: "",
-    wrapping: "Default - $15",
     location: "",
     status: "",
     priority: "",
     employeeName: "",
+    wrapping: "Default - $15",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title

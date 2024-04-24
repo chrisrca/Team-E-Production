@@ -280,7 +280,7 @@ export const ServiceRequests = (
         console.log("making checkbox '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className={"flex col-span-1 container:ml-0 pl-6 pt-2"}>
+                <div className={"flex col-span-2 container:ml-0 pl-6 pt-2"}>
                     <Checkbox
                         onChange={(e) =>
                             (formSchema[schemaKeys[props.id]] =
