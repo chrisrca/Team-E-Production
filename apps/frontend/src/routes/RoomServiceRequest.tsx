@@ -2,13 +2,13 @@ import { ServiceRequests } from "@/components/ServiceRequests";
 import scheduling from "/src/images/scheduling.jpg";
 
 const defaultFormSchema = {
-    employeeName: "",
     serviceType: "",
     startTime: "",
     endTime: "",
     location: "",
     status: "",
     priority: "",
+    employeeName: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -83,6 +83,16 @@ const defaultForm = [
         id: 0,
         label: "Request Priority",
         options: ["Low", "Medium", "High", "Emergency"],
+    },
+    {
+        content: "employee",
+        type: "string",
+        title: "Assign Employee",
+        placeholder: "Select Employee",
+        required: false,
+        id: 0,
+        label: "",
+        options: [],
     },
 ];
 export default function RoomScheduling() {

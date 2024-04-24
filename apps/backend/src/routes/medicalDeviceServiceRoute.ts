@@ -25,6 +25,7 @@ router.post("/", async (req: Request, res: Response) => {
                 location: serviceRequest.location,
                 status: serviceRequest.status,
                 priority: serviceRequest.priority,
+                employeeName: serviceRequest.employeeName,
                 serviceType: "MEDICALDEVICE",
                 medicaldevice: {
                     create: {

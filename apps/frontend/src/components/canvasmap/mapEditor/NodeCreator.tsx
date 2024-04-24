@@ -18,13 +18,17 @@ const defaultNode = {
     blocked: false,
 };
 
+interface NodeCreatorProps {
+    triggerRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 async function sendNodeCreateOrder(editedNode: DBNode) {
-    axios.post("/api/mapeditorcreate", editedNode).then((res) => {
+    axios.post("/api/mapeditorcreate/nodes", editedNode).then((res) => {
         console.log(res);
     });
 }
 
-export default function NodeCreator() {
+export default function NodeCreator({ triggerRefresh }: NodeCreatorProps) {
     const [editedNode, setEditedNode] = useState<DBNode>(defaultNode);
 
     // Sync state when the node prop changes
@@ -36,12 +40,14 @@ export default function NodeCreator() {
             sendNodeCreateOrder(editedNode);
         }
         setEditedNode(defaultNode);
+        triggerRefresh(true);
     }
 
     // Function to handle cancel action
     function handleCancel() {
         console.log("Cancel node logic here");
         setEditedNode(defaultNode);
+        triggerRefresh(true);
     }
 
     return (

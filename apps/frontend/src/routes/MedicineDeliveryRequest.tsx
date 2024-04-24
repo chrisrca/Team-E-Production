@@ -27,6 +27,7 @@ export default function DrugDelivery() {
         location: "",
         status: "",
         priority: "",
+        employeeName: "",
     };
 
     //Label is necessary, ids are calculated assuming that there is a title
@@ -93,6 +94,16 @@ export default function DrugDelivery() {
             id: 0,
             label: "Request Priority",
             options: ["Low", "Medium", "High", "Emergency"],
+        },
+        {
+            content: "employee",
+            type: "string",
+            title: "Assign Employee",
+            placeholder: "Select Employee",
+            required: false,
+            id: 0,
+            label: "",
+            options: [],
         },
     ];
 
