@@ -25,6 +25,7 @@ import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
 import Profile from "@/routes/Profile.tsx";
 import Settings from "@/routes/Settings.tsx";
+import BadRoutePage from "@/routes/404Page.tsx";
 import AboutUs from "@/routes/AboutUs.tsx";
 import WelcomePage from "@/routes/WelcomePage.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
@@ -177,8 +178,10 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                             </ProtectedRoute>
                         }
                     />
+                    <Route path="*" element = {<BadRoutePage/>}/>
                     <Route path="/credit-page" element={<CreditPage />} />
                 </Routes>
+
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
                     <ModeToggle />
                 </div>
