@@ -23,9 +23,9 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
             });
         const randomStart = nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
         const randomEnd = nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
-        const algorithms = ["ASTAR", "Dijkstra", "BFS", "DFS"];
+        const algorithms = ["ASTAR", "DIJKSTRA", "BFS", "DFS"];
         const randomAlgo = algorithms[Math.floor(Math.random() * algorithms.length)];
-
+        console.log(randomAlgo);
         setStart(randomStart);
         setEnd(randomEnd);
         setAlgorithm(randomAlgo);
@@ -62,6 +62,9 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 algorithm={[algorithm, setAlgorithm]}
             />
             <LevelButtons levelProps={[level, setLevel]}/>
+            <div style={{height: "100vh",
+                overflow: "hidden",
+            }}>
             <CanvasMap
                 level={level}
                 path={pathNodes}
@@ -70,6 +73,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 start={setStart}
                 end={setEnd}
             />
+            </div>
             <div style={{position: "absolute", top: "240px", left: "60px"}}>
                 <Button onClick={handleRandomize}>I'm Feeling Lucky</Button>
             </div>
