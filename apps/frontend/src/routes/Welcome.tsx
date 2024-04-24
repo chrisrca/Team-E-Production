@@ -142,6 +142,10 @@ export default function Welcome() {
                         <h2 className="text-xl ">
                             Helping our patients and their families get back to what
                             matters most.
+                          <br/><br/>
+                          This website is a term project exercise for WPI CS 3733 Software
+                          Engineering (Prof. Wong) and is not to be confused with the actual Brigham & Women’s
+                          Hospital website.
                         </h2>
                         {!exists && showDialog && (
                             <div className="fixed bottom-4 right-4 bg-background dark:bg-background text-sm text-gray-500 dark:text-gray-400 p-4 rounded-md shadow-md border border-gray-200 dark:border-gray-800 transition-all duration-300">
@@ -318,7 +322,10 @@ export default function Welcome() {
                     </h1>
                     <h2 className="text-xl ">
                         Helping our patients and their families get back to what
-                        matters most.
+                        matters most. <br/><br/>
+                        This website is a term project exercise for WPI CS 3733 Software
+                        Engineering (Prof. Wong) and is not to be confused with the actual Brigham & Women’s
+                        Hospital website.
                     </h2>
                 </div>
                 <div className="">
