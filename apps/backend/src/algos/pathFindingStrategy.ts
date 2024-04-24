@@ -44,7 +44,8 @@ export abstract class firstSearchAlgos implements PathFindingStrategy {
 
                 // Explore neighbors
                 for (const edge of current.edges) {
-                    const neighbor = edge.start === current ? edge.end : edge.start;
+                    const neighbor =
+                        edge.start === current ? edge.end : edge.start;
                     if (!visited.has(neighbor)) {
                         visited.add(neighbor);
                         this.add(queue, neighbor);
@@ -70,7 +71,8 @@ export abstract class weightedSearchAlgos implements PathFindingStrategy {
         if (nodes[0] && nodes[1]) {
             const openSet = new PriorityQueue<Node>(
                 [],
-                (a, b) => (fScore.get(a) || Infinity) - (fScore.get(b) || Infinity),
+                (a, b) =>
+                    (fScore.get(a) || Infinity) - (fScore.get(b) || Infinity),
             );
             const cameFrom: Map<Node, Node> = new Map();
             const gScore: Map<Node, number> = new Map([[nodes[0], 0]]);
@@ -96,15 +98,18 @@ export abstract class weightedSearchAlgos implements PathFindingStrategy {
                 closedSet.add(current);
 
                 for (const edge of current.edges) {
-                    const neighbor = edge.start === current ? edge.end : edge.start;
+                    const neighbor =
+                        edge.start === current ? edge.end : edge.start;
                     if (closedSet.has(neighbor)) continue;
 
                     const tentativeGScore =
-                        gScore.get(current)! + euclideanDistance(current, neighbor);
+                        gScore.get(current)! +
+                        euclideanDistance(current, neighbor);
 
                     if (!openSet.has(neighbor)) openSet.push(neighbor);
 
-                    if (tentativeGScore >= (gScore.get(neighbor) || Infinity)) continue;
+                    if (tentativeGScore >= (gScore.get(neighbor) || Infinity))
+                        continue;
 
                     cameFrom.set(neighbor, current);
                     gScore.set(neighbor, tentativeGScore);
@@ -168,7 +173,10 @@ export class DIJKSTRA extends weightedSearchAlgos {
     }
 }
 
-async function getStartEnd(start: string, end: string,): Promise<(Node | null)[]> {
+async function getStartEnd(
+    start: string,
+    end: string,
+): Promise<(Node | null)[]> {
     const data: [Node[], Edge[]] = await processGraphData();
     const nodeList: Node[] = data[0];
     let startNode: Node | null = null;

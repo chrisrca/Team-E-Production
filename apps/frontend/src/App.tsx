@@ -25,6 +25,8 @@ import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
 import Profile from "@/routes/Profile.tsx";
 import Settings from "@/routes/Settings.tsx";
+import { Toaster } from "@/components/ui/toaster.tsx";
+import { ToastProvider } from "@radix-ui/react-toast";
 import CreditPage from "@/routes/CreditPage.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
@@ -62,8 +64,9 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         <UserArea />
                     </div>
                 </div>
+                <Toaster />
                 <Routes>
-                    <Route path="/" element={<Welcome />} />
+                    <Route path="/" element={<Welcome /> } />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
                     <Route
@@ -197,7 +200,9 @@ function App() {
 
     return (
         <BrowserRouter>
+            <ToastProvider>
             <AuthProviderWrapper nodes={nodesIn} />
+            </ToastProvider>
         </BrowserRouter>
     );
 }

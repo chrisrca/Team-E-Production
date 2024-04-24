@@ -1504,6 +1504,39 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@radix-ui/react-alert-dialog", [\
+      ["npm:1.0.5", {\
+        "packageLocation": "./.yarn/cache/@radix-ui-react-alert-dialog-npm-1.0.5-845ccfaf34-966eeef940.zip/node_modules/@radix-ui/react-alert-dialog/",\
+        "packageDependencies": [\
+          ["@radix-ui/react-alert-dialog", "npm:1.0.5"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.5", {\
+        "packageLocation": "./.yarn/__virtual__/@radix-ui-react-alert-dialog-virtual-5937e73a6c/0/cache/@radix-ui-react-alert-dialog-npm-1.0.5-845ccfaf34-966eeef940.zip/node_modules/@radix-ui/react-alert-dialog/",\
+        "packageDependencies": [\
+          ["@radix-ui/react-alert-dialog", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.5"],\
+          ["@babel/runtime", "npm:7.24.1"],\
+          ["@radix-ui/primitive", "npm:1.0.1"],\
+          ["@radix-ui/react-compose-refs", "virtual:cf9339f8fcc2367c8e6d3d5f0f0513aed61a8bf4ff96261095117f132d8cfcb587d0c7b5d73e7d1ea04f633e715d09e89290d3d0bd86a0ed5e192a2f991165c1#npm:1.0.1"],\
+          ["@radix-ui/react-context", "virtual:cf9339f8fcc2367c8e6d3d5f0f0513aed61a8bf4ff96261095117f132d8cfcb587d0c7b5d73e7d1ea04f633e715d09e89290d3d0bd86a0ed5e192a2f991165c1#npm:1.0.1"],\
+          ["@radix-ui/react-dialog", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.5"],\
+          ["@radix-ui/react-primitive", "virtual:cf9339f8fcc2367c8e6d3d5f0f0513aed61a8bf4ff96261095117f132d8cfcb587d0c7b5d73e7d1ea04f633e715d09e89290d3d0bd86a0ed5e192a2f991165c1#npm:1.0.3"],\
+          ["@radix-ui/react-slot", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.2"],\
+          ["@types/react", "npm:18.2.48"],\
+          ["@types/react-dom", "npm:18.2.18"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@radix-ui/react-arrow", [\
       ["npm:1.0.3", {\
         "packageLocation": "./.yarn/cache/@radix-ui-react-arrow-npm-1.0.3-d57b8cf08f-8cca086f0d.zip/node_modules/@radix-ui/react-arrow/",\
@@ -7476,6 +7509,7 @@ const RAW_RUNTIME_STATE =
           ["@auth0/auth0-react", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:2.2.4"],\
           ["@popperjs/core", "npm:2.11.8"],\
           ["@radix-ui/react-accordion", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.1.2"],\
+          ["@radix-ui/react-alert-dialog", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.5"],\
           ["@radix-ui/react-avatar", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.4"],\
           ["@radix-ui/react-checkbox", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.4"],\
           ["@radix-ui/react-collapsible", "virtual:d3996bc66f5a97675d735c6457b44af0f25df32a5e5981f61ff7f22e93004839ccc5d56298eff651f971a908820429de35800a3f2669be95e1c0f6bb82e8a700#npm:1.0.3"],\
