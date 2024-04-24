@@ -29,8 +29,8 @@ export default function AboutUs() {
         {
             name: "Kai Davidson",
             role: "Lead Developer",
-            major: "",
-            class: "202X",
+            major: "Computer Science / Bioinformatics and Computational Biology",
+            class: "2026",
             image: kai,
             audio: funny,
         },
@@ -45,16 +45,16 @@ export default function AboutUs() {
         {
             name: "Tri Vien Le",
             role: "Scrum Master",
-            major: "",
-            class: "202X",
+            major: "Computer Science",
+            class: "2026",
             image: tri,
             audio: funny,
         },
         {
             name: "Lorenzo Manfredi Segato",
             role: "Assistant Lead Software Engineer",
-            major: "",
-            class: "202X",
+            major: "Computer Science / Robotics Engineering",
+            class: "2025",
             image: lorenzo,
             audio: funny,
         },
@@ -69,32 +69,32 @@ export default function AboutUs() {
         {
             name: "Brendan Reilly",
             role: "Backend Database Engineer",
-            major: "",
-            class: "202X",
+            major: "Computer Science",
+            class: "2026",
             image: brendan,
             audio: funny,
         },
         {
             name: "Christian Reynolds",
             role: "Algorithms",
-            major: "",
-            class: "202X",
+            major: "Computer Science",
+            class: "2026",
             image: christian,
             audio: funny,
         },
         {
             name: "Marc Wehbe",
             role: "Frontend",
-            major: "",
-            class: "202X",
+            major: "Electrical and Computer Engineering / Robotics Engineering",
+            class: "2025",
             image: marc,
             audio: funny,
         },
         {
             name: "Colin Williams",
             role: "Frontend",
-            major: "",
-            class: "202X",
+            major: "Computer Science",
+            class: "2026",
             image: colin,
             audio: funny,
         },
@@ -109,8 +109,8 @@ export default function AboutUs() {
         {
             name: "Tao Zou",
             role: "Documentation Analyst",
-            major: "",
-            class: "202X",
+            major: "Robotics Engineering",
+            class: "2024",
             image: tao,
             audio: funny,
         },
@@ -119,7 +119,11 @@ export default function AboutUs() {
     return (
         <div>
             <div className="flex items-center justify-center pt-10 text-4xl font-bold">
-                <h1>About Us</h1>
+                About Us
+            </div>
+            <div className="flex items-center text-center justify-center pt-5">
+                We are the Emerald Ewoks, a team of students taking Software Engineering at Worcester Polytechnic Institute. <br/>
+                WPI Computer Science Department | CS3733-D24 Software Engineering | Professor Wilson Wong <br/> Many thanks to our Team Coach, Keira Schoolcraft
             </div>
             <div className="grid gap-x-3 gap-y-3 grid-cols-3 auto-rows-auto pt-10 p-10">
                 {/* Iterate over the teamMembers array and render each team member */}
@@ -140,6 +144,10 @@ export default function AboutUs() {
                         </div>
                     </PortraitCard>
                 ))}
+            </div>
+            <div className="p-10 flex text-center items-center justify-center font-bold">
+                Thank you to the Brigham and Women's Hostpital and Andrew Shinn for providing us with the opportunity to work on this project.
+                <br/> The Brigham and Women's Hospital maps used in this application are copyrighted and provided for the sole use of educational purposes.
             </div>
         </div>
     );
