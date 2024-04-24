@@ -5524,6 +5524,7 @@ __metadata:
     shadcn-ui: "npm:^0.8.0"
     sort-by: "npm:^1.2.0"
     tailwind-merge: "npm:^2.2.2"
+    tailwind-scrollbar: "npm:^3.1.0"
     tailwindcss: "npm:^3.4.3"
     tailwindcss-animate: "npm:^1.0.7"
     tsconfig-custom: "workspace:*"
@@ -9103,6 +9104,15 @@ __metadata:
   dependencies:
     "@babel/runtime": "npm:^7.24.0"
   checksum: f7ec370e58d1d8f12ed6509d93333f2dacfcb43110334c5424db50ae456d14939ad32cff1ef7e31d1d10a6fff9d2e80be11560ef1ebb3fe5c83de6d465a7f7b8
+  languageName: node
+  linkType: hard
+
+"tailwind-scrollbar@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "tailwind-scrollbar@npm:3.1.0"
+  peerDependencies:
+    tailwindcss: 3.x
+  checksum: c51a4788e72a9113155e2a8c472f45b280da190db999a7fc817f042adef7bc3890c15719f7d18bf34cf4817a414b29f42f622ed20d20658d06f654ad85dee20b
   languageName: node
   linkType: hard
 

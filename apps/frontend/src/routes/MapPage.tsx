@@ -3,8 +3,9 @@ import LevelButtons from "@/components/canvasmap/map/LevelButtons.tsx";
 import SearchBar from "@/components/canvasmap/map/MapUI.tsx";
 import axios from "axios";
 import { DBNode } from "common/src/types";
-// import { DBNode } from "common/src/types";
+import Legend from "@/components/canvasmap/map/Legend";
 import { useEffect, useState } from "react";
+import TextDirection, { TextDirectionComponent }  from "@/components/TextDirection.tsx";
 import {Button} from "@/components/ui/button.tsx";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
@@ -15,6 +16,9 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [algorithm, setAlgorithm] = useState<string>("ASTAR");
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
     const [level, setLevel] = useState<number>(1);
+    const [prompt, setPrompt] = useState<string[]>(['']);
+    const [turn, setTurn] = useState<string[]>(['']);
+    const [floor, setFloor] = useState<string[]>(['']);
 
     const handleRandomize = () => {
         const nonHallNodes = nodes
@@ -46,6 +50,10 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 }
 
                 setPathNodes(res.data);
+                const { prompts, turns, floors}= TextDirection(res.data);
+                setPrompt(prompts);
+                setTurn(turns);
+                setFloor(floors);
             } catch (error) {
                 setPathNodes([]);
                 console.error("Error fetching data:", error);
@@ -53,30 +61,39 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
         }
         fetchPathData().then();
     }, [start, end, algorithm]);
+
     return (
-        <div className="z-0 relative">
-            <SearchBar
-                selection={nodes}
-                start={[start, setStart]}
-                end={[end, setEnd]}
-                algorithm={[algorithm, setAlgorithm]}
-            />
-            <LevelButtons levelProps={[level, setLevel]}/>
-            <div style={{height: "100vh",
-                overflow: "hidden",
-            }}>
-            <CanvasMap
-                level={level}
-                path={pathNodes}
-                nodes={nodes}
-                setLevel={setLevel}
-                start={setStart}
-                end={setEnd}
-            />
+        <>
+            <div className="z-0 relative flex">
+                <div className="z-10">
+                    <SearchBar
+                        selection={nodes}
+                        start={[start, setStart]}
+                        end={[end, setEnd]}
+                        algorithm={[algorithm, setAlgorithm]}
+                    />
+                    <div className="mr-5 max-h-full mb-10 absolute bottom-0 right-0 z-10">
+                        <Legend/>
+                    </div>
+                    <LevelButtons levelProps={[level, setLevel]}/>                
+                    <TextDirectionComponent prompts={prompt} turns={turn} floors={floor} currFloor={level}/>    
+                    <div style={{position: "absolute", top: "240px", left: "60px"}}>
+                        <Button onClick={handleRandomize}>I'm Feeling Lucky</Button>
+                    </div>
+                </div>
+                <div style={{height: "100vh",
+                    overflow: "hidden",
+                }}>
+                    <CanvasMap
+                        level={level}
+                        path={pathNodes}
+                        nodes={nodes}
+                        setLevel={setLevel}
+                        start={setStart}
+                        end={setEnd}
+                    />
+                </div>
             </div>
-            <div style={{position: "absolute", top: "240px", left: "60px"}}>
-                <Button onClick={handleRandomize}>I'm Feeling Lucky</Button>
-            </div>
-        </div>
+        </>
     );
 }
