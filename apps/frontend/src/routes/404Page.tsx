@@ -1,8 +1,8 @@
 function BadRoutePage() {
     return (
-        <div>
-            <h1>404 Error</h1>
-            <p>This Page Doesn't Exist</p>
+        <div className="flex flex-col h-screen align-center text-center justify-center grow font-bold">
+            <div>404 Error</div>
+            <div>This Page Doesn't Exist</div>
         </div>
     );
 }
