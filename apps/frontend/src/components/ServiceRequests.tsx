@@ -350,8 +350,6 @@ export const ServiceRequests = (
             setSearchTerm("");
         };
 
-        console.log(nodes);
-
         return (
             <div className={"col-span-auto"}>
                 <label
@@ -396,14 +394,14 @@ export const ServiceRequests = (
 
     const EmployeeComp = (props: FormComponent) => {
         console.log(
-        "making Popover(Location) '" + props.title + "' id: " + props.id,
+            "making Popover(Employee) '" + props.title + "' id: " + props.id,
         );
         const [employees, setEmployee] = useState<Employee[]>([]);
 
         useEffect(() => {
             async function fetchEmployees() {
                 try {
-                    const response = await axios.get("/api/employees");
+                    const response = await axios.get("/api/employee");
                     setEmployee(response.data);
                 } catch (error) {
                     console.error("Failed to fetch Employees: ", error);
@@ -473,10 +471,6 @@ export const ServiceRequests = (
             </div>
         );
     };
-
-
-
-
 
     //End of Elements
 

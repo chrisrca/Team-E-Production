@@ -7,21 +7,22 @@ import { Button } from "@/components/ui/button";
 
 interface NodeEditorProps {
     node: DBNode | null;
+    triggerRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 async function sendNodeOrder(editedNode: DBNode) {
-    axios.post("/api/mapeditor", editedNode).then((res) => {
+    axios.post("/api/mapeditor/nodes", editedNode).then((res) => {
         console.log(res);
     });
 }
 
 async function sendNodeDelOrder(editedNode: DBNode) {
-    axios.post("/api/mapeditordel", editedNode).then((res) => {
+    axios.post("/api/mapeditordel/nodes", editedNode).then((res) => {
         console.log(res);
     });
 }
 
-export default function NodeEditor({ node }: NodeEditorProps) {
+export default function NodeEditor({ node, triggerRefresh }: NodeEditorProps) {
     const [editedNode, setEditedNode] = useState<DBNode | null>(node);
 
     // Sync state when the node prop changes
@@ -45,12 +46,14 @@ export default function NodeEditor({ node }: NodeEditorProps) {
             sendNodeOrder(editedNode);
         }
         setEditedNode(null);
+        triggerRefresh(true);
     }
 
     // Function to handle cancel action
     function handleCancel() {
         console.log("Cancel node logic here");
         setEditedNode(null);
+        triggerRefresh(true);
     }
 
     function handleDelete() {

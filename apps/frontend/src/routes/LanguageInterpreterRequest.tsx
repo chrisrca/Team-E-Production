@@ -88,11 +88,11 @@ const defaultForm = [
         type: "string",
         title: "Assign Employee",
         placeholder: "Select Employee",
-        required: true,
+        required: false,
         id: 0,
         label: "",
         options: [],
-    }
+    },
 ];
 export default function InterpreterService() {
     return ServiceRequests(
