@@ -60,7 +60,7 @@ type FormLabel = {
     content: string; //Element content - (input, select, switch, button, ect)
     title: string; //Element title
     type: string; //Element type - (string, number, etc)
-    required: boolean; //Required field?
+    required: boolean; //Required? field
     id: number;
 };
 

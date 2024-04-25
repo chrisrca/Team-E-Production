@@ -15,14 +15,14 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, /*MoreHorizontal*/ } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
-    // DropdownMenuItem,
-    // DropdownMenuLabel,
-    // DropdownMenuSeparator,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    //DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -84,27 +84,36 @@ export function DataTableDemo(data, columns) {
 
     const [pageCount, setPageCount] = useState(1);
     //const [pageMax, setPageMax] = useState(1);
-    const [valueFilter, setValueFilter] = useState(Object.keys(data[0])[0]);
-
+	
+	const filter = 0;
+    const [valueFilter, setValueFilter] = useState(filter);
+	if(valueFilter > Object.keys(data[0]).length) {setValueFilter(0);}
+	console.log(Object.keys(data[0])[valueFilter]);
+	
+	if(Object.keys(data) === undefined){
+		console.log("data.valueFilter == undefined");
+		//setValueFilter(Object.keys(data[0])[0]);
+	}
+	//const filter = Object.keys(data[0])[0];
 
     return (
         <div className="w-screen p-10 overflow-auto">
             <div className="flex grow items-center py-4 space-x-2">
                 <Select
                     onValueChange={(value) => {
-                        setValueFilter(value);
+						setValueFilter(value);
                     }}
                 >
                     <SelectTrigger className="flex min-w-48 max-w-40 hover:bg-secondary hover:ring-0 focus:ring-0 hover:bg-accent hover:text-background text-sm text-bold font-medium text-gray-700 dark:text-foreground">
-                        <SelectValue placeholder={"Select Field to Filter"} />
+                        <SelectValue placeholder={Object.keys(data[0])[filter].toString() || "Select Field to Filter"} />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
                             <SelectLabel>{""}</SelectLabel>
                             {/* Map options to select */}
-                            {Object.keys(data[0]).map((option) => (
+                            {Object.keys(data[0]).map((option, index) => (
                                 <SelectItem
-                                    value={option.toString()}
+                                    value={index}
                                     className={
                                         "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
                                     }
@@ -116,23 +125,27 @@ export function DataTableDemo(data, columns) {
                     </SelectContent>
                 </Select>
                 <Input
-                    placeholder={"Filter " + valueFilter}
+                    placeholder={"Filter by [" + Object.keys(data[0])[valueFilter] + "] field... "}
                     value={
                         (table
-                            .getColumn(valueFilter)
+                            .getColumn(Object.keys(data[0])[valueFilter])
                             ?.getFilterValue() as string) ?? ""
                     }
-                    onChange={(event) =>
-                        table
-                            .getColumn(valueFilter)
-                            ?.setFilterValue(event.target.value)
-                    }
+                    onChange={(event) => {
+						(table
+                            .getColumn(Object.keys(data[0])[valueFilter])
+                            ?.setFilterValue(event.target.value));
+					}}
                     className="w-full hover:ring-0 focus:ring-0"
                 ></Input>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto text-gray-700">
-                            Display Fields <ChevronDown className="ml-2 h-4 w-4" />
+                        <Button
+                            variant="outline"
+                            className="ml-auto text-gray-700"
+                        >
+                            Display Fields{" "}
+                            <ChevronDown className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -217,7 +230,7 @@ export function DataTableDemo(data, columns) {
                     {Math.round(
                         table.getFilteredRowModel().rows.length / 10 + 0.4,
                     )}{" "}
-                    Pages.
+                    {"Page(s)."}
                 </div>
                 <div className="space-x-2">
                     <Button
@@ -263,50 +276,79 @@ export default function ViewNodes(inputData: {
 }) {
     const columns = [];
 
-    let data = inputData.data;
+    const data = inputData.data;
 
     if (data[0] != undefined) {
         Object.keys(data[0]).map((value) => {
+			if(value.includes("flower")){
+				return;
+			}
             columns.push({
-                accessorKey: value.toString(),
-                header: value,
+                accessorKey: value,
+                header: ({ column }) => {
+                    if(!value.toLowerCase().includes("id")){
+						const fixed = value.split('');
+						for(let i=0; i<value.length; i++){
+							if(value[i].match(/[A-Z]/) != null){
+								fixed.splice(i, 0, " ");
+							}
+						}
+						fixed[0] = fixed[0].toUpperCase();
+						//console.log(fixed);
+						return fixed.join('');
+					} else {
+                        return (
+                            <Button
+                                variant="ghost"
+                                onClick={() =>
+                                    column.toggleSorting(
+                                        column.getIsSorted() === "asc",
+                                    )
+                                }
+                            >
+                                {value}
+                                <ArrowUpDown className="ml-2 h-4 w-4" />
+                            </Button>
+                        );
+                    }
+                },
             });
         });
     }
 
-    // columns.push({
-    //     id: "actions",
-    //     enableHiding: false,
-    //     cell: ({ row }) => {
-    //         const payment = row.original;
-
-    //         return (
-    //             <DropdownMenu>
-    //                 <DropdownMenuTrigger asChild>
-    //                     <Button variant="ghost" className="h-8 w-8 p-0">
-    //                         <span className="sr-only">Open menu</span>
-    //                         <MoreHorizontal className="h-4" />
-    //                     </Button>
-    //                 </DropdownMenuTrigger>
-    //                 <DropdownMenuContent align="end">
-    //                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //                     <DropdownMenuItem
-    //                         onClick={() =>
-    //                             navigator.clipboard.writeText(payment.id)
-    //                         }
-    //                     >
-    //                         Copy payment ID
-    //                     </DropdownMenuItem>
-    //                     <DropdownMenuSeparator />
-    //                     <DropdownMenuItem>View customer</DropdownMenuItem>
-    //                     <DropdownMenuItem>
-    //                         View payment details
-    //                     </DropdownMenuItem>
-    //                 </DropdownMenuContent>
-    //             </DropdownMenu>
-    //         );
-    //     },
-    // });
+	if(data[0] != undefined && !(Object.keys(data[0]).indexOf("serviceType") === -1)){
+		columns.push({
+			id: "actions",
+			enableHiding: false,
+			header: "Details",
+			cell: ({ row }) => {
+				const details = row.original;
+	
+				//console.log(row);
+				const order = (details[details["serviceType"].toLowerCase()]);
+				return (
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button variant="ghost" className="h-8 w-8 p-0">
+								<span className="sr-only">Open menu</span>
+								<MoreHorizontal className="h-4" />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align="end">
+							<DropdownMenuLabel>Order Details</DropdownMenuLabel>
+							{Object.keys(details[details["serviceType"].toLowerCase()]).map((key) => {
+								return(
+									<DropdownMenuItem>
+										<div className={"font-bold"}>{key}</div> : {order[key]}
+									</DropdownMenuItem>
+								);
+							})}
+						</DropdownMenuContent>
+					</DropdownMenu>
+				);
+			},
+		});
+	}
     if (data.length !== 0) {
         //const isDBNodeData = data.length > 0 && "edges" in data[0];
 
