@@ -15,7 +15,12 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
+import { ArrowUpDown, ChevronDown, MoreHorizontal, X } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
@@ -45,17 +50,50 @@ import {
     RoomSchedulingForm,
     MedicalDeviceServiceRequest,
 } from "common/src/types";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 
 export function DataTableDemo(data, columns) {
+    const renderFilters = (activeFilters) => {
+        if (activeFilters.length === 0) {
+            return "No Active Filters.";
+        } else {
+            return (
+                <>
+                    <Button className="bg-accent size-4">hi</Button>
+                    <div className={"min-w-full overflow-auto bg-accent"}>
+                        <div className={"font-bold flex flex-nowrap"}>
+                            {"Applied Filters:"}
+                            {activeFilters.map((filter) => (
+                                <div
+                                    className={
+                                        "font-normal p-2 border rounded-xl flex flex-nowrap"
+                                    }
+                                >
+                                    <Button
+                                        className={
+                                            "size-fit p-0 m-0 hover:bg-accent"
+                                        }
+                                        onClick={() => {
+                                            table
+                                                .getColumn(filter["id"])
+                                                ?.setFilterValue("");
+                                            console.log(
+                                                table.getColumn(filter["id"]),
+                                            );
+                                            console.log(activeFilters);
+                                        }}
+                                    >
+                                        <X className={"size-fit"} />
+                                    </Button>
+                                    {filter["id"] + " : " + filter["value"]}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </>
+            );
+        }
+    };
+
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] =
         React.useState<ColumnFiltersState>([]);
@@ -84,58 +122,92 @@ export function DataTableDemo(data, columns) {
 
     const [pageCount, setPageCount] = useState(1);
     //const [pageMax, setPageMax] = useState(1);
-	
-	const filter = 0;
+
+    const filter = 0;
     const [valueFilter, setValueFilter] = useState(filter);
-	if(valueFilter > Object.keys(data[0]).length) {setValueFilter(0);}
-	console.log(Object.keys(data[0])[valueFilter]);
-	
-	if(Object.keys(data) === undefined){
-		console.log("data.valueFilter == undefined");
-		//setValueFilter(Object.keys(data[0])[0]);
-	}
-	//const filter = Object.keys(data[0])[0];
+
+    console.log(columns);
+    if (table.getState().columnFilters.length > 0) {
+        for (let i = 0; i < table.getState().columnFilters.length; i++) {
+            console.log(i);
+            console.log(table.getState().columnFilters);
+            console.log(table.getState().columnFilters[i]["id"]);
+            console.log(Object.keys(data[0]));
+            if (
+                !Object.keys(data[0]).includes(
+                    table.getState().columnFilters[i]["id"],
+                )
+            ) {
+                console.log("pop!");
+
+                table.getState().columnFilters.splice(i, 1);
+            } else {
+                console.log("no pop!");
+            }
+        }
+    }
+
+    //const [filters, setFilters] = useState("");
+    if (valueFilter > Object.keys(data[0]).length) {
+        setValueFilter(0);
+    }
+    if (Object.keys(data[0])[valueFilter] === undefined) {
+        setValueFilter(0);
+        Object.keys(data[0]).map((key) => {
+            table.getColumn(Object.keys(data[0])[key])?.setFilterValue("");
+        });
+    }
+
+    //table.getColumn(Object.keys(data[0])[index])?.setFilterValue("");
+    console.log(Object.keys(data[0])[valueFilter]);
+
+    if (Object.keys(data) === undefined) {
+        console.log("data.valueFilter == undefined");
+        //setValueFilter(Object.keys(data[0])[0]);
+    }
+    //const filter = Object.keys(data[0])[0];
 
     return (
         <div className="w-screen p-10 overflow-auto">
-            <div className="flex grow items-center py-4 space-x-2">
-                <Select
-                    onValueChange={(value) => {
-						setValueFilter(value);
-                    }}
-                >
-                    <SelectTrigger className="flex min-w-48 max-w-40 hover:bg-secondary hover:ring-0 focus:ring-0 hover:bg-accent hover:text-background text-sm text-bold font-medium text-gray-700 dark:text-foreground">
-                        <SelectValue placeholder={Object.keys(data[0])[filter].toString() || "Select Field to Filter"} />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            <SelectLabel>{""}</SelectLabel>
-                            {/* Map options to select */}
-                            {Object.keys(data[0]).map((option, index) => (
-                                <SelectItem
-                                    value={index}
-                                    className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
-                                    }
-                                >
-                                    {option}
-                                </SelectItem>
-                            ))}
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
+            <div className="flex flex-row mb-2 space-x-2">
+                <Popover>
+                    <PopoverTrigger>
+                        <Button className="flex h-10 w-50 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent hover:text-accent-foreground ring-0 text-sm text-bold font-sm text-gray-700 dark:text-foreground">
+                            {"Select Field to Filter"}
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md shadow-lg">
+                        {Object.keys(data[0]).map((option, index) => (
+                            <div
+                                key={index}
+                                className="p-2 hover:bg-accent hover-text cursor-pointer rounded-md hover:text-accent-foreground"
+                                onClick={() => {
+                                    console.log(option);
+                                    setValueFilter(index);
+                                }}
+                            >
+                                {option}
+                            </div>
+                        ))}
+                    </PopoverContent>
+                </Popover>
                 <Input
-                    placeholder={"Filter by [" + Object.keys(data[0])[valueFilter] + "] field... "}
+                    placeholder={
+                        "Filter by [" +
+                        Object.keys(data[0])[valueFilter] +
+                        "] field... "
+                    }
                     value={
                         (table
                             .getColumn(Object.keys(data[0])[valueFilter])
                             ?.getFilterValue() as string) ?? ""
                     }
                     onChange={(event) => {
-						(table
+                        table
                             .getColumn(Object.keys(data[0])[valueFilter])
-                            ?.setFilterValue(event.target.value));
-					}}
+                            ?.setFilterValue(event.target.value);
+                        console.log(table.getState().columnFilters);
+                    }}
                     className="w-full hover:ring-0 focus:ring-0"
                 ></Input>
                 <DropdownMenu>
@@ -169,6 +241,11 @@ export function DataTableDemo(data, columns) {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
+
+            <div className={"min-w-full px-4 mb-4 p-2 border rounded-lg"}>
+                {renderFilters(table.getState().columnFilters)}
+            </div>
+
             <div className="min-w-full rounded-md border">
                 <Table className={"min-w-full"}>
                     <TableHeader>
@@ -280,23 +357,23 @@ export default function ViewNodes(inputData: {
 
     if (data[0] != undefined) {
         Object.keys(data[0]).map((value) => {
-			if(value.includes("flower")){
-				return;
-			}
+            if (value.includes("flower")) {
+                return;
+            }
             columns.push({
                 accessorKey: value,
                 header: ({ column }) => {
-                    if(!value.toLowerCase().includes("id")){
-						const fixed = value.split('');
-						for(let i=0; i<value.length; i++){
-							if(value[i].match(/[A-Z]/) != null){
-								fixed.splice(i, 0, " ");
-							}
-						}
-						fixed[0] = fixed[0].toUpperCase();
-						//console.log(fixed);
-						return fixed.join('');
-					} else {
+                    if (!value.toLowerCase().includes("id")) {
+                        const fixed = value.split("");
+                        for (let i = 0; i < value.length; i++) {
+                            if (value[i].match(/[A-Z]/) != null) {
+                                fixed.splice(i, 0, " ");
+                            }
+                        }
+                        fixed[0] = fixed[0].toUpperCase();
+                        //console.log(fixed);
+                        return fixed.join("");
+                    } else {
                         return (
                             <Button
                                 variant="ghost"
@@ -316,39 +393,45 @@ export default function ViewNodes(inputData: {
         });
     }
 
-	if(data[0] != undefined && !(Object.keys(data[0]).indexOf("serviceType") === -1)){
-		columns.push({
-			id: "actions",
-			enableHiding: false,
-			header: "Details",
-			cell: ({ row }) => {
-				const details = row.original;
-	
-				//console.log(row);
-				const order = (details[details["serviceType"].toLowerCase()]);
-				return (
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button variant="ghost" className="h-8 w-8 p-0">
-								<span className="sr-only">Open menu</span>
-								<MoreHorizontal className="h-4" />
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align="end">
-							<DropdownMenuLabel>Order Details</DropdownMenuLabel>
-							{Object.keys(details[details["serviceType"].toLowerCase()]).map((key) => {
-								return(
-									<DropdownMenuItem>
-										<div className={"font-bold"}>{key}</div> : {order[key]}
-									</DropdownMenuItem>
-								);
-							})}
-						</DropdownMenuContent>
-					</DropdownMenu>
-				);
-			},
-		});
-	}
+    if (
+        data[0] != undefined &&
+        !(Object.keys(data[0]).indexOf("serviceType") === -1)
+    ) {
+        columns.push({
+            id: "actions",
+            enableHiding: false,
+            header: "Details",
+            cell: ({ row }) => {
+                const details = row.original;
+
+                //console.log(row);
+                const order = details[details["serviceType"].toLowerCase()];
+                return (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Open menu</span>
+                                <MoreHorizontal className="h-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Order Details</DropdownMenuLabel>
+                            {Object.keys(
+                                details[details["serviceType"].toLowerCase()],
+                            ).map((key) => {
+                                return (
+                                    <DropdownMenuItem>
+                                        <div className={"font-bold"}>{key}</div>{" "}
+                                        : {order[key]}
+                                    </DropdownMenuItem>
+                                );
+                            })}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                );
+            },
+        });
+    }
     if (data.length !== 0) {
         //const isDBNodeData = data.length > 0 && "edges" in data[0];
 
