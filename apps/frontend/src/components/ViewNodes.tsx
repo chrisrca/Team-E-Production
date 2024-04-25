@@ -273,7 +273,9 @@ export function DataTableDemo(data, columns) {
             </div>
 
             <div
-                className={"min-w-full px-4 mb-4 py-2 border rounded-lg bg-card"}
+                className={
+                    "min-w-full px-4 mb-4 py-2 border rounded-lg bg-card"
+                }
             >
                 {renderFilters(table.getState().columnFilters)}
             </div>
@@ -322,8 +324,8 @@ export function DataTableDemo(data, columns) {
                                             key={cell.id}
                                         >
                                             {flexRender(
-													cell.column.columnDef.cell,
-                                                	cell.getContext(),
+                                                cell.column.columnDef.cell,
+                                                cell.getContext(),
                                             )}
                                         </TableCell>
                                     ))}
@@ -357,8 +359,8 @@ export function DataTableDemo(data, columns) {
                         variant="outline"
                         size="sm"
                         onClick={() => {
-							setPageCount(1);
-							table.setPageIndex(0);
+                            setPageCount(1);
+                            table.setPageIndex(0);
                             table.setPageSize(userPgSize);
                         }}
                         disabled={!(5 < userPgSize && userPgSize < 1000)}
@@ -512,16 +514,18 @@ export default function ViewNodes(inputData: {
                             {Object.keys(
                                 details[details["serviceType"].toLowerCase()],
                             ).map((key, index) => {
-								const fixed = key.split("");
-								for (let i = 0; i < key.length; i++) {
-									if (key[i].match(/[A-Z]/) != null) {
-										fixed.splice(i, 0, " ");
-									}
-								}
-								fixed[0] = fixed[0].toUpperCase();
+                                const fixed = key.split("");
+                                for (let i = 0; i < key.length; i++) {
+                                    if (key[i].match(/[A-Z]/) != null) {
+                                        fixed.splice(i, 0, " ");
+                                    }
+                                }
+                                fixed[0] = fixed[0].toUpperCase();
                                 return (
                                     <DropdownMenuItem key={index}>
-                                        <div className={"font-bold"}>{fixed.join("")}</div>{" "}
+                                        <div className={"font-bold"}>
+                                            {fixed.join("")}
+                                        </div>{" "}
                                         : {order[key]}
                                     </DropdownMenuItem>
                                 );
