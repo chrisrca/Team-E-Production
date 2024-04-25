@@ -49,4 +49,44 @@ const Chats: React.FC<Props> = (props) => {
             }, 1000);
         }
     }, [props.sendUserResponse, props.botResponse, messages]);
+
+    useEffect(() => {
+        if (dummyRef && dummyRef.current && bodyRef && bodyRef.current) {
+            bodyRef.current.scrollTo({
+                top: dummyRef.current.offsetTop,
+                behavior: "smooth"
+            });
+        }
+    }, [messages]);
+
+    return (
+        <div className="message-container" ref={bodyRef}>
+            {messages.map(chat => (
+                <div key={chat.message}>
+                    <div className={`message ${chat.sender}`}>
+                        <p>{chat.message}</p>
+                    </div>
+                    {chat.options ? (
+                        <div className="options">
+                            <div>
+                                <i className="far fa-hand-pointer"></i>
+                            </div>
+                            {chat.options.map(option => (
+                                <p
+                                    onClick={e => props.optionClick(e)}
+                                    data-id={option}
+                                    key={option}
+                                >
+                                    {option}
+                                </p>
+                            ))}
+                        </div>
+                    ) : null}
+                    <div ref={dummyRef} className="dummy-div"></div>
+                </div>
+            ))}
+        </div>
+    );
 };
+
+export default Chats;
