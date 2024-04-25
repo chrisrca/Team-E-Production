@@ -115,7 +115,7 @@ export abstract class weightedSearchAlgos implements PathFindingStrategy {
                     gScore.set(neighbor, tentativeGScore);
                     fScore.set(
                         neighbor,
-                        tentativeGScore + euclideanDistance(neighbor, nodes[1]),
+                        tentativeGScore + this.weight(neighbor, nodes[1]),
                     );
                 }
             }
