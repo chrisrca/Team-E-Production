@@ -23,7 +23,6 @@ import {
     RoomSchedulingForm,
     MedicalDeviceServiceRequest,
     EmployeeType,
-    servicerequest,
 } from "common/src/types";
 import { Input } from "@/components/ui/input";
 
@@ -61,8 +60,6 @@ function DataViewer() {
     >([]);
 
     const [employeeData, setEmployeeData] = useState<EmployeeType[]>([]);
-
-    const [servicesData, setServicesData] = useState<servicerequest[]>([]);
 
     const [uploadData, setUploadData] = useState<File | null | undefined>();
     const [currData, setCurrData] = useState<DataViewerProps>(nodeData);
@@ -278,11 +275,11 @@ function DataViewer() {
             <div className="flex flex-row">
                 <Select
                     onValueChange={(value) => {
-                        if (!(value === servicesData)) {
-                            console.log("data != serviceData");
+                        if (!(typeof value === "string")) {
+                            //console.log("data != serviceData");
                             setCurrData(value);
                         } else {
-                            console.log("data == serviceData");
+                            //console.log("data == serviceData");
                             const aggregateArr = [];
                             const servicesArr = [];
                             servicesArr.push(
@@ -300,11 +297,10 @@ function DataViewer() {
                                     aggregateArr.push(data);
                                 });
                             });
-                            console.log(aggregateArr);
+                            //console.log(aggregateArr);
                             aggregateArr.sort(
                                 (a, b) => a.serviceId - b.serviceId,
                             );
-                            setServicesData(aggregateArr);
                             setCurrData(aggregateArr);
                         }
                     }}
@@ -340,7 +336,7 @@ function DataViewer() {
                                 {"Employee Data"}
                             </SelectItem>
                             <SelectItem
-                                value={servicesData}
+                                value={"Services Data"}
                                 className={
                                     "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
                                 }
