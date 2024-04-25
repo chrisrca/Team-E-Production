@@ -65,7 +65,7 @@ export default function WelcomePage() {
                         zIndex: -1,
                     }}
                 ></div>
-                <div className="absolute right-0 flex flex-col justify-center items-center pr-14 size-1/4 h-full pt-28 pb-28 space-y-6">
+                <div className="absolute right-0 flex flex-col justify-center items-center pr-14 min-w-1/4 max-w-1/2 h-full pt-28 pb-28 space-y-6">
                     <Link
                         to="/map"
                         className="bg-white text-kiosk p-4 rounded-md size-full flex flex-col items-center justify-center sm:text-20 lg:text-6xl hover:bg-amber-400"

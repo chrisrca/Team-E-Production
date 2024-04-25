@@ -363,7 +363,7 @@ export function DataTableDemo(data, columns) {
                             table.setPageIndex(0);
                             table.setPageSize(userPgSize);
                         }}
-                        disabled={!(5 < userPgSize && userPgSize < 1000)}
+                        disabled={!(4 < userPgSize && userPgSize < 1000)}
                     >
                         <BookText className={"size-5"} />
                     </Button>
