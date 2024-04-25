@@ -210,7 +210,7 @@ export function DataTableDemo(data, columns) {
                         {Object.keys(data[0]).map((option, index) => (
                             <div
                                 key={index}
-                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground"
+                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize"
                                 onClick={() => {
                                     //console.log(option);
                                     setValueFilter(index);
