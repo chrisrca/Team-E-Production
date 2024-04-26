@@ -32,6 +32,7 @@ import { Toaster } from "@/components/ui/toaster.tsx";
 import { ToastProvider } from "@radix-ui/react-toast";
 import CreditPage from "@/routes/CreditPage.tsx";
 import {LanguageToggle} from "@/components/ui/LanguageToggle.tsx";
+import {LanguageProvider} from "@/components/LanguageProvider.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -59,6 +60,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                 scope: "openid profile email offline_access",
             }}
         >
+            <LanguageProvider>
             <ThemeProvider>
                 <div className="flex w-screen">
                     <div>
@@ -192,6 +194,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                 </div>
 
             </ThemeProvider>
+            </LanguageProvider>
         </Auth0Provider>
     );
 }
