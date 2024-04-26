@@ -31,6 +31,7 @@ import WelcomePage from "@/routes/WelcomePage.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import { ToastProvider } from "@radix-ui/react-toast";
 import CreditPage from "@/routes/CreditPage.tsx";
+import {LanguageToggle} from "@/components/ui/LanguageToggle.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -61,24 +62,24 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
             <ThemeProvider>
                 <div className="flex w-screen">
                     <div>
-                        <Hamburger />
+                        <Hamburger/>
                     </div>
                     <div className="fixed right-0 top-0 z-50 pr-2 pt-2 flex">
-                        <UserArea />
+                        <UserArea/>
                     </div>
                 </div>
-                <Toaster />
+                <Toaster/>
                 <Routes>
-                    <Route path="/" element={<WelcomePage />} />
-                    <Route path="/home" element={<Welcome />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/map" element={<MapPage nodes={nodes} />} />
-                    <Route path="/about-us" element={<AboutUs/>} />
+                    <Route path="/" element={<WelcomePage/>}/>
+                    <Route path="/home" element={<Welcome/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/map" element={<MapPage nodes={nodes}/>}/>
+                    <Route path="/about-us" element={<AboutUs/>}/>
                     <Route
                         path="/services"
                         element={
                             <ProtectedRoute>
-                                <Services />
+                                <Services/>
                             </ProtectedRoute>
                         }
                     />
@@ -86,7 +87,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/map-editor"
                         element={
                             <ProtectedRoute>
-                                <MapEditor />
+                                <MapEditor/>
                             </ProtectedRoute>
                         }
                     />
@@ -94,7 +95,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/profile"
                         element={
                             <ProtectedRoute>
-                                <Profile />
+                                <Profile/>
                             </ProtectedRoute>
                         }
                     />
@@ -102,7 +103,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/settings"
                         element={
                             <ProtectedRoute>
-                                <Settings />
+                                <Settings/>
                             </ProtectedRoute>
                         }
                     />
@@ -110,7 +111,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/flower-service"
                         element={
                             <ProtectedRoute>
-                                <FlowerService />
+                                <FlowerService/>
                             </ProtectedRoute>
                         }
                     />
@@ -118,7 +119,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/drug-service"
                         element={
                             <ProtectedRoute>
-                                <DrugDelivery />
+                                <DrugDelivery/>
                             </ProtectedRoute>
                         }
                     />
@@ -126,7 +127,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/language-service"
                         element={
                             <ProtectedRoute>
-                                <InterpreterService />
+                                <InterpreterService/>
                             </ProtectedRoute>
                         }
                     />
@@ -134,7 +135,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/gift-service"
                         element={
                             <ProtectedRoute>
-                                <GiftServiceRequest />
+                                <GiftServiceRequest/>
                             </ProtectedRoute>
                         }
                     />
@@ -142,7 +143,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/sanitation"
                         element={
                             <ProtectedRoute>
-                                <SanitationService />
+                                <SanitationService/>
                             </ProtectedRoute>
                         }
                     />
@@ -150,7 +151,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/room-service"
                         element={
                             <ProtectedRoute>
-                                <RoomScheduling />
+                                <RoomScheduling/>
                             </ProtectedRoute>
                         }
                     />
@@ -158,7 +159,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/medical-device-service"
                         element={
                             <ProtectedRoute>
-                                <MedicalDeviceService />
+                                <MedicalDeviceService/>
                             </ProtectedRoute>
                         }
                     />
@@ -166,7 +167,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/data"
                         element={
                             <ProtectedRoute>
-                                <DataViewer />
+                                <DataViewer/>
                             </ProtectedRoute>
                         }
                     />
@@ -174,17 +175,22 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/security"
                         element={
                             <ProtectedRoute>
-                                <SecurityForm nodes={nodes} />
+                                <SecurityForm nodes={nodes}/>
                             </ProtectedRoute>
                         }
                     />
-                    <Route path="*" element = {<BadRoutePage/>}/>
-                    <Route path="/credit-page" element={<CreditPage />} />
+                    <Route path="*" element={<BadRoutePage/>}/>
+                    <Route path="/credit-page" element={<CreditPage/>}/>
                 </Routes>
 
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
-                    <ModeToggle />
+                    <ModeToggle/>
                 </div>
+
+                <div className="fixed z-50 bottom-10 pb-2 pl-2">
+                    <LanguageToggle/>
+                </div>
+
             </ThemeProvider>
         </Auth0Provider>
     );
@@ -208,7 +214,7 @@ function App() {
     return (
         <BrowserRouter>
             <ToastProvider>
-            <AuthProviderWrapper nodes={nodesIn} />
+                <AuthProviderWrapper nodes={nodesIn} />
             </ToastProvider>
         </BrowserRouter>
     );
