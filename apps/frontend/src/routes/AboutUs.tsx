@@ -13,6 +13,7 @@ import christian from "/src/images/christian.png";
 import marc from "/src/images/marc.png";
 import colin from "/src/images/colin.png";
 import funny from "/src/sounds/metal-pipe-falling-sound-effect-made-with-Voicemod.mp3";
+import fortnite from "/src/sounds/fortnite-dance-moves-emote-music-tv9iv8cxmo0-1.mp3";
 
 
 export default function AboutUs() {
@@ -80,7 +81,7 @@ export default function AboutUs() {
             major: "Computer Science",
             class: "2026",
             image: christian,
-            audio: funny,
+            audio: fortnite,
         },
         {
             name: "Marc Wehbe",

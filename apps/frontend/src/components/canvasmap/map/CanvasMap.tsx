@@ -351,7 +351,6 @@ export default function CanvasMap(nodes: CanvasMapProps) {
             window.removeEventListener("resize", adjustCanvasSize);
         };
     }, []);
-
     return (
         <div>
             <div className=""></div>
