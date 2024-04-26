@@ -9,12 +9,16 @@ function ProfilePage() {
     const [userInfo, setUserInfo] = useState<User | null>(null);
     const [serviceRequests, setServiceRequests] = useState<FlowerServiceRequest[]>([]);
     const [employeeName, setEmployeeName] = useState("");
+    const [adminPerm, setAdminPerm] = useState(false);
 
     useEffect(() => {
         if (user) {
             setUserInfo(user);
             if (user.name) {
                 setEmployeeName(user.name);
+            }
+            if (user.name == "") { //Change this to check the database for the employee Boolean
+                setAdminPerm(true);
             }
         }
         const fetchServiceRequests = async () => {
@@ -35,6 +39,7 @@ function ProfilePage() {
             <div className="mb-8">
                 <h1 className="text-xl font-bold mt-12 m-4">User Profile</h1>
                 <p className="text-gray-700"> { employeeName } </p>
+                {adminPerm ? "Admin!" : null}
             </div>
             <ViewNodes data = {serviceRequests}/>
         </div>
