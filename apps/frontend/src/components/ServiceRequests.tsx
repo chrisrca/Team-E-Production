@@ -24,6 +24,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { DBNode } from "common/src/types";
+import { Employee } from "common/src/types";
 import {
     MedicalDeviceServiceRequest,
     GiftServiceRequest,
@@ -142,6 +143,8 @@ export const ServiceRequests = (
             return checkboxComp(props as FormComponent);
         } else if (props.content.includes("popover")) {
             return LocationComp(props as FormComponent);
+        } else if (props.content.includes("employee")) {
+            return EmployeeComp(props as FormComponent);
         } else {
             console.error("Failed to identify element - " + props.type);
         }
@@ -277,7 +280,7 @@ export const ServiceRequests = (
         console.log("making checkbox '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className={"flex col-span-1 container:ml-0 pl-6 pt-2"}>
+                <div className={"flex col-span-2 container:ml-0 pl-6 pt-2"}>
                     <Checkbox
                         onChange={(e) =>
                             (formSchema[schemaKeys[props.id]] =
@@ -347,8 +350,6 @@ export const ServiceRequests = (
             setSearchTerm("");
         };
 
-        console.log(nodes);
-
         return (
             <div className={"col-span-auto"}>
                 <label
@@ -383,6 +384,86 @@ export const ServiceRequests = (
                                 }
                             >
                                 {node.longName}
+                            </div>
+                        ))}
+                    </PopoverContent>
+                </Popover>
+            </div>
+        );
+    };
+
+    const EmployeeComp = (props: FormComponent) => {
+        console.log(
+            "making Popover(Employee) '" + props.title + "' id: " + props.id,
+        );
+        const [employees, setEmployee] = useState<Employee[]>([]);
+
+        useEffect(() => {
+            async function fetchEmployees() {
+                try {
+                    const response = await axios.get("/api/employee");
+                    setEmployee(response.data);
+                } catch (error) {
+                    console.error("Failed to fetch Employees: ", error);
+                }
+            }
+            fetchEmployees();
+        }, []);
+
+        const [filteredEmployees, setFilteredEmployees] = useState(employees);
+        const [searchTerm, setSearchTerm] = useState("");
+        const searchRef = useRef<HTMLInputElement>(null);
+
+        useEffect(() => {
+            setFilteredEmployees(
+                employees.filter((employee) =>
+                    employee.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
+                ),
+            );
+        }, [searchTerm, employees]);
+        const handleLocationSelect = (name: string) => {
+            setFormSchema({ ...formSchema, [schemaKeys[props.id]]: name });
+            setSearchTerm("");
+        };
+
+        console.log(employees);
+
+        return (
+            <div className={"col-span-auto"}>
+                <label
+                    className={
+                        "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+                    }
+                >
+                    {props.title}
+                </label>
+
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Button className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                            {formSchema[schemaKeys[props.id]] ||
+                                "Select Employee"}
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="origin-top-right absolute max-h-60 overflow-y-auto rounded-md shadow-lg">
+                        <Input
+                            ref={searchRef}
+                            className="w-full mb-2"
+                            placeholder="Assign Employee..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        {filteredEmployees.map((employee) => (
+                            <div
+                                key={employee.id}
+                                className="p-2 hover:bg-accent hover-text cursor-pointer rounded-md hover:text-accent-foreground"
+                                onClick={() =>
+                                    handleLocationSelect(employee.name)
+                                }
+                            >
+                                {employee.name}
                             </div>
                         ))}
                     </PopoverContent>

@@ -9,6 +9,7 @@ export default function drawGraph(
     nodeData: DBNode[],
     mapLevel: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     const floor = ["L2", "L1", "1", "2", "3"];
     ctx.imageSmoothingEnabled = true;
@@ -38,7 +39,7 @@ export default function drawGraph(
     }
 
     //NODE DRAWING
-    drawNodes(ctx, nodeData, xMult, yMult, mapLevel, mousePosition);
+    drawNodes(ctx, nodeData, xMult, yMult, mapLevel, mousePosition, dragNode);
 }
 
 // //PATH DRAWING

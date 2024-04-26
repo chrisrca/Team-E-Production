@@ -10,7 +10,7 @@ datasource db {
 }
 
 model node {
-  nodeID    String  @id
+  nodeID    String    @id
   xcoord    Int
   ycoord    Int
   floor     String
@@ -19,106 +19,134 @@ model node {
   longName  String
   shortName String
   edges     String
-  blocked   Boolean @default(false)
+  blocked   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
 }
 
 model edge {
-  edgeID      String @id
+  edgeID      String    @id
   startNodeID String
   endNodeID   String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
 }
 
 model path {
-  uniqueID    Int    @id @default(autoincrement())
+  uniqueID    Int      @id @default(autoincrement())
   startNodeID String
   endNodeID   String
-  nodes       String
+  createdAt   DateTime @default(now())
+  //empId Int @default(1)
+  //employee employee @relation(fields: [empId], references: [ID])
+}
+
+model employee {
+  ID           Int     @id @default(autoincrement())
+  name         String  @unique
+  nickname     String
+  phone_number String? @unique
+  //createdAt DateTime @default(now())
+}
+
+enum ServiceType {
+  FLOWER
+  GIFT
+  INTERPRETER
+  SECURITY
+  MEDICINE
+  SANITATION
+  ROOMSCHEDULE
+  MEDICALDEVICE
+}
+
+model service {
+  // normal service inputs
+  location     String
+  status       String
+  priority     String
+  employeeName String
+  // track when it was created or changed
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime?
+
+  //potential types
+  serviceType   ServiceType
+  flower        flower?
+  gift          gift?
+  interpreter   interpreter?
+  security      security?
+  medicine      medicine?
+  sanitation    sanitation?
+  roomschedule  roomschedule?
+  medicaldevice medicaldevice?
+
+  //service ID
+  serviceId Int @id @default(autoincrement())
 }
 
 model flower {
-  id          Int      @id @default(autoincrement())
+  servId      Int     @id
   patientName String
-  location    String
   senderName  String
   cardMessage String
   flowerType  String
-  status      String
-  priority    String
-  date        DateTime @default(now())
+  service     service @relation(fields: [servId], references: [serviceId])
 }
 
 model gift {
-  id            Int    @id @default(autoincrement())
+  servId        Int     @id
   recipientName String
-  location      String
   message       String
   giftSize      String
-  status        String
-  priority      String
   wrapping      String
+  service       service @relation(fields: [servId], references: [serviceId])
 }
 
 model interpreter {
-  id             Int    @id @default(autoincrement())
+  servId         Int     @id
   clientName     String
   language       String
   duration       String
-  location       String
-  status         String
-  priority       String
   additionalInfo String
+  service        service @relation(fields: [servId], references: [serviceId])
 }
 
 model security {
-  id               Int     @id @default(autoincrement())
-  employeeName     String
-  employeeID       Int
-  reqPriority      String
-  location         String
+  servId           Int     @id
   requestType      String
-  reqStatus        String
   alertAuthorities Boolean
+  service          service @relation(fields: [servId], references: [serviceId])
 }
 
 model medicine {
-  id               Int      @id @default(autoincrement())
+  servId           Int     @id
   patientName      String
-  location         String
   patientCondition String
   drugName         String
   drugQuantity     String
-  status           String
-  priority         String
-  date             DateTime @default(now())
+  service          service @relation(fields: [servId], references: [serviceId])
 }
 
 model sanitation {
-  id             Int    @id @default(autoincrement())
+  servId         Int     @id
   patientName    String
-  location       String
   serviceType    String
-  status         String
-  priority       String
   additionalInfo String
+  service        service @relation(fields: [servId], references: [serviceId])
 }
 
 model roomschedule {
-  id           Int    @id @default(autoincrement())
-  employeeName String
-  priority     String
-  location     String
-  serviceType  String
-  status       String
-  startTime    String
-  endTime      String
+  servId      Int     @id
+  serviceType String
+  startTime   String
+  endTime     String
+  service     service @relation(fields: [servId], references: [serviceId])
 }
 
 model medicaldevice {
-  id             Int     @id @default(autoincrement())
-  employeeName   String
-  priority       String
-  location       String
+  servId         Int     @id
   selectedDevice String
-  status         String
   withBalloons   Boolean
+  service        service @relation(fields: [servId], references: [serviceId])
 }
