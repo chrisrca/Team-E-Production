@@ -39,9 +39,9 @@ function Scene() {
 
     const hotspots = [
         { uMin: 0.0204, uMax: 0.0735, vMin: 0.3242, vMax: 0.6049, name: "Christian Reynolds", major: "Computer Science, IMGD Minor", year: "Sophomore" },
-        { uMin: 0.1261, uMax: 0.1709, vMin: 0.3092, vMax: 0.5817, name: "Aksel Jensen", major: "", year: "" },
+        { uMin: 0.1261, uMax: 0.1709, vMin: 0.3092, vMax: 0.5817, name: "Aksel Jensen", major: "Bioinformatics Computational Biology and Computer Science, Psychology Minor", year: "Sophomore" },
         { uMin: 0.2242, uMax: 0.2691, vMin: 0.3252, vMax: 0.5630, name: "Marc Wehbe", major: "Electrical and Computer Engineering and Robotics Engineering", year: "Junior" },
-        { uMin: 0.3031, uMax: 0.3429, vMin: 0.3496, vMax: 0.5526, name: "Devin Mihaichuk", major: "", year: "" },
+        { uMin: 0.3031, uMax: 0.3429, vMin: 0.3496, vMax: 0.5526, name: "Devin Mihaichuk", major: "Computer Science", year: "Sophomore" },
         { uMin: 0.3821, uMax: 0.4164, vMin: 0.3367, vMax: 0.5491, name: "Yan Acevedo", major: "Robotics Engineering", year: "Junior" },
         { uMin: 0.4667, uMax: 0.5073, vMin: 0.3277, vMax: 0.5577, name: "Kai Davidson", major: "Computer Science and Bioinformatics", year: "Sophomore" },
         { uMin: 0.5401, uMax: 0.5783, vMin: 0.3356, vMax: 0.5450, name: "Brendan Reilly", major: "Computer Science", year: "Sophomore" },
