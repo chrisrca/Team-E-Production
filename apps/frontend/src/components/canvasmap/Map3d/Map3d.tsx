@@ -11,7 +11,12 @@ import {
 } from "three";
 import { OrbitControls } from "@react-three/drei";
 import { THREE } from "aframe";
-import img from "./blankImages/00_thelowerlevel1.png";
+import LLevel1 from "./blankImages/00_thelowerlevel1.png";
+import LLevel2 from "./blankImages/00_thelowerlevel2.png";
+import Level1 from "./blankImages/01_thefirstfloor.png";
+import Level2 from "./blankImages/02_thesecondfloor.png";
+import Level3 from "./blankImages/03_thethirdfloor.png";
+
 import Stairs from "./objects/Stairs";
 import Borders from "./objects/Borders";
 import Rooms from "./objects/Rooms";
@@ -27,12 +32,13 @@ const MapCanvas: React.FC<{
     nodes: DBNode[];
     setHoverNode: (node: DBNode) => void;
 }> = ({ pathNodes, level, nodes, setHoverNode }) => {
+    const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
     const renderer = new WebGLRenderer();
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = PCFSoftShadowMap;
 
     const meshRef = useRef<THREE.Mesh>(null);
-    const texture = useLoader(TextureLoader, img);
+    const texture = useLoader(TextureLoader, MapImage[level]);
     const aspectRatio = 5000 / 3400;
     const width = 100;
     const height = width / aspectRatio;
@@ -44,9 +50,9 @@ const MapCanvas: React.FC<{
     const handlePointerDown = (event: { stopPropagation: () => void }) => {
         setIsDragging(true);
         event.stopPropagation();
-        if (isDraggable) {        
+        if (isDraggable) {
             setHoverNode(null);
-        } 
+        }
     };
 
     const handlePointerMove = (event: {
@@ -119,12 +125,12 @@ const MapCanvas: React.FC<{
                 <meshBasicMaterial map={texture} />
             </mesh>
             <>
-                <Building position={position} />
-                <Rooms position={position} />
-                <Borders position={position} />
-                <RoomOutlines position={position} />
-                <Stairs position={position} />
-                <Elevator position={position} />
+                <Building position={position} level={level}/>
+                <Rooms position={position} level={level}/>
+                <Borders position={position} level={level}/>
+                <RoomOutlines position={position} level={level}/>
+                <Stairs position={position} level={level}/>
+                <Elevator position={position} level={level}/>
                 <GraphMesh
                     position={position}
                     pathNodes={pathNodes}
@@ -146,7 +152,6 @@ const MapCanvas: React.FC<{
         </>
     );
 };
-
 
 function setColor(node: DBNode) {
     switch (node.nodeType) {
@@ -227,7 +232,12 @@ const Map3d: React.FC<{
                     enableZoom={false}
                     enablePan={false}
                 />
-                <MapCanvas pathNodes={pathNodes} level={level} nodes={nodes} setHoverNode={setHoverNode}/>
+                <MapCanvas
+                    pathNodes={pathNodes}
+                    level={level}
+                    nodes={nodes}
+                    setHoverNode={setHoverNode}
+                />
             </Canvas>
 
             {hoverNode && (
