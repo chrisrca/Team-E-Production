@@ -8,6 +8,7 @@ import { Routes, Route, BrowserRouter, useNavigate } from "react-router-dom";
 import Hamburger from "./components/Hamburger.tsx";
 import MapPage from "@/routes/MapPage.tsx";
 import MapEditor from "@/routes/MapEditor.tsx";
+import MapPage3d from "@/routes/MapPage3d.tsx";
 import DataViewer from "@/routes/DataViewer.tsx";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import { ModeToggle } from "./components/ModeToggle.tsx";
@@ -73,6 +74,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     <Route path="/home" element={<Welcome />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
+                    <Route path="/map3d" element={<MapPage3d nodes={nodes} />} />
                     <Route path="/about-us" element={<AboutUs/>} />
                     <Route
                         path="/services"
