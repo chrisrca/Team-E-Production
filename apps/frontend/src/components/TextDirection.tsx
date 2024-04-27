@@ -8,6 +8,12 @@ import { MoveUp } from 'lucide-react';
 import { Goal } from 'lucide-react';
 import { Map } from 'lucide-react';
 import { ArrowUpDown } from 'lucide-react';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 import { DBNode } from "common/src/types";
 import React from 'react';
 
@@ -117,7 +123,6 @@ interface TextDirectionProps {
     prompts: string[];
     turns: string[];
     floors: string[];
-    currFloor: number;
 }
 
 // this is what actually displays to screen
@@ -125,7 +130,14 @@ export function TextDirectionComponent(props: TextDirectionProps) {
     const prompts = props.prompts;
     const turns = props.turns;
     const floors = props.floors;
-    const currFloor = props.currFloor;
+    const floorsUsed:string[]=[]; // list of the floors used in order
+
+    // create a list of floors used to title each accordion section
+    for(let i=0;i<floors.length;i++) {
+        if(floors[i]!==floors[i+1] && floors[i+1]!==undefined && floors[i+1]!==null) { // check if floors[i+1] exists
+            floorsUsed.push(floors[i+1]);
+        }
+    }
 
     // Define a mapping object
     const componentMapping: { [key: string]: React.ComponentType} = {
@@ -141,25 +153,27 @@ export function TextDirectionComponent(props: TextDirectionProps) {
         "arise": ArrowUpDown
     };
 
-    const floor = currFloor === 0 ? 'L2' :
-        currFloor === 1 ? 'L1' :
-            currFloor === 2 ? '1' :
-                currFloor === 3 ? '2' : '3';
-
-    const filteredPrompts = prompts.filter((_, index) => floors[index] === floor);
-    const filteredTurns = turns.filter((_, index) => floors[index] === floor);
-
     return (
-        <div className="z-10 scrollbar scrollbar-track-rounded-full scrollbar-track-background scrollbar-thumb-rounded-full  scrollbar-thumb-primary w-[400px] h-[300px] absolute ml-14 top-2/3 mb-10 flex flex-col grow overflow-auto">
-            {filteredPrompts?.map((prompt, index) => (
-                <div key={index}
-                     className="flex-row p-2 border drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg flex items-center">
-                    <div className="border-black rounded-lg p-1">
-                        {componentMapping[filteredTurns[index]] ? React.createElement(componentMapping[filteredTurns[index]]) : `?`}
-                    </div>
-                    <div className="px-3">{prompt}</div>
-                </div>
-            ))}
+        <div>
+            <Accordion type="single" collapsible>
+                {floorsUsed?.map((flr) => (
+                    <AccordionItem value={flr}>
+                        <AccordionTrigger>{flr}</AccordionTrigger>
+                        <AccordionContent>
+                            {prompts?.map((prompt, index) => (
+                                floors[index]===flr ?
+                                <div key={index}
+                                     className="flex-row p-2 border drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg flex items-center">
+                                    <div className="border-black rounded-lg p-1">
+                                        {componentMapping[turns [index]] ? React.createElement(componentMapping[turns[index]]) : `?`}
+                                    </div>
+                                    <div className="px-3">{prompt}</div>
+                                </div> : <></>
+                            ))}
+                        </AccordionContent>
+                    </AccordionItem>
+                ))}
+            </Accordion>
         </div>
 
     );

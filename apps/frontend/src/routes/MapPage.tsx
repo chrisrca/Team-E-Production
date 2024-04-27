@@ -76,7 +76,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                         <Legend/>
                     </div>
                     <LevelButtons levelProps={[level, setLevel]}/>                
-                    <TextDirectionComponent prompts={prompt} turns={turn} floors={floor} currFloor={level}/>    
+                    <TextDirectionComponent prompts={prompt} turns={turn} floors={floor}/>
                     <div style={{position: "absolute", top: "240px", left: "60px"}}>
                         <Button onClick={handleRandomize}>I'm Feeling Lucky</Button>
                     </div>
