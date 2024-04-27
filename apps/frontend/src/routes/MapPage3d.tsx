@@ -53,7 +53,7 @@ export default function MapPage3d({ nodes }: { nodes: DBNode[] }) {
                     </div>
                     <LevelButtons levelProps={[level, setLevel]} />
                 </div>
-                <Map3d pathNodes={pathNodes} level={level} nodes={nodes} setStart={setStart} setEnd={setEnd}/>
+                <Map3d pathNodes={pathNodes} level={level} nodes={nodes} setStart={setStart} setEnd={setEnd} setLevel={setLevel}/>
             </div>
         </>
     );

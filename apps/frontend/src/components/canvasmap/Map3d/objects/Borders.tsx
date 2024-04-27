@@ -3,7 +3,7 @@ import { useGLTF } from "@react-three/drei";
 import "./App.css";
 
 const Stairs: React.FC<{ position: Vector3, level: number }> = ({ position, level }) => {
-    const { nodes } = useGLTF("/borders.glb");
+    const { nodes } = useGLTF("/bordersL1.glb");
     const floormap = nodes.CustomObject as Mesh;
 
     const customMaterial = new MeshStandardMaterial({

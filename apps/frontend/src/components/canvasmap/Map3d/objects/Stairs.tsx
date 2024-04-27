@@ -4,7 +4,7 @@ import { THREE } from "aframe";
 import "./App.css";
 
 const Stairs: React.FC<{ position: Vector3, level: number }> = ({ position, level }) => {
-    const { nodes } = useGLTF("/stairs.glb");
+    const { nodes } = useGLTF("/stairsL1.glb");
 
     const customMaterial = new MeshStandardMaterial({
         color: new Color(0x2b5685),

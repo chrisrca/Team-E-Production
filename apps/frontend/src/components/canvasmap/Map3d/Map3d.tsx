@@ -21,9 +21,8 @@ import Stairs from "./objects/Stairs";
 import Borders from "./objects/Borders";
 import Rooms from "./objects/Rooms";
 import RoomOutlines from "./objects/RoomOutlines";
-import GraphMesh from "./objects/dataGraph";
+import GraphMesh from "./objects/RenderGraph";
 import Elevator from "./objects/Elevator";
-// import { TextGeometry } from 'three-stdlib';
 import Building from "./objects/Building";
 
 const MapCanvas: React.FC<{
@@ -31,7 +30,8 @@ const MapCanvas: React.FC<{
     level: number;
     nodes: DBNode[];
     setHoverNode: (node: DBNode) => void;
-}> = ({ pathNodes, level, nodes, setHoverNode }) => {
+    setLevel: (level: number) => void;
+}> = ({ pathNodes, level, nodes, setHoverNode, setLevel }) => {
     const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
     const renderer = new WebGLRenderer();
     renderer.shadowMap.enabled = true;
@@ -121,8 +121,8 @@ const MapCanvas: React.FC<{
                 onPointerOut={handlePointerUp}
                 // onClick={() => setHoverNode(null)}
             >
-                <planeGeometry args={[width, height]} />
-                <meshBasicMaterial map={texture} />
+                <planeGeometry args={[width, height]}/>
+                <meshBasicMaterial map={texture}/>
             </mesh>
             <>
                 <Building position={position} level={level}/>
@@ -138,17 +138,9 @@ const MapCanvas: React.FC<{
                     nodes={nodes}
                     setHoverNode={setHoverNode}
                     setIsDraggable={setIsDraggable}
+                    setLevel={setLevel}
                 />
             </>
-            {/* <Text
-                position={[(position.x), 1, (position.z)]}
-                color="white" // Default color
-                anchorX="center" // Center the text horizontally
-                anchorY="middle" // Center the text vertically
-                fontSize={2}
-            >
-                Test
-            </Text> */}
         </>
     );
 };
@@ -188,7 +180,8 @@ const Map3d: React.FC<{
     nodes: DBNode[];
     setStart: (start: string) => void;
     setEnd: (end: string) => void;
-}> = ({ pathNodes, level, nodes, setStart, setEnd }) => {
+    setLevel: (level: number) => void;
+}> = ({ pathNodes, level, nodes, setStart, setEnd, setLevel }) => {
     const [hoverNode, setHoverNode] = useState<DBNode | null>(null);
 
     return (
@@ -204,27 +197,22 @@ const Map3d: React.FC<{
             >
                 <directionalLight
                     position={new Vector3(0, 5, 0)}
-                    castShadow={true}
                     intensity={1}
                 />
                 <directionalLight
                     position={new Vector3(-5, 0, 0)}
-                    castShadow={true}
                     intensity={0.5}
                 />
                 <directionalLight
                     position={new Vector3(0, 0, 5)}
-                    castShadow={true}
-                    intensity={0.25}
+                    intensity={0.8}
                 />
                 <directionalLight
                     position={new Vector3(0, 0, -5)}
-                    castShadow={true}
                     intensity={0.15}
                 />
                 <directionalLight
                     position={new Vector3(5, 0, 0)}
-                    castShadow={true}
                     intensity={0.15}
                 />
                 <OrbitControls
@@ -237,6 +225,7 @@ const Map3d: React.FC<{
                     level={level}
                     nodes={nodes}
                     setHoverNode={setHoverNode}
+                    setLevel={setLevel}
                 />
             </Canvas>
 
