@@ -272,7 +272,7 @@ function DataViewer() {
 
     return (
         <div className="p-10 flex flex-auto flex-col items-center align-center">
-            <div className="flex flex-row">
+            <div className="flex flex-row flex-nowrap text-center">
                 <Select
                     onValueChange={(value) => {
                         if (!(typeof value === "string")) {
@@ -305,7 +305,7 @@ function DataViewer() {
                         }
                     }}
                 >
-                    <SelectTrigger className="flex h-30 w-60 bg-secondary hover:ring-2 ring-accent text-xl text-bold font-medium text-gray-700 dark:text-foreground">
+                    <SelectTrigger className="flex h-30 w-60 bg-card hover:ring-2 ring-accent text-xl text-bold font-medium text-gray-700 dark:text-foreground text-center">
                         <SelectValue placeholder={"Select a Data Type"} />
                     </SelectTrigger>
                     <SelectContent>
