@@ -3,7 +3,7 @@ import axios from "axios";
 import {useAuth0, User} from "@auth0/auth0-react";
 import { ViewNodes } from "@/components";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {Chart} from "./Chart.tsx";
+import {Chart, PiChart} from "./Chart.tsx";
 
 function ProfilePage() {
     const { user } = useAuth0();
@@ -11,6 +11,7 @@ function ProfilePage() {
     const [serviceRequests, setServiceRequests] = useState<[]>([]);
     const [employeeName, setEmployeeName] = useState("");
     const [activeTab, setActiveTab] = useState("serviceType");
+    const [chartType, setChartType] = useState("bar");
 
 
     useEffect(() => {
@@ -53,20 +54,32 @@ function ProfilePage() {
                 <h1 className="text-xl font-bold mt-12 m-4">User Profile</h1>
                 <p className="text-gray-700"> {employeeName} </p>
             </div>
-            <ViewNodes data={serviceRequests}/>
-            <div>
-                <h1>General Service Requests</h1>
-                <Tabs defaultValue="location" onValueChange={setActiveTab}>
-                    <TabsList>
-                        <TabsTrigger value="location">Location</TabsTrigger>
-                        <TabsTrigger value="status">Status</TabsTrigger>
-                        <TabsTrigger value="priority">Priority</TabsTrigger>
-                        <TabsTrigger value="serviceType">Service Type</TabsTrigger>
-                    </TabsList>
-                </Tabs>
-                <Chart yMeasure="Count" sources={[{displayName: activeTab, dataKey: 'count'}]} data={chartData}
-                       dataKey="count"/>
+            <ViewNodes data={serviceRequests} />
+            <div className="flex">
+                <div>
+                    <h1 className="text-xl font-bold mt-12 m-4">Service Chart Data</h1>
+                    <Tabs defaultValue="location" onValueChange={setActiveTab}>
+                        <TabsList>
+                            <TabsTrigger value="location">Location</TabsTrigger>
+                            <TabsTrigger value="status">Status</TabsTrigger>
+                            <TabsTrigger value="priority">Priority</TabsTrigger>
+                            <TabsTrigger value="serviceType">Service Type</TabsTrigger>
+                        </TabsList>
+                    </Tabs>
+                    <Tabs defaultValue="bar" onValueChange={setChartType}>
+                        <TabsList>
+                            <TabsTrigger value="bar">Bar Chart</TabsTrigger>
+                            <TabsTrigger value="pie">Pie Chart</TabsTrigger>
+                        </TabsList>
+                    </Tabs>
+                </div>
             </div>
+            <h1 className="flex justify-center text-l mt-12 m-4">Services grouped by: {activeTab} in form: {chartType}</h1>
+            {chartType === "bar" ? (
+                <Chart yMeasure="Count" sources={[{ displayName: activeTab, dataKey: 'count' }]} data={chartData} dataKey="count" />
+            ) : (
+                <PiChart data={chartData} dataKey="count" />
+            )}
         </div>
     );
 }
