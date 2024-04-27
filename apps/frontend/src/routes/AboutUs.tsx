@@ -17,6 +17,9 @@ import fortnite from "/src/sounds/fortnite-dance-moves-emote-music-tv9iv8cxmo0-1
 
 
 export default function AboutUs() {
+    //click on team member to display quote
+    const[quoteVisible, setQuoteVisible] = useState(false);
+    const[selectedMemberQuote, setSelectedMemberQuote] = useState('');
     // Array of objects representing each team member
     const teamMembers = [
         {
@@ -33,6 +36,7 @@ export default function AboutUs() {
             role: "Lead Developer",
             major: "Computer Science and Bioinformatics",
             class: "2026",
+            quote: "test",
             image: kai,
             audio: funny,
         },
@@ -41,6 +45,7 @@ export default function AboutUs() {
             role: "Assistant Lead Developer",
             major: "Computer Science / Bioinformatics and Computational Biology",
             class: "2026",
+            quote: "test",
             image: aksel,
             audio: funny,
         },
@@ -49,6 +54,7 @@ export default function AboutUs() {
             role: "Scrum Master",
             major: "Computer Science",
             class: "2025",
+            quote: "test",
             image: tri,
             audio: funny,
         },
@@ -57,6 +63,7 @@ export default function AboutUs() {
             role: "Assistant Lead Software Engineer",
             major: "Robotics Engineering and Computer Science",
             class: "2025",
+            quote: "test",
             image: lorenzo,
             audio: funny,
         },
@@ -65,6 +72,7 @@ export default function AboutUs() {
             role: "Algorithms",
             major: "Computer Science",
             class: "2026",
+            quote: "test",
             image: devin,
             audio: funny,
         },
@@ -73,6 +81,7 @@ export default function AboutUs() {
             role: "Backend Database Engineer",
             major: "Computer Science",
             class: "2026",
+            quote: "test",
             image: brendan,
             audio: funny,
         },
@@ -81,6 +90,7 @@ export default function AboutUs() {
             role: "Algorithms",
             major: "Computer Science",
             class: "2026",
+            quote: "test",
             image: christian,
             audio: fortnite,
         },
@@ -89,6 +99,7 @@ export default function AboutUs() {
             role: "Frontend",
             major: "Electrical Computer and Robotics Engineering",
             class: "2025",
+            quote: "At the end of the day, it's the end of the day",
             image: marc,
             audio: funny,
         },
@@ -97,6 +108,7 @@ export default function AboutUs() {
             role: "Frontend",
             major: "Computer Science",
             class: "2026",
+            quote: "test",
             image: colin,
             audio: funny,
         },
@@ -105,6 +117,7 @@ export default function AboutUs() {
             role: "Product Owner",
             major: "Computer Science / Data Science",
             class: "2026",
+            quote: "test",
             image: brandon,
             audio: funny,
         },
@@ -113,15 +126,16 @@ export default function AboutUs() {
             role: "Documentation Analyst",
             major: "Robotic Engineering",
             class: "2024",
+            quote: "test",
             image: tao,
             audio: funny,
         },
     ];
 
-    const toggleQuote = (member) => {
+    const toggleQuote = (member: typeof teamMembers[number]) => {
         setSelectedMemberQuote(member.quote);
         setQuoteVisible(!quoteVisible);
-    }
+    };
 
     return (
         <div>
@@ -131,23 +145,30 @@ export default function AboutUs() {
             <div className="grid gap-x-3 gap-y-3 grid-cols-3 auto-rows-auto pt-10 p-10">
                 {/* Iterate over the teamMembers array and render each team member */}
                 {teamMembers.map((member, index) => (
-                    <PortraitCard key={index} className="bg-secondary shadow-md hover:cursor-pointer hover:outline">
-                        <CardContent>
-                            <img className="rounded-md" src={member.image} alt={member.name}/>
-                        </CardContent>
-                        <div className="">
-                            <CardTitle>{member.name}</CardTitle>
-                            <CardDescription>{member.role}</CardDescription>
-                            <CardDescription>{member.major} Major</CardDescription>
-                            <CardDescription>Class of {member.class}</CardDescription>
-                            <br/>
-                            {/* <audio controls>
-                                <source src={member.audio} type="audio/mp3"/>
-                            </audio> */}
-                        </div>
-                    </PortraitCard>
-                ))}
+                    <div key={index} onClick={() => toggleQuote(member)}>
+                        <PortraitCard key={index} className="bg-secondary shadow-md hover:cursor-pointer hover:outline">
+                            <CardContent>
+                                <img className="rounded-md" src={member.image} alt={member.name}/>
+                            </CardContent>
+                            <div className="">
+                                <CardTitle>{member.name}</CardTitle>
+                                <CardDescription>{member.role}</CardDescription>
+                                <CardDescription>{member.major} Major</CardDescription>
+                               <CardDescription>Class of {member.class}</CardDescription>
+                                <br/>
+                               {/* <audio controls>
+                                    <source src={member.audio} type="audio/mp3"/>
+                                </audio> */}
+                         </div>
+                        </PortraitCard>
+                    </div>
+                 ))}
             </div>
+            {quoteVisible && (
+                <div className="text-center mt-10 mb-20 text-lg text-white-600">
+                    <p>Quote: {selectedMemberQuote}</p>
+                </div>
+            )}
             {/* Thank you message */}
             <div className="text-center mt-10 mb-20 text-lg text-white-600">
                 <p>Special thanks to the Women's Hospital and Andrew Shinn-Senior Planner, for their time and input.</p>
