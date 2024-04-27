@@ -59,7 +59,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
             }}
         >
             <ThemeProvider>
-                <div className="flex w-screen">
+                <div className="flex">
                     <div>
                         <Hamburger />
                     </div>
