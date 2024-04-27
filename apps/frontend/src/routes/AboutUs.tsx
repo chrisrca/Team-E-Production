@@ -1,5 +1,5 @@
 import {CardContent, CardDescription, CardTitle, PortraitCard} from "@/components/ui/card.tsx";
-import React from 'react';
+import React, {useState} from 'react';
 import kai from "/src/images/kai.png";
 import aksel from "/src/images/aksel.png";
 import yan from "/src/images/yan.png";
@@ -24,14 +24,15 @@ export default function AboutUs() {
             role: "Project Manager",
             major: "Robotics Engineering",
             class: "2025",
+            quote: "La vida es un carnaval",
             image: yan,
             audio: funny,
         },
         {
             name: "Kai Davidson",
             role: "Lead Developer",
-            major: "",
-            class: "202X",
+            major: "Computer Science and Bioinformatics",
+            class: "2026",
             image: kai,
             audio: funny,
         },
@@ -46,16 +47,16 @@ export default function AboutUs() {
         {
             name: "Tri Vien Le",
             role: "Scrum Master",
-            major: "",
-            class: "202X",
+            major: "Computer Science",
+            class: "2025",
             image: tri,
             audio: funny,
         },
         {
             name: "Lorenzo Manfredi Segato",
             role: "Assistant Lead Software Engineer",
-            major: "",
-            class: "202X",
+            major: "Robotics Engineering and Computer Science",
+            class: "2025",
             image: lorenzo,
             audio: funny,
         },
@@ -70,32 +71,32 @@ export default function AboutUs() {
         {
             name: "Brendan Reilly",
             role: "Backend Database Engineer",
-            major: "",
-            class: "202X",
+            major: "Computer Science",
+            class: "2026",
             image: brendan,
             audio: funny,
         },
         {
             name: "Christian Reynolds",
             role: "Algorithms",
-            major: "",
-            class: "202X",
+            major: "Computer Science",
+            class: "2026",
             image: christian,
             audio: fortnite,
         },
         {
             name: "Marc Wehbe",
             role: "Frontend",
-            major: "",
-            class: "202X",
+            major: "Electrical Computer and Robotics Engineering",
+            class: "2025",
             image: marc,
             audio: funny,
         },
         {
             name: "Colin Williams",
             role: "Frontend",
-            major: "",
-            class: "202X",
+            major: "Computer Science",
+            class: "2026",
             image: colin,
             audio: funny,
         },
@@ -110,12 +111,17 @@ export default function AboutUs() {
         {
             name: "Tao Zou",
             role: "Documentation Analyst",
-            major: "",
-            class: "202X",
+            major: "Robotic Engineering",
+            class: "2024",
             image: tao,
             audio: funny,
         },
     ];
+
+    const toggleQuote = (member) => {
+        setSelectedMemberQuote(member.quote);
+        setQuoteVisible(!quoteVisible);
+    }
 
     return (
         <div>
@@ -141,6 +147,10 @@ export default function AboutUs() {
                         </div>
                     </PortraitCard>
                 ))}
+            </div>
+            {/* Thank you message */}
+            <div className="text-center mt-10 mb-20 text-lg text-white-600">
+                <p>Special thanks to the Women's Hospital and Andrew Shinn-Senior Planner, for their time and input.</p>
             </div>
         </div>
     );
