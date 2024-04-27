@@ -131,13 +131,18 @@ export function TextDirectionComponent(props: TextDirectionProps) {
     const turns = props.turns;
     const floors = props.floors;
     const floorsUsed:string[]=[]; // list of the floors used in order
+    const indexOfFloorUsed:number[]=[]; // prevents directions from being displayed twice if a floor is re-entered
 
     // create a list of floors used to title each accordion section
     for(let i=0;i<floors.length;i++) {
+        if(i===0) floorsUsed.push(floors[i]);
         if(floors[i]!==floors[i+1] && floors[i+1]!==undefined && floors[i+1]!==null) { // check if floors[i+1] exists
             floorsUsed.push(floors[i+1]);
+            indexOfFloorUsed.push(i+1);
         }
+        if(i===floors.length-1) indexOfFloorUsed.push(i+1);
     }
+
 
     // Define a mapping object
     const componentMapping: { [key: string]: React.ComponentType} = {
@@ -155,15 +160,15 @@ export function TextDirectionComponent(props: TextDirectionProps) {
 
     return (
         <div>
-            <Accordion type="single" collapsible>
-                {floorsUsed?.map((flr) => (
-                    <AccordionItem value={flr}>
+            <Accordion type="single" collapsible className="w-full px-3 drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg">
+                {floorsUsed?.map((flr,idx) => (
+                    <AccordionItem value={`${idx}`}>
                         <AccordionTrigger>{flr}</AccordionTrigger>
-                        <AccordionContent>
+                        <AccordionContent className="overflow-x-auto overflow-y-auto h-64">
                             {prompts?.map((prompt, index) => (
-                                floors[index]===flr ?
+                                (floors[index]===flr && floorBool(indexOfFloorUsed,idx,index)) ?
                                 <div key={index}
-                                     className="flex-row p-2 border drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg flex items-center">
+                                     className="flex-row p-2 border z-10 bg-secondary text-foreground rounded-lg flex items-center">
                                     <div className="border-black rounded-lg p-1">
                                         {componentMapping[turns [index]] ? React.createElement(componentMapping[turns[index]]) : `?`}
                                     </div>
@@ -178,6 +183,17 @@ export function TextDirectionComponent(props: TextDirectionProps) {
 
     );
 }
+
+// matches prompts to accordion section
+// indexOfFloorUsed:number[] - holds list of indexes that tracks floor changes
+// idx:number - accordion header index
+// index:number - prompt list index
+function floorBool(indexOfFloorUsed:number[],idx:number,index:number) {
+    if(!indexOfFloorUsed[idx-1] && index<indexOfFloorUsed[idx]) return true; // accounts for first case when [idx-1] doesnt exist
+    else if(indexOfFloorUsed[idx-1]<=index && index<indexOfFloorUsed[idx]) return true;
+    else return false;
+}
+
 
 //////////////////REFACTORED FOR CODE REUSE////////////////////////////////////
 
