@@ -49,11 +49,11 @@ export default function MapPage3d({ nodes }: { nodes: DBNode[] }) {
                         algorithm={[algorithm, setAlgorithm]}
                     />
                     <div className="mr-5 max-h-full mb-10 absolute bottom-0 right-0 z-10">
-                        <Legend/>
+                        <Legend />
                     </div>
-                    <LevelButtons levelProps={[level, setLevel]}/>                
+                    <LevelButtons levelProps={[level, setLevel]} />
                 </div>
-                <Map3d pathNodes={pathNodes} level={level} nodes={nodes}/>
+                <Map3d pathNodes={pathNodes} level={level} nodes={nodes} setStart={setStart} setEnd={setEnd}/>
             </div>
         </>
     );
