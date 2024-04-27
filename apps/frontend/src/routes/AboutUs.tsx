@@ -18,8 +18,7 @@ import fortnite from "/src/sounds/fortnite-dance-moves-emote-music-tv9iv8cxmo0-1
 
 export default function AboutUs() {
     //click on team member to display quote
-    const[quoteVisible, setQuoteVisible] = useState(false);
-    const[selectedMemberQuote, setSelectedMemberQuote] = useState('');
+    const[selectedMember, setSelectedMember] = useState<string | null>(null);
     // Array of objects representing each team member
     const teamMembers = [
         {
@@ -45,7 +44,7 @@ export default function AboutUs() {
             role: "Assistant Lead Developer",
             major: "Computer Science / Bioinformatics and Computational Biology",
             class: "2026",
-            quote: "test",
+            quote: "How fleeting are all human passions when compared with the massive continuity of ducks.",
             image: aksel,
             audio: funny,
         },
@@ -81,7 +80,7 @@ export default function AboutUs() {
             role: "Backend Database Engineer",
             major: "Computer Science",
             class: "2026",
-            quote: "test",
+            quote: "To do anything to a high level, it has to be total obsession- Conor McGregor",
             image: brendan,
             audio: funny,
         },
@@ -133,8 +132,7 @@ export default function AboutUs() {
     ];
 
     const toggleQuote = (member: typeof teamMembers[number]) => {
-        setSelectedMemberQuote(member.quote);
-        setQuoteVisible(!quoteVisible);
+        setSelectedMember(member.quote === selectedMember ? null : member.quote);
     };
 
     return (
@@ -143,32 +141,31 @@ export default function AboutUs() {
                 <h1>About Us</h1>
             </div>
             <div className="grid gap-x-3 gap-y-3 grid-cols-3 auto-rows-auto pt-10 p-10">
-                {/* Iterate over the teamMembers array and render each team member */}
                 {teamMembers.map((member, index) => (
-                    <div key={index} onClick={() => toggleQuote(member)}>
-                        <PortraitCard key={index} className="bg-secondary shadow-md hover:cursor-pointer hover:outline">
-                            <CardContent>
-                                <img className="rounded-md" src={member.image} alt={member.name}/>
+                    <div key={index} style={{flex: '0 0 calc(33.33% - 2rem)' }}>
+                        <PortraitCard className="bg-secondary shadow-md hover:cursor-pointer hover:outline" onClick={() => toggleQuote(member)}>
+                            <CardContent style={{height: selectedMember === member.quote ? 'auto' : '475px' }}>
+                                <div className="flex flex-col justify-between h-full">
+                                    <div>
+                                        <img className="rounded-md" src={member.image} alt={member.name}/>
+                                        <div className="mt-3">
+                                            <CardTitle>{member.name}</CardTitle>
+                                            <CardDescription className="mt-1">{member.role}</CardDescription>
+                                            <CardDescription>{member.major} Major</CardDescription>
+                                            <CardDescription>Class of {member.class}</CardDescription>
+                                        </div>
+                                    </div>
+                                    {selectedMember === member.quote && (
+                                        <div className="p-4 italic">
+                                            <CardDescription className="text-center">Quote: {member.quote}</CardDescription>
+                                        </div>
+                                    )}
+                                </div>
                             </CardContent>
-                            <div className="">
-                                <CardTitle>{member.name}</CardTitle>
-                                <CardDescription>{member.role}</CardDescription>
-                                <CardDescription>{member.major} Major</CardDescription>
-                               <CardDescription>Class of {member.class}</CardDescription>
-                                <br/>
-                               {/* <audio controls>
-                                    <source src={member.audio} type="audio/mp3"/>
-                                </audio> */}
-                         </div>
                         </PortraitCard>
                     </div>
-                 ))}
+                ))}
             </div>
-            {quoteVisible && (
-                <div className="text-center mt-10 mb-20 text-lg text-white-600">
-                    <p>Quote: {selectedMemberQuote}</p>
-                </div>
-            )}
             {/* Thank you message */}
             <div className="text-center mt-10 mb-20 text-lg text-white-600">
                 <p>Special thanks to the Women's Hospital and Andrew Shinn-Senior Planner, for their time and input.</p>
