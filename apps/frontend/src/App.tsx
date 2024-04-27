@@ -27,7 +27,6 @@ import Profile from "@/routes/Profile.tsx";
 import Settings from "@/routes/Settings.tsx";
 import BadRoutePage from "@/routes/404Page.tsx";
 import AboutUs from "@/routes/AboutUs.tsx";
-import WelcomePage from "@/routes/WelcomePage.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import { ToastProvider } from "@radix-ui/react-toast";
 import CreditPage from "@/routes/CreditPage.tsx";
@@ -59,18 +58,15 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
             }}
         >
             <ThemeProvider>
-                <div className="flex w-screen">
-                    <div>
-                        <Hamburger />
-                    </div>
+                <div className="flex">
+                    <Hamburger />
                     <div className="fixed right-0 top-0 z-50 pr-2 pt-2 flex">
                         <UserArea />
                     </div>
                 </div>
                 <Toaster />
                 <Routes>
-                    <Route path="/" element={<WelcomePage />} />
-                    <Route path="/home" element={<Welcome />} />
+                    <Route path="/" element={<Welcome />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
                     <Route path="/about-us" element={<AboutUs/>} />
