@@ -522,12 +522,11 @@ export const ServiceRequests = (
     if (bgPath === "") {
         return (
             <>
-                <div className="flex justify-center container">
-                    <div className="m-auto relative w-full">
+                <div className="flex">
+                    <div className="w-full">
                         <div className="block bg-secondary rounded-lg">
                             <form
                                 className="px-16 py-8"
-                                onSubmit={handleSubmit}
                             >
                                 {makeForm(layout)}
                                 <div

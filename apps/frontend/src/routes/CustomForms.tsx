@@ -109,18 +109,36 @@ export default function FormMaker(){
             options: [],
         },
 ]);
-    const components = [
-        "Text Field",
-        "Select",
-        "Checkbox",
-        "Radio Buttons",
-        "Location Selector",
-        "Employee Selector",
-    ];
+    const components = {
+        textField : 
+        {
+            title : "Text Field"
+        },
+        select : 
+        {
+            title: "Select"
+        },
+        checkBox : 
+        {
+            title : "Checkbox"
+        },
+        radioButtons : 
+        {
+            title : "Radio Buttons"
+        },
+        locationSelector : 
+        {
+            title : "Location Selector"
+        },
+        employeeSelector : 
+        {
+            title : "Employee Selector"
+        },
+    };
     return(
         <>
-        <div className={"bg-card w-3/4 mx-auto rounded-lg transition-all h-fit"}>
-            <div className={"py-20 relative"}>
+        <div className={"bg-card w-full mx-auto rounded-lg transition-all h-fit grid grid-cols-3"}>
+            <div className={"py-20"}>
                 <div className={"bg-card w-full rounded-lg"}>
                     <div className={"m-5"}>
                     <DropdownMenu>
@@ -131,12 +149,12 @@ export default function FormMaker(){
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align={"end"}>
                             <DropdownMenuLabel className={"bg-card rounded-sm"}>{"Select Component"}</DropdownMenuLabel>
-                            {components.map((option, index) => {
+                            {Object.keys(components).map((option, index) => {
                                 return(
                                     <DropdownMenuItem 
                                         key={index}>
                                         <div className={"font-bold"}>
-                                            {option}
+                                            {components[option]["title"]}
                                         </div>
                                     </DropdownMenuItem>
                                 );
@@ -172,12 +190,12 @@ export default function FormMaker(){
                     </div>
                 </div>
             </div>
-            </div>
-                <div className={"bg-background mt-5 w-full h-full"}>
-                <div className={"bg-background relative h-fit mb-5 font-bold text-center w-fit py-2 px-5 text-2xl mx-auto rounded-lg"}>
+                            
+                <div className={"bg-background w-full h-screen col-span-2 px-16 overflow-auto overflow-y-scroll"}>
+                <div className={"bg-background py-4 relative h-fit font-bold text-center w-fit text-2xl mx-auto rounded-lg"}>
                 Form Preview
                 </div>
-                <div className={"w-2/3 mx-auto"}>
+                <div className={"mx-auto"}>
                 {ServiceRequests(
                     customForm,
                     {},
@@ -185,6 +203,7 @@ export default function FormMaker(){
                     "",
                     "",)
                 }
+                </div>
                 </div>
                 </div>
         </>
