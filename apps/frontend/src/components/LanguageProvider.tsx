@@ -29,7 +29,7 @@ const LanguageProviderContext = createContext(initialState);
 
 // Translation function
 
-export function translate(key: string, language: Language): string {
+export function translate(key: string, language: string): string {
     const translationsData = translations as Translations;
     console.log("Translations data:", translationsData);
     console.log("Language:", language);

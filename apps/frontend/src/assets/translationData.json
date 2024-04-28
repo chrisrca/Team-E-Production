@@ -62,7 +62,29 @@
     "Tao Zou": "Tao Zou",
     "Credit": "Credit Page",
     "Creditdes": "This project was made possible with the help of the following software:",
-    "Creditthank": "Special thanks to the creators of these tools for their invaluable contributions to our project."
+    "Creditthank": "Special thanks to the creators of these tools for their invaluable contributions to our project.",
+
+    "Take a slight right and continue for": "Take a slight right and continue for",
+    "Take a right and continue for": "Take a right and continue for",
+    "Take a sharp right and continue for": "Take a sharp right and continue for",
+    "Take a sharp left and continue for": "Take a sharp left and continue for",
+    "Take a left and continue for": "Take a left and continue for",
+    "Take a slight left and continue for": "Take a slight left and continue for",
+    "Head straight for": "Head straight for",
+
+    "Take a slight right into building": "Take a slight right into building",
+    "Take a right into building": "Take a right into building",
+    "Take a sharp right into building": "Take a sharp right into building",
+    "Take a sharp left into building": "Take a sharp left into building",
+    "Take a left into building": "Take a left into building",
+    "Take a slight left into building": "Take a slight left into building",
+    "Head straight into building": "Head straight into building",
+    "and continue for": "and continue for",
+    "for": "for",
+
+
+    "units of distance until you reach": "units of distance until you reach",
+    "You have reached your destination": "You have reached your destination"
   },
   "ch": {
     "services": "服务",
@@ -127,6 +149,25 @@
     "Tao Zou": "邹韬",
     "Credit": "特别鸣谢",
     "Creditdes": "该项目是在以下软件的帮助下实现的：",
-    "Creditthank": "特别感谢这些工具的创建者为我们的项目做出的宝贵贡献。"
-  }
+    "Creditthank": "特别感谢这些工具的创建者为我们的项目做出的宝贵贡献。",
+
+    "Take a slight right and continue for": "向稍微向右转，继续行走",
+    "Take a right and continue for": "向右转，继续行走",
+    "Take a sharp right and continue for": "向右急转弯，继续行走",
+    "Take a sharp left and continue for": "向左急转弯，继续行走",
+    "Take a left and continue for": "向左转，继续行走",
+    "Take a slight left and continue for": "向稍微向左转，继续行走",
+    "Head straight for": "直行",
+    "Take a slight right into building": "稍微向右进入建筑物",
+    "Take a right into building": "向右进入建筑物",
+    "Take a sharp right into building": "向右急转弯进入建筑物",
+    "Take a sharp left into building": "向左急转弯进入建筑物",
+    "Take a left into building": "向左进入建筑物",
+    "Take a slight left into building": "稍微向左进入建筑物",
+    "Head straight into building": "直接进入建筑物",
+    "and continue for": "并继续行走",
+    "for": "行走",
+    "units of distance until you reach": "单位距离，直到达到您的目的地",
+    "You have reached your destination": "您已到达您的目的地"
+}
 }
