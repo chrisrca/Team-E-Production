@@ -21,7 +21,8 @@ async function addOrUpdateEmployee(
         if (employeeData.phone_number && !existingEmployee.phone_number) {
             await client.employee.update({
                 where: { name: existingEmployee.name },
-                data: { phone_number: employeeData.phone_number },
+                data: { phone_number: employeeData.phone_number,
+                    displayName: employeeData.displayname }
             });
             return "Phone number updated in database";
         }
