@@ -525,9 +525,7 @@ export const ServiceRequests = (
                 <div className="flex">
                     <div className="w-full">
                         <div className="block bg-secondary rounded-lg">
-                            <form
-                                className="px-16 py-8"
-                            >
+                            <form className="px-16 py-8">
                                 {makeForm(layout)}
                                 <div
                                     className={
