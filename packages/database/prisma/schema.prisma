@@ -1,4 +1,3 @@
-
 generator client {
   provider   = "prisma-client-js"
   output     = "../.prisma/client"
@@ -38,14 +37,13 @@ model path {
   startNodeID String
   endNodeID   String
   createdAt   DateTime @default(now())
-  // empId Int @default(1)
-  // employee employee @relation(fields: [empId], references: [ID])
 }
 
 model employee {
   ID           Int      @id @default(autoincrement())
   name         String   @unique
   nickname     String
+  displayName  String?
   phone_number String?  @unique
   createdAt    DateTime @default(now())
   admin        Boolean  @default(false)
@@ -71,9 +69,6 @@ model service {
   // track when it was created or changed
   createdAt    DateTime  @default(now())
   updatedAt    DateTime?
-
-  // New Iteration 5 Schema
-  createdBy String @default("")
 
   // potential types
   serviceType   ServiceType
