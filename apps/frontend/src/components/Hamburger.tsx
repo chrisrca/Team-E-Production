@@ -30,18 +30,34 @@ export default function Hamburger() {
             </SheetTrigger>
             <SheetContent side="left" className="dark:bg-secondary">
                 <div className="grid gap-2 py-4">
-                    <SheetClose asChild>
-                        <Link
-                            to="/"
-                            className="rounded hover:bg-accent pl-2 dark:bg-foreground dark:hover:bg-accent inline-block"
-                        >
-                            <img
-                                src={bwhLogo}
-                                alt="BWH logo"
-                                style={{ height: "50px" }}
-                            />
-                        </Link>
-                    </SheetClose>
+                    {isAuthenticated && (
+                        <SheetClose asChild>
+                            <Link
+                                to="/home"
+                                className="rounded hover:bg-accent pl-2 dark:bg-foreground dark:hover:bg-accent inline-block"
+                            >
+                                <img
+                                    src={bwhLogo}
+                                    alt="BWH logo"
+                                    style={{ height: "50px" }}
+                                />
+                            </Link>
+                        </SheetClose>
+                    )}
+                    {!isAuthenticated && (
+                        <SheetClose asChild>
+                            <Link
+                                to="/"
+                                className="rounded hover:bg-accent pl-2 dark:bg-foreground dark:hover:bg-accent inline-block"
+                            >
+                                <img
+                                    src={bwhLogo}
+                                    alt="BWH logo"
+                                    style={{ height: "50px" }}
+                                />
+                            </Link>
+                        </SheetClose>
+                    )}
                     {isAuthenticated && (
                         <Collapsible className="grid gap-4 dark:bg-secondary">
                             <CollapsibleTrigger className="flex rounded-sm p-2 px-4 hover:bg-accent w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
@@ -189,6 +205,26 @@ export default function Hamburger() {
                             </Link>
                         </SheetClose>
                     )}
+                    <SheetClose asChild>
+                        <Link
+                            className="group rounded-sm p-2 px-4 hover:bg-accent grid h-auto w-full justify-start gap-1"
+                            to="about-us"
+                        >
+                            <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                                About Us
+                            </div>
+                        </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Link
+                            className="group rounded-sm p-2 px-4 hover:bg-accent grid h-auto w-full justify-start gap-1"
+                            to="credit-page"
+                        >
+                            <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                                Credit Page
+                            </div>
+                        </Link>
+                    </SheetClose>
                 </div>
             </SheetContent>
         </Sheet>

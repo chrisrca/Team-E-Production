@@ -1,7 +1,4 @@
 import client from "../bin/database-connection";
-// import fs from "fs";
-// const edges: string = "./src/data/edges.csv";
-// const nodes: string = "./src/data/nodes.csv";
 
 interface Coords {
     xcoord: number;
@@ -97,7 +94,10 @@ export async function processGraphData(): Promise<[Node[], Edge[]]> {
     }
 }
 
-export function convertNodeID(path: Node[]): string[] {
+export function convertNodeID(path: Node[] | null): string[] | null {
+    if (path === null) {
+        return null;
+    }
     const newPath: string[] = [path[0].nodeID];
     for (let i = 1; i < path.length; i++) {
         newPath.push(path[i].nodeID);

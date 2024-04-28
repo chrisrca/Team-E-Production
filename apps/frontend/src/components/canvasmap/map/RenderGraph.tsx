@@ -18,11 +18,11 @@ export default function drawGraph(
 
     // Drawing the animated line
     if (pathData.length > 0) {
-        ctx.setLineDash([7, 3]);
+        ctx.setLineDash([7, 7]);
     }
     ctx.lineDashOffset = -dashOffset;
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = "#000000";
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = "#ff6200";
 
     if (pathData.length > 0) {
         ctx.beginPath();
@@ -45,9 +45,10 @@ export default function drawGraph(
         }
     }
     ctx.setLineDash([]);
+    ctx.strokeStyle = "#000000";
 
     //NODE DRAWING
-    drawNodes(ctx, nodeData, xMult, yMult, mapLevel, mousePosition);
+    drawNodes(ctx, nodeData, pathData, xMult, yMult, mapLevel, mousePosition);
     drawElevators(ctx, pathData, xMult, yMult, floor[mapLevel], mousePosition);
     drawStairs(ctx, pathData, xMult, yMult, floor[mapLevel], mousePosition);
 }

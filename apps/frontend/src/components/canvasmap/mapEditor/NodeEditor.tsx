@@ -7,15 +7,22 @@ import { Button } from "@/components/ui/button";
 
 interface NodeEditorProps {
     node: DBNode | null;
+    triggerRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 async function sendNodeOrder(editedNode: DBNode) {
-    axios.post("/api/mapeditor", editedNode).then((res) => {
+    axios.post("/api/mapeditor/nodes", editedNode).then((res) => {
         console.log(res);
     });
 }
 
-export default function NodeEditor({ node }: NodeEditorProps) {
+async function sendNodeDelOrder(editedNode: DBNode) {
+    axios.post("/api/mapeditordel/nodes", editedNode).then((res) => {
+        console.log(res);
+    });
+}
+
+export default function NodeEditor({ node, triggerRefresh }: NodeEditorProps) {
     const [editedNode, setEditedNode] = useState<DBNode | null>(node);
 
     // Sync state when the node prop changes
@@ -39,11 +46,21 @@ export default function NodeEditor({ node }: NodeEditorProps) {
             sendNodeOrder(editedNode);
         }
         setEditedNode(null);
+        triggerRefresh(true);
     }
 
     // Function to handle cancel action
     function handleCancel() {
         console.log("Cancel node logic here");
+        setEditedNode(null);
+        triggerRefresh(true);
+    }
+
+    function handleDelete() {
+        console.log("delete logic here");
+        if (editedNode != null) {
+            sendNodeDelOrder(editedNode);
+        }
         setEditedNode(null);
     }
 
@@ -158,7 +175,9 @@ export default function NodeEditor({ node }: NodeEditorProps) {
                 </Button>
                 <Button onClick={handleSubmit}>Save</Button>
                 <Button onClick={handleCancel}>Cancel</Button>{" "}
-                {/* Use onCancel prop */}
+                <Button variant="destructive" onClick={handleDelete}>
+                    Delete
+                </Button>
             </div>
         </div>
     );

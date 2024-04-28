@@ -24,6 +24,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { DBNode } from "common/src/types";
+import { Employee } from "common/src/types";
 import {
     MedicalDeviceServiceRequest,
     GiftServiceRequest,
@@ -59,7 +60,7 @@ type FormLabel = {
     content: string; //Element content - (input, select, switch, button, ect)
     title: string; //Element title
     type: string; //Element type - (string, number, etc)
-    required: boolean; //Required field?
+    required: boolean; //Required? field
     id: number;
 };
 
@@ -142,6 +143,8 @@ export const ServiceRequests = (
             return checkboxComp(props as FormComponent);
         } else if (props.content.includes("popover")) {
             return LocationComp(props as FormComponent);
+        } else if (props.content.includes("employee")) {
+            return EmployeeComp(props as FormComponent);
         } else {
             console.error("Failed to identify element - " + props.type);
         }
@@ -150,7 +153,7 @@ export const ServiceRequests = (
     //Beginning of Elements
 
     const labelComp = (props: FormLabel) => {
-        console.log("making label '" + props.title + "' id: " + props.id);
+        //console.log("making label '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className="col-span-full text-extrabold basis-full text-center text-3xl">
@@ -161,7 +164,7 @@ export const ServiceRequests = (
     };
 
     const inputComp = (props: FormComponent) => {
-        console.log("making input '" + props.title + "' id: " + props.id);
+        //console.log("making input '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className="col-span-full">
@@ -188,7 +191,7 @@ export const ServiceRequests = (
         );
     };
     const selectComp = (props: FormSelect) => {
-        console.log("making select '" + props.title + "' id: " + props.id);
+        //console.log("making select '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className="col-auto">
@@ -227,7 +230,7 @@ export const ServiceRequests = (
     };
 
     const radioGroupComp = (props: FormSelect) => {
-        console.log("making radio '" + props.title + "' id: " + props.id);
+        //console.log("making radio '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className={"col-auto"}>
@@ -274,10 +277,10 @@ export const ServiceRequests = (
     };
 
     const checkboxComp = (props: FormComponent) => {
-        console.log("making checkbox '" + props.title + "' id: " + props.id);
+        //console.log("making checkbox '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className={"flex col-span-1 container:ml-0 pl-6 pt-2"}>
+                <div className={"flex col-span-2 container:ml-0 pl-6 pt-2"}>
                     <Checkbox
                         onChange={(e) =>
                             (formSchema[schemaKeys[props.id]] =
@@ -296,9 +299,9 @@ export const ServiceRequests = (
     };
 
     const LocationComp = (props: FormComponent) => {
-        console.log(
-            "making Popover(Location) '" + props.title + "' id: " + props.id,
-        );
+        // console.log(
+        //     "making Popover(Location) '" + props.title + "' id: " + props.id,
+        // );
 
         const [nodes, setNodes] = useState<DBNode[]>([]);
 
@@ -347,8 +350,6 @@ export const ServiceRequests = (
             setSearchTerm("");
         };
 
-        console.log(nodes);
-
         return (
             <div className={"col-span-auto"}>
                 <label
@@ -391,6 +392,86 @@ export const ServiceRequests = (
         );
     };
 
+    const EmployeeComp = (props: FormComponent) => {
+        // console.log(
+        //     "making Popover(Employee) '" + props.title + "' id: " + props.id,
+        // );
+        const [employees, setEmployee] = useState<Employee[]>([]);
+
+        useEffect(() => {
+            async function fetchEmployees() {
+                try {
+                    const response = await axios.get("/api/employee");
+                    setEmployee(response.data);
+                } catch (error) {
+                    console.error("Failed to fetch Employees: ", error);
+                }
+            }
+            fetchEmployees();
+        }, []);
+
+        const [filteredEmployees, setFilteredEmployees] = useState(employees);
+        const [searchTerm, setSearchTerm] = useState("");
+        const searchRef = useRef<HTMLInputElement>(null);
+
+        useEffect(() => {
+            setFilteredEmployees(
+                employees.filter((employee) =>
+                    employee.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
+                ),
+            );
+        }, [searchTerm, employees]);
+        const handleLocationSelect = (name: string) => {
+            setFormSchema({ ...formSchema, [schemaKeys[props.id]]: name });
+            setSearchTerm("");
+        };
+
+        // console.log(employees);
+
+        return (
+            <div className={"col-span-auto"}>
+                <label
+                    className={
+                        "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+                    }
+                >
+                    {props.title}
+                </label>
+
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Button className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                            {formSchema[schemaKeys[props.id]] ||
+                                "Select Employee"}
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="origin-top-right absolute max-h-60 overflow-y-auto rounded-md shadow-lg">
+                        <Input
+                            ref={searchRef}
+                            className="w-full mb-2"
+                            placeholder="Assign Employee..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        {filteredEmployees.map((employee) => (
+                            <div
+                                key={employee.id}
+                                className="p-2 hover:bg-accent hover-text cursor-pointer rounded-md hover:text-accent-foreground"
+                                onClick={() =>
+                                    handleLocationSelect(employee.name)
+                                }
+                            >
+                                {employee.name}
+                            </div>
+                        ))}
+                    </PopoverContent>
+                </Popover>
+            </div>
+        );
+    };
+
     //End of Elements
 
     const submittedServiceData = [] as (typeof blankSchema)[];
@@ -400,7 +481,7 @@ export const ServiceRequests = (
     // determines where form values are sent on submit
     layout.map((field) => (field.id = layout.indexOf(field) - 1));
 
-    console.log(layout);
+    // console.log(layout);
 
     const handleSubmit = (e: FormEvent) => {
         // Prevent reload on submit
@@ -422,7 +503,7 @@ export const ServiceRequests = (
 
         // Push submission to console
         // Push all submissions for current session to console
-        console.log(submittedServiceData);
+        // console.log(submittedServiceData);
         // Not really necessary but clear formValues for next submit
         handleClearForm(e);
         setIsSubmitted(true);
