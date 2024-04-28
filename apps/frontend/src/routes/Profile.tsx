@@ -11,6 +11,7 @@ function ProfilePage() {
     const [employeeName, setEmployeeName] = useState("");
     const [adminPerm, setAdminPerm] = useState(false);
 
+
     useEffect(() => {
         if (user) {
             setUserInfo(user);
@@ -33,6 +34,23 @@ function ProfilePage() {
 
         fetchServiceRequests();
     }, [userInfo, employeeName, user]);
+
+    async function checkEmployeeAdmin(employeeName: string) {
+        try {
+            const response = await axios.get(`/employees/${employeeName}/boolean`);
+            if (response.data) {
+                const { name, booleanValue } = response.data;
+                console.log(`${name}'s boolean value is: ${booleanValue}`);
+                return booleanValue;
+            } else {
+                console.error('Failed to fetch employee data');
+                return null;
+            }
+        } catch (error) {
+            console.error('Error fetching employee data:', error);
+            return null;
+        }
+    }
 
     if (userInfo) return (
         <div className="container mx-auto p-4">
