@@ -214,7 +214,7 @@ export default function Hamburger() {
                             to="about-us"
                         >
                             <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                                {translate("Aboutus", language)}
+                                {translate("aboutus", language)}
                             </div>
                         </Link>
                     </SheetClose>
