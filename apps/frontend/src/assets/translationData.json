@@ -2,7 +2,7 @@
   "en": {
     "services": "Services",
     "chooseservice": "Choose from a selection of services to enrich your stay with us.",
-    "Flowertitle": "Flower Service",
+    "Flowertitle": "Flower Request",
     "Flowerdes": "Order beautiful flowers to your room.",
     "Securitytitle": "Security Request",
     "Securitydes": "Feeling threatened? Order security to your location.",
@@ -20,7 +20,14 @@
     "Devicedes": "Request a device for your patient.",
     "Order": "Order",
     "Request": "Request",
-    "Take me there": "Take me there"
+    "Take me there": "Take me there",
+    "Map": "Map",
+    "Mapeditor": "Map editor",
+    "allservices": "All Services",
+    "dataviewer": "Data Viewer",
+    "aboutus": "About Us",
+    "Credit": "Credit Page"
+
   },
   "ch": {
     "services": "服务",
@@ -43,6 +50,12 @@
     "Devicedes": "为您的患者请求一台设备。",
     "Order": "下单",
     "Request": "需求",
-    "Take me there": "带我去那"
+    "Take me there": "带我去那",
+    "Map": "地图",
+    "Mapeditor": "地图编辑",
+    "allservices": "所有服务",
+    "dataviewer": "数据库",
+    "Aboutus": "关于我们",
+    "Credit": "特别鸣谢"
   }
 }
