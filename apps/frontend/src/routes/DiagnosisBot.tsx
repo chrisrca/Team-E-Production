@@ -23,13 +23,13 @@ const DiagnosisBot: React.FC = () => {
     const setNextStep = (response: string) => {
         setStep(prevState => prevState + 1);
         setSendUserResponse(response);
-        let res = analyzeNextSteps(step, response);
+        const res = analyzeNextSteps(step, response);
         setBotResponse({ ...res, sender: "bot" });
         setUserResponse("");
     };
 
     const optionClick = (e: React.MouseEvent<HTMLElement>) => {
-        let option = e.currentTarget.dataset.id;
+        const option = e.currentTarget.dataset.id;
         if (option) {
             setNextStep(option);
         }

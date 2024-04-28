@@ -38,7 +38,7 @@ const Chats: React.FC<Props> = (props) => {
             const holder = [...messages];
             holder.push({
                 message: props.sendUserResponse,
-                sender: "patient",
+                sender: "patient"
             });
             setMessages(holder);
 
@@ -48,7 +48,7 @@ const Chats: React.FC<Props> = (props) => {
                 setMessages(holder2);
             }, 1000);
         }
-    }, [props.sendUserResponse, props.botResponse, messages]);
+    },[messages, props.sendUserResponse, props.botResponse]);
 
     useEffect(() => {
         if (dummyRef && dummyRef.current && bodyRef && bodyRef.current) {
