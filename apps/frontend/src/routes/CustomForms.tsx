@@ -35,7 +35,7 @@ import { FormInput } from "@/components/ui/formInput";
 import { Plus } from 'lucide-react';
 
 export default function FormMaker() {
-    const [customForm] = useState([
+    const [customForm, setCustomForm] = useState([
         // {
         //     content: "label",
         //     title: "Flower Service Request Form",
@@ -124,20 +124,27 @@ export default function FormMaker() {
 
     const [currComponent, setCurrComponent] = useState("");
 
-    const addField = (props) => {
+    const AddField = (props) => {
 
-        const newObject = 
-        {
-            content: props["content"],
-            type: "",
-            title: "",
-            placeholder: "",
-            required: false,
-            id: 0,
-            label: "",
-            options: [],
-        };
+        const [newObject, setNewObject] = useState(
+            {
+                content: props["content"],
+                type: "",
+                title: "",
+                placeholder: "",
+                required: false,
+                id: 0,
+                label: "",
+                options: [],
+            }
+        );
 
+        const [options, setOptions] = useState([]);
+        const [option, setOption] = useState("");
+        
+        
+        console.log(newObject);
+        console.log(customForm);
         const handleOption = (type: string, field) => {
             if(type === "string"){
                 return(
@@ -146,18 +153,24 @@ export default function FormMaker() {
                         className={
                             "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
                          }
-                        onChange={(e) => {
-                            newObject[field] = e.target.value;
-                            console.log(newObject);
+                        onChange={e => {
+                            setNewObject({
+                                ...newObject,
+                                [field] : e.target.value}
+                                //console.log(newObject);
+                            );
                         }}
                     />
                 );
             }else if(type === "boolean"){
                 return(
                     <Checkbox
-                        onCheckedChange={(checked) => {
-                            newObject[field] = checked;
-                            console.log(newObject);
+                        onCheckedChange={checked => {
+                            setNewObject({
+                                ...newObject,
+                                [field] : checked}
+                                //console.log(newObject);
+                            );
                         }}
                         className={"hover:bg-accent my-auto ml-3"}
                     />
@@ -170,24 +183,69 @@ export default function FormMaker() {
                         className={
                             "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
                          }
-                        onChange={(e) => {
-                            newObject[field] = e.target.value;
-                            console.log(newObject);
+                        onChange={e => {
+                            setNewObject({
+                                ...newObject,
+                                [field] : e.target.value}
+                            );
                         }}
                     />
                 );
+            }else if(type === "object"){
+                return(
+                    <div>
+                        <FormInput
+                        placeholder={field}
+                        type={"string"}
+                        className={
+                            "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+                         }
+                        onChange={e => {
+                            console.log(option);
+                            setOption(e.target.value);
+                        }}
+                        />
+                        <Button
+                            className={"size-fit p-1 mt-5 bg-green-300 self-end"}
+                            onClick={() => {
+                                setOptions([...options, option]);
+                                setNewObject({
+                                    ...newObject,
+                                    [field] : options}
+                                );
+                            }}
+                        >
+                            <Plus
+                            className={"transition-all"}
+                            />
+                        </Button>
+                        {options.map((op) => {
+                            return(op);
+                        })}
+                    </div>
+                );
             }
+            console.log("TYPE ==" + type);
             return;
         };
 
         if (props === "") {
             return;
         } else {
+            if(newObject["content"] === undefined || newObject["content"] !== props["content"]){
+                setNewObject({
+                    ...newObject,
+                    content : props["content"]}
+                    //console.log(newObject);
+                );
+            }
             return (
                 <>
                     <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col"}>
                         {Object.keys(props).map((field) => {
-                            if(field === "display"){return;}
+                            console.log(field);
+                            if(field === "display" || field === "content"){
+                                return;}
                             return(
                                 <div className={""}>
                                     <Label
@@ -203,8 +261,9 @@ export default function FormMaker() {
                         })}
                         <Button
                             className={"size-fit p-1 mt-5 bg-green-300 self-end"}
-                            onClick={(newObject) => {
-                                customForm.push(newObject);
+                            onClick={() => {
+                                console.log(newObject);
+                                setCustomForm([...customForm, newObject]);
                                 console.log(customForm);
                             }}
                         >
@@ -219,9 +278,15 @@ export default function FormMaker() {
     };
 
     const components = {
+        label: {
+            display: "Form Label",
+            content: "label",
+            title: "",
+        },
         textField: {
             display: "Text Field",
             content: "text",
+            type: "",
             title: "",
             placeholder: "",
             required: false,
@@ -235,7 +300,7 @@ export default function FormMaker() {
             required: false,
             id: 0,
             label: "",
-            options: "",
+            options: [],
         },
         checkBox: {
             display: "Checkbox",
@@ -252,8 +317,7 @@ export default function FormMaker() {
             placeholder: "",
             required: false,
             id: 0,
-            label: "",
-            options: "",
+            options: [],
         },
         locationSelector: {
             display: "Location Selector",
@@ -309,7 +373,7 @@ export default function FormMaker() {
                                 </PopoverContent>
                             </Popover>
                             <div className={"transition-all p-1"}>
-                            {addField(currComponent)}
+                            {AddField(currComponent)}
                             </div>
                         </div>
                         <div className={"m-5"}>
