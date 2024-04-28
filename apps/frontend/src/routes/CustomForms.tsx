@@ -15,15 +15,15 @@ import {
 //     SelectValue,
 // } from "@/components/ui/select";
 
-import {
-    DropdownMenu,
-    //DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    //DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+// import {
+//     DropdownMenu,
+//     //DropdownMenuCheckboxItem,
+//     DropdownMenuContent,
+//     DropdownMenuItem,
+//     DropdownMenuLabel,
+//     //DropdownMenuSeparator,
+//     DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
 import {
     Popover,
     PopoverContent,
@@ -123,6 +123,7 @@ export default function FormMaker() {
     // });
 
     const [currComponent, setCurrComponent] = useState("");
+    const[currEdit, setCurrEdit] = useState({});
 
     const AddField = (props) => {
 
@@ -277,6 +278,22 @@ export default function FormMaker() {
         }
     };
 
+    const EditComponent = (props) => {
+        if (!props || Object.keys(props).length === 0) {
+            return null;
+        }
+
+        return (
+            <>
+                {Object.keys(props).map((key) => (
+                    <div className="size-16 bg-red-900" key={key}>
+                        {props[key]}
+                    </div>
+                ))}
+            </>
+        );
+    };
+
     const components = {
         label: {
             display: "Form Label",
@@ -377,39 +394,36 @@ export default function FormMaker() {
                             </div>
                         </div>
                         <div className={"m-5"}>
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button
-                                        variant="ghost"
-                                        className="w-fit h-10 bg-primary text-background font-bold"
-                                    >
-                                        Remove/Edit Component
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align={"end"}>
-                                    <DropdownMenuLabel
-                                        className={"bg-card rounded-sm"}
-                                    >
-                                        {"Select Component"}
-                                    </DropdownMenuLabel>
-                                    {customForm.map((option, index) => {
-                                        return (
-                                            <DropdownMenuItem key={index}>
-                                                <div
-                                                    className={
-                                                        "font-bold capitalize"
-                                                    }
-                                                >
-                                                    {"ID "}
-                                                    {option.id}
-                                                    {" : "}
-                                                    {option.content}
-                                                </div>
-                                            </DropdownMenuItem>
-                                        );
-                                    })}
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                        <Popover>
+                            <PopoverTrigger>
+                                <Button className="flex h-10 w-50 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
+                                    {currEdit["display"] ||
+                                        "Select Field to Edit/Remove"}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md">
+                                {customForm.map((option, index) => {
+                                    return(
+                                        <div
+                                            key={index}
+                                            className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize"
+                                            onClick={() => {
+                                                //console.log(option);
+                                                setCurrEdit(customForm[index]);
+                                            }}
+                                        >
+                                            <div className={"font-bold capitalize"}>
+                                                {"ID "}
+                                                {option.id}
+                                                {" : "}
+                                                {option.content}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </PopoverContent>
+                        </Popover>
+                            {EditComponent(currEdit)}
                         </div>
                     </div>
                 </div>
