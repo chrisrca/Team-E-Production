@@ -60,8 +60,9 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                 scope: "openid profile email offline_access",
             }}
         >
-            <LanguageProvider>
+
             <ThemeProvider>
+                <LanguageProvider>
                 <div className="flex w-screen">
                     <div>
                         <Hamburger/>
@@ -193,8 +194,9 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     <LanguageToggle/>
                 </div>
 
+                </LanguageProvider>
             </ThemeProvider>
-            </LanguageProvider>
+
         </Auth0Provider>
     );
 }

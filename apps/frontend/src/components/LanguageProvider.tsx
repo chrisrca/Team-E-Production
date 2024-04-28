@@ -28,8 +28,17 @@ const initialState: LanguageProviderState = {
 const LanguageProviderContext = createContext(initialState);
 
 // Translation function
+
 export function translate(key: string, language: Language): string {
-    const translatedText = (translations as Translations)[language][key];
+    const translationsData = translations as Translations;
+    console.log("Translations data:", translationsData);
+    console.log("Language:", language);
+
+    const languageData = translationsData[language];
+    console.log("Language data:", languageData);
+
+    const translatedText = languageData && languageData[key];
+    console.log("Translated text:", translatedText);
 
     return translatedText !== undefined ? translatedText : key;
 }
@@ -45,6 +54,7 @@ export function LanguageProvider({
     );
 
     useEffect(() => {
+        console.log("Current language:", language);
         localStorage.setItem(storageKey, language);
     }, [language, storageKey]);
 
@@ -60,11 +70,13 @@ export function LanguageProvider({
     );
 }
 
-export const useLanguage = () => {
+export function useLanguage () {
     const context = useContext(LanguageProviderContext);
 
     if (context === undefined)
         throw new Error("useLanguage must be used within a LanguageProvider");
 
     return context;
-};
+}
+
+

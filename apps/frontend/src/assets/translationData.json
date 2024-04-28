@@ -1,8 +1,48 @@
 {
   "en": {
-    "title": "Brigham and Women's Hospital"
+    "services": "Services",
+    "chooseservice": "Choose from a selection of services to enrich your stay with us.",
+    "Flowertitle": "Flower Service",
+    "Flowerdes": "Order beautiful flowers to your room.",
+    "Securitytitle": "Security Request",
+    "Securitydes": "Feeling threatened? Order security to your location.",
+    "Medicinetitle": "Medicine Request",
+    "Medicinedes": "Order your prescribed medications to your room.",
+    "Gifttitle": "Gift Request",
+    "GiftDes": "Get your friend a gift, you can even have it wrapped!",
+    "Interprettitle": "Interpreter Request",
+    "Interpretdes": "Interpretation Language Needs Bonjour",
+    "Sanitationtitle": "Sanitation Request",
+    "Sanitationdes": "For all your cleaning needs.",
+    "Roomtitle": "Room Scheduling",
+    "Roomdes": "Schedule a room for your needs.",
+    "Devicetitle": "Medical Device Request",
+    "Devicedes": "Request a device for your patient.",
+    "Order": "Order",
+    "Request": "Request",
+    "Take me there": "Take me there"
   },
   "ch": {
-    "title": "伯明翰妇女医院"
+    "services": "服务",
+    "chooseservice": "从一系列服务中进行选择，丰富您在我们这里的住宿体验。",
+    "Flowertitle": "鲜花服务",
+    "Flowerdes": "将美丽的鲜花送到您的房间。",
+    "Securitytitle": "安全请求",
+    "Securitydes": "感觉受到威胁？将安全订单发送到您的位置。",
+    "Medicinetitle": "药品请求",
+    "Medicinedes": "将您的处方药物送到您的房间。",
+    "Gifttitle": "礼品请求",
+    "GiftDes": "为您的朋友选择一份礼物，甚至可以包装好！",
+    "Interprettitle": "口译服务请求",
+    "Interpretdes": "满足您的所有语言口译需求。",
+    "Sanitationtitle": "清洁服务请求",
+    "Sanitationdes": "满足您的所有清洁需求。",
+    "Roomtitle": "房间预订",
+    "Roomdes": "为您的需求安排一个房间。",
+    "Devicetitle": "医疗设备请求",
+    "Devicedes": "为您的患者请求一台设备。",
+    "Order": "下单",
+    "Request": "需求",
+    "Take me there": "带我去那"
   }
 }
