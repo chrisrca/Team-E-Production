@@ -70,7 +70,7 @@ export function DataTableDemo(data, columns) {
                 <>
                     <div className={"flex flex-row flex-nowrap"}>
                         <Button
-                            className="bg-destructive hover:bg-accent h-full w-fit self-center text-md hover:text-accent-foreground dark:text-foreground"
+                            className="bg-destructive hover:bg-destructive-highlight h-full w-fit self-center text-md hover:text-accent-foreground dark:text-foreground"
                             onClick={() => {
                                 table.resetColumnFilters();
                             }}
@@ -79,12 +79,12 @@ export function DataTableDemo(data, columns) {
                         </Button>
                         <div
                             className={
-                                "w-fit bg-accent ml-3 overflow-auto flex flex-row text-nowrap transition-all rounded-full border-2 border-ring"
+                                "w-fit ml-3 overflow-auto flex flex-row text-nowrap transition-all rounded-full border-2 border-ring"
                             }
                         >
                             <div
                                 className={
-                                    "font-bold flex flex-row h-full bg-card"
+                                    "font-bold flex flex-row h-full bg-card dark:bg-primary-element"
                                 }
                             >
                                 <div
@@ -102,7 +102,7 @@ export function DataTableDemo(data, columns) {
                                     >
                                         <Button
                                             className={
-                                                "size-fit p-0 m-0 hover:bg-primary bg-destructive rounded-full self-center transition-all"
+                                                "size-fit p-0 m-0 hover:bg-destructive-highlight bg-destructive rounded-full self-center transition-all"
                                             }
                                             onClick={() => {
                                                 table
@@ -197,11 +197,11 @@ export function DataTableDemo(data, columns) {
     //console.log((data[1]));
 
     return (
-        <div className="w-screen p-10 overflow-auto transition-all">
+        <div className="w-screen p-10 overflow-auto transition-all bg-primary-element">
             <div className="flex flex-row mb-2 space-x-2">
                 <Popover>
                     <PopoverTrigger>
-                        <Button className="flex h-10 w-50 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
+                        <Button className="flex h-10 w-50 rounded-md border focus-visible:ring-2 focus-visible:ring-ring text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0  ring-0 text-sm text-bold font-sm font-bold hover:bg-accent dark:bg-accent dark:hover:bg-inherit bg-primary dark:hover:border-accent text-background hover:text-foreground">
                             {"[" + Object.keys(data[0])[valueFilter] + "]" ||
                                 "Select Field to Filter"}
                         </Button>
@@ -238,16 +238,15 @@ export function DataTableDemo(data, columns) {
                             ?.setFilterValue(event.target.value);
                         //console.log(table.getState().columnFilters);
                     }}
-                    className="w-full transition-all hover:border-[3px] hover:border-accent focus:ring-0 bg-card"
+                    className="w-full transition-all hover:border-[3px] hover:border-accent focus:ring-0 bg-card bg-secondary-element"
                 ></Input>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button
-                            variant="outline"
-                            className="ml-auto text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary"
+                            className="ml-auto text-accent-foreground border dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold hover:bg-accent dark:bg-accent dark:hover:bg-inherit bg-primary dark:hover:border-accent text-background hover:text-foreground"
                         >
-                            Display Fields{" "}
-                            <ChevronDown className="ml-2 h-4 w-4" />
+                            {"Display Fields "}
+                            <ChevronDown className="ml-2 h-4 w-4 text-inherit" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -274,7 +273,7 @@ export function DataTableDemo(data, columns) {
 
             <div
                 className={
-                    "min-w-full px-4 mb-4 py-2 border rounded-lg bg-card"
+                    "min-w-full px-4 mb-4 py-2 border rounded-lg bg-card bg-secondary-element"
                 }
             >
                 {renderFilters(table.getState().columnFilters)}
@@ -292,7 +291,7 @@ export function DataTableDemo(data, columns) {
                                     return (
                                         <TableHead
                                             className={
-                                                "self-center text-bold py-3 bg-card"
+                                                "self-center text-bold py-3 bg-card bg-secondary-element"
                                             }
                                             key={header.id}
                                         >
@@ -313,6 +312,7 @@ export function DataTableDemo(data, columns) {
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
+                                    className={"rounded-lg"}
                                     key={row.id}
                                     data-state={
                                         row.getIsSelected() && "selected"
@@ -320,7 +320,7 @@ export function DataTableDemo(data, columns) {
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell
-                                            className="text-start bg-secondary"
+                                            className="text-start bg-secondary bg-tertiary-element"
                                             key={cell.id}
                                         >
                                             {flexRender(
@@ -354,7 +354,7 @@ export function DataTableDemo(data, columns) {
                     </div>
                     <Button
                         className={
-                            "ml-2 mr-1 min-h-full w-7 p-0 self-center bg-card"
+                            "ml-2 mr-1 min-h-full w-7 p-0 self-center bg-card bg-secondary-element"
                         }
                         variant="outline"
                         size="sm"
@@ -373,12 +373,12 @@ export function DataTableDemo(data, columns) {
                         onChange={(event) => {
                             setUserPgSize(event.target.value);
                         }}
-                        className="w-16 text-center transition-all hover:border-[3px] hover:border-accent focus:ring-0 bg-card"
+                        className="w-16 text-center transition-all hover:border-[3px] hover:border-accent focus:ring-0 bg-card bg-secondary-element"
                     ></Input>
                 </div>
                 <div className="transition-all flex flex-row">
                     <Button
-                        className={"w-6 p-0 h-10 bg-card"}
+                        className={"w-6 p-0 h-10 bg-card bg-secondary-element"}
                         variant="outline"
                         size="sm"
                         onClick={() => {
@@ -390,7 +390,7 @@ export function DataTableDemo(data, columns) {
                         <ChevronFirst className={"size-5"} />
                     </Button>
                     <Button
-                        className={"mx-2 w-28 h-10 bg-card"}
+                        className={"mx-2 w-28 h-10 bg-card bg-secondary-element"}
                         variant="outline"
                         size="sm"
                         onClick={() => {
@@ -403,7 +403,7 @@ export function DataTableDemo(data, columns) {
                         Previous
                     </Button>
                     <Button
-                        className={"mx-2 w-28 h-10 bg-card"}
+                        className={"mx-2 w-28 h-10 bg-card bg-secondary-element"}
                         variant="outline"
                         size="sm"
                         onClick={() => {
@@ -416,7 +416,7 @@ export function DataTableDemo(data, columns) {
                         <ChevronRight className={"size-5"} />
                     </Button>
                     <Button
-                        className={"w-6 p-0 h-10 bg-card"}
+                        className={"w-6 p-0 h-10 bg-card bg-secondary-element"}
                         variant="outline"
                         size="sm"
                         onClick={() => {

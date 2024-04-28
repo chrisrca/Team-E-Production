@@ -28,6 +28,7 @@
         --accent-foreground: #fafaf9;
 
         --destructive: #ef4444;
+        --destructive-hover: #ef0000;
         --destructive-foreground: #fafaf9;
 
         --border: #e7e5e4;
@@ -38,8 +39,13 @@
     }
 
     .dark {
-        --background: #012d5a;
+        --background: #0A141F;
         --foreground: #f1f1f1;
+
+        --button: #f6bd38;
+        --button-hover: #FBDF9D;
+        --button-secondary: ;
+        --button-secondary-hover: ;
 
         --kiosk: #012d5a;
 
@@ -50,10 +56,15 @@
         --popover-foreground: #fafaf9;
 
         --primary: #cae7ff;
+        --primary-element: #0F1E2E;
         --primary-foreground: #1c1917;
 
         --secondary: #013f7c;
+        --secondary-element: #14283E;
         --secondary-foreground: #fafaf9;
+
+        --tertiary-element: #ffffff;
+        --tertiary-element: #283545;
 
         --muted: #292524;
         --muted-foreground: #d6d6d6;
@@ -62,11 +73,12 @@
         --accent-foreground: #fafaf9;
 
         --destructive: #ef4444;
+        --destructive-hover: #ef0000;
         --destructive-foreground: #fafaf9;
 
-        --border: #292524;
-        --input: #292524;
-        --ring: #d6d3d1;
+        --border: #14283E;
+        --input: #14283E;
+        --ring: #0F1E2E;
     }
 }
 
