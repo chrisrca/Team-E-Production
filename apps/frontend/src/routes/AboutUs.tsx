@@ -26,7 +26,7 @@ export default function AboutUs() {
             role: "Project Manager",
             major: "Robotics Engineering",
             class: "2025",
-            quote: "La vida es un carnaval",
+            quote: "La vida es un carnaval. - Celia Cruz",
             image: yan,
             audio: funny,
         },
@@ -44,7 +44,7 @@ export default function AboutUs() {
             role: "Assistant Lead Developer",
             major: "Computer Science / Bioinformatics and Computational Biology",
             class: "2026",
-            quote: "How fleeting are all human passions when compared with the massive continuity of ducks.",
+            quote: "How fleeting are all human passions when compared with the massive continuity of ducks. - Dorothy L. Sayers",
             image: aksel,
             audio: funny,
         },
@@ -53,7 +53,7 @@ export default function AboutUs() {
             role: "Scrum Master",
             major: "Computer Science",
             class: "2025",
-            quote: "test",
+            quote: "On my momma, I did not rebase the repo.",
             image: tri,
             audio: funny,
         },
@@ -62,7 +62,7 @@ export default function AboutUs() {
             role: "Assistant Lead Software Engineer",
             major: "Robotics Engineering and Computer Science",
             class: "2025",
-            quote: "test",
+            quote: "The fire of extravagance can never burn simplicity",
             image: lorenzo,
             audio: funny,
         },
@@ -71,7 +71,7 @@ export default function AboutUs() {
             role: "Algorithms",
             major: "Computer Science",
             class: "2026",
-            quote: "test",
+            quote: "I want to be the best like no one ever was, I guess.",
             image: devin,
             audio: funny,
         },
@@ -80,7 +80,7 @@ export default function AboutUs() {
             role: "Backend Database Engineer",
             major: "Computer Science",
             class: "2026",
-            quote: "To do anything to a high level, it has to be total obsession- Conor McGregor",
+            quote: "To do anything to a high level, it has to be total obsession - Conor McGregor",
             image: brendan,
             audio: funny,
         },
@@ -89,7 +89,7 @@ export default function AboutUs() {
             role: "Algorithms",
             major: "Computer Science",
             class: "2026",
-            quote: "test",
+            quote: "You miss 100% of the shots you don't take - Wayne Gretzky",
             image: christian,
             audio: fortnite,
         },
@@ -107,7 +107,7 @@ export default function AboutUs() {
             role: "Frontend",
             major: "Computer Science",
             class: "2026",
-            quote: "test",
+            quote: "Ooohh... I like that",
             image: colin,
             audio: funny,
         },
@@ -116,7 +116,7 @@ export default function AboutUs() {
             role: "Product Owner",
             major: "Computer Science / Data Science",
             class: "2026",
-            quote: "test",
+            quote: "Do the best you can until you know better. Then when you know better, do better. — Maya Angelou",
             image: brandon,
             audio: funny,
         },
@@ -140,9 +140,9 @@ export default function AboutUs() {
             <div className="flex items-center justify-center pt-10 text-4xl font-bold">
                 <h1>About Us</h1>
             </div>
-            <div className="grid gap-x-3 gap-y-3 grid-cols-3 auto-rows-auto pt-10 p-10">
+            <div className="grid gap-x-3 gap-y-3 grid-cols-3 auto-rows-auto pt-10 p-10" style={{ display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
                 {teamMembers.map((member, index) => (
-                    <div key={index} style={{flex: '0 0 calc(33.33% - 2rem)' }}>
+                    <div key={index} style={{flex: '0 0 calc(33.33% - 2rem)'}}>
                         <PortraitCard className="bg-secondary shadow-md hover:cursor-pointer hover:outline" onClick={() => toggleQuote(member)}>
                             <CardContent style={{height: selectedMember === member.quote ? 'auto' : '475px' }}>
                                 <div className="flex flex-col justify-between h-full">
