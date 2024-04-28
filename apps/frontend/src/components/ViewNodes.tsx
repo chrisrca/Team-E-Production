@@ -196,12 +196,14 @@ export function DataTableDemo(data, columns) {
     }
     //console.log((data[1]));
 
+    //<ChevronDown className="ml-2 h-4 w-4 text-inherit" />
+
     return (
         <div className="w-screen p-10 overflow-auto transition-all bg-primary-element">
             <div className="flex flex-row mb-2 space-x-2">
                 <Popover>
                     <PopoverTrigger>
-                        <Button className="flex h-10 w-50 rounded-md border focus-visible:ring-2 focus-visible:ring-ring text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0  ring-0 text-sm text-bold font-sm font-bold hover:bg-accent dark:bg-accent dark:hover:bg-inherit bg-primary dark:hover:border-accent text-background hover:text-foreground">
+                        <Button className="flex h-10 w-50 rounded-md border hover:ring-0 ring-0 font-sm font-bold hover:bg-accent dark:bg-accent dark:hover:bg-inherit bg-primary dark:hover:border-accent text-background hover:text-foreground">
                             {"[" + Object.keys(data[0])[valueFilter] + "]" ||
                                 "Select Field to Filter"}
                         </Button>
@@ -242,11 +244,15 @@ export function DataTableDemo(data, columns) {
                 ></Input>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
+                        
+                            
                         <Button
-                            className="ml-auto text-accent-foreground border dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold hover:bg-accent dark:bg-accent dark:hover:bg-inherit bg-primary dark:hover:border-accent text-background hover:text-foreground"
+                            className="flex h-10 w-50 rounded-md border hover:ring-0 ring-0 font-sm font-bold hover:bg-accent dark:bg-accent dark:hover:bg-inherit bg-primary dark:hover:border-accent text-background hover:text-foreground"
                         >
+
                             {"Display Fields "}
                             <ChevronDown className="ml-2 h-4 w-4 text-inherit" />
+                            
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -354,7 +360,7 @@ export function DataTableDemo(data, columns) {
                     </div>
                     <Button
                         className={
-                            "ml-2 mr-1 min-h-full w-7 p-0 self-center bg-card bg-secondary-element"
+                            "ml-2 mr-1 min-h-full w-7 p-0 self-center bg-card bg-secondary-element hover:text-background text-foreground"
                         }
                         variant="outline"
                         size="sm"
@@ -378,7 +384,7 @@ export function DataTableDemo(data, columns) {
                 </div>
                 <div className="transition-all flex flex-row">
                     <Button
-                        className={"w-6 p-0 h-10 bg-card bg-secondary-element"}
+                        className={"w-6 p-0 h-10 bg-card bg-secondary-element hover:text-background text-foreground"}
                         variant="outline"
                         size="sm"
                         onClick={() => {
@@ -390,7 +396,7 @@ export function DataTableDemo(data, columns) {
                         <ChevronFirst className={"size-5"} />
                     </Button>
                     <Button
-                        className={"mx-2 w-28 h-10 bg-card bg-secondary-element"}
+                        className={"mx-2 w-28 h-10 bg-card bg-secondary-element hover:text-background text-foreground"}
                         variant="outline"
                         size="sm"
                         onClick={() => {
@@ -403,7 +409,7 @@ export function DataTableDemo(data, columns) {
                         Previous
                     </Button>
                     <Button
-                        className={"mx-2 w-28 h-10 bg-card bg-secondary-element"}
+                        className={"mx-2 w-28 h-10 bg-card bg-secondary-element hover:text-background text-foreground"}
                         variant="outline"
                         size="sm"
                         onClick={() => {
@@ -416,7 +422,7 @@ export function DataTableDemo(data, columns) {
                         <ChevronRight className={"size-5"} />
                     </Button>
                     <Button
-                        className={"w-6 p-0 h-10 bg-card bg-secondary-element"}
+                        className={"w-6 p-0 h-10 bg-card bg-secondary-element hover:text-background text-foreground"}
                         variant="outline"
                         size="sm"
                         onClick={() => {
@@ -472,6 +478,7 @@ export default function ViewNodes(inputData: {
                         return (
                             <Button
                                 variant="ghost"
+                                className={"hover:text-background text-foreground"}
                                 onClick={() =>
                                     column.toggleSorting(
                                         column.getIsSorted() === "asc",

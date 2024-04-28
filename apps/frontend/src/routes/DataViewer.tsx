@@ -305,16 +305,19 @@ function DataViewer() {
                         }
                     }}
                 >
-                    <SelectTrigger className="flex h-30 w-60 bg-card hover:ring-2 ring-accent text-xl text-bold font-medium text-gray-700 dark:text-foreground text-center">
-                        <SelectValue placeholder={"Select a Data Type"} />
+                    <SelectTrigger className="flex h-30 w-60 focus:ring-0 ring-0 ring-accent border-0 focus:ring-accent bg-card text-xl text-bold font-medium text-center rounded-md bg-primary-element hover:border-accent hover:ring-1 focus:ring-1">
+                        <SelectValue 
+                        className={"text-background"}
+                        placeholder={"Select a Data Type"} />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent
+                        className={"bg-secondary-element"}>
                         <SelectGroup>
-                            <SelectLabel>{"Select Data Type"}</SelectLabel>
+                            <SelectLabel className={"bg-primary-element rounded-sm"}>{"Select Data Type"}</SelectLabel>
                             <SelectItem
                                 value={nodeData}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Node Data"}
@@ -322,7 +325,7 @@ function DataViewer() {
                             <SelectItem
                                 value={edgeData}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Edge Data"}
@@ -330,7 +333,7 @@ function DataViewer() {
                             <SelectItem
                                 value={employeeData}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Employee Data"}
@@ -338,7 +341,7 @@ function DataViewer() {
                             <SelectItem
                                 value={"Services Data"}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Services Data"}
@@ -346,7 +349,7 @@ function DataViewer() {
                             <SelectItem
                                 value={flowerData}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Flower Data"}
@@ -354,7 +357,7 @@ function DataViewer() {
                             <SelectItem
                                 value={giftData}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Gift Data"}
@@ -362,7 +365,7 @@ function DataViewer() {
                             <SelectItem
                                 value={interpreterData}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Interpreter Data"}
@@ -370,7 +373,7 @@ function DataViewer() {
                             <SelectItem
                                 value={securityData}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Security Data"}
@@ -378,7 +381,7 @@ function DataViewer() {
                             <SelectItem
                                 value={drugData}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Drug Data"}
@@ -386,7 +389,7 @@ function DataViewer() {
                             <SelectItem
                                 value={sanitationData}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Sanitation Data"}
@@ -394,7 +397,7 @@ function DataViewer() {
                             <SelectItem
                                 value={roomData}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Room Data"}
@@ -402,7 +405,7 @@ function DataViewer() {
                             <SelectItem
                                 value={medicalDeviceData}
                                 className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
                                 }
                             >
                                 {"Medical Device Data"}
