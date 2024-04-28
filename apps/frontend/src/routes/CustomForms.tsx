@@ -78,41 +78,18 @@ export default function FormMaker(){
             label: "",
             options: [],
         },
-        {
-            content: "radio",
-            type: "string",
-            title: "Status",
-            placeholder: "",
-            required: true,
-            id: 0,
-            label: "Request Status",
-            options: ["Unassigned", "Assigned", "In Progress", "Closed"],
-        },
-        {
-            content: "radio",
-            type: "string",
-            title: "Priority",
-            placeholder: "",
-            required: true,
-            id: 0,
-            label: "Request Priority",
-            options: ["Low", "Medium", "High", "Emergency"],
-        },
-        {
-            content: "employee",
-            type: "string",
-            title: "Assign Employee",
-            placeholder: "Select Employee",
-            required: false,
-            id: 0,
-            label: "",
-            options: [],
-        },
 ]);
     const components = {
         textField : 
         {
-            title : "Text Field"
+            title : "Text Field",
+            content: "",
+            title: "",
+            placeholder: "",
+            required: "",
+            id: "",
+            label: "",
+            options: "",
         },
         select : 
         {
@@ -158,10 +135,10 @@ export default function FormMaker(){
                                         </div>
                                     </DropdownMenuItem>
                                 );
-                                    
                             })}
                         </DropdownMenuContent>
                     </DropdownMenu>
+                    {addField()}
                     </div>
                     <div className={"m-5"}>
                     <DropdownMenu>
@@ -201,7 +178,8 @@ export default function FormMaker(){
                     {},
                     "",
                     "",
-                    "",)
+                    "",
+                )
                 }
                 </div>
                 </div>
@@ -210,33 +188,12 @@ export default function FormMaker(){
     );
 };
 
-// const addField = () => {
-//     const selectVal = "hallo";
-//     return(
-//         <>
-//         <Select
-                        
-//                     >
-//                         <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground">
-//                             <SelectValue placeholder={selectVal} />
-//                         </SelectTrigger>
-//                         <SelectContent>
-//                             <SelectGroup>
-//                                 <SelectLabel>{"Label"}</SelectLabel>
-//                                 {/* Map options to select */}
-//                                 {components.map((option) => (
-//                                     <SelectItem
-//                                         value={option.toString()}
-//                                         className={
-//                                             "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
-//                                         }
-//                                     >
-//                                         {option}
-//                                     </SelectItem>
-//                                 ))}
-//                             </SelectGroup>
-//                         </SelectContent>
-//                     </Select>
-//                     </>
-//     );
-// };
+const addField = () => {
+    return(
+        <>
+            <div className={"size-5 bg-red-900"}>
+                HI
+            </div>
+        </>
+    );
+};
