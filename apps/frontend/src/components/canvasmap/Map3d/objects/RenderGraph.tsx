@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Vector3 } from "three";
-import { Line } from "@react-three/drei";
+import {Color, Euler, MeshStandardMaterial, Vector3} from "three";
+import { Line, Text } from "@react-three/drei";
 import { DBNode } from "common/src/types";
 
 interface Edge {
@@ -9,6 +9,18 @@ interface Edge {
     end: string;
 }
 
+const elevatorOutline = new MeshStandardMaterial({
+    color: new Color(0xffffff),
+});
+
+const elevatorUp = new MeshStandardMaterial({
+    color: new Color(0x3f8f29),
+});
+
+const elevatorDown = new MeshStandardMaterial({
+    color: new Color(0xde1a24),
+});
+
 const GraphMesh: React.FC<{
     position: Vector3;
     pathNodes: DBNode[];
@@ -16,8 +28,10 @@ const GraphMesh: React.FC<{
     nodes: DBNode[];
     setHoverNode: (node: DBNode) => void;
     isDraggable: (draggable: boolean) => void;
-}> = ({ position, pathNodes, level, nodes, setHoverNode, setIsDraggable }) => {
+    setLevel: (level: number) => void;
+}> = ({ position, pathNodes, level, nodes, setHoverNode, setIsDraggable, setLevel }) => {
     const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+    const [selectedNode, setSelectedNode] = useState<string | null>(null);
     const floor = ["L2", "L1", "1", "2", "3"];
     if (!nodes) return;
 
@@ -104,6 +118,386 @@ const GraphMesh: React.FC<{
 
     return (
         <>
+            {pathNodes.map((node, index) => {
+                if (
+                    node.nodeType === "ELEV" &&
+                    pathNodes[index + 1] &&
+                    pathNodes[index + 1].nodeType === "ELEV" &&
+                    node.floor == floor[level]
+                ) {
+                    return (
+                        <>
+                            <mesh
+                                key={index}
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 34 + node.ycoord / 50,
+                                ]}
+                                scale={
+                                    selectedNode === node.nodeID
+                                        ? [0.7, 0.05, 0.7]
+                                        : [0.5, 0.05, 0.5]
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                }}
+                                material={elevatorOutline}
+                                rotation={new Euler(-Math.PI / 2, 0, 0)}
+                            >
+                                <cylinderGeometry args={[0.57, 0.57, 0.57]} />
+                            </mesh>
+
+                            <mesh
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 34 + node.ycoord / 50,
+                                ]}
+                                scale={
+                                    selectedNode === node.nodeID
+                                        ? [0.65, 0.06, 0.65]
+                                        : [0.45, 0.06, 0.45]
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                }}
+                                material={elevatorUp}
+                                rotation={new Euler(-Math.PI / 2, 0, 0)}
+                            >
+                                <cylinderGeometry args={[0.57, 0.57, 0.57]} />
+                            </mesh>
+                            <Text
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 33.95 + node.ycoord / 50,
+                                ]}
+                                fontSize={
+                                    selectedNode === node.nodeID
+                                        ? 0.5
+                                        : 0.3
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                }}
+                                color="white"
+                                anchorX="center"
+                                anchorY="middle"
+                                outlineWidth={0.02}
+                                outlineColor="black"
+                            >
+                                {pathNodes[index + 1].floor}
+                            </Text>
+                        </>
+                    );
+                }
+                return null;
+            })}
+
+            {pathNodes.map((node, index) => {
+                if (
+                    node.nodeType === "ELEV" &&
+                    pathNodes[index - 1] &&
+                    pathNodes[index - 1].nodeType === "ELEV" &&
+                    node.floor == floor[level]
+                ) {
+                    return (
+                        <>
+                            <mesh
+                                key={index}
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 34 + node.ycoord / 50,
+                                ]}
+                                scale={
+                                    selectedNode === node.nodeID
+                                        ? [0.7, 0.05, 0.7]
+                                        : [0.5, 0.05, 0.5]
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                }}
+                                material={elevatorOutline}
+                                rotation={new Euler(-Math.PI / 2, 0, 0)}
+                            >
+                                <cylinderGeometry args={[0.57, 0.57, 0.57]} />
+                            </mesh>
+
+                            <mesh
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 34 + node.ycoord / 50,
+                                ]}
+                                scale={
+                                    selectedNode === node.nodeID
+                                        ? [0.65, 0.06, 0.65]
+                                        : [0.45, 0.06, 0.45]
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                }}
+                                material={elevatorDown}
+                                rotation={new Euler(-Math.PI / 2, 0, 0)}
+                            >
+                                <cylinderGeometry args={[0.57, 0.57, 0.57]} />
+                            </mesh>
+                            <Text
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 33.95 + node.ycoord / 50,
+                                ]}
+                                fontSize={
+                                    selectedNode === node.nodeID
+                                        ? 0.5
+                                        : 0.3
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                }}
+                                color="white"
+                                anchorX="center"
+                                anchorY="middle"
+                                outlineWidth={0.02}
+                                outlineColor="black"
+                            >
+                                {pathNodes[index - 1].floor}
+                            </Text>
+                        </>
+                    );
+                }
+                return null;
+            })}
+
+            {pathNodes.map((node, index) => {
+                if (
+                    node.nodeType === "STAI" &&
+                    pathNodes[index + 1] &&
+                    pathNodes[index + 1].nodeType === "STAI" &&
+                    node.floor == floor[level]
+                ) {
+                    return (
+                        <>
+                            <mesh
+                                key={index}
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 34 + node.ycoord / 50,
+                                ]}
+                                scale={
+                                    selectedNode === node.nodeID
+                                        ? [0.7, 0.05, 0.7]
+                                        : [0.5, 0.05, 0.5]
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                }}
+                                material={elevatorOutline}
+                                rotation={new Euler(-Math.PI / 2, 0, 0)}
+                            >
+                                <cylinderGeometry args={[0.57, 0.57, 0.57]} />
+                            </mesh>
+
+                            <mesh
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 34 + node.ycoord / 50,
+                                ]}
+                                scale={
+                                    selectedNode === node.nodeID
+                                        ? [0.65, 0.06, 0.65]
+                                        : [0.45, 0.06, 0.45]
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                }}
+                                material={elevatorUp}
+                                rotation={new Euler(-Math.PI / 2, 0, 0)}
+                            >
+                                <cylinderGeometry args={[0.57, 0.57, 0.57]} />
+                            </mesh>
+                            <Text
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 33.95 + node.ycoord / 50,
+                                ]}
+                                fontSize={
+                                    selectedNode === node.nodeID
+                                        ? 0.5
+                                        : 0.3
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                }}
+                                color="white"
+                                anchorX="center"
+                                anchorY="middle"
+                                outlineWidth={0.02}
+                                outlineColor="black"
+                            >
+                                {pathNodes[index + 1].floor}
+                            </Text>
+                        </>
+                    );
+                }
+                return null;
+            })}
+
+            {pathNodes.map((node, index) => {
+                if (
+                    node.nodeType === "STAI" &&
+                    pathNodes[index - 1] &&
+                    pathNodes[index - 1].nodeType === "STAI" &&
+                    node.floor == floor[level]
+                ) {
+                    return (
+                        <>
+                            <mesh
+                                key={index}
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 34 + node.ycoord / 50,
+                                ]}
+                                scale={
+                                    selectedNode === node.nodeID
+                                        ? [0.7, 0.05, 0.7]
+                                        : [0.5, 0.05, 0.5]
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                }}
+                                material={elevatorOutline}
+                                rotation={new Euler(-Math.PI / 2, 0, 0)}
+                            >
+                                <cylinderGeometry args={[0.57, 0.57, 0.57]} />
+                            </mesh>
+
+                            <mesh
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 34 + node.ycoord / 50,
+                                ]}
+                                scale={
+                                    selectedNode === node.nodeID
+                                        ? [0.65, 0.06, 0.65]
+                                        : [0.45, 0.06, 0.45]
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                }}
+                                material={elevatorDown}
+                                rotation={new Euler(-Math.PI / 2, 0, 0)}
+                            >
+                                <cylinderGeometry args={[0.57, 0.57, 0.57]} />
+                            </mesh>
+                            <Text
+                                position={[
+                                    position.x - 50 + node.xcoord / 50,
+                                    0.9,
+                                    position.z - 33.95 + node.ycoord / 50,
+                                ]}
+                                fontSize={
+                                    selectedNode === node.nodeID
+                                        ? 0.5
+                                        : 0.3
+                                }
+                                onPointerOver={() => {
+                                    setSelectedNode(node.nodeID);
+                                }}
+                                onPointerOut={() => {
+                                    setSelectedNode(null);
+                                }}
+                                onClick={() => {
+                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                }}
+                                color="white"
+                                anchorX="center"
+                                anchorY="middle"
+                                outlineWidth={0.02}
+                                outlineColor="black"
+                            >
+                                {pathNodes[index - 1].floor}
+                            </Text>
+                        </>
+                    );
+                }
+                return null;
+            })}
+
             {nodes.map((node, index) => {
                 if (node.floor == floor[level]) {
                     const { mesh, color } = getMeshByNodeType(node.nodeType);
