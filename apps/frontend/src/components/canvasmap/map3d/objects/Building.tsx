@@ -1,13 +1,13 @@
 import { MeshStandardMaterial, Color, Vector3, Mesh } from "three";
 import { useGLTF } from "@react-three/drei";
-import "./App.css";
+import "./Background.css";
 
-const RoomOutlines: React.FC<{ position: Vector3, level: number }> = ({ position, level }) => {
-    const { nodes } = useGLTF("/roomoutlinesL1.glb");
+const Building: React.FC<{ position: Vector3, level: number }> = ({ position, level }) => {
+    const { nodes } = useGLTF("/floormapL1.glb");
     const floormap = nodes.CustomObject as Mesh;
 
     const customMaterial = new MeshStandardMaterial({
-        color: new Color(0x8aa2c8),
+        color: new Color(0x2b5685),
     });
 
     switch (level) {
@@ -37,4 +37,4 @@ const RoomOutlines: React.FC<{ position: Vector3, level: number }> = ({ position
     }
 };
 
-export default RoomOutlines;
+export default Building;

@@ -1,6 +1,6 @@
 import { MeshStandardMaterial, Color, Vector3, Mesh } from "three";
 import { useGLTF } from "@react-three/drei";
-import "./App.css";
+import "./Background.css";
 
 const Stairs: React.FC<{ position: Vector3, level: number }> = ({ position, level }) => {
     const { nodes } = useGLTF("/bordersL1.glb");

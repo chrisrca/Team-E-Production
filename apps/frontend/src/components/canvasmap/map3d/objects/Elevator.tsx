@@ -1,5 +1,5 @@
 import { MeshStandardMaterial, Color, Vector3 } from "three";
-import "./App.css";
+import "./Background.css";
 
 const Elevator: React.FC<{ position: Vector3, level: number }> = ({ position, level }) => {
     const customMaterial = new MeshStandardMaterial({
