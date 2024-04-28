@@ -24,9 +24,14 @@ import {
     //DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
 
 
-export default function FormMaker(){
+export default function FormMaker(){  
     const[customForm] = useState([
         {
             content: "label",
@@ -109,11 +114,32 @@ export default function FormMaker(){
             options: [],
         },
 ]);
+
+    Object.keys(customForm[1]).map((key) => {
+        console.log(customForm[1][key]);
+    });
+
+    const[currComponent, setCurrComponent] = useState("");
+
+    const addField = (props) => {
+        if(props === ""){
+            return;
+        }else{
+            return(
+                <>
+                    <div className={"size-5 bg-red-900"}>
+                        {props["content"]}
+                    </div>
+                </>
+            );
+        }
+    };
+
     const components = {
         textField : 
         {
-            title : "Text Field",
-            content: "",
+            display : "Text Field",
+            content: "text",
             title: "",
             placeholder: "",
             required: "",
@@ -123,23 +149,58 @@ export default function FormMaker(){
         },
         select : 
         {
-            title: "Select"
+            display: "Select",
+            content: "select",
+            title: "",
+            placeholder: "",
+            required: "",
+            id: "",
+            label: "",
+            options: "",
         },
         checkBox : 
         {
-            title : "Checkbox"
+            display : "Checkbox",
+            content: "checkbox",
+            title: "",
+            placeholder: "",
+            required: "",
+            id: "",
+            label: "",
+            options: "",
         },
         radioButtons : 
         {
-            title : "Radio Buttons"
+            display : "Radio Buttons",
+            content: "radio",
+            title: "",
+            placeholder: "",
+            required: "",
+            id: "",
+            label: "",
+            options: "",
         },
         locationSelector : 
         {
-            title : "Location Selector"
+            display : "Location Selector",
+            content: "popover",
+            title: "",
+            placeholder: "",
+            required: "",
+            id: "",
+            label: "",
+            options: "",
         },
         employeeSelector : 
         {
-            title : "Employee Selector"
+            display : "Employee Selector",
+            content: "employee",
+            title: "",
+            placeholder: "",
+            required: "",
+            id: "",
+            label: "",
+            options: "",
         },
     };
     return(
@@ -148,27 +209,29 @@ export default function FormMaker(){
             <div className={"py-20"}>
                 <div className={"bg-card w-full rounded-lg"}>
                     <div className={"m-5"}>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="w-fit h-10 bg-accent text-background font-bold">
-                            Add Component
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align={"end"}>
-                            <DropdownMenuLabel className={"bg-card rounded-sm"}>{"Select Component"}</DropdownMenuLabel>
-                            {Object.keys(components).map((option, index) => {
-                                return(
-                                    <DropdownMenuItem 
-                                        key={index}>
-                                        <div className={"font-bold"}>
-                                            {components[option]["title"]}
-                                        </div>
-                                    </DropdownMenuItem>
-                                );
-                            })}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                    {addField()}
+                    <Popover>
+                    <PopoverTrigger>
+                        <Button className="flex h-10 w-50 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
+                            {currComponent["display"] ||
+                                "Select Field to Filter"}
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md">
+                        {Object.keys(components).map((option, index) => (
+                            <div
+                                key={index}
+                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize"
+                                onClick={() => {
+                                    //console.log(option);
+                                    setCurrComponent(components[option]);
+                                }}
+                            >
+                                {components[option]["display"]}
+                            </div>
+                        ))}
+                    </PopoverContent>
+                </Popover>
+                    {addField(currComponent)}
                     </div>
                     <div className={"m-5"}>
                     <DropdownMenu>
@@ -214,16 +277,6 @@ export default function FormMaker(){
                 </div>
                 </div>
                 </div>
-        </>
-    );
-};
-
-const addField = () => {
-    return(
-        <>
-            <div className={"size-5 bg-red-900"}>
-                HI
-            </div>
         </>
     );
 };
