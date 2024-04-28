@@ -158,7 +158,7 @@ export default function FormMaker(){
                                 return(
                                     <DropdownMenuItem 
                                         key={index}>
-                                        <div className={"font-bold"}>
+                                        <div className={"font-bold capitalize"}>
                                             {"ID "}
                                             {option.id}
                                             {" : "}
@@ -187,13 +187,6 @@ export default function FormMaker(){
                 }
                 </div>
                 </div>
-                
-                
-            
-
-                
-
-            
         </>
     );
 };
