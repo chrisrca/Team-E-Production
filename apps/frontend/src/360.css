@@ -37,7 +37,8 @@
     }
 }
 
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -66,10 +67,10 @@ canvas {
     margin-top: 15px;
     padding: 1em;
     color: #fff;
-    border-radius: .5em;
+    border-radius: 0.5em;
     font-size: 12px;
     line-height: 1.2;
-    transition: opacity .5s;
+    transition: opacity 0.5s;
 }
 
 #number {

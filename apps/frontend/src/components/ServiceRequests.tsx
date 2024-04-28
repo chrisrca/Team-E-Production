@@ -56,7 +56,7 @@ type FormSchemas =
     | SanitationServiceRequest
     | SecurityServiceRequest;
 
-type FormLabel = {
+export type FormLabel = {
     content: string; //Element content - (input, select, switch, button, ect)
     title: string; //Element title
     type: string; //Element type - (string, number, etc)
@@ -64,12 +64,12 @@ type FormLabel = {
     id: number;
 };
 
-type FormComponent = FormLabel & {
+export type FormComponent = FormLabel & {
     placeholder: string; //Displayed placeholder text
     variant: string;
 };
 
-type FormSelect = FormComponent & {
+export type FormSelect = FormComponent & {
     label: string; // Options label
     options: string[]; //Displayed options
 };
@@ -519,7 +519,44 @@ export const ServiceRequests = (
         }
         setIsSubmitted(false);
     };
-
+    if (bgPath === "") {
+        return (
+            <>
+                <div className="flex justify-center container">
+                    <div className="m-auto relative w-full">
+                        <div className="block bg-secondary rounded-lg">
+                            <form
+                                className="px-16 py-8"
+                                onSubmit={handleSubmit}
+                            >
+                                {makeForm(layout)}
+                                <div
+                                    className={
+                                        "pt-16 grid grid-col grid-cols-3 "
+                                    }
+                                >
+                                    <button
+                                        className="bg-accent hover:bg-destructive text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                                        type="reset"
+                                        onClick={handleClearForm}
+                                    >
+                                        Clear Form
+                                    </button>
+                                    <div></div>
+                                    <button
+                                        className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                                        type="submit"
+                                    >
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    }
     return (
         <>
             <section
@@ -528,8 +565,9 @@ export const ServiceRequests = (
                     backgroundImage: `url(${[bgPath]})`,
                 }}
             />
+
             {isSubmitted && <Confetti />}
-            <div className="flex justify-center container shrink-0 w-full h-dvh">
+            <div className="flex justify-center container shrink-0 w-full h-screen">
                 <div className="m-auto relative w-2/3 min-w-[35rem]">
                     <div className="block shadow-lg bg-secondary rounded-lg border-4 border-background">
                         <form className="px-16 py-8" onSubmit={handleSubmit}>
