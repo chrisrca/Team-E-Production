@@ -12,7 +12,7 @@ export default function drawNodes(
     const floor = ["L2", "L1", "1", "2", "3"];
     nodeData.forEach((node) => {
         let drawNode: boolean = true;
-        for (let i = 1; i < pathData.length - 1; i ++) {
+        for (let i = 1; i < pathData.length - 1; i++) {
             if (node.nodeID == pathData[i].nodeID) {
                 drawNode = false;
             }
