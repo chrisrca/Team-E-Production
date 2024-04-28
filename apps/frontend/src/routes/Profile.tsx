@@ -18,9 +18,6 @@ function ProfilePage() {
             if (user.name) {
                 setEmployeeName(user.name);
             }
-            if (user.name == "") { //Change this to check the database for the employee Boolean
-                setAdminPerm(true);
-            }
         }
         const fetchServiceRequests = async () => {
             try {
@@ -32,25 +29,24 @@ function ProfilePage() {
             }
         };
 
-        fetchServiceRequests();
-    }, [userInfo, employeeName, user]);
-
-    async function checkEmployeeAdmin(employeeName: string) {
-        try {
-            const response = await axios.get(`/employees/${employeeName}/boolean`);
-            if (response.data) {
-                const { name, booleanValue } = response.data;
-                console.log(`${name}'s boolean value is: ${booleanValue}`);
-                return booleanValue;
-            } else {
-                console.error('Failed to fetch employee data');
-                return null;
+        const checkEmployeeAdmin = async () => {
+            try {
+                const response = await axios.get(`/employees/${employeeName}/boolean`);
+                if (response.data) {
+                    const { name, booleanValue } = response.data;
+                    console.log(`${name}'s boolean value is: ${booleanValue}`);
+                    setAdminPerm(booleanValue);
+                } else {
+                    console.error('Failed to fetch employee data');
+                }
+            } catch (error) {
+                console.error('Error fetching employee data:', error);
             }
-        } catch (error) {
-            console.error('Error fetching employee data:', error);
-            return null;
-        }
-    }
+        };
+
+        fetchServiceRequests();
+        checkEmployeeAdmin();
+    }, [userInfo, employeeName, user]);
 
     if (userInfo) return (
         <div className="container mx-auto p-4">
