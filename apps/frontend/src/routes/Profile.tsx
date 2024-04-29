@@ -78,12 +78,28 @@ function ProfilePage() {
     };
 
     const chartData = aggregateData(activeTab);
+
+    const handleAdminToggle = async () => {
+        try {
+            const response = await axios.post(`/employees/${employeeName}/boolean/toggle`);
+            if (response.data) {
+                const { name, admin } = response.data;
+                console.log(`${name}'s admin permission is now: ${admin}`);
+                setAdminPerm(admin);
+            } else {
+                console.error("Failed to toggle admin permission");
+            }
+        } catch (error) {
+            console.error("Error toggling admin permission:", error);
+        }
+    };
+
     if (userInfo && adminPerm)
-        return (
-            <div className="container mx-auto p-4">
-                <div className="mb-8">
-                    <h1 className="text-xl font-bold mt-12 m-4">
-                        Admin Profile
+    return (
+        <div className="container mx-auto p-4">
+            <div className="mb-8">
+                <h1 className="text-xl font-bold mt-12 m-4">
+                    Admin Profile
                     </h1>
                     <p className="text-gray-700"> {employeeName} </p>
                 </div>
@@ -134,6 +150,10 @@ function ProfilePage() {
                 ) : (
                     <PiChart data={chartData} dataKey="count" />
                 )}
+            <button onClick={handleAdminToggle}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                {adminPerm ? "Revoke Admin" : "Grant Admin"}
+            </button>;
             </div>
         );
     if (userInfo)
@@ -190,6 +210,10 @@ function ProfilePage() {
                 ) : (
                     <PiChart data={chartData} dataKey="count" />
                 )}
+                <button onClick={handleAdminToggle}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    {adminPerm ? "Revoke Admin" : "Grant Admin"}
+                </button>;
             </div>
         );
 }

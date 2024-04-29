@@ -92,5 +92,24 @@ router.get("/:name/boolean", async (req: Request, res: Response) => {
         res.status(500).send("Internal Server Error");
     }
 });
+router.post("/:name/boolean/toggle", async (req: Request, res: Response) => {
+    const name = req.params.name;
+    try {
+        const employee = await getEmployeeByName(name);
+        if (employee) {
+            const updatedAdminValue = !employee.admin;
+            await client.employee.update({
+                where: { name: name },
+                data: { admin: updatedAdminValue }
+            });
+            res.json({ name, admin: updatedAdminValue });
+        } else {
+            res.status(404).send("Employee not found");
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 export default router;
