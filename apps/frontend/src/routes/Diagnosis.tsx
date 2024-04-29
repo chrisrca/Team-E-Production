@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./diagnosis.scss";
 
 interface Props {
     userResponse: string;

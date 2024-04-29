@@ -1,7 +1,7 @@
 import Diagnosis from "@/routes/Diagnosis.tsx";
 import {analyzeNextSteps} from "@/routes/analyzeSteps.tsx";
 import React, { useState } from "react";
-import "./diagnosisbot.scss";
+
 interface ResponseBotObject {
     purpose: string;
     message: string;
