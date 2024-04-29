@@ -521,9 +521,33 @@ export const ServiceRequests = (
         setIsSubmitted(false);
     };
     if (bgPath === "") {
+        if(layout.length < 1){
+            return(
+                <>
+                    <div className="flex transition-all">
+                        <div className="w-full">
+                            <div className="block bg-secondary rounded-lg">
+                                <form className="px-16 py-8">
+                                    {makeForm([
+                                        {
+                                            content: "label",
+                                            title: "Form Is Blank",
+                                            type: "header",
+                                            required: false,
+                                            id: 0,
+                                        },
+                                    ])}
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            );
+        }
         return (
             <>
-                <div className="flex">
+                <div className="flex transition-all">
                     <div className="w-full">
                         <div className="block bg-secondary rounded-lg">
                             <form className="px-16 py-8">
@@ -543,7 +567,6 @@ export const ServiceRequests = (
                                     <div></div>
                                     <button
                                         className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
-                                        type="submit"
                                     >
                                         Submit
                                     </button>

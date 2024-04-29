@@ -309,7 +309,7 @@ export default function FormMaker() {
                     //console.log(newObject);
                 );
             }
-            if(edit){
+            if(edit && currEdit > -2){
                 return(
                     <>
                     <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"}>
@@ -383,7 +383,7 @@ export default function FormMaker() {
                     </div>
                 </>
                 );
-            }else{
+            }else if(!edit || currEdit["id"] !== undefined){
             return (
                 <>
                     <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"}>
@@ -632,16 +632,17 @@ export default function FormMaker() {
                 }
             >
                 <div className={"py-20 col-span overflow-y-auto relative"}>
-                    <div className={"bg-card w-full rounded-lg"}>
+                    <div className={"bg-card w-full mx-auto rounded-lg"}>
+
                         <div className={"m-5"}>
                             <Popover>
                                 <PopoverTrigger>
-                                    <Button className="flex h-10 w-50 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
+                                    <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
                                         {currComponent["display"] ||
-                                            "Select Field to Filter"}
+                                            "Select Element to Add"}
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="origin-top-left max-h-80 w-fit overflow-y-auto rounded-md">
+                                <PopoverContent className="origin-top-left max-h-80 w-fit overflow-y-auto rounded-m">
                                     {Object.keys(components).map(
                                         (option, index) => (
                                             <div
@@ -652,6 +653,7 @@ export default function FormMaker() {
                                                     setCurrComponent(
                                                         components[option],
                                                     );
+                                                    
                                                 }}
                                             >
                                                 {components[option]["display"]}
@@ -660,15 +662,15 @@ export default function FormMaker() {
                                     )}
                                 </PopoverContent>
                             </Popover>
-                            <div className={"transition-all p-1"}>
+                            <div className={"transition-all p-3"}>
                             {AddField(currComponent, false)}
                             </div>
                         </div>
                         <div className={"m-5"}>
                         <Popover>
                             <PopoverTrigger>
-                                <Button className="flex h-10 w-50 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
-                                    {"Select Field to Edit/Remove"}
+                                <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
+                                    {"Select Element to Alter" || "ID " + currEdit["id"] + " : " + currEdit["content"]}
                                 </Button>
                             </PopoverTrigger>
                             <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md">
@@ -678,9 +680,8 @@ export default function FormMaker() {
                                             key={index}
                                             className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap"
                                             onClick={() => {
-                                                console.log(customForm[index - 1]);
+                                                console.log(customForm[index]);
                                                 setCurrEdit(index);
-                                                
                                             }}
                                         >
                                             <div className={"font-bold capitalize"}>
@@ -694,9 +695,11 @@ export default function FormMaker() {
                                 })}
                             </PopoverContent>
                         </Popover>
-                        {AddField(customForm[currEdit], true)}
-                            {/*{EditComponent(currEdit)}*/}
+                        <div className={"transition-all p-3"}>
+                            {AddField(customForm[currEdit], true)}
                         </div>
+                        </div>
+
                     </div>
                 </div>
 
