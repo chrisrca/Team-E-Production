@@ -46,7 +46,7 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
         <>
             <div
                 className={
-                    "ml-10 mt-10 w-[300px] justify-items-center absolute z-10 text-2xl rounded-2xl p-5 flex flex-col rounded-2 float-left top-0"
+                    " w-[300px] justify-items-center text-2xl rounded-2xl flex flex-col rounded-2"
                 }
             >
                 <div
