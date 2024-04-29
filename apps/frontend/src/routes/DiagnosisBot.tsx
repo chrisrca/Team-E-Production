@@ -1,6 +1,7 @@
 import Diagnosis from "@/routes/Diagnosis.tsx";
 import {analyzeNextSteps} from "@/routes/analyzeSteps.tsx";
 import React, { useState } from "react";
+import "./diagnosisbot.scss";
 interface ResponseBotObject {
     purpose: string;
     message: string;
@@ -46,14 +47,14 @@ const DiagnosisBot: React.FC = () => {
     };
 
     return (
-        <div className="chat-container">
+        <div>
             <Diagnosis
                 userResponse={userResponse}
                 botResponse={botResponse}
                 sendUserResponse={sendUserResponse}
                 optionClick={optionClick}
             />
-            <form onSubmit={e => handleSubmit(e)} className="form-container">
+            <form onSubmit={e => handleSubmit(e)}>
                 <input
                     onChange={e => handleInputChange(e)}
                     value={userResponse}

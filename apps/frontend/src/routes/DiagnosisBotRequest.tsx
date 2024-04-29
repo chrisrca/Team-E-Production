@@ -1,4 +1,5 @@
 import * as React from "react";
+import "./diagnosisbotrequest.scss";
 
 import DiagnosisBot from "@/routes/DiagnosisBot.tsx";
 

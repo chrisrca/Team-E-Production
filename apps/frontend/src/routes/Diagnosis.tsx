@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import "./diagnosis.scss";
 
 interface Props {
     userResponse: string;
@@ -48,7 +49,7 @@ const Chats: React.FC<Props> = (props) => {
                 setMessages(holder2);
             }, 1000);
         }
-    },[messages, props.sendUserResponse, props.botResponse]);
+    }, [messages, props.sendUserResponse, props.botResponse]);
 
     useEffect(() => {
         if (dummyRef && dummyRef.current && bodyRef && bodyRef.current) {
@@ -60,14 +61,14 @@ const Chats: React.FC<Props> = (props) => {
     }, [messages]);
 
     return (
-        <div className="message-container" ref={bodyRef}>
+        <div ref={bodyRef}>
             {messages.map(chat => (
                 <div key={chat.message}>
-                    <div className={`message ${chat.sender}`}>
+                    <div >
                         <p>{chat.message}</p>
                     </div>
                     {chat.options ? (
-                        <div className="options">
+                        <div>
                             <div>
                                 <i className="far fa-hand-pointer"></i>
                             </div>
@@ -82,7 +83,7 @@ const Chats: React.FC<Props> = (props) => {
                             ))}
                         </div>
                     ) : null}
-                    <div ref={dummyRef} className="dummy-div"></div>
+                    <div ref={dummyRef}></div>
                 </div>
             ))}
         </div>
@@ -90,3 +91,4 @@ const Chats: React.FC<Props> = (props) => {
 };
 
 export default Chats;
+
