@@ -278,21 +278,137 @@ export default function FormMaker() {
         }
     };
 
-    const EditComponent = (props) => {
-        if (!props || Object.keys(props).length === 0) {
-            return null;
-        }
-
-        return (
-            <>
-                {Object.keys(props).map((key) => (
-                    <div className="size-16 bg-red-900" key={key}>
-                        {props[key]}
-                    </div>
-                ))}
-            </>
-        );
-    };
+    // const EditComponent = (props) => {
+    //     setCurrEdit(props);
+    //     const [options, setOptions] = useState([]);
+    //     const [option, setOption] = useState("");
+    //
+    //
+    //     console.log(currEdit);
+    //     console.log(customForm);
+    //     const handleOption = (type: string, field) => {
+    //         if(type === "string"){
+    //             return(
+    //                 <FormInput
+    //                     placeholder={field}
+    //                     className={
+    //                         "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+    //                     }
+    //                     onChange={e => {
+    //                         setCurrEdit({
+    //                                 ...currEdit,
+    //                                 [field] : e.target.value}
+    //                             //console.log(newObject);
+    //                         );
+    //                     }}
+    //                 />
+    //             );
+    //         }else if(type === "boolean"){
+    //             return(
+    //                 <Checkbox
+    //                     onCheckedChange={checked => {
+    //                         setCurrEdit({
+    //                                 ...currEdit,
+    //                                 [field] : checked}
+    //                             //console.log(newObject);
+    //                         );
+    //                     }}
+    //                     className={"hover:bg-accent my-auto ml-3"}
+    //                 />
+    //             );
+    //         }else if(type === "number"){
+    //             return(
+    //                 <FormInput
+    //                     placeholder={field}
+    //                     type={"number"}
+    //                     className={
+    //                         "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+    //                     }
+    //                     onChange={e => {
+    //                         setCurrEdit({
+    //                             ...currEdit,
+    //                             [field] : e.target.value}
+    //                         );
+    //                     }}
+    //                 />
+    //             );
+    //         }else if(type === "object"){
+    //             return(
+    //                 <div>
+    //                     <FormInput
+    //                         placeholder={field}
+    //                         type={"string"}
+    //                         className={
+    //                             "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+    //                         }
+    //                         onChange={e => {
+    //                             console.log(option);
+    //                             setOption(e.target.value);
+    //                         }}
+    //                     />
+    //                     <Button
+    //                         className={"size-fit p-1 mt-5 bg-green-300 self-end"}
+    //                         onClick={() => {
+    //                             setOptions([...options, option]);
+    //                             setCurrEdit({
+    //                                 ...currEdit,
+    //                                 [field] : options}
+    //                             );
+    //                         }}
+    //                     >
+    //                         <Plus
+    //                             className={"transition-all"}
+    //                         />
+    //                     </Button>
+    //                     {options.map((op) => {
+    //                         return(op);
+    //                     })}
+    //                 </div>
+    //             );
+    //         }
+    //         console.log("TYPE ==" + type);
+    //         return;
+    //     };
+    //      if (!props || Object.keys(props).length === 0) {
+    //          return null;
+    //      }
+    //      else{
+    //         return (
+    //                 <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col"}>
+    //                     {Object.keys(props).map((field) => {
+    //                         console.log(field);
+    //                         if(field === "display" || field === "content"){
+    //                             return;}
+    //                         return(
+    //                             <div className={""}>
+    //                                 <Label
+    //                                     className={
+    //                                         "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+    //                                     }>
+    //                                     {field}
+    //                                 </Label>
+    //                                 {handleOption((typeof props[field]), field)}
+    //
+    //                             </div>
+    //                         );
+    //                     })}
+    //                 </div>
+    //         );
+    //
+    //     }
+    //
+    //
+    //
+    //     // return (
+    //     //     <>
+    //     //         {Object.keys(props).map((key) => (
+    //     //             <div className="size-16 bg-red-900" key={key}>
+    //     //                 {props[key]}
+    //     //             </div>
+    //     //         ))}
+    //     //     </>
+    //     // );
+    // };
 
     const components = {
         label: {
@@ -423,7 +539,7 @@ export default function FormMaker() {
                                 })}
                             </PopoverContent>
                         </Popover>
-                            {EditComponent(currEdit)}
+                            {/*{EditComponent(currEdit)}*/}
                         </div>
                     </div>
                 </div>
