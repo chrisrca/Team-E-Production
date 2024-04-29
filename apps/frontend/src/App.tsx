@@ -26,6 +26,7 @@ import UserArea from "./components/UserArea.tsx";
 import Profile from "@/routes/Profile.tsx";
 import Settings from "@/routes/Settings.tsx";
 import DiagnosisBotRequest from "@/routes/DiagnosisBotRequest.tsx";
+import SymptomsService from "@/routes/SymptomsRequest.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -111,6 +112,14 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         element={
                             <ProtectedRoute>
                                 <DiagnosisBotRequest />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/symptoms-service-request"
+                        element={
+                            <ProtectedRoute>
+                                <SymptomsService />
                             </ProtectedRoute>
                         }
                     />

@@ -103,6 +103,16 @@ export default function Hamburger() {
                                     <SheetClose asChild>
                                         <Link
                                             className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
+                                            to="symptoms-service-request"
+                                        >
+                                            <div className="text-sm font-medium leading-none group-hover:underline">
+                                                Symptoms Request
+                                            </div>
+                                        </Link>
+                                    </SheetClose>
+                                    <SheetClose asChild>
+                                        <Link
+                                            className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                             to="security"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">

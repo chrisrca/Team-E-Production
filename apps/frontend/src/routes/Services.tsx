@@ -16,6 +16,7 @@ import Language from "/src/images/Language.webp";
 import Sanitation from "/src/images/Sanitation.png";
 import Scheduling from "/src/images/scheduling.jpg";
 import Device from "/src/images/MedicalDevice.png";
+import Symptoms from "/src/images/Symptoms.jpg";
 
 export default function Services() {
     return (
@@ -92,6 +93,29 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/drug-service"
+                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
+                            >
+                                Order
+                            </Link>
+                        </CardFooter>
+                    </Card>
+                    <Card className="bg-secondary shadow-md hover:shadow-lg">
+                        {/*card 3*/}
+                        <CardHeader>
+                            <CardTitle>Symptoms Submission</CardTitle>
+                            <CardDescription>
+                                Submit your symptoms into this form for doctors to see.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <img
+                                src={Symptoms}
+                                className={"rounded-sm aspect-[16/9]"}
+                            ></img>
+                        </CardContent>
+                        <CardFooter className="flex justify-end items-center">
+                            <Link
+                                to="/symptoms-service-request"
                                 className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
                             >
                                 Order

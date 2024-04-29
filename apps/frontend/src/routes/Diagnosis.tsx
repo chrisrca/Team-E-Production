@@ -45,7 +45,7 @@ const Chats: React.FC<Props> = (props) => {
                 setMessages(temp2);
             }, 1000);
         }
-    }, [props.sendUserResponse, props.botResponse]);
+    }, [props.sendUserResponse, props.botResponse, messages]);
 
     useEffect(() => {
         if (dummyRef && dummyRef.current && bodyRef && bodyRef.current) {
