@@ -15,15 +15,15 @@ import {
 //     SelectValue,
 // } from "@/components/ui/select";
 
-import {
-    DropdownMenu,
-    //DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    //DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+// import {
+//     DropdownMenu,
+//     //DropdownMenuCheckboxItem,
+//     DropdownMenuContent,
+//     DropdownMenuItem,
+//     DropdownMenuLabel,
+//     //DropdownMenuSeparator,
+//     DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
 import {
     Popover,
     PopoverContent,
@@ -123,6 +123,7 @@ export default function FormMaker() {
     // });
 
     const [currComponent, setCurrComponent] = useState("");
+    const[currEdit, setCurrEdit] = useState({});
 
     const AddField = (props) => {
 
@@ -277,6 +278,138 @@ export default function FormMaker() {
         }
     };
 
+    // const EditComponent = (props) => {
+    //     setCurrEdit(props);
+    //     const [options, setOptions] = useState([]);
+    //     const [option, setOption] = useState("");
+    //
+    //
+    //     console.log(currEdit);
+    //     console.log(customForm);
+    //     const handleOption = (type: string, field) => {
+    //         if(type === "string"){
+    //             return(
+    //                 <FormInput
+    //                     placeholder={field}
+    //                     className={
+    //                         "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+    //                     }
+    //                     onChange={e => {
+    //                         setCurrEdit({
+    //                                 ...currEdit,
+    //                                 [field] : e.target.value}
+    //                             //console.log(newObject);
+    //                         );
+    //                     }}
+    //                 />
+    //             );
+    //         }else if(type === "boolean"){
+    //             return(
+    //                 <Checkbox
+    //                     onCheckedChange={checked => {
+    //                         setCurrEdit({
+    //                                 ...currEdit,
+    //                                 [field] : checked}
+    //                             //console.log(newObject);
+    //                         );
+    //                     }}
+    //                     className={"hover:bg-accent my-auto ml-3"}
+    //                 />
+    //             );
+    //         }else if(type === "number"){
+    //             return(
+    //                 <FormInput
+    //                     placeholder={field}
+    //                     type={"number"}
+    //                     className={
+    //                         "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+    //                     }
+    //                     onChange={e => {
+    //                         setCurrEdit({
+    //                             ...currEdit,
+    //                             [field] : e.target.value}
+    //                         );
+    //                     }}
+    //                 />
+    //             );
+    //         }else if(type === "object"){
+    //             return(
+    //                 <div>
+    //                     <FormInput
+    //                         placeholder={field}
+    //                         type={"string"}
+    //                         className={
+    //                             "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+    //                         }
+    //                         onChange={e => {
+    //                             console.log(option);
+    //                             setOption(e.target.value);
+    //                         }}
+    //                     />
+    //                     <Button
+    //                         className={"size-fit p-1 mt-5 bg-green-300 self-end"}
+    //                         onClick={() => {
+    //                             setOptions([...options, option]);
+    //                             setCurrEdit({
+    //                                 ...currEdit,
+    //                                 [field] : options}
+    //                             );
+    //                         }}
+    //                     >
+    //                         <Plus
+    //                             className={"transition-all"}
+    //                         />
+    //                     </Button>
+    //                     {options.map((op) => {
+    //                         return(op);
+    //                     })}
+    //                 </div>
+    //             );
+    //         }
+    //         console.log("TYPE ==" + type);
+    //         return;
+    //     };
+    //      if (!props || Object.keys(props).length === 0) {
+    //          return null;
+    //      }
+    //      else{
+    //         return (
+    //                 <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col"}>
+    //                     {Object.keys(props).map((field) => {
+    //                         console.log(field);
+    //                         if(field === "display" || field === "content"){
+    //                             return;}
+    //                         return(
+    //                             <div className={""}>
+    //                                 <Label
+    //                                     className={
+    //                                         "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+    //                                     }>
+    //                                     {field}
+    //                                 </Label>
+    //                                 {handleOption((typeof props[field]), field)}
+    //
+    //                             </div>
+    //                         );
+    //                     })}
+    //                 </div>
+    //         );
+    //
+    //     }
+    //
+    //
+    //
+    //     // return (
+    //     //     <>
+    //     //         {Object.keys(props).map((key) => (
+    //     //             <div className="size-16 bg-red-900" key={key}>
+    //     //                 {props[key]}
+    //     //             </div>
+    //     //         ))}
+    //     //     </>
+    //     // );
+    // };
+
     const components = {
         label: {
             display: "Form Label",
@@ -377,39 +510,36 @@ export default function FormMaker() {
                             </div>
                         </div>
                         <div className={"m-5"}>
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button
-                                        variant="ghost"
-                                        className="w-fit h-10 bg-primary text-background font-bold"
-                                    >
-                                        Remove/Edit Component
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align={"end"}>
-                                    <DropdownMenuLabel
-                                        className={"bg-card rounded-sm"}
-                                    >
-                                        {"Select Component"}
-                                    </DropdownMenuLabel>
-                                    {customForm.map((option, index) => {
-                                        return (
-                                            <DropdownMenuItem key={index}>
-                                                <div
-                                                    className={
-                                                        "font-bold capitalize"
-                                                    }
-                                                >
-                                                    {"ID "}
-                                                    {option.id}
-                                                    {" : "}
-                                                    {option.content}
-                                                </div>
-                                            </DropdownMenuItem>
-                                        );
-                                    })}
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                        <Popover>
+                            <PopoverTrigger>
+                                <Button className="flex h-10 w-50 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
+                                    {currEdit["display"] ||
+                                        "Select Field to Edit/Remove"}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md">
+                                {customForm.map((option, index) => {
+                                    return(
+                                        <div
+                                            key={index}
+                                            className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize"
+                                            onClick={() => {
+                                                //console.log(option);
+                                                setCurrEdit(customForm[index]);
+                                            }}
+                                        >
+                                            <div className={"font-bold capitalize"}>
+                                                {"ID "}
+                                                {option.id}
+                                                {" : "}
+                                                {option.content}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </PopoverContent>
+                        </Popover>
+                            {/*{EditComponent(currEdit)}*/}
                         </div>
                     </div>
                 </div>
