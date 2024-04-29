@@ -358,7 +358,7 @@ export default function FormMaker() {
                                         (option, index) => (
                                             <div
                                                 key={index}
-                                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize"
+                                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap"
                                                 onClick={() => {
                                                     //console.log(option);
                                                     setCurrComponent(
