@@ -134,11 +134,10 @@ export default function FormMaker() {
             {}
         );
 
-        console.log(props);
-        console.log(edit);
-        console.log(customForm);
-
-        console.log(newObject);
+        // console.log(props);
+        // console.log(edit);
+        // console.log(customForm);
+        // console.log(newObject);
         
         
         if((edit && props != undefined) && newObject["content"] !== props["content"]){
@@ -147,16 +146,7 @@ export default function FormMaker() {
             );
         }else if(!edit && newObject["content"] !== props["content"]){
             setNewObject(
-                {
-                    content: props["content"],
-                    type: "",
-                    title: "",
-                    placeholder: "",
-                    required: false,
-                    id: 0,
-                    label: "",
-                    options: [],
-                },
+                props
             );
         }
 
@@ -278,7 +268,7 @@ export default function FormMaker() {
                             "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
                          }
                         onChange={e => {
-                            console.log(option);
+                            // console.log(option);
                             setOption(e.target.value);
                         }}
                         />
@@ -302,7 +292,7 @@ export default function FormMaker() {
                     </div>
                 );
             }
-            console.log("TYPE ==" + type);
+            // console.log("TYPE ==" + type);
             return;
         };
 
@@ -310,9 +300,9 @@ export default function FormMaker() {
             return;
         } else {
             if(newObject["content"] === undefined && !edit){ 
-                console.log(newObject);
-                console.log(customForm);
-                console.log(edit.toString());
+                // console.log(newObject);
+                // console.log(customForm);
+                // console.log(edit.toString());
                 setNewObject({
                     ...newObject,
                     content : props["content"]}
@@ -324,7 +314,7 @@ export default function FormMaker() {
                     <>
                     <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"}>
                         {Object.keys(props).map((field) => {
-                            console.log(field);
+                            // console.log(field);
                             if(newObject[field] === undefined){
                                 setNewObject({
                                     ...newObject,
@@ -353,8 +343,10 @@ export default function FormMaker() {
                             onClick={() => {
                                 console.log(newObject);
                                 if(edit){
-                                    console.log(customForm.splice(newObject["id"], 1, newObject));
-                                    setCustomForm(customForm.splice(newObject["id"], 1, newObject));
+                                    setCustomForm([
+                                        ...customForm.slice(0, newObject["id"]+1),
+                                        ...customForm.slice(newObject["id"] + 2),
+                                    ]);
                                     return;
                                 }
                                 setCustomForm([...customForm, newObject]);
@@ -371,8 +363,11 @@ export default function FormMaker() {
                             onClick={() => {
                                 console.log(newObject);
                                 if(edit){
-                                    console.log(customForm.splice(newObject["id"], 1, newObject));
-                                    setCustomForm(customForm.splice(newObject["id"], 1, newObject));
+                                    setCustomForm([
+                                        ...customForm.slice(0, newObject["id"]+1),
+                                        newObject,
+                                        ...customForm.slice(newObject["id"] + 2),
+                                    ]);
                                     return;
                                 }
                                 setCustomForm([...customForm, newObject]);
@@ -388,12 +383,12 @@ export default function FormMaker() {
                     </div>
                 </>
                 );
-            }
+            }else{
             return (
                 <>
                     <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"}>
                         {Object.keys(props).map((field) => {
-                            console.log(field);
+                            //console.log(field);
                             if(newObject[field] === undefined){
                                 setNewObject({
                                     ...newObject,
@@ -420,11 +415,6 @@ export default function FormMaker() {
                             className={"mx-auto size-fit mr-0 p-1 mt-5 bg-green-300 self-end"}
                             onClick={() => {
                                 console.log(newObject);
-                                if(edit){
-                                    console.log(customForm.splice(newObject["id"], 1, newObject));
-                                    setCustomForm(customForm.splice(newObject["id"], 1, newObject));
-                                    return;
-                                }
                                 setCustomForm([...customForm, newObject]);
                                 console.log(customForm);
                             }}
@@ -437,7 +427,7 @@ export default function FormMaker() {
                     </div>
                 </>
             );
-        }
+        }}
     };
 
     // const EditComponent = (props) => {
@@ -632,7 +622,7 @@ export default function FormMaker() {
         },
     };
 
-    console.log(currEdit);
+    //console.log(currEdit);
 
     return (
         <>
