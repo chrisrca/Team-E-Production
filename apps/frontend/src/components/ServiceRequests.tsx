@@ -60,7 +60,7 @@ type FormLabel = {
     content: string; //Element content - (input, select, switch, button, ect)
     title: string; //Element title
     type: string; //Element type - (string, number, etc)
-    required: boolean; //Required field?
+    required: boolean; //Required? field
     id: number;
 };
 
@@ -153,7 +153,7 @@ export const ServiceRequests = (
     //Beginning of Elements
 
     const labelComp = (props: FormLabel) => {
-        console.log("making label '" + props.title + "' id: " + props.id);
+        //console.log("making label '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className="col-span-full text-extrabold basis-full text-center text-3xl">
@@ -164,7 +164,7 @@ export const ServiceRequests = (
     };
 
     const inputComp = (props: FormComponent) => {
-        console.log("making input '" + props.title + "' id: " + props.id);
+        //console.log("making input '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className="col-span-full">
@@ -191,7 +191,7 @@ export const ServiceRequests = (
         );
     };
     const selectComp = (props: FormSelect) => {
-        console.log("making select '" + props.title + "' id: " + props.id);
+        //console.log("making select '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className="col-auto">
@@ -230,7 +230,7 @@ export const ServiceRequests = (
     };
 
     const radioGroupComp = (props: FormSelect) => {
-        console.log("making radio '" + props.title + "' id: " + props.id);
+        //console.log("making radio '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className={"col-auto"}>
@@ -277,7 +277,7 @@ export const ServiceRequests = (
     };
 
     const checkboxComp = (props: FormComponent) => {
-        console.log("making checkbox '" + props.title + "' id: " + props.id);
+        //console.log("making checkbox '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className={"flex col-span-2 container:ml-0 pl-6 pt-2"}>
@@ -299,9 +299,9 @@ export const ServiceRequests = (
     };
 
     const LocationComp = (props: FormComponent) => {
-        console.log(
-            "making Popover(Location) '" + props.title + "' id: " + props.id,
-        );
+        // console.log(
+        //     "making Popover(Location) '" + props.title + "' id: " + props.id,
+        // );
 
         const [nodes, setNodes] = useState<DBNode[]>([]);
 
@@ -393,9 +393,9 @@ export const ServiceRequests = (
     };
 
     const EmployeeComp = (props: FormComponent) => {
-        console.log(
-            "making Popover(Employee) '" + props.title + "' id: " + props.id,
-        );
+        // console.log(
+        //     "making Popover(Employee) '" + props.title + "' id: " + props.id,
+        // );
         const [employees, setEmployee] = useState<Employee[]>([]);
 
         useEffect(() => {
@@ -417,8 +417,7 @@ export const ServiceRequests = (
         useEffect(() => {
             setFilteredEmployees(
                 employees.filter((employee) =>
-                    employee.name
-                        .toLowerCase()
+                    employee.displayName
                         .includes(searchTerm.toLowerCase()),
                 ),
             );
@@ -428,7 +427,7 @@ export const ServiceRequests = (
             setSearchTerm("");
         };
 
-        console.log(employees);
+        // console.log(employees);
 
         return (
             <div className={"col-span-auto"}>
@@ -481,7 +480,7 @@ export const ServiceRequests = (
     // determines where form values are sent on submit
     layout.map((field) => (field.id = layout.indexOf(field) - 1));
 
-    console.log(layout);
+    // console.log(layout);
 
     const handleSubmit = (e: FormEvent) => {
         // Prevent reload on submit
@@ -503,7 +502,7 @@ export const ServiceRequests = (
 
         // Push submission to console
         // Push all submissions for current session to console
-        console.log(submittedServiceData);
+        // console.log(submittedServiceData);
         // Not really necessary but clear formValues for next submit
         handleClearForm(e);
         setIsSubmitted(true);

@@ -5,8 +5,10 @@ import axios from "axios";
 import { DBNode } from "common/src/types";
 import Legend from "@/components/canvasmap/map/Legend";
 import { useEffect, useState } from "react";
-import TextDirection, { TextDirectionComponent }  from "@/components/TextDirection.tsx";
-import {Button} from "@/components/ui/button.tsx";
+import TextDirection, {
+    TextDirectionComponent,
+} from "@/components/TextDirection.tsx";
+import { Button } from "@/components/ui/button.tsx";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
@@ -16,19 +18,23 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [algorithm, setAlgorithm] = useState<string>("ASTAR");
     const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
     const [level, setLevel] = useState<number>(1);
-    const [prompt, setPrompt] = useState<string[]>(['']);
-    const [turn, setTurn] = useState<string[]>(['']);
-    const [floor, setFloor] = useState<string[]>(['']);
+    const [prompt, setPrompt] = useState<string[]>([""]);
+    const [turn, setTurn] = useState<string[]>([""]);
+    const [floor, setFloor] = useState<string[]>([""]);
 
     const handleRandomize = () => {
-        const nonHallNodes = nodes
-            .filter((node) => {
-                return node.nodeType != "HALL";
-            });
-        const randomStart = nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
-        const randomEnd = nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
+        const nonHallNodes = nodes.filter((node) => {
+            return node.nodeType != "HALL";
+        });
+        const randomStart =
+            nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)]
+                .nodeID;
+        const randomEnd =
+            nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)]
+                .nodeID;
         const algorithms = ["ASTAR", "DIJKSTRA", "BFS", "DFS"];
-        const randomAlgo = algorithms[Math.floor(Math.random() * algorithms.length)];
+        const randomAlgo =
+            algorithms[Math.floor(Math.random() * algorithms.length)];
         console.log(randomAlgo);
         setStart(randomStart);
         setEnd(randomEnd);
@@ -50,7 +56,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 }
 
                 setPathNodes(res.data);
-                const { prompts, turns, floors}= TextDirection(res.data);
+                const { prompts, turns, floors } = TextDirection(res.data);
                 setPrompt(prompts);
                 setTurn(turns);
                 setFloor(floors);
@@ -72,18 +78,18 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                         end={[end, setEnd]}
                         algorithm={[algorithm, setAlgorithm]}
                     />
-                    <div className="mr-5 max-h-full mb-10 absolute bottom-0 right-0 z-10">
+                    <div className="mr-5 max-h-full mb-3 absolute bottom-0 right-0 z-10">
                         <Legend/>
                     </div>
-                    <LevelButtons levelProps={[level, setLevel]}/>                
-                    <TextDirectionComponent prompts={prompt} turns={turn} floors={floor} currFloor={level}/>    
+                    <LevelButtons levelProps={[level, setLevel]}/>
+                    < div style={{position: "absolute", top: "400px", left: ""}}>
+                        <TextDirectionComponent prompts={prompt} turns={turn} floors={floor} currFloor={level}/>
+                    </div>
                     <div style={{position: "absolute", top: "240px", left: "60px"}}>
                         <Button onClick={handleRandomize}>I'm Feeling Lucky</Button>
                     </div>
                 </div>
-                <div style={{height: "100vh",
-                    overflow: "hidden",
-                }}>
+                <div style={{ height: "100vh", overflow: "hidden" }}>
                     <CanvasMap
                         level={level}
                         path={pathNodes}

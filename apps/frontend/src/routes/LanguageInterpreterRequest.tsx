@@ -10,6 +10,8 @@ const defaultFormSchema = {
     additionalInfo: "",
     status: "",
     priority: "",
+    createdBy: "",
+
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -94,7 +96,11 @@ const defaultForm = [
         options: ["Low", "Medium", "High", "Emergency"],
     },
 ];
-export default function InterpreterService() {
+export default function InterpreterService(employee: string | undefined) {
+    if(employee == undefined){
+        return;
+    }
+    defaultFormSchema.createdBy = employee;
     return ServiceRequests(
         defaultForm,
         defaultFormSchema,
