@@ -83,7 +83,7 @@ export default function MedicalDeviceService(employee: string | undefined) {
     if(employee == undefined){
         return;
     }
-    defaultFormSchema.createdBy = employee;
+    defaultFormSchema.createdBy = JSON.stringify(employee);
     return ServiceRequests(
         defaultForm,
         defaultFormSchema,
