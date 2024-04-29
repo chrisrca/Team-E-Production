@@ -2,10 +2,7 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "dependencies": {
-      "inputs": [
-        "NODE_ENV",
-        "NEXT_PUBLIC_DEV_PHYSICS_DEBUG"
-      ],
+      "inputs": [],
       "outputs": []
     },
     "lint": {

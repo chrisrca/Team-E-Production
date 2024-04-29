@@ -7,8 +7,7 @@
   "workspaces": [
     "apps/*",
     "configs/*",
-    "packages/*",
-    "apps/frontend/src/Gravity-Ball/*"
+    "packages/*"
   ],
   "repository": {
     "type": "git",
@@ -40,7 +39,6 @@
     "@vitest/ui": "^0.33.0",
     "eslint": "^8.56.0",
     "eslint-config-custom": "workspace:*",
-    "eslint-plugin-next": "^0.0.0",
     "happy-dom": "^10.6.3",
     "husky": "^8.0.0",
     "prettier": "2.8.8",
