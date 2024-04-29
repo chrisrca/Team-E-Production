@@ -39,10 +39,12 @@ export default function MapEditor() {
                 <Legend></Legend>
             </div>
             <LevelButtons levelProps={[level, setLevel]} />
-            <div style={{
-                height:"100vh",
-                overflow: "hidden",
-            }}>
+            <div
+                style={{
+                    height: "100vh",
+                    overflow: "hidden",
+                }}
+            >
                 <EditorMap
                     level={level}
                     path={pathNodes}

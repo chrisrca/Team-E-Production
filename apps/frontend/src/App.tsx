@@ -66,10 +66,10 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                 </div>
                 <Toaster />
                 <Routes>
-                    <Route path="/" element={<Welcome />} />
+                    <Route path="/" element={<Welcome nodes={nodes} />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
-                    <Route path="/about-us" element={<AboutUs/>} />
+                    <Route path="/about-us" element={<AboutUs />} />
                     <Route
                         path="/services"
                         element={
@@ -174,7 +174,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                             </ProtectedRoute>
                         }
                     />
-                    <Route path="*" element = {<BadRoutePage/>}/>
+                    <Route path="*" element={<BadRoutePage />} />
                     <Route path="/credit-page" element={<CreditPage />} />
                 </Routes>
 
@@ -204,7 +204,7 @@ function App() {
     return (
         <BrowserRouter>
             <ToastProvider>
-            <AuthProviderWrapper nodes={nodesIn} />
+                <AuthProviderWrapper nodes={nodesIn} />
             </ToastProvider>
         </BrowserRouter>
     );
