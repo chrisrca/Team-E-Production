@@ -40,12 +40,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast.ts";
 
-export default function Welcome() {
+export default function Welcome({setUser}: {setUser: (user: User) => void}){
     const [api, setApi] = React.useState<CarouselApi>();
     const [current, setCurrent] = React.useState(0);
     const [count, setCount] = React.useState(0);
     const [exists, setExists] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [displayName, setDisplayName] =useState("");
     const [userInfo, setUserInfo] = useState<User | null>(null); // Initialize userInfo to null
     const [showDialog, setShowDialog] = useState(true);
     const { toast } = useToast();
@@ -58,12 +59,13 @@ export default function Welcome() {
     const handleLogout = () => {
         logout();
     };
-
     useEffect(() => {
+        console.log(user);
         if (user) {
             setUserInfo(user); // Set userInfo to user when available
+            setUser(user);
         }
-    }, [user]);
+    }, [user, setUser]);
 
     useEffect(() => {
         async function fetchEmployeeData() {
@@ -98,16 +100,18 @@ export default function Welcome() {
                     name: userInfo.name,
                     nickname: userInfo.nickname,
                     phone_number: phoneNumber,
+                    displayName: displayName,
                 });
                 if (response.data) {
                     toast({
                         title: "Success",
                         description: response.data,
                     });
-                    setUserInfo({ ...userInfo, phone_number: phoneNumber }); // Update local state
+                    setUserInfo({ ...userInfo, phone_number: phoneNumber, displayName: displayName });  // Update local state
                     setExists(true); // Assume the employee now exists with a phone number
                     setShowDialog(false); // Hide the dialog after successful update
                     setPhoneNumber(""); // Optionally clear the phoneNumber input
+                    setDisplayName("");
                 }
             } catch (error) {
                 console.error("Failed to update or add employee:", error);
@@ -123,6 +127,7 @@ export default function Welcome() {
         if (!api) {
             return;
         }
+
         setCount(api.scrollSnapList().length);
         setCurrent(api.selectedScrollSnap() + 1);
 
@@ -169,12 +174,9 @@ export default function Welcome() {
                                     </AlertDialogTrigger>
                                     <AlertDialogContent>
                                         <AlertDialogHeader>
-                                            <AlertDialogTitle>
-                                                Add Phone Number
-                                            </AlertDialogTitle>
+                                            <AlertDialogTitle>Add Additional Info</AlertDialogTitle>
                                             <AlertDialogDescription>
-                                                Please provide your phone number
-                                                to complete your profile.
+                                                Please provide your phone number and DisplayName to complete your profile.
                                             </AlertDialogDescription>
                                         </AlertDialogHeader>
                                         <FormInput
@@ -183,6 +185,11 @@ export default function Welcome() {
                                             onChange={(e) =>
                                                 setPhoneNumber(e.target.value)
                                             }
+                                        />
+                                        <FormInput
+                                            placeholder="Display Name"
+                                            value={displayName}
+                                            onChange={(e) => setDisplayName(e.target.value)}
                                         />
                                         <AlertDialogFooter>
                                             <AlertDialogAction
@@ -340,6 +347,37 @@ export default function Welcome() {
                             </Card>
                         </div>
                     </div>
+                    {/* <div>
+                        <h1 className="text-3xl font-bold">
+                            Frequently Asked Questions
+                        </h1>
+                        <h2 className="pt-4 text-xl ">
+                            Answers to some of our visitor's most common
+                            questions.
+                        </h2>
+                        <Accordion type="single" collapsible className="w-full">
+                            <AccordionItem value="item-1">
+                                <AccordionTrigger>
+                                    Where can I find my room?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Go to the{" "}
+                                    <Link className="hover:underline" to="/map">
+                                        Map
+                                    </Link>{" "}
+                                    and navigate from there.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-2">
+                                <AccordionTrigger>
+                                    Why is my service request taking so long?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Our apologies! One of our employees is on the case!
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </div> */}
                 </div>
             </div>
         );
@@ -544,3 +582,5 @@ export default function Welcome() {
         );
     }
 }
+
+

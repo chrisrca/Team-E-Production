@@ -9,6 +9,7 @@ const defaultFormSchema = {
     status: "",
     priority: "",
     employeeName: "",
+    createdBy: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -18,14 +19,6 @@ const defaultForm = [
         content: "label",
         title: "Room Scheduling Request",
         type: "header",
-        id: 0,
-    },
-    {
-        content: "text",
-        type: "string",
-        title: "Employee Name",
-        placeholder: "First, Last",
-        required: true,
         id: 0,
     },
     {
@@ -95,7 +88,11 @@ const defaultForm = [
         options: [],
     },
 ];
-export default function RoomScheduling() {
+export default function RoomScheduling(employee: string | undefined) {
+    if(employee == undefined){
+        return;
+    }
+    defaultFormSchema.createdBy = employee;
     return ServiceRequests(
         defaultForm,
         defaultFormSchema,
