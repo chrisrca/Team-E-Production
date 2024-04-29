@@ -32,6 +32,7 @@ import WelcomePage from "@/routes/WelcomePage.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import { ToastProvider } from "@radix-ui/react-toast";
 import CreditPage from "@/routes/CreditPage.tsx";
+import Mobile from "./routes/Mobile";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -83,6 +84,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     <Route path="*" element={<BadRoutePage />} />
                     <Route path="/credit-page" element={<CreditPage />} />
                     <Route path="/meettheteam" element={<ThreeSixty />} />
+                    <Route path="/mobile/:start/:end/:algorithm" element={<Mobile nodesIn={nodes} />} />
                     <Route
                         path="/services"
                         element={
