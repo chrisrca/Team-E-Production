@@ -5,7 +5,7 @@ import hospitalHero from "/src/images/hospital-hero.jpg";
 //import { useToast } from "@/components/ui/use-toast";
 
 export default function Login() {
-    const { loginWithRedirect, logout, isAuthenticated, isLoading} =
+    const { loginWithRedirect, logout, isAuthenticated, isLoading } =
         useAuth0();
 
     const handleLogin = () => {

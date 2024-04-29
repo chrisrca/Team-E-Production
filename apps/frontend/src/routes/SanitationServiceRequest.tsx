@@ -13,6 +13,7 @@ export default function SanitationService() {
         status: "",
         priority: "",
         employeeName: "",
+        createdBy: "",
     };
 
     // Label is necessary, ids are calculated assuming that there is a title

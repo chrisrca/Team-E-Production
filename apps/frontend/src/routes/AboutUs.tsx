@@ -1,5 +1,10 @@
-import {CardContent, CardDescription, CardTitle, PortraitCard} from "@/components/ui/card.tsx";
-import React from 'react';
+import {
+    CardContent,
+    CardDescription,
+    CardTitle,
+    PortraitCard,
+} from "@/components/ui/card.tsx";
+import React from "react";
 import kai from "/src/images/kai.png";
 import aksel from "/src/images/aksel.png";
 import yan from "/src/images/yan.png";
@@ -15,7 +20,6 @@ import colin from "/src/images/colin.png";
 import funny from "/src/sounds/metal-pipe-falling-sound-effect-made-with-Voicemod.mp3";
 import fortnite from "/src/sounds/fortnite-dance-moves-emote-music-tv9iv8cxmo0-1.mp3";
 import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
-
 
 export default function AboutUs() {
     const { language } = useLanguage();
@@ -132,9 +136,16 @@ export default function AboutUs() {
             <div className="grid gap-x-3 gap-y-3 grid-cols-3 auto-rows-auto pt-10 p-10">
                 {/* Iterate over the teamMembers array and render each team member */}
                 {teamMembers.map((member, index) => (
-                    <PortraitCard key={index} className="bg-secondary shadow-md hover:cursor-pointer hover:outline">
+                    <PortraitCard
+                        key={index}
+                        className="bg-secondary shadow-md hover:cursor-pointer hover:outline"
+                    >
                         <CardContent>
-                            <img className="rounded-md" src={member.image} alt={member.name}/>
+                            <img
+                                className="rounded-md"
+                                src={member.image}
+                                alt={member.name}
+                            />
                         </CardContent>
                         <div className="">
                             <CardTitle>{member.name}</CardTitle>

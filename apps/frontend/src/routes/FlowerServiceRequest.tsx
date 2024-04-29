@@ -2,7 +2,7 @@ import { ServiceRequests } from "@/components/ServiceRequests";
 import Lilacs from "/src/images/Lilacs.png";
 import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
-const defaultFlowerSchema = {
+const defaultFormSchema = {
     patientName: "",
     flowerType: "",
     senderName: "",
@@ -11,6 +11,7 @@ const defaultFlowerSchema = {
     status: "",
     priority: "",
     employeeName: "",
+    createdBy: "",
 };
 
 // Label is necessary, ids are calculated assuming that there is a title
@@ -102,7 +103,7 @@ const FlowerService = () => {
 
     return ServiceRequests(
         flowerForm,
-        defaultFlowerSchema,
+        defaultFormSchema,
         "/api/flower",
         Lilacs,
         "Marc, Colin, and Brendan"

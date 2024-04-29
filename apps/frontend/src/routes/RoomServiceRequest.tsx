@@ -13,6 +13,7 @@ export default function RoomScheduling() {
         status: "",
         priority: "",
         employeeName: "",
+        createdBy: "",
     };
 
     const serviceForm = [

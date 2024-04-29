@@ -14,6 +14,7 @@ export default function InterpreterService() {
         additionalInfo: "",
         status: "",
         priority: "",
+        createdBy: "",
     };
 
     // Label is necessary, ids are calculated assuming that there is a title

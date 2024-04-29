@@ -14,6 +14,7 @@ export default function DrugDelivery() {
         priority: "",
         employeeName: "",
         patientCondition: translate("Fever", language), // Translating the patient condition
+        createdBy: "",
     };
 
     // Label is necessary, ids are calculated assuming that there is a title

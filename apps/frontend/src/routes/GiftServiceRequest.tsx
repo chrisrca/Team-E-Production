@@ -11,6 +11,7 @@ const defaultFormSchema = {
     priority: "",
     employeeName: "",
     wrapping: "",
+    createdBy: "",
 };
 
 export default function GiftServiceRequest() {

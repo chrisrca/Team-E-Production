@@ -33,21 +33,6 @@ export default function Hamburger() {
             </SheetTrigger>
             <SheetContent side="left" className="dark:bg-secondary">
                 <div className="grid gap-2 py-4">
-                    {isAuthenticated && (
-                        <SheetClose asChild>
-                            <Link
-                                to="/home"
-                                className="rounded hover:bg-accent pl-2 dark:bg-foreground dark:hover:bg-accent inline-block"
-                            >
-                                <img
-                                    src={bwhLogo}
-                                    alt="BWH logo"
-                                    style={{ height: "50px" }}
-                                />
-                            </Link>
-                        </SheetClose>
-                    )}
-                    {!isAuthenticated && (
                         <SheetClose asChild>
                             <Link
                                 to="/"
@@ -60,7 +45,6 @@ export default function Hamburger() {
                                 />
                             </Link>
                         </SheetClose>
-                    )}
                     {isAuthenticated && (
                         <Collapsible className="grid gap-4 dark:bg-secondary">
                             <CollapsibleTrigger className="flex rounded-sm p-2 px-4 hover:bg-accent w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">

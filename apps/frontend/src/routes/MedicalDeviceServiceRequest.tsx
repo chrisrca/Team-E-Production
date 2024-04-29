@@ -12,6 +12,7 @@ export default function MedicalDeviceService() {
         status: "",
         priority: "",
         employeeName: "",
+        createdBy: "",
     };
 
     const deviceForm = [
