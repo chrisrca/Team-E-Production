@@ -153,7 +153,7 @@ export const ServiceRequests = (
     //Beginning of Elements
 
     const labelComp = (props: FormLabel) => {
-        //console.log("making label '" + props.title + "' id: " + props.id);
+        console.log("making label '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className="col-span-full text-extrabold basis-full text-center text-3xl">
@@ -164,7 +164,8 @@ export const ServiceRequests = (
     };
 
     const inputComp = (props: FormComponent) => {
-        //console.log("making input '" + props.title + "' id: " + props.id);
+        console.log("making input '" + props.title + "' id: " + props.id);
+        console.log(props);
         return (
             <>
                 <div className="col-span-full">

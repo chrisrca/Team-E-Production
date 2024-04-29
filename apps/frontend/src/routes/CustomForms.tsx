@@ -5,15 +5,15 @@ import {
     ServiceRequests,
     //FormSelect
 } from "@/components/ServiceRequests";
-// import {
-//     Select,
-//     SelectContent,
-//     SelectGroup,
-//     SelectItem,
-//     SelectLabel,
-//     SelectTrigger,
-//     SelectValue,
-// } from "@/components/ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 // import {
 //     DropdownMenu,
@@ -32,7 +32,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { FormInput } from "@/components/ui/formInput";
-import { Plus } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 
 export default function FormMaker() {
     const [customForm, setCustomForm] = useState([
@@ -123,34 +123,110 @@ export default function FormMaker() {
     // });
 
     const [currComponent, setCurrComponent] = useState("");
-    const[currEdit, setCurrEdit] = useState({});
+    const[currEdit, setCurrEdit] = useState(
+        -2
+    );
 
-    const AddField = (props) => {
+    const AddField = (props, edit) => {
+        
 
         const [newObject, setNewObject] = useState(
-            {
-                content: props["content"],
-                type: "",
-                title: "",
-                placeholder: "",
-                required: false,
-                id: 0,
-                label: "",
-                options: [],
-            }
+            {}
         );
+
+        console.log(props);
+        console.log(edit);
+        console.log(customForm);
+
+        console.log(newObject);
+        
+        
+        if((edit && props != undefined) && newObject["content"] !== props["content"]){
+            setNewObject(
+                props
+            );
+        }else if(!edit && newObject["content"] !== props["content"]){
+            setNewObject(
+                {
+                    content: props["content"],
+                    type: "",
+                    title: "",
+                    placeholder: "",
+                    required: false,
+                    id: 0,
+                    label: "",
+                    options: [],
+                },
+            );
+        }
+
+        if(edit){props = newObject;}
 
         const [options, setOptions] = useState([]);
         const [option, setOption] = useState("");
         
-        
-        console.log(newObject);
-        console.log(customForm);
+        // console.log(newObject);
+        // console.log(customForm);
+        // console.log(edit.toString());
         const handleOption = (type: string, field) => {
-            if(type === "string"){
+            if(field === "type"){
+                return(
+                    <Select
+                        onValueChange={(value) =>
+                            setNewObject({
+                                ...newObject,
+                                [field] : value}
+                            )
+                        }
+                    >
+                        <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                            <SelectValue placeholder={"Select Type"} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel className={"bg-card rounded-sm"}>{"Select Type"}</SelectLabel>
+                                    <SelectItem
+                                        value={"string"}
+                                        className={
+                                            "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        }
+                                    >
+                                        {"String"}
+                                    </SelectItem>
+                                    <SelectItem
+                                        value={"number"}
+                                        className={
+                                            "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        }
+                                    >
+                                        {"Number"}
+                                    </SelectItem>
+                                    <SelectItem
+                                        value={"time"}
+                                        className={
+                                            "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        }
+                                    >
+                                        {"Time"}
+                                    </SelectItem>
+                                    <SelectItem
+                                        value={"datetime-local"}
+                                        className={
+                                            "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        }
+                                    >
+                                        {"Time-Date"}
+                                    </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                );
+            }
+
+            if (type === "string"){
                 return(
                     <FormInput
-                        placeholder={field}
+                        placeholder={props[field]}
                         className={
                             "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
                          }
@@ -173,7 +249,7 @@ export default function FormMaker() {
                                 //console.log(newObject);
                             );
                         }}
-                        className={"hover:bg-accent my-auto ml-3"}
+                        className={"hover:bg-accent my-auto ml-5 mt-2"}
                     />
                 );
             }else if(type === "number"){
@@ -194,7 +270,7 @@ export default function FormMaker() {
                 );
             }else if(type === "object"){
                 return(
-                    <div>
+                    <div className={"flex flex-row flex-nowrap"}>
                         <FormInput
                         placeholder={field}
                         type={"string"}
@@ -207,7 +283,7 @@ export default function FormMaker() {
                         }}
                         />
                         <Button
-                            className={"size-fit p-1 mt-5 bg-green-300 self-end"}
+                            className={"size-8 p-0 mx-2 bg-green-300 self-center"}
                             onClick={() => {
                                 setOptions([...options, option]);
                                 setNewObject({
@@ -233,19 +309,99 @@ export default function FormMaker() {
         if (props === "") {
             return;
         } else {
-            if(newObject["content"] === undefined || newObject["content"] !== props["content"]){
+            if(newObject["content"] === undefined && !edit){ 
+                console.log(newObject);
+                console.log(customForm);
+                console.log(edit.toString());
                 setNewObject({
                     ...newObject,
                     content : props["content"]}
                     //console.log(newObject);
                 );
             }
-            return (
-                <>
-                    <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col"}>
+            if(edit){
+                return(
+                    <>
+                    <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"}>
                         {Object.keys(props).map((field) => {
                             console.log(field);
-                            if(field === "display" || field === "content"){
+                            if(newObject[field] === undefined){
+                                setNewObject({
+                                    ...newObject,
+                                    [field] : props[field]}
+                                    //console.log(newObject);
+                                );
+                            }
+                            if(field === "display" || field === "content" || field === "id"){
+                                return;}
+                            return(
+                                <div className={""}>
+                                    <Label
+                                        className={
+                                            "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+                                        }>
+                                        {field}
+                                    </Label>
+                                    {handleOption((typeof props[field]), field)}
+                                    
+                                </div>
+                            );
+                        })}
+                        <div className={"flex flex-row flex-nowrap"}>
+                        <Button
+                            className={"mx-auto size-fit ml-0 p-1 mt-5 bg-red-300 self-start"}
+                            onClick={() => {
+                                console.log(newObject);
+                                if(edit){
+                                    console.log(customForm.splice(newObject["id"], 1, newObject));
+                                    setCustomForm(customForm.splice(newObject["id"], 1, newObject));
+                                    return;
+                                }
+                                setCustomForm([...customForm, newObject]);
+                                console.log(customForm);
+                            }}
+                        >
+                            Remove
+                            <Minus
+                            className={"transition-all"}
+                            />
+                        </Button>
+                        <Button
+                            className={"mx-auto size-fit mr-0 p-1 mt-5 bg-yellow-300 self-end"}
+                            onClick={() => {
+                                console.log(newObject);
+                                if(edit){
+                                    console.log(customForm.splice(newObject["id"], 1, newObject));
+                                    setCustomForm(customForm.splice(newObject["id"], 1, newObject));
+                                    return;
+                                }
+                                setCustomForm([...customForm, newObject]);
+                                console.log(customForm);
+                            }}
+                        >
+                            Modify
+                            <Plus
+                            className={"transition-all"}
+                            />
+                        </Button>
+                        </div>
+                    </div>
+                </>
+                );
+            }
+            return (
+                <>
+                    <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"}>
+                        {Object.keys(props).map((field) => {
+                            console.log(field);
+                            if(newObject[field] === undefined){
+                                setNewObject({
+                                    ...newObject,
+                                    [field] : props[field]}
+                                    //console.log(newObject);
+                                );
+                            }
+                            if(field === "display" || field === "content" || field === "id"){
                                 return;}
                             return(
                                 <div className={""}>
@@ -261,13 +417,19 @@ export default function FormMaker() {
                             );
                         })}
                         <Button
-                            className={"size-fit p-1 mt-5 bg-green-300 self-end"}
+                            className={"mx-auto size-fit mr-0 p-1 mt-5 bg-green-300 self-end"}
                             onClick={() => {
                                 console.log(newObject);
+                                if(edit){
+                                    console.log(customForm.splice(newObject["id"], 1, newObject));
+                                    setCustomForm(customForm.splice(newObject["id"], 1, newObject));
+                                    return;
+                                }
                                 setCustomForm([...customForm, newObject]);
                                 console.log(customForm);
                             }}
                         >
+                            Add
                             <Plus
                             className={"transition-all"}
                             />
@@ -469,14 +631,17 @@ export default function FormMaker() {
             id: 0,
         },
     };
+
+    console.log(currEdit);
+
     return (
         <>
             <div
                 className={
-                    "bg-card w-full mx-auto rounded-lg transition-all h-fit grid grid-cols-3"
+                    "bg-card w-full mx-auto rounded-lg transition-all h-screen grid grid-cols-3"
                 }
             >
-                <div className={"py-20"}>
+                <div className={"py-20 col-span overflow-y-auto relative"}>
                     <div className={"bg-card w-full rounded-lg"}>
                         <div className={"m-5"}>
                             <Popover>
@@ -486,7 +651,7 @@ export default function FormMaker() {
                                             "Select Field to Filter"}
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md">
+                                <PopoverContent className="origin-top-left max-h-80 w-fit overflow-y-auto rounded-md">
                                     {Object.keys(components).map(
                                         (option, index) => (
                                             <div
@@ -506,15 +671,14 @@ export default function FormMaker() {
                                 </PopoverContent>
                             </Popover>
                             <div className={"transition-all p-1"}>
-                            {AddField(currComponent)}
+                            {AddField(currComponent, false)}
                             </div>
                         </div>
                         <div className={"m-5"}>
                         <Popover>
                             <PopoverTrigger>
                                 <Button className="flex h-10 w-50 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
-                                    {currEdit["display"] ||
-                                        "Select Field to Edit/Remove"}
+                                    {"Select Field to Edit/Remove"}
                                 </Button>
                             </PopoverTrigger>
                             <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md">
@@ -522,10 +686,11 @@ export default function FormMaker() {
                                     return(
                                         <div
                                             key={index}
-                                            className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize"
+                                            className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap"
                                             onClick={() => {
-                                                //console.log(option);
-                                                setCurrEdit(customForm[index]);
+                                                console.log(customForm[index - 1]);
+                                                setCurrEdit(index);
+                                                
                                             }}
                                         >
                                             <div className={"font-bold capitalize"}>
@@ -539,6 +704,7 @@ export default function FormMaker() {
                                 })}
                             </PopoverContent>
                         </Popover>
+                        {AddField(customForm[currEdit], true)}
                             {/*{EditComponent(currEdit)}*/}
                         </div>
                     </div>
