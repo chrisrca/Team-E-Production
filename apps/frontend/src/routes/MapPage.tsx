@@ -27,6 +27,12 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
         const nonHallNodes = nodes.filter((node) => {
             return node.nodeType != "HALL";
         });
+    
+        if (nonHallNodes.length === 0) {
+            console.error("No non-hall nodes available");
+            return;
+        }
+    
         const randomStart =
             nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
         const randomEnd =
