@@ -5,8 +5,10 @@ import axios from "axios";
 import { DBNode } from "common/src/types";
 import Legend from "@/components/canvasmap/map/Legend";
 import { useEffect, useState } from "react";
-import TextDirection, { TextDirectionComponent }  from "@/components/TextDirection.tsx";
-import {Button} from "@/components/ui/button.tsx";
+import TextDirection, {
+    TextDirectionComponent,
+} from "@/components/TextDirection.tsx";
+import { Button } from "@/components/ui/button.tsx";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
@@ -80,11 +82,23 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                         <Legend/>
                     </div>
                     <LevelButtons levelProps={[level, setLevel]}/>
-                    < div style={{position: "absolute", top: "400px", left: ""}}>
-                        <TextDirectionComponent prompts={prompt} turns={turn} floors={floor} currFloor={level}/>
+                    <div style={{position: "absolute", top: "400px", left: ""}}>
+                        <TextDirectionComponent prompts={prompt} turns={turn} floors={floor} />
                     </div>
                     <div style={{position: "absolute", top: "240px", left: "60px"}}>
                         <Button onClick={handleRandomize}>I'm Feeling Lucky</Button>
+                    </div>
+                    <LevelButtons levelProps={[level, setLevel]} />
+                    <div
+                        style={{
+                            position: "absolute",
+                            top: "240px",
+                            left: "60px",
+                        }}
+                    >
+                        <Button onClick={handleRandomize}>
+                            I'm Feeling Lucky
+                        </Button>
                     </div>
                 </div>
                 <div style={{ height: "100vh", overflow: "hidden" }}>

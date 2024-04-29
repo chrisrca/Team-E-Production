@@ -229,7 +229,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                     if (context) {
                         image.onload = () => {
                             setTimeout(() => {
-                                
+                               setTransform(0, 0, 1.5); 
                             }, 600);
                         };
                     }
