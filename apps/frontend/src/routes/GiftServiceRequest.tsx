@@ -10,7 +10,6 @@ const defaultFormSchema = {
     priority: "",
     employeeName: "",
     wrapping: "Default - $15",
-    createdBy: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -89,11 +88,7 @@ const defaultForm = [
         options: [],
     },
 ];
-export default function GiftServiceRequest(employee: string | undefined) {
-    if(employee == undefined){
-        return;
-    }
-    defaultFormSchema.createdBy = employee;
+export default function GiftServiceRequest() {
     return ServiceRequests(
         defaultForm,
         defaultFormSchema,

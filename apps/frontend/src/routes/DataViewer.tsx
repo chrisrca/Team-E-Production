@@ -22,7 +22,6 @@ import {
     SanitationServiceRequest,
     RoomSchedulingForm,
     MedicalDeviceServiceRequest,
-    Employee
 } from "common/src/types";
 import { Input } from "@/components/ui/input";
 
@@ -37,7 +36,6 @@ type DataViewerProps =
     | SanitationServiceRequest[]
     | RoomSchedulingForm[]
     | MedicalDeviceServiceRequest[]
-    | Employee[]
     | [];
 
 function DataViewer() {
@@ -59,7 +57,7 @@ function DataViewer() {
     const [medicalDeviceData, setMedicalDeviceData] = useState<
         MedicalDeviceServiceRequest[]
     >([]);
-    const [employeeData, setEmployeeData] = useState<Employee[]>([]);
+
     const [uploadData, setUploadData] = useState<File | null | undefined>();
     const [currData, setCurrData] = useState<DataViewerProps>(nodeData);
 
@@ -153,8 +151,7 @@ function DataViewer() {
             | DrugDeliveryData[]
             | SanitationServiceRequest[]
             | RoomSchedulingForm[]
-            | MedicalDeviceServiceRequest[]
-            | Employee[],
+            | MedicalDeviceServiceRequest[],
     ) => {
         const headers = Object.keys(data[0]).join(",");
         const csv = data.map((row) => Object.values(row).join(","));
@@ -258,16 +255,6 @@ function DataViewer() {
             }
         }
         fetchMedicalDeviceData().then();
-
-        async function fetchEmployeeData() {
-            try {
-                const res = await axios.get("/api/employee");
-                setEmployeeData(res.data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        }
-        fetchEmployeeData().then();
     }, []);
 
     return (
@@ -359,14 +346,6 @@ function DataViewer() {
                                     }
                                 >
                                     {"Medical Device Data"}
-                                </SelectItem>
-                                <SelectItem
-                                    value={employeeData}
-                                    className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
-                                    }
-                                >
-                                    {"Employee Data"}
                                 </SelectItem>
                             </SelectGroup>
                         </SelectContent>

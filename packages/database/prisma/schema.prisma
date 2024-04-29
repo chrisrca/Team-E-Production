@@ -37,16 +37,16 @@ model path {
   startNodeID String
   endNodeID   String
   createdAt   DateTime @default(now())
+  //empId Int @default(1)
+  //employee employee @relation(fields: [empId], references: [ID])
 }
 
 model employee {
-  ID           Int      @id @default(autoincrement())
-  name         String   @unique
+  ID           Int     @id @default(autoincrement())
+  name         String  @unique
   nickname     String
-  displayName  String?
-  phone_number String?  @unique
-  createdAt    DateTime @default(now())
-  admin        Boolean  @default(false)
+  phone_number String? @unique
+  //createdAt DateTime @default(now())
 }
 
 enum ServiceType {
@@ -70,7 +70,7 @@ model service {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime?
 
-  // potential types
+  //potential types
   serviceType   ServiceType
   flower        flower?
   gift          gift?
@@ -81,7 +81,7 @@ model service {
   roomschedule  roomschedule?
   medicaldevice medicaldevice?
 
-  // service ID
+  //service ID
   serviceId Int @id @default(autoincrement())
 }
 

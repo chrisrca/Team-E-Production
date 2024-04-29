@@ -3,7 +3,6 @@ export interface GiftServiceRequest {
     status: string;
     priority: string;
     employeeName: string;
-    createdBy: string;
     date: string;
     recipientName: string;
     message: string;

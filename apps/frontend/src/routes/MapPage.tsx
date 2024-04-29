@@ -72,13 +72,11 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                         end={[end, setEnd]}
                         algorithm={[algorithm, setAlgorithm]}
                     />
-                    <div className="mr-5 max-h-full mb-3 absolute bottom-0 right-0 z-10">
+                    <div className="mr-5 max-h-full mb-10 absolute bottom-0 right-0 z-10">
                         <Legend/>
                     </div>
-                    <LevelButtons levelProps={[level, setLevel]}/>
-                    < div style={{position: "absolute", top: "400px", left: ""}}>
-                        <TextDirectionComponent prompts={prompt} turns={turn} floors={floor} currFloor={level}/>
-                    </div>
+                    <LevelButtons levelProps={[level, setLevel]}/>                
+                    <TextDirectionComponent prompts={prompt} turns={turn} floors={floor} currFloor={level}/>    
                     <div style={{position: "absolute", top: "240px", left: "60px"}}>
                         <Button onClick={handleRandomize}>I'm Feeling Lucky</Button>
                     </div>

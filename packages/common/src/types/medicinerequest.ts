@@ -3,7 +3,6 @@ export interface DrugDeliveryData {
     status: string;
     priority: string;
     employeeName: string;
-    createdBy: string;
     date: string;
     patientName: string;
     patientCondition: string;

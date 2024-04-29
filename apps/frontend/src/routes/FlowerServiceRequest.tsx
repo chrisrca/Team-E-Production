@@ -1,7 +1,7 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
 import Lilacs from "/src/images/Lilacs.png";
 
-const defaultFormSchema = {
+const defaultFlowerSchema = {
     patientName: "",
     flowerType: "",
     senderName: "",
@@ -10,7 +10,6 @@ const defaultFormSchema = {
     status: "",
     priority: "",
     employeeName: "",
-    createdBy: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -97,14 +96,10 @@ const flowerForm = [
         options: [],
     },
 ];
-export default function FlowerService(employee: string | undefined) {
-    if(employee == undefined){
-        return;
-    }
-    defaultFormSchema.createdBy = employee;
+export default function FlowerService() {
     return ServiceRequests(
         flowerForm,
-        defaultFormSchema,
+        defaultFlowerSchema,
         "/api/flower",
         Lilacs,
         "Marc, Colin, and Brendan",
