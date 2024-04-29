@@ -5,10 +5,8 @@ import axios from "axios";
 import { DBNode } from "common/src/types";
 import Legend from "@/components/canvasmap/map/Legend";
 import { useEffect, useState } from "react";
-import TextDirection, {
-    TextDirectionComponent,
-} from "@/components/TextDirection.tsx";
-import { Button } from "@/components/ui/button.tsx";
+import TextDirection, { TextDirectionComponent }  from "@/components/TextDirection.tsx";
+import {Button} from "@/components/ui/button.tsx";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 

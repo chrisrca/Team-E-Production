@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import CanvasMap from '@/components/canvasmap/map/CanvasMap';
+import MobileMap from '@/components/canvasmap/mobilemap/MobileMap';
 import DBNode from 'common/src/types';
 import LevelButtons from '@/components/canvasmap/map/LevelButtons';
 import TextDirection, { TextDirectionComponent } from '@/components/TextDirection';
@@ -43,8 +43,8 @@ export default function Mobile({nodesIn} : { nodes : DBNode[]}) {
     return (
         <div>
             <LevelButtons levelProps={[level, setLevel]}/>
-            <div style={{ height: "50vh", overflow: "hidden" }}>
-                <CanvasMap level={level}
+            <div style={{ height: "50vh"}}>
+                <MobileMap level={level}
                         path={pathNodes}
                         nodes={nodesIn}
                         />

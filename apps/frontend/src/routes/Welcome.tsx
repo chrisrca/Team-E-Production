@@ -333,7 +333,7 @@ export default function Welcome({setUser}: {setUser: (user: User) => void}){
                                 <CardContent>
                                     <img
                                         src={ServiceImage}
-                                        className="rounded-sm w-full overflow-hidden object-cover aspect-[16/9] h-[200px]"
+                                        className="rounded-sm w-full object-cover aspect-[16/9] h-[200px]"
                                     />
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
