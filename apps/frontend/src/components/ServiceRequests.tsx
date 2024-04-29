@@ -521,8 +521,8 @@ export const ServiceRequests = (
         setIsSubmitted(false);
     };
     if (bgPath === "") {
-        if(layout.length < 1){
-            return(
+        if (layout.length < 1) {
+            return (
                 <>
                     <div className="flex transition-all">
                         <div className="w-full">
@@ -537,7 +537,6 @@ export const ServiceRequests = (
                                             id: 0,
                                         },
                                     ])}
-                                    
                                 </form>
                             </div>
                         </div>
@@ -565,9 +564,7 @@ export const ServiceRequests = (
                                         Clear Form
                                     </button>
                                     <div></div>
-                                    <button
-                                        className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
-                                    >
+                                    <button className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded">
                                         Submit
                                     </button>
                                 </div>

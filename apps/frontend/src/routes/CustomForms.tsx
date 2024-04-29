@@ -32,7 +32,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { FormInput } from "@/components/ui/formInput";
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus } from "lucide-react";
 
 export default function FormMaker() {
     const [customForm, setCustomForm] = useState([
@@ -123,50 +123,45 @@ export default function FormMaker() {
     // });
 
     const [currComponent, setCurrComponent] = useState("");
-    const[currEdit, setCurrEdit] = useState(
-        -2
-    );
+    const [currEdit, setCurrEdit] = useState(-2);
 
     const AddField = (props, edit) => {
-        
-
-        const [newObject, setNewObject] = useState(
-            {}
-        );
+        const [newObject, setNewObject] = useState({});
 
         // console.log(props);
         // console.log(edit);
         // console.log(customForm);
         // console.log(newObject);
-        
-        
-        if((edit && props != undefined) && newObject["content"] !== props["content"]){
-            setNewObject(
-                props
-            );
-        }else if(!edit && newObject["content"] !== props["content"]){
-            setNewObject(
-                props
-            );
+
+        if (
+            edit &&
+            props != undefined &&
+            newObject["content"] !== props["content"]
+        ) {
+            setNewObject(props);
+        } else if (!edit && newObject["content"] !== props["content"]) {
+            setNewObject(props);
         }
 
-        if(edit){props = newObject;}
+        if (edit) {
+            props = newObject;
+        }
 
         const [options, setOptions] = useState([]);
         const [option, setOption] = useState("");
-        
+
         // console.log(newObject);
         // console.log(customForm);
         // console.log(edit.toString());
         const handleOption = (type: string, field) => {
-            if(field === "type"){
-                return(
+            if (field === "type") {
+                return (
                     <Select
                         onValueChange={(value) =>
                             setNewObject({
                                 ...newObject,
-                                [field] : value}
-                            )
+                                [field]: value,
+                            })
                         }
                     >
                         <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground">
@@ -174,120 +169,126 @@ export default function FormMaker() {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectLabel className={"bg-card rounded-sm"}>{"Select Type"}</SelectLabel>
-                                    <SelectItem
-                                        value={"string"}
-                                        className={
-                                            "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
-                                        }
-                                    >
-                                        {"String"}
-                                    </SelectItem>
-                                    <SelectItem
-                                        value={"number"}
-                                        className={
-                                            "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
-                                        }
-                                    >
-                                        {"Number"}
-                                    </SelectItem>
-                                    <SelectItem
-                                        value={"time"}
-                                        className={
-                                            "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
-                                        }
-                                    >
-                                        {"Time"}
-                                    </SelectItem>
-                                    <SelectItem
-                                        value={"datetime-local"}
-                                        className={
-                                            "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
-                                        }
-                                    >
-                                        {"Time-Date"}
-                                    </SelectItem>
+                                <SelectLabel className={"bg-card rounded-sm"}>
+                                    {"Select Type"}
+                                </SelectLabel>
+                                <SelectItem
+                                    value={"string"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"String"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={"number"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Number"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={"time"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Time"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={"datetime-local"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Time-Date"}
+                                </SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>
                 );
             }
 
-            if (type === "string"){
-                return(
+            if (type === "string") {
+                return (
                     <FormInput
                         placeholder={props[field]}
                         className={
                             "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
-                         }
-                        onChange={e => {
-                            setNewObject({
-                                ...newObject,
-                                [field] : e.target.value}
+                        }
+                        onChange={(e) => {
+                            setNewObject(
+                                {
+                                    ...newObject,
+                                    [field]: e.target.value,
+                                },
                                 //console.log(newObject);
                             );
                         }}
                     />
                 );
-            }else if(type === "boolean"){
-                return(
+            } else if (type === "boolean") {
+                return (
                     <Checkbox
-                        onCheckedChange={checked => {
-                            setNewObject({
-                                ...newObject,
-                                [field] : checked}
+                        onCheckedChange={(checked) => {
+                            setNewObject(
+                                {
+                                    ...newObject,
+                                    [field]: checked,
+                                },
                                 //console.log(newObject);
                             );
                         }}
                         className={"hover:bg-accent my-auto ml-5 mt-2"}
                     />
                 );
-            }else if(type === "number"){
-                return(
+            } else if (type === "number") {
+                return (
                     <FormInput
                         placeholder={field}
                         type={"number"}
                         className={
                             "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
-                         }
-                        onChange={e => {
+                        }
+                        onChange={(e) => {
                             setNewObject({
                                 ...newObject,
-                                [field] : e.target.value}
-                            );
+                                [field]: e.target.value,
+                            });
                         }}
                     />
                 );
-            }else if(type === "object"){
-                return(
+            } else if (type === "object") {
+                return (
                     <div className={"flex flex-row flex-nowrap"}>
                         <FormInput
-                        placeholder={field}
-                        type={"string"}
-                        className={
-                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
-                         }
-                        onChange={e => {
-                            // console.log(option);
-                            setOption(e.target.value);
-                        }}
+                            placeholder={field}
+                            type={"string"}
+                            className={
+                                "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+                            }
+                            onChange={(e) => {
+                                // console.log(option);
+                                setOption(e.target.value);
+                            }}
                         />
                         <Button
-                            className={"size-8 p-0 ml-2 bg-green-300 self-center shrink-0"}
+                            className={
+                                "size-8 p-0 ml-2 bg-green-300 self-center shrink-0"
+                            }
                             onClick={() => {
                                 setOptions([...options, option]);
                                 setNewObject({
                                     ...newObject,
-                                    [field] : options}
-                                );
+                                    [field]: options,
+                                });
                             }}
                         >
-                            <Plus
-                            className={"transition-all"}
-                            />
+                            <Plus className={"transition-all"} />
                         </Button>
                         {options.map((op) => {
-                            return(op);
+                            return op;
                         })}
                     </div>
                 );
@@ -299,135 +300,182 @@ export default function FormMaker() {
         if (props === "") {
             return;
         } else {
-            if(newObject["content"] === undefined && !edit){ 
+            if (newObject["content"] === undefined && !edit) {
                 // console.log(newObject);
                 // console.log(customForm);
                 // console.log(edit.toString());
-                setNewObject({
-                    ...newObject,
-                    content : props["content"]}
+                setNewObject(
+                    {
+                        ...newObject,
+                        content: props["content"],
+                    },
                     //console.log(newObject);
                 );
             }
-            if(edit && currEdit > -2){
-                return(
+            if (edit && currEdit > -2) {
+                return (
                     <>
-                    <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"}>
-                        {Object.keys(props).map((field) => {
-                            // console.log(field);
-                            if(newObject[field] === undefined){
-                                setNewObject({
-                                    ...newObject,
-                                    [field] : props[field]}
-                                    //console.log(newObject);
-                                );
+                        <div
+                            className={
+                                "size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"
                             }
-                            if(field === "display" || field === "content" || field === "id"){
-                                return;}
-                            return(
-                                <div className={""}>
-                                    <Label
-                                        className={
-                                            "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
-                                        }>
-                                        {field}
-                                    </Label>
-                                    {handleOption((typeof props[field]), field)}
-                                    
-                                </div>
-                            );
-                        })}
-                        <div className={"flex flex-row flex-nowrap"}>
-                        <Button
-                            className={"mx-auto size-fit ml-0 p-1 mt-5 bg-red-300 self-start"}
-                            onClick={() => {
-                                console.log(newObject);
-                                if(edit){
-                                    setCustomForm([
-                                        ...customForm.slice(0, newObject["id"]+1),
-                                        ...customForm.slice(newObject["id"] + 2),
-                                    ]);
+                        >
+                            {Object.keys(props).map((field) => {
+                                // console.log(field);
+                                if (newObject[field] === undefined) {
+                                    setNewObject(
+                                        {
+                                            ...newObject,
+                                            [field]: props[field],
+                                        },
+                                        //console.log(newObject);
+                                    );
+                                }
+                                if (
+                                    field === "display" ||
+                                    field === "content" ||
+                                    field === "id"
+                                ) {
                                     return;
                                 }
-                                setCustomForm([...customForm, newObject]);
-                                console.log(customForm);
-                            }}
-                        >
-                            Remove
-                            <Minus
-                            className={"transition-all"}
-                            />
-                        </Button>
-                        <Button
-                            className={"mx-auto size-fit mr-0 p-1 mt-5 bg-yellow-300 self-end"}
-                            onClick={() => {
-                                console.log(newObject);
-                                if(edit){
-                                    setCustomForm([
-                                        ...customForm.slice(0, newObject["id"]+1),
-                                        newObject,
-                                        ...customForm.slice(newObject["id"] + 2),
-                                    ]);
-                                    return;
-                                }
-                                setCustomForm([...customForm, newObject]);
-                                console.log(customForm);
-                            }}
-                        >
-                            Modify
-                            <Plus
-                            className={"transition-all"}
-                            />
-                        </Button>
+                                return (
+                                    <div className={""}>
+                                        <Label
+                                            className={
+                                                "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+                                            }
+                                        >
+                                            {field}
+                                        </Label>
+                                        {handleOption(
+                                            typeof props[field],
+                                            field,
+                                        )}
+                                    </div>
+                                );
+                            })}
+                            <div className={"flex flex-row flex-nowrap"}>
+                                <Button
+                                    className={
+                                        "mx-auto size-fit ml-0 p-1 mt-5 bg-red-300 self-start"
+                                    }
+                                    onClick={() => {
+                                        console.log(newObject);
+                                        if (edit) {
+                                            setCustomForm([
+                                                ...customForm.slice(
+                                                    0,
+                                                    newObject["id"] + 1,
+                                                ),
+                                                ...customForm.slice(
+                                                    newObject["id"] + 2,
+                                                ),
+                                            ]);
+                                            return;
+                                        }
+                                        setCustomForm([
+                                            ...customForm,
+                                            newObject,
+                                        ]);
+                                        console.log(customForm);
+                                    }}
+                                >
+                                    Remove
+                                    <Minus className={"transition-all"} />
+                                </Button>
+                                <Button
+                                    className={
+                                        "mx-auto size-fit mr-0 p-1 mt-5 bg-yellow-300 self-end"
+                                    }
+                                    onClick={() => {
+                                        console.log(newObject);
+                                        if (edit) {
+                                            setCustomForm([
+                                                ...customForm.slice(
+                                                    0,
+                                                    newObject["id"] + 1,
+                                                ),
+                                                newObject,
+                                                ...customForm.slice(
+                                                    newObject["id"] + 2,
+                                                ),
+                                            ]);
+                                            return;
+                                        }
+                                        setCustomForm([
+                                            ...customForm,
+                                            newObject,
+                                        ]);
+                                        console.log(customForm);
+                                    }}
+                                >
+                                    Modify
+                                    <Plus className={"transition-all"} />
+                                </Button>
+                            </div>
                         </div>
-                    </div>
-                </>
+                    </>
                 );
-            }else if(!edit || currEdit["id"] !== undefined){
-            return (
-                <>
-                    <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"}>
-                        {Object.keys(props).map((field) => {
-                            //console.log(field);
-                            if(newObject[field] === undefined){
-                                setNewObject({
-                                    ...newObject,
-                                    [field] : props[field]}
-                                    //console.log(newObject);
-                                );
+            } else if (!edit || currEdit["id"] !== undefined) {
+                return (
+                    <>
+                        <div
+                            className={
+                                "size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"
                             }
-                            if(field === "display" || field === "content" || field === "id"){
-                                return;}
-                            return(
-                                <div className={""}>
-                                    <Label
-                                        className={
-                                            "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
-                                        }>
-                                        {field}
-                                    </Label>
-                                    {handleOption((typeof props[field]), field)}
-                                    
-                                </div>
-                            );
-                        })}
-                        <Button
-                            className={"mx-auto size-fit mr-0 p-1 mt-5 bg-green-300 self-end"}
-                            onClick={() => {
-                                console.log(newObject);
-                                setCustomForm([...customForm, newObject]);
-                                console.log(customForm);
-                            }}
                         >
-                            Add
-                            <Plus
-                            className={"transition-all"}
-                            />
-                        </Button>
-                    </div>
-                </>
-            );
-        }}
+                            {Object.keys(props).map((field) => {
+                                //console.log(field);
+                                if (newObject[field] === undefined) {
+                                    setNewObject(
+                                        {
+                                            ...newObject,
+                                            [field]: props[field],
+                                        },
+                                        //console.log(newObject);
+                                    );
+                                }
+                                if (
+                                    field === "display" ||
+                                    field === "content" ||
+                                    field === "id"
+                                ) {
+                                    return;
+                                }
+                                return (
+                                    <div className={""}>
+                                        <Label
+                                            className={
+                                                "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+                                            }
+                                        >
+                                            {field}
+                                        </Label>
+                                        {handleOption(
+                                            typeof props[field],
+                                            field,
+                                        )}
+                                    </div>
+                                );
+                            })}
+                            <Button
+                                className={
+                                    "mx-auto size-fit mr-0 p-1 mt-5 bg-green-300 self-end"
+                                }
+                                onClick={() => {
+                                    console.log(newObject);
+                                    setCustomForm([...customForm, newObject]);
+                                    console.log(customForm);
+                                }}
+                            >
+                                Add
+                                <Plus className={"transition-all"} />
+                            </Button>
+                        </div>
+                    </>
+                );
+            }
+        }
     };
 
     // const EditComponent = (props) => {
@@ -633,7 +681,6 @@ export default function FormMaker() {
             >
                 <div className={"py-20 col-span overflow-y-auto relative"}>
                     <div className={"bg-card w-full mx-auto rounded-lg"}>
-
                         <div className={"m-5"}>
                             <Popover>
                                 <PopoverTrigger>
@@ -653,7 +700,6 @@ export default function FormMaker() {
                                                     setCurrComponent(
                                                         components[option],
                                                     );
-                                                    
                                                 }}
                                             >
                                                 {components[option]["display"]}
@@ -663,44 +709,55 @@ export default function FormMaker() {
                                 </PopoverContent>
                             </Popover>
                             <div className={"transition-all p-3"}>
-                            {AddField(currComponent, false)}
+                                {AddField(currComponent, false)}
                             </div>
                         </div>
                         <div className={"m-5"}>
-                        <Popover>
-                            <PopoverTrigger>
-                                <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary"
-                                        disabled={customForm.length < 1}>
-                                    {"Select Element to Alter" || "ID " + currEdit["id"] + " : " + currEdit["content"]}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md">
-                                {customForm.map((option, index) => {
-                                    return(
-                                        <div
-                                            key={index}
-                                            className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap"
-                                            onClick={() => {
-                                                console.log(customForm[index]);
-                                                setCurrEdit(index);
-                                            }}
-                                        >
-                                            <div className={"font-bold capitalize"}>
-                                                {"ID "}
-                                                {option.id}
-                                                {" : "}
-                                                {option.content}
+                            <Popover>
+                                <PopoverTrigger>
+                                    <Button
+                                        className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary"
+                                        disabled={customForm.length < 1}
+                                    >
+                                        {"Select Element to Alter" ||
+                                            "ID " +
+                                                currEdit["id"] +
+                                                " : " +
+                                                currEdit["content"]}
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md">
+                                    {customForm.map((option, index) => {
+                                        return (
+                                            <div
+                                                key={index}
+                                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap"
+                                                onClick={() => {
+                                                    console.log(
+                                                        customForm[index],
+                                                    );
+                                                    setCurrEdit(index);
+                                                }}
+                                            >
+                                                <div
+                                                    className={
+                                                        "font-bold capitalize"
+                                                    }
+                                                >
+                                                    {"ID "}
+                                                    {option.id}
+                                                    {" : "}
+                                                    {option.content}
+                                                </div>
                                             </div>
-                                        </div>
-                                    );
-                                })}
-                            </PopoverContent>
-                        </Popover>
-                        <div className={"transition-all p-3"}>
-                            {AddField(customForm[currEdit], true)}
+                                        );
+                                    })}
+                                </PopoverContent>
+                            </Popover>
+                            <div className={"transition-all p-3"}>
+                                {AddField(customForm[currEdit], true)}
+                            </div>
                         </div>
-                        </div>
-
                     </div>
                 </div>
 
