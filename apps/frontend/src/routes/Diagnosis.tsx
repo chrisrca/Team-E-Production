@@ -34,8 +34,20 @@ const Chats: React.FC<Props> = (props) => {
                     sender: "bot",
                 },
             ]);
+
+    }
+        else {
+            let tempArray = [...messages];
+            tempArray.push({ message: props.sendUserResponse, sender: "user" });
+            setMessages(tempArray);
+
+            setTimeout(() => {
+                let temp2 = [...tempArray];
+                temp2.push(props.botResponse);
+                setMessages(temp2);
+            }, 1000);
         }
-    }, [messages.length]);
+    }, [props.sendUserResponse, props.botResponse]);
 
 
     useEffect(() => {
