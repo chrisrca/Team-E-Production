@@ -1,13 +1,19 @@
-import { CornerUpLeft } from "lucide-react";
-import { MoveDownLeft } from "lucide-react";
-import { MoveDownRight } from "lucide-react";
-import { CornerUpRight } from "lucide-react";
-import { MoveUpLeft } from "lucide-react";
-import { MoveUpRight } from "lucide-react";
-import { MoveUp } from "lucide-react";
-import { Goal } from "lucide-react";
-import { Map } from "lucide-react";
-import { ArrowUpDown } from "lucide-react";
+import { CornerUpLeft } from 'lucide-react';
+import { MoveDownLeft } from 'lucide-react';
+import { MoveDownRight } from 'lucide-react';
+import { CornerUpRight } from 'lucide-react';
+import { MoveUpLeft } from 'lucide-react';
+import { MoveUpRight } from 'lucide-react';
+import { MoveUp } from 'lucide-react';
+import { Goal } from 'lucide-react';
+import { Map } from 'lucide-react';
+import { ArrowUpDown } from 'lucide-react';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 import { DBNode } from "common/src/types";
 import React from "react";
 
@@ -116,7 +122,6 @@ interface TextDirectionProps {
     prompts: string[];
     turns: string[];
     floors: string[];
-    currFloor: number;
 }
 
 // this is what actually displays to screen
@@ -124,7 +129,19 @@ export function TextDirectionComponent(props: TextDirectionProps) {
     const prompts = props.prompts;
     const turns = props.turns;
     const floors = props.floors;
-    const currFloor = props.currFloor;
+    const floorsUsed:string[]=[]; // list of the floors used in order
+    const indexOfFloorUsed:number[]=[]; // prevents directions from being displayed twice if a floor is re-entered
+
+    // create a list of floors used to title each accordion section
+    for(let i=0;i<floors.length;i++) {
+        if(i===0) floorsUsed.push(floors[i]);
+        if(floors[i]!==floors[i+1] && floors[i+1]!==undefined && floors[i+1]!==null) { // check if floors[i+1] exists
+            floorsUsed.push(floors[i+1]);
+            indexOfFloorUsed.push(i+1);
+        }
+        if(i===floors.length-1) indexOfFloorUsed.push(i+1);
+    }
+
 
     // Define a mapping object
     const componentMapping: { [key: string]: React.ComponentType } = {
@@ -139,43 +156,42 @@ export function TextDirectionComponent(props: TextDirectionProps) {
         end: Goal,
         arise: ArrowUpDown,
     };
-
-    const floor =
-        currFloor === 0
-            ? "L2"
-            : currFloor === 1
-              ? "L1"
-              : currFloor === 2
-                ? "1"
-                : currFloor === 3
-                  ? "2"
-                  : "3";
-
-    const filteredPrompts = prompts.filter(
-        (_, index) => floors[index] === floor,
-    );
-    const filteredTurns = turns.filter((_, index) => floors[index] === floor);
-
+  
     return (
-        <div className="z-10 scrollbar scrollbar-track-rounded-full scrollbar-track-background scrollbar-thumb-rounded-full  scrollbar-thumb-primary w-[400px] h-[300px] absolute ml-14 top-2/3 mb-10 flex flex-col grow overflow-auto">
-            {filteredPrompts?.map((prompt, index) => (
-                <div
-                    key={index}
-                    className="flex-row p-2 border drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg flex items-center"
-                >
-                    <div className="border-black rounded-lg p-1">
-                        {componentMapping[filteredTurns[index]]
-                            ? React.createElement(
-                                  componentMapping[filteredTurns[index]],
-                              )
-                            : `?`}
-                    </div>
-                    <div className="px-3">{prompt}</div>
-                </div>
-            ))}
+        <div>
+            <Accordion type="single" collapsible className="w-full px-3 drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg">
+                {floorsUsed?.map((flr,idx) => (
+                    <AccordionItem value={`${idx}`}>
+                        <AccordionTrigger>{flr}</AccordionTrigger>
+                        <AccordionContent className="overflow-x-auto overflow-y-auto h-64">
+                            {prompts?.map((prompt, index) => (
+                                (floors[index]===flr && floorBool(indexOfFloorUsed,idx,index)) ?
+                                <div key={index}
+                                     className="flex-row p-2 border z-10 bg-secondary text-foreground rounded-lg flex items-center">
+                                    <div className="border-black rounded-lg p-1">
+                                        {componentMapping[turns [index]] ? React.createElement(componentMapping[turns[index]]) : `?`}
+                                    </div>
+                                    <div className="px-3">{prompt}</div>
+                                </div> : <></>
+                            ))}
+                        </AccordionContent>
+                    </AccordionItem>
+                ))}
+            </Accordion>
         </div>
     );
 }
+
+// matches prompts to accordion section
+// indexOfFloorUsed:number[] - holds list of indexes that tracks floor changes
+// idx:number - accordion header index
+// index:number - prompt list index
+function floorBool(indexOfFloorUsed:number[],idx:number,index:number) {
+    if(!indexOfFloorUsed[idx-1] && index<indexOfFloorUsed[idx]) return true; // accounts for first case when [idx-1] doesnt exist
+    else if(indexOfFloorUsed[idx-1]<=index && index<indexOfFloorUsed[idx]) return true;
+    else return false;
+}
+
 
 //////////////////REFACTORED FOR CODE REUSE////////////////////////////////////
 

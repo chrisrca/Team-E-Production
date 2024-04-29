@@ -3,6 +3,7 @@ export interface FlowerServiceRequest {
     status: string;
     priority: string;
     employeeName: string;
+    createdBy: string;
     date: string;
     patientName: string;
     senderName: string;
