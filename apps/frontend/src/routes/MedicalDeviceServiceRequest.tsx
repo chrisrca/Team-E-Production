@@ -8,7 +8,6 @@ const defaultFormSchema = {
     status: "",
     priority: "",
     employeeName: "",
-    createdBy: "",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title
@@ -79,11 +78,7 @@ const defaultForm = [
         options: [],
     },
 ];
-export default function MedicalDeviceService(employee: string | undefined) {
-    if(employee == undefined){
-        return;
-    }
-    defaultFormSchema.createdBy = employee;
+export default function MedicalDeviceService() {
     return ServiceRequests(
         defaultForm,
         defaultFormSchema,

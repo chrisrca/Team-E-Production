@@ -3,7 +3,6 @@ export interface InterpreterServiceRequest {
     status: string;
     priority: string;
     employeeName: string;
-    createdBy: string;
     date: string;
     clientName: string;
     language: string;

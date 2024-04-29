@@ -3,7 +3,6 @@ export interface SanitationServiceRequest {
     status: string;
     priority: string;
     employeeName: string;
-    createdBy: string;
     date: string;
     patientName: string;
     serviceType: string;
