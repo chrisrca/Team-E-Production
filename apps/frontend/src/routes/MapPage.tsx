@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button.tsx";
 import { useLanguage } from "@/components/LanguageProvider";
 //import MapPage3d from "@/routes/MapPage3d.tsx";
 import Map3d from "@/components/canvasmap/map3d/Map3d.tsx";
+import {Box, Square} from "lucide-react";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
@@ -77,70 +78,15 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
             setIs3d(true);
         }
     };
-
-    // return (
-    //     <>
-    //         <div className="z-0 relative flex">
-    //             <div className="z-10">
-    //                 <SearchBar
-    //                     selection={nodes}
-    //                     start={[start, setStart]}
-    //                     end={[end, setEnd]}
-    //                     algorithm={[algorithm, setAlgorithm]}
-    //                 />
-    //                 <div className="mr-5 max-h-full mb-3 absolute bottom-0 right-0 z-10">
-    //                     <Legend/>
-    //                 </div>
-    //                 <LevelButtons levelProps={[level, setLevel]}/>
-    //                 <div style={{position: "absolute", top: "400px", left: ""}}>
-    //                     <TextDirectionComponent prompts={prompt} turns={turn} floors={floor} />
-    //                 </div>
-    //                 <div style={{position: "absolute", top: "240px", left: "60px"}}>
-    //                     <Button onClick={handleRandomize}>I'm Feeling Lucky</Button>
-    //                 </div>
-    //                 <LevelButtons levelProps={[level, setLevel]} />
-    //                 <div
-    //                     style={{
-    //                         position: "absolute",
-    //                         top: "240px",
-    //                         left: "60px",
-    //                     }}
-    //                 >
-    //                     <Button onClick={handleRandomize}>
-    //                         I'm Feeling Lucky
-    //                     </Button>
-    //                 </div>
-    //             </div>
-    //             <Button onClick={handle3d}>
-    //                 Toggle 3D
-    //             </Button>
-    //             <div style={{ height: "100vh", overflow: "hidden" }}>
-    //                 {!is3d &&
-    //                     <CanvasMap
-    //                     level={level}
-    //                     path={pathNodes}
-    //                     nodes={nodes}
-    //                     setLevel={setLevel}
-    //                     start={setStart}
-    //                     end={setEnd}
-    //                 />}
-    //                 {is3d &&
-    //                     <Map3d
-    //                         pathNodes={pathNodes}
-    //                         level={level}
-    //                         nodes={nodes}
-    //                         setStart={setStart}
-    //                         setEnd={setEnd}
-    //                         setLevel={setLevel}/>
-    //                 }
-    //             </div>
-    //         </div>
-    //     </>
-    // );
     return (
         <div>
             {is3d &&
                 <>
+                    <div className="fixed z-50 bottom-[6.5rem] pl-2">
+                        <Button variant="outline" size="icon" onClick={handle3d}>
+                            <Square />
+                        </Button>
+                    </div>
                     <div className="z-0 relative flex">
                         <div className="z-10">
                             <SearchBar
@@ -150,19 +96,22 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                                 algorithm={[algorithm, setAlgorithm]}
                             />
                             <div className="mr-5 max-h-full mb-10 absolute bottom-0 right-0 z-10">
-                                <Legend />
+                                <Legend/>
                             </div>
-                            <LevelButtons levelProps={[level, setLevel]} />
-                            <Button onClick={handle3d}>
-                                Toggle 3D
-                            </Button>
+                            <LevelButtons levelProps={[level, setLevel]}/>
                         </div>
-                        <Map3d pathNodes={pathNodes} level={level} nodes={nodes} setStart={setStart} setEnd={setEnd} setLevel={setLevel}/>
+                        <Map3d pathNodes={pathNodes} level={level} nodes={nodes} setStart={setStart} setEnd={setEnd}
+                               setLevel={setLevel}/>
                     </div>
                 </>
             }
             {!is3d &&
                 <>
+                    <div className="fixed z-50 bottom-[6.5rem] pl-2">
+                        <Button variant="outline" size="icon" onClick={handle3d}>
+                        <Box/>
+                        </Button>
+                    </div>
                     <div className="z-0 relative flex">
                         <div className="z-10">
                             <SearchBar
@@ -194,9 +143,6 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                                         </Button>
                                     </div>
                                 </div>
-                                <Button onClick={handle3d}>
-                                    Toggle 3D
-                                </Button>
                                 <div style={{ height: "100vh", overflow: "hidden" }}>
                                     <CanvasMap
                                         level={level}

@@ -229,7 +229,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                     if (context) {
                         image.onload = () => {
                             setTimeout(() => {
-                               setTransform(0, 0, 1.5); 
+                                setTransform(0, 0, 1.5);
                             }, 600);
                         };
                     }
@@ -319,30 +319,30 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         };
     }, []);
     return (
-            <TransformWrapper
-                ref={transformWrapperRef}
-                initialScale={1.5}
-                centerOnInit={true}
-                minScale={1}
-                maxScale={4}
-                wheel={{ step: 0.5 }}
-                doubleClick={{ disabled: false }}
-                onPanningStop={handlePanningStopped}
-            >
-                <TransformComponent>
-                    <canvas
-                        ref={canvasRef}
-                        height={3400}
-                        width={5000}
-                        style={{
-                            display: "block",
-                            overflow: "hidden",
-                        }}
-                        id="layer1"
-                        onMouseMove={handleMouseMoveCanvas}
-                        onClick={handleMouseClick}
-                    />
-                </TransformComponent>
-            </TransformWrapper>
+        <TransformWrapper
+            ref={transformWrapperRef}
+            initialScale={1.5}
+            centerOnInit={true}
+            minScale={1}
+            maxScale={4}
+            wheel={{ step: 0.5 }}
+            doubleClick={{ disabled: false }}
+            onPanningStop={handlePanningStopped}
+        >
+            <TransformComponent>
+                <canvas
+                    ref={canvasRef}
+                    height={3400}
+                    width={5000}
+                    style={{
+                        display: "block",
+                        overflow: "hidden",
+                    }}
+                    id="layer1"
+                    onMouseMove={handleMouseMoveCanvas}
+                    onClick={handleMouseClick}
+                />
+            </TransformComponent>
+        </TransformWrapper>
     );
 }

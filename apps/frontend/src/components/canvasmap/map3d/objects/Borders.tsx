@@ -10,8 +10,10 @@ const levelConfig = {
     4: { file: "/borders3.glb", scale: 0.4 },
 };
 
-
-const Stairs: React.FC<{ position: Vector3, level: number }> = ({ position, level }) => {
+const Stairs: React.FC<{ position: Vector3; level: number }> = ({
+    position,
+    level,
+}) => {
     const config = levelConfig[level] || {};
     const { nodes } = useGLTF(config.file || "/bordersL1.glb");
     const floormap = nodes.CustomObject as Mesh;
@@ -38,9 +40,9 @@ const Stairs: React.FC<{ position: Vector3, level: number }> = ({ position, leve
                 </>
             );
         case 2:
-            return(<></>);
+            return <></>;
         default:
-            return(<></>);
+            return <></>;
     }
 };
 

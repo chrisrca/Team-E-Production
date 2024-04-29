@@ -2,11 +2,7 @@ import React, { useRef, useState } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { Button } from "@/components/ui/button";
 import { DBNode } from "common/src/types";
-import {
-    TextureLoader,
-    Vector3,
-    Euler,
-} from "three";
+import { TextureLoader, Vector3, Euler } from "three";
 import { OrbitControls } from "@react-three/drei";
 import { THREE } from "aframe";
 import LLevel1 from "./blankImages/00_thelowerlevel1.png";
@@ -114,14 +110,14 @@ const MapCanvas: React.FC<{
                 onPointerOut={handlePointerUp}
                 // onClick={() => setHoverNode(null)}
             >
-                <planeGeometry args={[width, height]}/>
-                <meshBasicMaterial map={texture}/>
+                <planeGeometry args={[width, height]} />
+                <meshBasicMaterial map={texture} />
             </mesh>
             <>
-                <Building position={position} level={level}/>
-                <Rooms position={position} level={level}/>
-                <Borders position={position} level={level}/>
-                <RoomOutlines position={position} level={level}/>
+                <Building position={position} level={level} />
+                <Rooms position={position} level={level} />
+                <Borders position={position} level={level} />
+                <RoomOutlines position={position} level={level} />
                 <GraphMesh
                     position={position}
                     pathNodes={pathNodes}

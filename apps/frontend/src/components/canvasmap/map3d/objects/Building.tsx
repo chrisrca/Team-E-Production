@@ -10,7 +10,10 @@ const levelConfig = {
     4: { file: "/floormap3.glb", scale: 0.4 },
 };
 
-const Building: React.FC<{ position: Vector3, level: number }> = ({ position, level }) => {
+const Building: React.FC<{ position: Vector3; level: number }> = ({
+    position,
+    level,
+}) => {
     const config = levelConfig[level] || {};
     const { nodes } = useGLTF(config.file || "/floormapL1.glb");
     const floormap = nodes.CustomObject as Mesh;
@@ -49,9 +52,9 @@ const Building: React.FC<{ position: Vector3, level: number }> = ({ position, le
                 </>
             );
         case 2:
-            return(<></>);
+            return <></>;
         default:
-            return(<></>);
+            return <></>;
     }
 };
 

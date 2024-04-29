@@ -10,7 +10,10 @@ const levelConfig = {
     4: { file: "/roomoutlines3.glb", scale: 0.4 },
 };
 
-const RoomOutlines: React.FC<{ position: Vector3, level: number }> = ({ position, level }) => {
+const RoomOutlines: React.FC<{ position: Vector3; level: number }> = ({
+    position,
+    level,
+}) => {
     const config = levelConfig[level] || {};
     const { nodes } = useGLTF(config.file || "/roomoutlinesL1.glb");
     const floormap = nodes.CustomObject as Mesh;
@@ -38,7 +41,7 @@ const RoomOutlines: React.FC<{ position: Vector3, level: number }> = ({ position
                 </>
             );
         default:
-            return(<></>);
+            return <></>;
     }
 };
 
