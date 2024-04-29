@@ -34,21 +34,9 @@ const Chats: React.FC<Props> = (props) => {
                     sender: "bot",
                 },
             ]);
-        } else {
-            const holder = [...messages];
-            holder.push({
-                message: props.sendUserResponse,
-                sender: "patient"
-            });
-            setMessages(holder);
-
-            setTimeout(() => {
-                const holder2 = [...holder];
-                holder2.push(props.botResponse);
-                setMessages(holder2);
-            }, 1000);
         }
-    }, [messages, props.sendUserResponse, props.botResponse]);
+    }, [messages.length]);
+
 
     useEffect(() => {
         if (dummyRef && dummyRef.current && bodyRef && bodyRef.current) {
