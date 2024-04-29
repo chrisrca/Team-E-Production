@@ -218,7 +218,7 @@ export default function FormMaker() {
                     <FormInput
                         placeholder={props[field]}
                         className={
-                            "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
                          }
                         onChange={e => {
                             setNewObject({
@@ -248,7 +248,7 @@ export default function FormMaker() {
                         placeholder={field}
                         type={"number"}
                         className={
-                            "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
                          }
                         onChange={e => {
                             setNewObject({
@@ -265,7 +265,7 @@ export default function FormMaker() {
                         placeholder={field}
                         type={"string"}
                         className={
-                            "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
                          }
                         onChange={e => {
                             // console.log(option);
@@ -273,7 +273,7 @@ export default function FormMaker() {
                         }}
                         />
                         <Button
-                            className={"size-8 p-0 mx-2 bg-green-300 self-center"}
+                            className={"size-8 p-0 ml-2 bg-green-300 self-center shrink-0"}
                             onClick={() => {
                                 setOptions([...options, option]);
                                 setNewObject({
@@ -669,7 +669,8 @@ export default function FormMaker() {
                         <div className={"m-5"}>
                         <Popover>
                             <PopoverTrigger>
-                                <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
+                                <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary"
+                                        disabled={customForm.length < 1}>
                                     {"Select Element to Alter" || "ID " + currEdit["id"] + " : " + currEdit["content"]}
                                 </Button>
                             </PopoverTrigger>
