@@ -19,7 +19,7 @@ import RoomScheduling from "@/routes/RoomServiceRequest.tsx";
 import MedicalDeviceService from "@/routes/MedicalDeviceServiceRequest.tsx";
 import { DBNode } from "common/src/types";
 import axios from "axios";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Auth0Provider, useAuth0} from "@auth0/auth0-react";
 import React, { useState, useEffect } from "react";
 import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
@@ -42,7 +42,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
 
     // if (loading) return <div>Loading...</div>;
     // if (error) return <div>Error: {error}</div>;
-
+    const {user} = useAuth0();
     return (
         <Auth0Provider
             domain="dev-4m72lcr6jdjjoxgt.us.auth0.com"
@@ -110,7 +110,11 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/flower-service"
                         element={
                             <ProtectedRoute>
-                                <FlowerService />
+                                {user && user.name ? (
+                                    <FlowerService employee={user.name} />
+                                ) : (
+                                    <BadRoutePage/>
+                                )}
                             </ProtectedRoute>
                         }
                     />
@@ -118,7 +122,11 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/drug-service"
                         element={
                             <ProtectedRoute>
-                                <DrugDelivery />
+                                {user && user.name ? (
+                                    <DrugDelivery employee={user.name} />
+                                ) : (
+                                    <BadRoutePage/>
+                                )}
                             </ProtectedRoute>
                         }
                     />
@@ -126,7 +134,11 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/language-service"
                         element={
                             <ProtectedRoute>
-                                <InterpreterService />
+                                {user && user.name ? (
+                                    <InterpreterService employee={user.name} />
+                                ) : (
+                                    <BadRoutePage/>
+                                )}
                             </ProtectedRoute>
                         }
                     />
@@ -134,7 +146,11 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/gift-service"
                         element={
                             <ProtectedRoute>
-                                <GiftServiceRequest />
+                                {user && user.name ? (
+                                    <GiftServiceRequest employee={user.name} />
+                                ) : (
+                                    <BadRoutePage/>
+                                )}
                             </ProtectedRoute>
                         }
                     />
@@ -142,7 +158,11 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/sanitation"
                         element={
                             <ProtectedRoute>
-                                <SanitationService />
+                                {user && user.name ? (
+                                    <SanitationService employee={user.name} />
+                                ) : (
+                                    <BadRoutePage/>
+                                )}
                             </ProtectedRoute>
                         }
                     />
@@ -150,7 +170,11 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/room-service"
                         element={
                             <ProtectedRoute>
-                                <RoomScheduling />
+                                {user && user.name ? (
+                                    <RoomScheduling employee={user.name} />
+                                ) : (
+                                    <BadRoutePage/>
+                                )}
                             </ProtectedRoute>
                         }
                     />
@@ -158,7 +182,11 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/medical-device-service"
                         element={
                             <ProtectedRoute>
-                                <MedicalDeviceService />
+                                {user && user.name ? (
+                                    <MedicalDeviceService employee={user.name} />
+                                ) : (
+                                    <BadRoutePage/>
+                                )}
                             </ProtectedRoute>
                         }
                     />
@@ -174,7 +202,11 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/security"
                         element={
                             <ProtectedRoute>
-                                <SecurityForm nodes={nodes} />
+                                {user && user.name ? (
+                                    <SecurityForm employee={user.name} />
+                                ) : (
+                                    <BadRoutePage/>
+                                )}
                             </ProtectedRoute>
                         }
                     />

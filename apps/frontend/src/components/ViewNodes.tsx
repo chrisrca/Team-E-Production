@@ -131,7 +131,7 @@ export function DataTableDemo(data, columns) {
                 ></Input>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
+                        <Button variant="outline" className="ml-auto text-gray-700">
                             Display Fields <ChevronDown className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
