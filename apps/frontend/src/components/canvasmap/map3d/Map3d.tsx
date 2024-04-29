@@ -17,12 +17,10 @@ import Level1 from "./blankImages/01_thefirstfloor.png";
 import Level2 from "./blankImages/02_thesecondfloor.png";
 import Level3 from "./blankImages/03_thethirdfloor.png";
 
-import Stairs from "./objects/Stairs";
 import Borders from "./objects/Borders";
 import Rooms from "./objects/Rooms";
 import RoomOutlines from "./objects/RoomOutlines";
 import GraphMesh from "./objects/RenderGraph";
-import Elevator from "./objects/Elevator";
 import Building from "./objects/Building";
 
 const MapCanvas: React.FC<{
@@ -129,8 +127,6 @@ const MapCanvas: React.FC<{
                 <Rooms position={position} level={level}/>
                 <Borders position={position} level={level}/>
                 <RoomOutlines position={position} level={level}/>
-                <Stairs position={position} level={level}/>
-                <Elevator position={position} level={level}/>
                 <GraphMesh
                     position={position}
                     pathNodes={pathNodes}

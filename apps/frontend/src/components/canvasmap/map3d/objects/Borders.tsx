@@ -2,8 +2,18 @@ import { MeshStandardMaterial, Color, Vector3, Mesh } from "three";
 import { useGLTF } from "@react-three/drei";
 import "./Background.css";
 
+const levelConfig = {
+    0: { file: "/bordersL2.glb", scale: 0.4 },
+    1: { file: "/bordersL1.glb", scale: 0.4 },
+    2: { file: "/bordersL1.glb", scale: 0.4 },
+    3: { file: "/borders2.glb", scale: 0.4 },
+    4: { file: "/borders3.glb", scale: 0.4 },
+};
+
+
 const Stairs: React.FC<{ position: Vector3, level: number }> = ({ position, level }) => {
-    const { nodes } = useGLTF("/bordersL1.glb");
+    const config = levelConfig[level] || {};
+    const { nodes } = useGLTF(config.file || "/bordersL1.glb");
     const floormap = nodes.CustomObject as Mesh;
 
     const customMaterial = new MeshStandardMaterial({
@@ -12,8 +22,9 @@ const Stairs: React.FC<{ position: Vector3, level: number }> = ({ position, leve
 
     switch (level) {
         case 0:
-            return(<></>);
         case 1:
+        case 3:
+        case 4:
             return (
                 <>
                     <mesh
@@ -27,10 +38,6 @@ const Stairs: React.FC<{ position: Vector3, level: number }> = ({ position, leve
                 </>
             );
         case 2:
-            return(<></>);
-        case 3:
-            return(<></>);
-        case 4:
             return(<></>);
         default:
             return(<></>);
