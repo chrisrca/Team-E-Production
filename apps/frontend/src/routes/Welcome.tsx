@@ -41,9 +41,10 @@ import axios from "axios";
 import {  useEffect, useState  } from "react";
 import {  useToast  } from "@/components/ui/use-toast.ts";
 import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
-import MapWindow from "@/components/MapWindow.tsx";
+//import MapWindow from "@/components/MapWindow.tsx";
 import { DBNode } from "common/src/types";
-export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: (user: User) => void}){
+import {ProjectWarning} from "@/components/ui/projectWarning.tsx";
+export default function Welcome({ setUser }: { nodes: DBNode[], setUser: (user: User) => void}){
     const [api, setApi] = React.useState<CarouselApi>();
     const [current, setCurrent] = React.useState(0);
     const [count, setCount] = React.useState(0);
@@ -339,7 +340,10 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
         );
     } else {
         return (
-            <MapWindow nodes={nodes} />
+            <div>
+                <ProjectWarning />
+            </div>
+            // <MapWindow nodes={nodes} />
             // <div
             //     className="absolute bg-gradient-to-l from-30% from-kiosk"
             //     style={{

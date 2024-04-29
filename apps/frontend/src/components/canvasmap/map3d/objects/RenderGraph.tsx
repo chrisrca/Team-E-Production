@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Color, Euler, MeshStandardMaterial, Vector3} from "three";
+import { Color, Euler, MeshStandardMaterial, Vector3 } from "three";
 import { Line, Text } from "@react-three/drei";
 import { DBNode } from "common/src/types";
 
@@ -29,7 +29,15 @@ const GraphMesh: React.FC<{
     setHoverNode: (node: DBNode) => void;
     isDraggable: (draggable: boolean) => void;
     setLevel: (level: number) => void;
-}> = ({ position, pathNodes, level, nodes, setHoverNode, setIsDraggable, setLevel }) => {
+}> = ({
+    position,
+    pathNodes,
+    level,
+    nodes,
+    setHoverNode,
+    setIsDraggable,
+    setLevel,
+}) => {
     const [hoveredNode, setHoveredNode] = useState<string | null>(null);
     const [selectedNode, setSelectedNode] = useState<string | null>(null);
     const floor = ["L2", "L1", "1", "2", "3"];
@@ -146,7 +154,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index + 1].floor,
+                                        ),
+                                    );
                                 }}
                                 material={elevatorOutline}
                                 rotation={new Euler(-Math.PI / 2, 0, 0)}
@@ -172,7 +184,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index + 1].floor,
+                                        ),
+                                    );
                                 }}
                                 material={elevatorUp}
                                 rotation={new Euler(-Math.PI / 2, 0, 0)}
@@ -186,9 +202,7 @@ const GraphMesh: React.FC<{
                                     position.z - 33.95 + node.ycoord / 50,
                                 ]}
                                 fontSize={
-                                    selectedNode === node.nodeID
-                                        ? 0.5
-                                        : 0.3
+                                    selectedNode === node.nodeID ? 0.5 : 0.3
                                 }
                                 onPointerOver={() => {
                                     setSelectedNode(node.nodeID);
@@ -197,7 +211,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index + 1].floor,
+                                        ),
+                                    );
                                 }}
                                 color="white"
                                 anchorX="center"
@@ -241,7 +259,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index - 1].floor,
+                                        ),
+                                    );
                                 }}
                                 material={elevatorOutline}
                                 rotation={new Euler(-Math.PI / 2, 0, 0)}
@@ -267,7 +289,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index - 1].floor,
+                                        ),
+                                    );
                                 }}
                                 material={elevatorDown}
                                 rotation={new Euler(-Math.PI / 2, 0, 0)}
@@ -281,9 +307,7 @@ const GraphMesh: React.FC<{
                                     position.z - 33.95 + node.ycoord / 50,
                                 ]}
                                 fontSize={
-                                    selectedNode === node.nodeID
-                                        ? 0.5
-                                        : 0.3
+                                    selectedNode === node.nodeID ? 0.5 : 0.3
                                 }
                                 onPointerOver={() => {
                                     setSelectedNode(node.nodeID);
@@ -292,7 +316,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index - 1].floor,
+                                        ),
+                                    );
                                 }}
                                 color="white"
                                 anchorX="center"
@@ -336,7 +364,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index + 1].floor,
+                                        ),
+                                    );
                                 }}
                                 material={elevatorOutline}
                                 rotation={new Euler(-Math.PI / 2, 0, 0)}
@@ -362,7 +394,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index + 1].floor,
+                                        ),
+                                    );
                                 }}
                                 material={elevatorUp}
                                 rotation={new Euler(-Math.PI / 2, 0, 0)}
@@ -376,9 +412,7 @@ const GraphMesh: React.FC<{
                                     position.z - 33.95 + node.ycoord / 50,
                                 ]}
                                 fontSize={
-                                    selectedNode === node.nodeID
-                                        ? 0.5
-                                        : 0.3
+                                    selectedNode === node.nodeID ? 0.5 : 0.3
                                 }
                                 onPointerOver={() => {
                                     setSelectedNode(node.nodeID);
@@ -387,7 +421,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index + 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index + 1].floor,
+                                        ),
+                                    );
                                 }}
                                 color="white"
                                 anchorX="center"
@@ -431,7 +469,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index - 1].floor,
+                                        ),
+                                    );
                                 }}
                                 material={elevatorOutline}
                                 rotation={new Euler(-Math.PI / 2, 0, 0)}
@@ -457,7 +499,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index - 1].floor,
+                                        ),
+                                    );
                                 }}
                                 material={elevatorDown}
                                 rotation={new Euler(-Math.PI / 2, 0, 0)}
@@ -471,9 +517,7 @@ const GraphMesh: React.FC<{
                                     position.z - 33.95 + node.ycoord / 50,
                                 ]}
                                 fontSize={
-                                    selectedNode === node.nodeID
-                                        ? 0.5
-                                        : 0.3
+                                    selectedNode === node.nodeID ? 0.5 : 0.3
                                 }
                                 onPointerOver={() => {
                                     setSelectedNode(node.nodeID);
@@ -482,7 +526,11 @@ const GraphMesh: React.FC<{
                                     setSelectedNode(null);
                                 }}
                                 onClick={() => {
-                                    setLevel(floor.indexOf(pathNodes[index - 1].floor));
+                                    setLevel(
+                                        floor.indexOf(
+                                            pathNodes[index - 1].floor,
+                                        ),
+                                    );
                                 }}
                                 color="white"
                                 anchorX="center"
