@@ -17,8 +17,7 @@ import {
 } from "@/components/ui/collapsible";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
-
+import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
 export default function Hamburger() {
     const { isAuthenticated } = useAuth0();
@@ -33,18 +32,18 @@ export default function Hamburger() {
             </SheetTrigger>
             <SheetContent side="left" className="dark:bg-secondary">
                 <div className="grid gap-2 py-4">
-                        <SheetClose asChild>
-                            <Link
-                                to="/"
-                                className="rounded hover:bg-accent pl-2 dark:bg-foreground dark:hover:bg-accent inline-block"
-                            >
-                                <img
-                                    src={bwhLogo}
-                                    alt="BWH logo"
-                                    style={{ height: "50px" }}
-                                />
-                            </Link>
-                        </SheetClose>
+                    <SheetClose asChild>
+                        <Link
+                            to="/"
+                            className="rounded hover:bg-accent pl-2 dark:bg-foreground dark:hover:bg-accent inline-block"
+                        >
+                            <img
+                                src={bwhLogo}
+                                alt="BWH logo"
+                                style={{ height: "50px" }}
+                            />
+                        </Link>
+                    </SheetClose>
                     {isAuthenticated && (
                         <Collapsible className="grid gap-4 dark:bg-secondary">
                             <CollapsibleTrigger className="flex rounded-sm p-2 px-4 hover:bg-accent w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
@@ -59,7 +58,10 @@ export default function Hamburger() {
                                             to="services"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                {translate("allservices", language)}
+                                                {translate(
+                                                    "allservices",
+                                                    language,
+                                                )}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -69,7 +71,10 @@ export default function Hamburger() {
                                             to="flower-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                {translate("Flowertitle", language)}
+                                                {translate(
+                                                    "Flowertitle",
+                                                    language,
+                                                )}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -79,7 +84,10 @@ export default function Hamburger() {
                                             to="gift-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                {translate("Gifttitle", language)}
+                                                {translate(
+                                                    "Gifttitle",
+                                                    language,
+                                                )}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -89,7 +97,10 @@ export default function Hamburger() {
                                             to="drug-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                {translate("Medicinetitle", language)}
+                                                {translate(
+                                                    "Medicinetitle",
+                                                    language,
+                                                )}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -99,7 +110,10 @@ export default function Hamburger() {
                                             to="security"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                {translate("Securitytitle", language)}
+                                                {translate(
+                                                    "Securitytitle",
+                                                    language,
+                                                )}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -109,7 +123,10 @@ export default function Hamburger() {
                                             to="language-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                {translate("Interprettitle", language)}
+                                                {translate(
+                                                    "Interprettitle",
+                                                    language,
+                                                )}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -119,7 +136,10 @@ export default function Hamburger() {
                                             to="sanitation"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                {translate("Sanitationtitle", language)}
+                                                {translate(
+                                                    "Sanitationtitle",
+                                                    language,
+                                                )}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -129,7 +149,10 @@ export default function Hamburger() {
                                             to="room-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                {translate("Roomtitle", language)}
+                                                {translate(
+                                                    "Roomtitle",
+                                                    language,
+                                                )}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -139,7 +162,10 @@ export default function Hamburger() {
                                             to="medical-device-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                {translate("Devicetitle", language)}
+                                                {translate(
+                                                    "Devicetitle",
+                                                    language,
+                                                )}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -172,7 +198,10 @@ export default function Hamburger() {
                                             to="map-editor"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                {translate("Mapeditor", language)}
+                                                {translate(
+                                                    "Mapeditor",
+                                                    language,
+                                                )}
                                             </div>
                                         </Link>
                                     </SheetClose>

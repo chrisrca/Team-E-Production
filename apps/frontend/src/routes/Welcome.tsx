@@ -44,6 +44,7 @@ import { useToast } from "@/components/ui/use-toast.ts";
 import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 import { DBNode } from "common/src/types";
 import CanvasMap from "@/components/canvasmap/map/CanvasMap.tsx";
+import {ProjectWarning} from "@/components/ui/projectWarning.tsx";
 export default function Welcome({
     nodes,
     setUser,
@@ -453,8 +454,9 @@ export default function Welcome({
         );
     } else {
         console.log(start, end);
-        return (
+        return (            
             <>
+                <ProjectWarning />
                 <div
                     className="absolute bg-gradient-to-l from-25% from-kiosk"
                     style={{

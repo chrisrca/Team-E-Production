@@ -44,13 +44,13 @@ export function translate(key: string, language: string): string {
 }
 
 export function LanguageProvider({
-                                     children,
-                                     defaultLanguage = "en",
-                                     storageKey = "language",
-                                     ...props
-                                 }: LanguageProviderProps) {
-    const [language, setLanguage] = useState(() =>
-        (localStorage.getItem(storageKey) as Language) || defaultLanguage
+    children,
+    defaultLanguage = "en",
+    storageKey = "language",
+    ...props
+}: LanguageProviderProps) {
+    const [language, setLanguage] = useState(
+        () => (localStorage.getItem(storageKey) as Language) || defaultLanguage,
     );
 
     useEffect(() => {
@@ -70,7 +70,7 @@ export function LanguageProvider({
     );
 }
 
-export function useLanguage () {
+export function useLanguage() {
     const context = useContext(LanguageProviderContext);
 
     if (context === undefined)
@@ -78,5 +78,3 @@ export function useLanguage () {
 
     return context;
 }
-
-
