@@ -4,7 +4,6 @@ import { OrbitControls, Html } from '@react-three/drei';
 import { TextureLoader, Mesh, Vector3, Camera } from 'three';
 import imageSrc from "../images/360image.png";
 import { THREE } from "aframe";
-import "../360.css";
 
 extend({ OrbitControls });
 
@@ -30,6 +29,15 @@ function Scene() {
             setRotationSpeed(0.001);
         }
     });
+
+    useEffect(() => {
+        // Dynamically import the CSS file
+        import('../360.css').then(() => {
+            console.log('CSS file loaded');
+        }).catch((error) => {
+            console.error('Error loading CSS file', error);
+        });
+    }, []);
 
     useEffect(() => {
         // eslint-disable-next-line no-empty-function
