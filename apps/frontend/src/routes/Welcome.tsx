@@ -40,7 +40,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast.ts";
 
-export default function Welcome() {
+export default function Welcome({setUser}: {setUser: (user: User) => void}){
     const [api, setApi] = React.useState<CarouselApi>();
     const [current, setCurrent] = React.useState(0);
     const [count, setCount] = React.useState(0);
@@ -59,12 +59,13 @@ export default function Welcome() {
     const handleLogout = () => {
         logout();
     };
-
     useEffect(() => {
+        console.log(user);
         if (user) {
             setUserInfo(user); // Set userInfo to user when available
+            setUser(user);
         }
-    }, [user]);
+    }, [user, setUser]);
 
     useEffect(() => {
         async function fetchEmployeeData() {
