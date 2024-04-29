@@ -94,7 +94,6 @@ export default function Hamburger() {
                                         <Link
                                             className="group grid h-auto w-full rounded-sm p-1 px-2 hover:bg-accent justify-start gap-1"
                                             to="diagnosis-bot-service"
-
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
                                                 Diagnosis Bot Service

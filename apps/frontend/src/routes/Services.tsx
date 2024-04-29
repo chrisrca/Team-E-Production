@@ -17,7 +17,6 @@ import Sanitation from "/src/images/Sanitation.png";
 import Scheduling from "/src/images/scheduling.jpg";
 import Device from "/src/images/MedicalDevice.png";
 
-
 export default function Services() {
     return (
         <div className={"px-10"}>

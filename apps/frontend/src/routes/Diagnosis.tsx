@@ -34,36 +34,33 @@ const Chats: React.FC<Props> = (props) => {
                     sender: "bot",
                 },
             ]);
-
-    }
-        else {
-            let tempArray = [...messages];
+        } else {
+            const tempArray = [...messages];
             tempArray.push({ message: props.sendUserResponse, sender: "user" });
             setMessages(tempArray);
 
             setTimeout(() => {
-                let temp2 = [...tempArray];
+                const temp2 = [...tempArray];
                 temp2.push(props.botResponse);
                 setMessages(temp2);
             }, 1000);
         }
     }, [props.sendUserResponse, props.botResponse]);
 
-
     useEffect(() => {
         if (dummyRef && dummyRef.current && bodyRef && bodyRef.current) {
             bodyRef.current.scrollTo({
                 top: dummyRef.current.offsetTop,
-                behavior: "smooth"
+                behavior: "smooth",
             });
         }
     }, [messages]);
 
     return (
         <div ref={bodyRef}>
-            {messages.map(chat => (
+            {messages.map((chat) => (
                 <div key={chat.message}>
-                    <div >
+                    <div>
                         <p>{chat.message}</p>
                     </div>
                     {chat.options ? (
@@ -71,9 +68,9 @@ const Chats: React.FC<Props> = (props) => {
                             <div>
                                 <i className="far fa-hand-pointer"></i>
                             </div>
-                            {chat.options.map(option => (
+                            {chat.options.map((option) => (
                                 <p
-                                    onClick={e => props.optionClick(e)}
+                                    onClick={(e) => props.optionClick(e)}
                                     data-id={option}
                                     key={option}
                                 >
@@ -90,4 +87,3 @@ const Chats: React.FC<Props> = (props) => {
 };
 
 export default Chats;
-

@@ -1,5 +1,5 @@
 import Diagnosis from "@/routes/Diagnosis.tsx";
-import {analyzeNextSteps} from "@/routes/analyzeSteps.tsx";
+import { analyzeNextSteps } from "@/routes/analyzeSteps.tsx";
 import React, { useState } from "react";
 
 interface ResponseBotObject {
@@ -15,15 +15,15 @@ const DiagnosisBot: React.FC = () => {
     const [botResponse, setBotResponse] = useState<ResponseBotObject>({
         purpose: "",
         message: "",
-        sender: "bot"
+        sender: "bot",
     });
 
     const [sendUserResponse, setSendUserResponse] = useState<string>("");
 
     const setNextStep = (response: string) => {
-        setStep(prevState => prevState + 1);
+        setStep((prevState) => prevState + 1);
         setSendUserResponse(response);
-        let res = analyzeNextSteps(step, response);
+        const res = analyzeNextSteps(step, response);
         setBotResponse({ ...res, sender: "bot" });
         setUserResponse("");
     };
@@ -49,9 +49,9 @@ const DiagnosisBot: React.FC = () => {
                 sendUserResponse={sendUserResponse}
                 optionClick={optionClick}
             />
-            <form onSubmit={e => handleSubmit(e)}>
+            <form onSubmit={(e) => handleSubmit(e)}>
                 <input
-                    onChange={e => handleInputChange(e)}
+                    onChange={(e) => handleInputChange(e)}
                     value={userResponse}
                 ></input>
                 <button>
