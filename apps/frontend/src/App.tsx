@@ -25,6 +25,7 @@ import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
 import Profile from "@/routes/Profile.tsx";
 import Settings from "@/routes/Settings.tsx";
+import ThreeSixty from "./routes/360Image.tsx";
 import BadRoutePage from "@/routes/404Page.tsx";
 import AboutUs from "@/routes/AboutUs.tsx";
 import WelcomePage from "@/routes/WelcomePage.tsx";
@@ -73,7 +74,10 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     <Route path="/home" element={<Welcome />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
-                    <Route path="/about-us" element={<AboutUs/>} />
+                    <Route path="/about-us" element={<AboutUs />} />
+                    <Route path="*" element={<BadRoutePage />} />
+                    <Route path="/credit-page" element={<CreditPage />} />
+                    <Route path="/meettheteam" element={<ThreeSixty />} />
                     <Route
                         path="/services"
                         element={
@@ -210,8 +214,6 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                             </ProtectedRoute>
                         }
                     />
-                    <Route path="*" element = {<BadRoutePage/>}/>
-                    <Route path="/credit-page" element={<CreditPage />} />
                 </Routes>
 
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
@@ -240,7 +242,7 @@ function App() {
     return (
         <BrowserRouter>
             <ToastProvider>
-            <AuthProviderWrapper nodes={nodesIn} />
+                <AuthProviderWrapper nodes={nodesIn} />
             </ToastProvider>
         </BrowserRouter>
     );

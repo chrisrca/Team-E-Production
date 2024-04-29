@@ -89,6 +89,7 @@ function DataViewer() {
     const [medicalDeviceData, setMedicalDeviceData] = useState<
         MedicalDeviceServiceRequest[]
     >([]);
+    const [employeeData, setEmployeeData] = useState<[]>([]);
 
     const [uploadData, setUploadData] = useState<File | null | undefined>();
 
@@ -286,6 +287,16 @@ function DataViewer() {
             }
         }
         fetchMedicalDeviceData().then();
+
+        async function fetchEmployeeData() {
+            try {
+                const res = await axios.get("/api/employee");
+                setEmployeeData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchEmployeeData().then();
     }, []);
 
     return (
@@ -314,6 +325,14 @@ function DataViewer() {
                                     }
                                 >
                                     {"Edge Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={employeeData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Employee Data"}
                                 </SelectItem>
                                 <SelectItem
                                     value={flowerData}

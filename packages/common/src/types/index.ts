@@ -14,7 +14,7 @@ import { SanitationServiceRequest } from "./sanitationrequest.ts";
 import { DrugDeliveryData } from "./medicinerequest.ts";
 import { RoomSchedulingForm } from "./roomrequest.ts";
 import { MedicalDeviceServiceRequest } from "./medicaldevicerequest.ts";
-import {EmployeeType} from "./EmployeeType.ts";
+import { EmployeeType } from "./EmployeeType.ts";
 
 export type {
     DBNode,

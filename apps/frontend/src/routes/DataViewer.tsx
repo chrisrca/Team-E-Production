@@ -371,6 +371,7 @@ function DataViewer() {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
+
                 <div className="flex flex-col space-y-2">
                     <div className="flex flex-row px-2 space-x-2">
                         <Input
