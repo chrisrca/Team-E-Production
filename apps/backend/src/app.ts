@@ -23,6 +23,7 @@ import mapEditorDragRoute from "./routes/mapEditorDragRoute.ts";
 import mapEditorDelRoute from "./routes/mapEditorDelRoute.ts";
 import mapEditorCreateRoute from "./routes/mapEditorCreateRoute.ts";
 import employeeRoute from "./routes/employeeRoute.ts";
+import serviceRoute from "./routes/serviceRoute.ts";
 //import { auth } from "express-oauth2-jwt-bearer";
 
 const app: Express = express(); // Setup the backend
@@ -78,6 +79,7 @@ app.use("/api/mapeditordrag", mapEditorDragRoute);
 app.use("/api/mapeditordel", mapEditorDelRoute);
 app.use("/api/mapeditorcreate", mapEditorCreateRoute);
 app.use("/api/employee", employeeRoute);
+app.use("/api/service-requests", serviceRoute);
 
 /**
  * Catch all 404 errors, and forward them to the error handler

@@ -1,106 +1,124 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
 import scheduling from "/src/images/scheduling.jpg";
+import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
-const defaultFormSchema = {
-    serviceType: "",
-    startTime: "",
-    endTime: "",
-    location: "",
-    status: "",
-    priority: "",
-    employeeName: "",
-};
-
-//Label is necessary, ids are calculated assuming that there is a title
-
-const defaultForm = [
-    {
-        content: "label",
-        title: "Room Scheduling Request",
-        type: "header",
-        id: 0,
-    },
-    {
-        content: "text",
-        type: "string",
-        title: "Employee Name",
-        placeholder: "First, Last",
-        required: true,
-        id: 0,
-    },
-    {
-        content: "select",
-        type: "string",
-        title: "Service Type",
-        placeholder: "Please Select Service",
-        required: true,
-        id: 0,
-        label: "Service Type",
-        options: ["Maintenance", "It Support", "Cleaning", "Security"],
-    },
-    {
-        content: "text",
-        type: "datetime-local",
-        title: "Start Time",
-        placeholder: "",
-        required: true,
-        id: 0,
-    },
-    {
-        content: "text",
-        type: "datetime-local",
-        title: "End Time",
-        placeholder: "",
-        required: true,
-        id: 0,
-    },
-    {
-        content: "popover",
-        type: "string",
-        title: "Select Location",
-        placeholder: "Select Placeholder 2",
-        required: true,
-        id: 0,
-        label: "",
-        options: [],
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Status",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed"],
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Priority",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Priority",
-        options: ["Low", "Medium", "High", "Emergency"],
-    },
-    {
-        content: "employee",
-        type: "string",
-        title: "Assign Employee",
-        placeholder: "Select Employee",
-        required: false,
-        id: 0,
-        label: "",
-        options: [],
-    },
-];
 export default function RoomScheduling() {
+    const { language } = useLanguage();
+
+    const defaultFormSchema = {
+        serviceType: "",
+        startTime: "",
+        endTime: "",
+        location: "",
+        status: "",
+        priority: "",
+        employeeName: "",
+        createdBy: "",
+    };
+
+    const serviceForm = [
+        {
+            content: "label",
+            title: translate("Room Scheduling Request", language),
+            type: "header",
+            id: 0,
+        },
+        {
+            content: "text",
+            type: "string",
+            title: translate("Employee Name", language),
+            placeholder: translate("First, Last", language),
+            required: true,
+            id: 0,
+        },
+        {
+            content: "select",
+            type: "string",
+            title: translate("Service Type", language),
+            placeholder: translate("Please Select Service", language),
+            required: true,
+            id: 0,
+            label: translate("Service Type", language),
+            options: [
+                translate("Maintenance", language),
+                translate("It Support", language),
+                translate("Cleaning", language),
+                translate("Security", language),
+            ],
+        },
+        {
+            content: "text",
+            type: "datetime-local",
+            title: translate("Start Time", language),
+            placeholder: "",
+            required: true,
+            id: 0,
+        },
+        {
+            content: "text",
+            type: "datetime-local",
+            title: translate("End Time", language),
+            placeholder: "",
+            required: true,
+            id: 0,
+        },
+        {
+            content: "popover",
+            type: "string",
+            title: translate("Select Location", language),
+            placeholder: translate("Select Placeholder 2", language),
+            required: true,
+            id: 0,
+            label: "",
+            options: [],
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: translate("Status", language),
+            placeholder: "",
+            required: true,
+            id: 0,
+            label: translate("Request Status", language),
+            options: [
+                translate("Unassigned", language),
+                translate("Assigned", language),
+                translate("In Progress", language),
+                translate("Closed", language),
+            ],
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: translate("Priority", language),
+            placeholder: "",
+            required: true,
+            id: 0,
+            label: translate("Request Priority", language),
+            options: [
+                translate("Low", language),
+                translate("Medium", language),
+                translate("High", language),
+                translate("Emergency", language),
+            ],
+        },
+        {
+            content: "employee",
+            type: "string",
+            title: translate("Assign Employee", language),
+            placeholder: translate("Select Employee", language),
+            required: false,
+            id: 0,
+            label: "",
+            options: [],
+        },
+    ];
+
     return ServiceRequests(
-        defaultForm,
+        serviceForm,
         defaultFormSchema,
         "/api/room",
         scheduling,
-        "Aksel and Christian",
+        "Aksel and Christian"
     );
 }

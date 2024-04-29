@@ -26,7 +26,7 @@ function LevelButtons(levelProps: LevelButtonProps) {
     }
 
     return (
-        <div className="absolute z-10 top-24 right-0 p-5 flex flex-col space-y-2">
+        <div className="absolute z-10 top-8 right-0 p-5 flex flex-col space-y-2">
             <Button onClick={() => handleLevel(4)} style={getButtonStyle(4)}>
                 3
             </Button>

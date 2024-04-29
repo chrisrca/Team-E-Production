@@ -3,11 +3,9 @@ import { Canvas, useLoader } from "@react-three/fiber";
 import { Button } from "@/components/ui/button";
 import { DBNode } from "common/src/types";
 import {
-    WebGLRenderer,
     TextureLoader,
     Vector3,
     Euler,
-    PCFSoftShadowMap,
 } from "three";
 import { OrbitControls } from "@react-three/drei";
 import { THREE } from "aframe";
@@ -31,9 +29,6 @@ const MapCanvas: React.FC<{
     setLevel: (level: number) => void;
 }> = ({ pathNodes, level, nodes, setHoverNode, setLevel }) => {
     const MapImage = [LLevel2, LLevel1, Level1, Level2, Level3];
-    const renderer = new WebGLRenderer();
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = PCFSoftShadowMap;
 
     const meshRef = useRef<THREE.Mesh>(null);
     const texture = useLoader(TextureLoader, MapImage[level]);

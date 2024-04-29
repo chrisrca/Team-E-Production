@@ -17,9 +17,12 @@ import {
 } from "@/components/ui/collapsible";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
+
 
 export default function Hamburger() {
     const { isAuthenticated } = useAuth0();
+    const { language } = useLanguage();
 
     return (
         <Sheet>
@@ -30,21 +33,6 @@ export default function Hamburger() {
             </SheetTrigger>
             <SheetContent side="left" className="dark:bg-secondary">
                 <div className="grid gap-2 py-4">
-                    {isAuthenticated && (
-                        <SheetClose asChild>
-                            <Link
-                                to="/home"
-                                className="rounded hover:bg-accent pl-2 dark:bg-foreground dark:hover:bg-accent inline-block"
-                            >
-                                <img
-                                    src={bwhLogo}
-                                    alt="BWH logo"
-                                    style={{ height: "50px" }}
-                                />
-                            </Link>
-                        </SheetClose>
-                    )}
-                    {!isAuthenticated && (
                         <SheetClose asChild>
                             <Link
                                 to="/"
@@ -57,11 +45,10 @@ export default function Hamburger() {
                                 />
                             </Link>
                         </SheetClose>
-                    )}
                     {isAuthenticated && (
                         <Collapsible className="grid gap-4 dark:bg-secondary">
                             <CollapsibleTrigger className="flex rounded-sm p-2 px-4 hover:bg-accent w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                                Services{" "}
+                                {translate("services", language)}{" "}
                                 <ChevronRight className="ml-auto w-4 h-4 transition-all" />
                             </CollapsibleTrigger>
                             <CollapsibleContent>
@@ -72,7 +59,7 @@ export default function Hamburger() {
                                             to="services"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                All Services
+                                                {translate("allservices", language)}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -82,7 +69,7 @@ export default function Hamburger() {
                                             to="flower-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                Flower Request
+                                                {translate("Flowertitle", language)}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -92,7 +79,7 @@ export default function Hamburger() {
                                             to="gift-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                Gift Request
+                                                {translate("Gifttitle", language)}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -102,7 +89,7 @@ export default function Hamburger() {
                                             to="drug-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                Medicine Request
+                                                {translate("Medicinetitle", language)}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -112,7 +99,7 @@ export default function Hamburger() {
                                             to="security"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                Security Request
+                                                {translate("Securitytitle", language)}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -122,7 +109,7 @@ export default function Hamburger() {
                                             to="language-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                Language Interpreter Request
+                                                {translate("Interprettitle", language)}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -132,7 +119,7 @@ export default function Hamburger() {
                                             to="sanitation"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                Sanitation Request
+                                                {translate("Sanitationtitle", language)}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -142,7 +129,7 @@ export default function Hamburger() {
                                             to="room-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                Room Scheduling Request
+                                                {translate("Roomtitle", language)}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -152,7 +139,7 @@ export default function Hamburger() {
                                             to="medical-device-service"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                Medical Device Request
+                                                {translate("Devicetitle", language)}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -163,7 +150,7 @@ export default function Hamburger() {
                     )}
                     <Collapsible className="grid gap-4 dark:bg-secondary">
                         <CollapsibleTrigger className="flex rounded-sm p-2 px-4 hover:bg-accent w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                            Map{" "}
+                            {translate("Map", language)}{" "}
                             <ChevronRight className="ml-auto w-4 h-4 transition-all" />
                         </CollapsibleTrigger>
                         <CollapsibleContent>
@@ -174,7 +161,7 @@ export default function Hamburger() {
                                         to="map"
                                     >
                                         <div className="text-sm font-medium leading-none group-hover:underline">
-                                            Map
+                                            {translate("Map", language)}
                                         </div>
                                     </Link>
                                 </SheetClose>
@@ -185,7 +172,7 @@ export default function Hamburger() {
                                             to="map-editor"
                                         >
                                             <div className="text-sm font-medium leading-none group-hover:underline">
-                                                Map Editor
+                                                {translate("Mapeditor", language)}
                                             </div>
                                         </Link>
                                     </SheetClose>
@@ -200,7 +187,7 @@ export default function Hamburger() {
                                 to="data"
                             >
                                 <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                                    Data Viewer
+                                    {translate("dataviewer", language)}
                                 </div>
                             </Link>
                         </SheetClose>
@@ -211,7 +198,7 @@ export default function Hamburger() {
                             to="about-us"
                         >
                             <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                                About Us
+                                {translate("aboutus", language)}
                             </div>
                         </Link>
                     </SheetClose>
@@ -221,7 +208,7 @@ export default function Hamburger() {
                             to="credit-page"
                         >
                             <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                                Credit Page
+                                {translate("Credit", language)}
                             </div>
                         </Link>
                     </SheetClose>
