@@ -9,6 +9,7 @@ import TextDirection, {
     TextDirectionComponent,
 } from "@/components/TextDirection.tsx";
 import { Button } from "@/components/ui/button.tsx";
+import { useLanguage } from "@/components/LanguageProvider";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
@@ -21,17 +22,15 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [prompt, setPrompt] = useState<string[]>([""]);
     const [turn, setTurn] = useState<string[]>([""]);
     const [floor, setFloor] = useState<string[]>([""]);
-
+    const language = useLanguage();
     const handleRandomize = () => {
         const nonHallNodes = nodes.filter((node) => {
             return node.nodeType != "HALL";
         });
         const randomStart =
-            nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)]
-                .nodeID;
+            nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
         const randomEnd =
-            nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)]
-                .nodeID;
+            nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
         const algorithms = ["ASTAR", "DIJKSTRA", "BFS", "DFS"];
         const randomAlgo =
             algorithms[Math.floor(Math.random() * algorithms.length)];
@@ -56,7 +55,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 }
 
                 setPathNodes(res.data);
-                const { prompts, turns, floors } = TextDirection(res.data);
+                const { prompts, turns, floors } = TextDirection(res.data, language);
                 setPrompt(prompts);
                 setTurn(turns);
                 setFloor(floors);
@@ -66,7 +65,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
             }
         }
         fetchPathData().then();
-    }, [start, end, algorithm]);
+    }, [start, end, algorithm, language]);
 
     return (
         <>

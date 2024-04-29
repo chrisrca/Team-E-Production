@@ -40,6 +40,7 @@ import {
 import axios from "axios";
 import {  useEffect, useState  } from "react";
 import {  useToast  } from "@/components/ui/use-toast.ts";
+import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
 import MapWindow from "@/components/MapWindow.tsx";
 import { DBNode } from "common/src/types";
 export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: (user: User) => void}){
@@ -52,6 +53,7 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
     const [userInfo, setUserInfo] = useState<User | null>(null); // Initialize userInfo to null
     const [showDialog, setShowDialog] = useState(true);
     const { toast } = useToast();
+    const { language } = useLanguage();
 
     const { logout, isAuthenticated, isLoading, user } =
         useAuth0();
@@ -150,35 +152,25 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                     {/* component wrapper*/}
                     <div className="basis-1/2 flex flex-basis flex-col">
                         <h1 className="pt-10 text-4xl font-bold">
-                            Brigham and Women's Hospital
+                            {translate("Brigham and Women's Hospital", language)}
                         </h1>
                         <h2 className="text-xl ">
-                            Helping our patients and their families get back to
-                            what matters most.
-                            <br />
-                            <br />
-                            This website is a term project exercise for WPI CS
-                            3733 Software Engineering (Prof. Wong) and is not to
-                            be confused with the actual Brigham & Women’s
-                            Hospital website.
+                            {translate("Helping our patients and their families get back to what matters most.", language)}
+                            <br/><br/>
+                            {translate("This website is a term project exercise for WPI CS 3733 Software Engineering (Prof. Wong) and is not to be confused with the actual Brigham & Women’s Hospital website.", language)}
                         </h2>
                         {!exists && showDialog && (
                             <div className="fixed bottom-4 right-4 bg-background dark:bg-background text-sm text-gray-500 dark:text-gray-400 p-4 rounded-md shadow-md border border-gray-200 dark:border-gray-800 transition-all duration-300">
-                                <p>
-                                    Looks like there is some information
-                                    missing, please verify it to authenticate!
-                                </p>
+                                <p>{translate("Looks like there is some information missing, please verify it to authenticate!", language)}</p>
                                 <AlertDialog>
                                     <AlertDialogTrigger asChild>
-                                        <Button variant="outline">
-                                            Verify Info
-                                        </Button>
+                                        <Button variant="outline">{translate("Verify Info", language)}</Button>
                                     </AlertDialogTrigger>
                                     <AlertDialogContent>
                                         <AlertDialogHeader>
-                                            <AlertDialogTitle>Add Additional Info</AlertDialogTitle>
+                                            <AlertDialogTitle>{translate("Add Phone Number", language)}</AlertDialogTitle>
                                             <AlertDialogDescription>
-                                                Please provide your phone number and DisplayName to complete your profile.
+                                                {translate("Please provide your phone number to complete your profile.", language)}
                                             </AlertDialogDescription>
                                         </AlertDialogHeader>
                                         <FormInput
@@ -239,13 +231,12 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                         }}
                                     >
                                         <h1 className="z-1 text-white text-4xl font-bold pt-[300px] pl-8">
-                                            Community member?
+                                            {translate("Community member?", language)}
                                         </h1>
                                         <div className="flex">
                                             <div className="flex">
                                                 <h2 className="z-1 text-white text-2xl pt-2 pl-8">
-                                                    Heading out? Log-out of your
-                                                    account here!
+                                                    {translate("Heading out? Log-out of your account here!", language)}
                                                 </h2>
                                             </div>
                                             <div className="flex">
@@ -253,7 +244,7 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                                     className="inline-block bg-accent text-white text-md py-2 px-4 rounded bg-destructive hover:bg-primary align-middle mt-1 ml-4"
                                                     onClick={handleLogout}
                                                 >
-                                                    Log-out
+                                                    {translate("Log-out", language)}
                                                 </Button>
                                             </div>
                                         </div>
@@ -269,15 +260,12 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                         }}
                                     >
                                         <h1 className="z-1 text-white text-4xl font-bold pt-[300px] pl-8">
-                                            Need Directions?
+                                            {translate("Need Directions?", language)}
                                         </h1>
                                         <div className="flex">
                                             <div className="flex">
                                                 <h2 className="z-1 text-white text-2xl pt-2 pl-8">
-                                                    Find your way with our
-                                                    easy-to-use pathfinder
-                                                    located in the nearest
-                                                    kiosk!{" "}
+                                                    {translate("Find your way with our easy-to-use pathfinder located in the nearest kiosk!", language)} {" "}
                                                 </h2>
                                             </div>
                                             <div className="flex">
@@ -285,7 +273,7 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                                     to="/map"
                                                     className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
                                                 >
-                                                    Get Started
+                                                    {translate("Get Started", language)}
                                                 </Link>
                                             </div>
                                         </div>
@@ -304,10 +292,9 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                             <Card className="bg-secondary shadow-md hover:shadow-lg">
                                 {/*card 1*/}
                                 <CardHeader>
-                                    <CardTitle>Map</CardTitle>
+                                    <CardTitle>{translate("Map", language)}</CardTitle>
                                     <CardDescription>
-                                        Find the path to your destination on our
-                                        interactive map.
+                                        {translate("Find the path to your destination on our interactive map.", language)}
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent className="">
@@ -321,15 +308,15 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                         to="/map"
                                         className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
                                     >
-                                        View Map
+                                        {translate("View Map", language)}
                                     </Link>
                                 </CardFooter>
                             </Card>
                             <Card className="bg-secondary shadow-md hover:shadow-lg">
                                 <CardHeader>
-                                    <CardTitle>Services</CardTitle>
+                                    <CardTitle>{translate("Services", language)}</CardTitle>
                                     <CardDescription>
-                                        View and request services here.
+                                        {translate("View and request services here.", language)}
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
@@ -339,47 +326,14 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                     />
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
-                                    <Link
-                                        to="/services"
-                                        className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
-                                    >
-                                        View Services
+                                    <Link to="/services"
+                                          className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary">
+                                        {translate("View Services", language)}
                                     </Link>
                                 </CardFooter>
                             </Card>
                         </div>
                     </div>
-                    {/* <div>
-                        <h1 className="text-3xl font-bold">
-                            Frequently Asked Questions
-                        </h1>
-                        <h2 className="pt-4 text-xl ">
-                            Answers to some of our visitor's most common
-                            questions.
-                        </h2>
-                        <Accordion type="single" collapsible className="w-full">
-                            <AccordionItem value="item-1">
-                                <AccordionTrigger>
-                                    Where can I find my room?
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                    Go to the{" "}
-                                    <Link className="hover:underline" to="/map">
-                                        Map
-                                    </Link>{" "}
-                                    and navigate from there.
-                                </AccordionContent>
-                            </AccordionItem>
-                            <AccordionItem value="item-2">
-                                <AccordionTrigger>
-                                    Why is my service request taking so long?
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                    Our apologies! One of our employees is on the case!
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
-                    </div> */}
                 </div>
             </div>
         );

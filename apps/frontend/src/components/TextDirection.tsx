@@ -16,8 +16,10 @@ import {
 } from "@/components/ui/accordion";
 import { DBNode } from "common/src/types";
 import React from "react";
+import { translate } from './LanguageProvider';
 
-export default function TextDirection(nodes: DBNode[]) {
+
+export default function TextDirection(nodes: DBNode[], language: string) {
     let { prompts, turns, floors, previousAngle } = initTextDirection(nodes);
 
     for (let i = 1; i < nodes.length; i++) {
@@ -28,7 +30,7 @@ export default function TextDirection(nodes: DBNode[]) {
         if (!nextNode) {
             // on last node
             prompts.push(
-                `You have reached your destination, ${currNode.longName}.`,
+                `${translate("You have reached your destination", language)}, ${currNode.longName}.`,
             );
             turns.push("end");
             floors.push(`${currNode.floor}`);
@@ -51,6 +53,7 @@ export default function TextDirection(nodes: DBNode[]) {
                 turns,
                 floors,
                 promptType,
+                language
             );
 
             previousAngle = prevAngle;
@@ -75,6 +78,7 @@ export default function TextDirection(nodes: DBNode[]) {
                 turns,
                 floors,
                 promptType,
+                language
             );
 
             previousAngle = prevAngle;
@@ -96,6 +100,7 @@ export default function TextDirection(nodes: DBNode[]) {
                 turns,
                 floors,
                 promptType,
+                language
             );
 
             previousAngle = prevAngle;
@@ -201,7 +206,6 @@ function initTextDirection(nodes: DBNode[]) {
     const prompts = [
         `Directions from ${nodes[0].longName} to ${nodes[nodes.length - 1].longName}:`,
     ]; // stores prompts
-
     // decide how to start the directions
     if (
         nodes[0].floor === nodes[1].floor &&
@@ -242,7 +246,7 @@ function initTextDirection(nodes: DBNode[]) {
     return { prompts, turns, floors, previousAngle };
 }
 
-// determines the next prompt to store in array based on the inputs provided
+// determines the next prompt to store in array based on the inputs provide
 function determinePrompt(
     nextNode: DBNode,
     currNode: DBNode,
@@ -251,33 +255,35 @@ function determinePrompt(
     turnArr: string[],
     floorArr: string[],
     promptType: string,
+    language: string,
 ) {
     let scriptArr: string[] = [""]; // set of listed possible prompts
     let turnScriptArr: string[] = [""]; // set of listed possible turns
     if (promptType === "same building and floor") {
         // same building and floor between this node and the next
         const distance = Math.round(euclideanDistance(currNode, nextNode));
+
         scriptArr = [
-            `Take a slight right and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a right and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a sharp right and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a sharp left and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a left and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a slight left and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Head straight for ${distance} units of distance until you reach ${nextNode.shortName}.`,
+            `${translate("Take a slight right and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a right and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a sharp right and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a sharp left and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a left and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a slight left and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Head straight for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
         ];
         turnScriptArr = ["SLR", "R", "SHR", "SHL", "L", "SLL", "S"];
     } else if (promptType === "diff building same floor") {
         // different building but same floor between this node and the next
         const distance = Math.round(euclideanDistance(currNode, nextNode));
         scriptArr = [
-            `Take a slight right into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a right into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a sharp right into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a sharp left into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a left into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a slight left into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Head straight into building ${nextNode.building} for ${distance} units of distance until you reach ${nextNode.shortName}.`,
+            `${translate("Take a slight right into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a right into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a sharp right into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a sharp left into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a left into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a slight left into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Head straight into building", language)} ${nextNode.building} ${translate("for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
         ];
         turnScriptArr = ["SLR", "R", "SHR", "SHL", "L", "SLL", "S"];
     } else if (promptType === "diff floor") {

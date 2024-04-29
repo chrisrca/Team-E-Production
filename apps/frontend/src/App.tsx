@@ -32,6 +32,8 @@ import { Toaster } from "@/components/ui/toaster.tsx";
 import { ToastProvider } from "@radix-ui/react-toast";
 import CreditPage from "@/routes/CreditPage.tsx";
 import Mobile from "./routes/Mobile";
+import {LanguageToggle} from "@/components/ui/LanguageToggle.tsx";
+import {LanguageProvider} from "@/components/LanguageProvider.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -64,16 +66,18 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                 scope: "openid profile email offline_access",
             }}
         >
+
             <ThemeProvider>
+                <LanguageProvider>
                 <div className="flex">
                     <div>
-                        <Hamburger />
+                        <Hamburger/>
                     </div>
                     <div className="absolute right-0 top-0 z-50 pr-2 pt-2 flex">
                         <UserArea />
                     </div>
                 </div>
-                <Toaster />
+                <Toaster/>
                 <Routes>
                     <Route path="/" element={<Welcome nodes={nodes} setUser={setUserData} />} />
                     <Route path="/login" element={<Login />} />
@@ -87,7 +91,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/services"
                         element={
                             <ProtectedRoute>
-                                <Services />
+                                <Services/>
                             </ProtectedRoute>
                         }
                     />
@@ -95,7 +99,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/map-editor"
                         element={
                             <ProtectedRoute>
-                                <MapEditor />
+                                <MapEditor/>
                             </ProtectedRoute>
                         }
                     />
@@ -103,7 +107,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/profile"
                         element={
                             <ProtectedRoute>
-                                <Profile />
+                                <Profile/>
                             </ProtectedRoute>
                         }
                     />
@@ -111,7 +115,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/settings"
                         element={
                             <ProtectedRoute>
-                                <Settings />
+                                <Settings/>
                             </ProtectedRoute>
                         }
                     />
@@ -203,7 +207,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         path="/data"
                         element={
                             <ProtectedRoute>
-                                <DataViewer />
+                                <DataViewer/>
                             </ProtectedRoute>
                         }
                     />
@@ -222,9 +226,16 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                 </Routes>
 
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
-                    <ModeToggle />
+                    <ModeToggle/>
                 </div>
+
+                <div className="fixed z-50 bottom-12 pb-2 pl-2">
+                    <LanguageToggle/>
+                </div>
+
+                </LanguageProvider>
             </ThemeProvider>
+
         </Auth0Provider>
     );
 }
