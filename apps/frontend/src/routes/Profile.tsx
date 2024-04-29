@@ -46,7 +46,7 @@ function ProfilePage() {
         const checkEmployeeAdmin = async () => {
             try {
                 const response = await axios.get(
-                    `/employees/${employeeName}/boolean`,
+                    `/api/employee/${employeeName}/boolean`
                 );
                 if (response.data) {
                     const { name, booleanValue } = response.data;
@@ -81,7 +81,7 @@ function ProfilePage() {
 
     const handleAdminToggle = async () => {
         try {
-            const response = await axios.post(`/employees/${employeeName}/boolean/toggle`);
+            const response = await axios.post(`/api/employee/${employeeName}/boolean/toggle`);
             if (response.data) {
                 const { name, admin } = response.data;
                 console.log(`${name}'s admin permission is now: ${admin}`);
@@ -104,7 +104,7 @@ function ProfilePage() {
                     <p className="text-gray-700"> {employeeName} </p>
                 </div>
                 <h1 className="text-xl mt-12 m-4">Employees</h1>
-                <ViewNodes data={employeeData} />
+                <ViewNodes data={employeeData}/>
                 <h1 className="text-xl  mt-12 m-4">Services</h1>
                 <ViewNodes data={serviceRequests} />
                 <div className="flex">
@@ -153,7 +153,7 @@ function ProfilePage() {
             <button onClick={handleAdminToggle}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 {adminPerm ? "Revoke Admin" : "Grant Admin"}
-            </button>;
+            </button>
             </div>
         );
     if (userInfo)
@@ -213,7 +213,7 @@ function ProfilePage() {
                 <button onClick={handleAdminToggle}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     {adminPerm ? "Revoke Admin" : "Grant Admin"}
-                </button>;
+                </button>
             </div>
         );
 }
