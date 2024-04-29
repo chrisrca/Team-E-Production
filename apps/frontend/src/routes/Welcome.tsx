@@ -2,8 +2,6 @@ import * as React from "react";
 import Carousel2 from "/src/images/carousel-2.jpeg";
 import Carousel3 from "/src/images/carousel-3.jpeg";
 import MapImage from "/src/images/BWH-high-res.jpg";
-//import bgImage from "/src/images/brighamandwomensbuildingimage.jpeg";
-//import { MapPinned, CircleUserRound } from "lucide-react";
 import ServiceImage from "/src/images/hospital-hero.jpg";
 import Autoplay from "embla-carousel-autoplay";
 import { type CarouselApi } from "@/components/ui/carousel";
@@ -38,25 +36,95 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import axios from "axios";
-import {  useEffect, useState  } from "react";
-import {  useToast  } from "@/components/ui/use-toast.ts";
-import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
-import MapWindow from "@/components/MapWindow.tsx";
+import { useEffect, useState } from "react";
+import { useToast } from "@/components/ui/use-toast.ts";
+import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 import { DBNode } from "common/src/types";
-export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: (user: User) => void}){
+import CanvasMap from "@/components/canvasmap/map/CanvasMap.tsx";
+export default function Welcome({
+    nodes,
+    setUser,
+}: {
+    nodes: DBNode[];
+    setUser: (user: User) => void;
+}) {
     const [api, setApi] = React.useState<CarouselApi>();
     const [current, setCurrent] = React.useState(0);
     const [count, setCount] = React.useState(0);
     const [exists, setExists] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [displayName, setDisplayName] =useState("");
+    const [displayName, setDisplayName] = useState("");
     const [userInfo, setUserInfo] = useState<User | null>(null); // Initialize userInfo to null
     const [showDialog, setShowDialog] = useState(true);
     const { toast } = useToast();
     const { language } = useLanguage();
+    const [level, setLevel] = useState<number>(1);
+    const [start, setStart] = useState<string>("");
+    const [end, setEnd] = useState<string>("");
+    const [pathNodes, setPathNodes] = useState<DBNode[]>([]);
 
-    const { logout, isAuthenticated, isLoading, user } =
-        useAuth0();
+    useEffect(() => {
+        const handleRandomize = () => {
+            const nonHallNodes = nodes.filter(
+                (node) => node.nodeType !== "HALL",
+            );
+
+            interface NodeAccumulator {
+                [key: string]: DBNode[];
+            }
+
+            const nodesByFloor = nonHallNodes.reduce<NodeAccumulator>(
+                (acc, node) => {
+                    if (!acc[node.floor]) {
+                        acc[node.floor] = [];
+                    }
+                    acc[node.floor].push(node);
+                    return acc;
+                },
+                {},
+            );
+
+            const floors: string[] = Object.keys(nodesByFloor);
+            const randomFloor: string =
+                floors[Math.floor(Math.random() * floors.length)];
+            const nodesOnFloor: DBNode[] = nodesByFloor[randomFloor];
+            const randomStart =
+                nodesOnFloor[Math.floor(Math.random() * nodesOnFloor.length)]
+                    .nodeID;
+            const randomEnd =
+                nodesOnFloor[Math.floor(Math.random() * nodesOnFloor.length)]
+                    .nodeID;
+            const floor = ["L2", "L1", "1", "2", "3"];
+            setLevel(floor.indexOf(randomFloor));
+
+            setStart(randomStart);
+            setEnd(randomEnd);
+        };
+
+        const intervalId = setInterval(() => {
+            handleRandomize();
+        }, 3000); // 10 seconds
+
+        return () => clearInterval(intervalId);
+    }, [nodes]);
+
+    useEffect(() => {
+        async function fetchPathData() {
+            try {
+                const res = await axios.get(
+                    `/api/path/${start}/${end}/${"ASTAR"}`,
+                );
+
+                setPathNodes(res.data);
+            } catch (error) {
+                setPathNodes([]);
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchPathData().then();
+    }, [start, end, language]);
+
+    const { logout, isAuthenticated, isLoading, user } = useAuth0();
     // const handleLogin = () => {
     //     loginWithRedirect();
     // };
@@ -111,7 +179,11 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                         title: "Success",
                         description: response.data,
                     });
-                    setUserInfo({ ...userInfo, phone_number: phoneNumber, displayName: displayName });  // Update local state
+                    setUserInfo({
+                        ...userInfo,
+                        phone_number: phoneNumber,
+                        displayName: displayName,
+                    }); // Update local state
                     setExists(true); // Assume the employee now exists with a phone number
                     setShowDialog(false); // Hide the dialog after successful update
                     setPhoneNumber(""); // Optionally clear the phoneNumber input
@@ -152,25 +224,50 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                     {/* component wrapper*/}
                     <div className="basis-1/2 flex flex-basis flex-col">
                         <h1 className="pt-10 text-4xl font-bold">
-                            {translate("Brigham and Women's Hospital", language)}
+                            {translate(
+                                "Brigham and Women's Hospital",
+                                language,
+                            )}
                         </h1>
                         <h2 className="text-xl ">
-                            {translate("Helping our patients and their families get back to what matters most.", language)}
-                            <br/><br/>
-                            {translate("This website is a term project exercise for WPI CS 3733 Software Engineering (Prof. Wong) and is not to be confused with the actual Brigham & Women’s Hospital website.", language)}
+                            {translate(
+                                "Helping our patients and their families get back to what matters most.",
+                                language,
+                            )}
+                            <br />
+                            <br />
+                            {translate(
+                                "This website is a term project exercise for WPI CS 3733 Software Engineering (Prof. Wong) and is not to be confused with the actual Brigham & Women’s Hospital website.",
+                                language,
+                            )}
                         </h2>
                         {!exists && showDialog && (
                             <div className="fixed bottom-4 right-4 bg-background dark:bg-background text-sm text-gray-500 dark:text-gray-400 p-4 rounded-md shadow-md border border-gray-200 dark:border-gray-800 transition-all duration-300">
-                                <p>{translate("Looks like there is some information missing, please verify it to authenticate!", language)}</p>
+                                <p>
+                                    {translate(
+                                        "Looks like there is some information missing, please verify it to authenticate!",
+                                        language,
+                                    )}
+                                </p>
                                 <AlertDialog>
                                     <AlertDialogTrigger asChild>
-                                        <Button variant="outline">{translate("Verify Info", language)}</Button>
+                                        <Button variant="outline">
+                                            {translate("Verify Info", language)}
+                                        </Button>
                                     </AlertDialogTrigger>
                                     <AlertDialogContent>
                                         <AlertDialogHeader>
-                                            <AlertDialogTitle>{translate("Add Phone Number", language)}</AlertDialogTitle>
+                                            <AlertDialogTitle>
+                                                {translate(
+                                                    "Add Phone Number",
+                                                    language,
+                                                )}
+                                            </AlertDialogTitle>
                                             <AlertDialogDescription>
-                                                {translate("Please provide your phone number to complete your profile.", language)}
+                                                {translate(
+                                                    "Please provide your phone number to complete your profile.",
+                                                    language,
+                                                )}
                                             </AlertDialogDescription>
                                         </AlertDialogHeader>
                                         <FormInput
@@ -183,7 +280,9 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                         <FormInput
                                             placeholder="Display Name"
                                             value={displayName}
-                                            onChange={(e) => setDisplayName(e.target.value)}
+                                            onChange={(e) =>
+                                                setDisplayName(e.target.value)
+                                            }
                                         />
                                         <AlertDialogFooter>
                                             <AlertDialogAction
@@ -231,12 +330,18 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                         }}
                                     >
                                         <h1 className="z-1 text-white text-4xl font-bold pt-[300px] pl-8">
-                                            {translate("Community member?", language)}
+                                            {translate(
+                                                "Community member?",
+                                                language,
+                                            )}
                                         </h1>
                                         <div className="flex">
                                             <div className="flex">
                                                 <h2 className="z-1 text-white text-2xl pt-2 pl-8">
-                                                    {translate("Heading out? Log-out of your account here!", language)}
+                                                    {translate(
+                                                        "Heading out? Log-out of your account here!",
+                                                        language,
+                                                    )}
                                                 </h2>
                                             </div>
                                             <div className="flex">
@@ -244,7 +349,10 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                                     className="inline-block bg-accent text-white text-md py-2 px-4 rounded bg-destructive hover:bg-primary align-middle mt-1 ml-4"
                                                     onClick={handleLogout}
                                                 >
-                                                    {translate("Log-out", language)}
+                                                    {translate(
+                                                        "Log-out",
+                                                        language,
+                                                    )}
                                                 </Button>
                                             </div>
                                         </div>
@@ -260,12 +368,18 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                         }}
                                     >
                                         <h1 className="z-1 text-white text-4xl font-bold pt-[300px] pl-8">
-                                            {translate("Need Directions?", language)}
+                                            {translate(
+                                                "Need Directions?",
+                                                language,
+                                            )}
                                         </h1>
                                         <div className="flex">
                                             <div className="flex">
                                                 <h2 className="z-1 text-white text-2xl pt-2 pl-8">
-                                                    {translate("Find your way with our easy-to-use pathfinder located in the nearest kiosk!", language)} {" "}
+                                                    {translate(
+                                                        "Find your way with our easy-to-use pathfinder located in the nearest kiosk!",
+                                                        language,
+                                                    )}{" "}
                                                 </h2>
                                             </div>
                                             <div className="flex">
@@ -273,7 +387,10 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                                     to="/map"
                                                     className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
                                                 >
-                                                    {translate("Get Started", language)}
+                                                    {translate(
+                                                        "Get Started",
+                                                        language,
+                                                    )}
                                                 </Link>
                                             </div>
                                         </div>
@@ -292,9 +409,14 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                             <Card className="bg-secondary shadow-md hover:shadow-lg">
                                 {/*card 1*/}
                                 <CardHeader>
-                                    <CardTitle>{translate("Map", language)}</CardTitle>
+                                    <CardTitle>
+                                        {translate("Map", language)}
+                                    </CardTitle>
                                     <CardDescription>
-                                        {translate("Find the path to your destination on our interactive map.", language)}
+                                        {translate(
+                                            "Find the path to your destination on our interactive map.",
+                                            language,
+                                        )}
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent className="">
@@ -314,9 +436,14 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                             </Card>
                             <Card className="bg-secondary shadow-md hover:shadow-lg">
                                 <CardHeader>
-                                    <CardTitle>{translate("Services", language)}</CardTitle>
+                                    <CardTitle>
+                                        {translate("Services", language)}
+                                    </CardTitle>
                                     <CardDescription>
-                                        {translate("View and request services here.", language)}
+                                        {translate(
+                                            "View and request services here.",
+                                            language,
+                                        )}
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
@@ -326,8 +453,10 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                     />
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
-                                    <Link to="/services"
-                                          className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary">
+                                    <Link
+                                        to="/services"
+                                        className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
+                                    >
                                         {translate("View Services", language)}
                                     </Link>
                                 </CardFooter>
@@ -338,38 +467,43 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
             </div>
         );
     } else {
+        console.log(start, end);
         return (
-            <MapWindow nodes={nodes} />
-            // <div
-            //     className="absolute bg-gradient-to-l from-30% from-kiosk"
-            //     style={{
-            //         width: "100vw",
-            //         height: "100vh",
-            //         display: "flex",
-            //         alignItems: "center",
-            //         justifyContent: "center",
-            //         overflow: "hidden",
-            //     }}
-            // >
-            //     <div
-            //         className="absolute"
-            //         style={{
-            //             backgroundImage: `url(${bgImage})`,
-            //             backgroundSize: "cover",
-            //             backgroundPosition: "center",
-            //             width: "100vw",
-            //             height: "100vh",
-            //             zIndex: -1,
-            //         }}
-            //     ></div>
-            //       <div className="top-0 w-screen items-center align-center text-center absolute bg-accent text-sm">
-            //         This website is a term project exercise for CS 3733 Software Engineering (Prof. Wong) <br/> and is not to be confused with the actual Brigham and Women's Hospital website.
-            //     </div>
-            //     <MapPinned/>
-            //     <CircleUserRound/>
-            // </div>
+            <>
+                <div
+                    className="absolute bg-gradient-to-l from-25% from-kiosk"
+                    style={{
+                        opacity: "85%",
+                        width: "100vw",
+                        height: "100vh",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        overflow: "hidden",
+                        zIndex: "1",
+                    }}
+                >
+                    <div
+                        style={{ overflow: "hidden" }}
+                        className="top-0 w-screen items-center align-center text-center absolute bg-accent text-sm"
+                    >
+                        This website is a term project exercise for CS 3733
+                        Software Engineering (Prof. Wong) <br /> and is not to
+                        be confused with the actual Brigham and Women's Hospital
+                        website.
+                    </div>
+                </div>
+                <div style={{ height: "100vh", overflow: "hidden" }}>
+                    <CanvasMap
+                        level={level}
+                        path={pathNodes}
+                        nodes={nodes}
+                        setLevel={setLevel}
+                        start={setStart}
+                        end={setEnd}
+                    />
+                </div>
+            </>
         );
     }
 }
-
-
