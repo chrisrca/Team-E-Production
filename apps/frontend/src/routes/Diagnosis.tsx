@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef, useCallback} from "react";
 
 interface Props {
     userResponse: string;
@@ -24,28 +24,50 @@ const Chats: React.FC<Props> = (props) => {
     const dummyRef = useRef<HTMLDivElement>(null);
     const bodyRef = useRef<HTMLDivElement>(null);
 
+    const addInitialMessage = useCallback(() => {
+        setMessages([
+            {
+                purpose: "intro",
+                message:
+                    "Hi there. You are now talking to a Diagnosis Bot that will help with picking the right medicine just for you! What is your name?",
+                sender: "bot",
+            },
+        ]);
+    }, []);
+
+    const addUserMessage = useCallback((userMessage: typeof props.userResponse) => {
+        setMessages((currentMessages) => [
+            ...currentMessages,
+            { message: userMessage, sender: "user" },
+        ]);
+    }, [props]);
+
+    const addBotResponse = useCallback((botResponse: typeof props.botResponse) => {
+        setMessages((currentMessages) => [
+            ...currentMessages,
+            botResponse,
+        ]);
+    }, [props]);
+
     useEffect(() => {
         if (messages.length === 0) {
-            setMessages([
-                {
-                    purpose: "intro",
-                    message:
-                        "Hi there. You are now talking to a Diagnosis Bot that will help with picking the right medicine just for you! What is your name?",
-                    sender: "bot",
-                },
-            ]);
-        } else {
-            const tempArray = [...messages];
-            tempArray.push({ message: props.sendUserResponse, sender: "user" });
-            setMessages(tempArray);
+            addInitialMessage();
+        }
+    }, [messages.length, addInitialMessage]);
 
+    useEffect(() => {
+        if (props.sendUserResponse) {
+            addUserMessage(props.sendUserResponse);
+        }
+    }, [props.sendUserResponse, addUserMessage]);
+
+    useEffect(() => {
+        if (props.botResponse) {
             setTimeout(() => {
-                const temp2 = [...tempArray];
-                temp2.push(props.botResponse);
-                setMessages(temp2);
+                addBotResponse(props.botResponse);
             }, 1000);
         }
-    }, [props.sendUserResponse, props.botResponse, messages]);
+    }, [props.botResponse, addBotResponse]);
 
     useEffect(() => {
         if (dummyRef && dummyRef.current && bodyRef && bodyRef.current) {
