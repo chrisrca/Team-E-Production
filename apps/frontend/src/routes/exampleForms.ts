@@ -2,7 +2,6 @@ export const flowerForm = [
     {
         content: "label",
         title: "Flower Service Request Form",
-        type: "header",
         id: 0,
     },
     {
@@ -46,8 +45,6 @@ export const flowerForm = [
         placeholder: "Select Placeholder 2",
         required: true,
         id: 0,
-        label: "",
-        options: [],
     },
     {
         content: "radio",
@@ -76,8 +73,6 @@ export const flowerForm = [
         placeholder: "Select Employee",
         required: false,
         id: 0,
-        label: "",
-        options: [],
     },
 ];
 
@@ -85,7 +80,6 @@ export const giftForm = [
     {
         content: "label",
         title: "Gift Delivery Request",
-        type: "header",
         id: 0,
     },
     {
@@ -160,7 +154,6 @@ export const medForm = [
     {
         content: "label",
         title: "Drug Delivery Request",
-        type: "header",
         id: 0,
     },
     {
@@ -235,7 +228,6 @@ export const langForm = [
     {
         content: "label",
         title: "Language Interpreter Request",
-        type: "header",
         id: 0,
     },
     {
@@ -316,7 +308,6 @@ export const medicalForm = [
     {
         content: "label",
         title: "Medical Device Request",
-        type: "header",
         id: 0,
     },
     {
@@ -383,7 +374,6 @@ export const roomForm = [
     {
         content: "label",
         title: "Room Scheduling Request",
-        type: "header",
         id: 0,
     },
     {
@@ -466,7 +456,6 @@ export const sanitationForm = [
     {
         content: "label",
         title: "Sanitation Service Request",
-        type: "header",
         id: 0,
     },
     {
@@ -542,7 +531,6 @@ export const secForm = [
     {
         content: "label",
         title: "Security Request",
-        type: "header",
         id: 0,
     },
     {

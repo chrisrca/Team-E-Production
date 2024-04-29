@@ -553,7 +553,8 @@ export const ServiceRequests = (
                                         Clear Form
                                     </button>
                                     <div></div>
-                                    <button className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded">
+                                    <button className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                                            onClick={handleClearForm}>
                                         Submit
                                     </button>
                                 </div>

@@ -32,7 +32,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { FormInput } from "@/components/ui/formInput";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, X } from "lucide-react";
 
 export default function FormMaker() {
     const [customForm, setCustomForm] = useState([]);
@@ -154,7 +154,7 @@ export default function FormMaker() {
             } else if (type === "number") {
                 return (
                     <FormInput
-                        placeholder={field}
+                        placeholder={"Input Number"}
                         type={"number"}
                         className={
                             "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
@@ -168,10 +168,19 @@ export default function FormMaker() {
                     />
                 );
             } else if (type === "object") {
+                if(edit && (options.length === 0 && newObject[field] !== undefined)){
+                    setOptions(newObject[field]);
+                }else if(newObject[field] !== options){
+                    setNewObject({
+                        ...newObject,
+                        [field]: options
+                    });
+                }
                 return (
-                    <div className={"flex flex-row flex-nowrap"}>
+                    <div className={"bg-card rounded-lg pb-2 transition-all"}>
+                    <div className={"flex flex-row flex-nowrap mb-2"}>
                         <FormInput
-                            placeholder={field}
+                            placeholder={"Input Options"}
                             type={"string"}
                             className={
                                 "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
@@ -183,7 +192,7 @@ export default function FormMaker() {
                         />
                         <Button
                             className={
-                                "size-8 p-0 ml-2 bg-green-300 self-center shrink-0"
+                                "size-8 p-0 m-1 bg-green-400 hover:bg-green-500 shadow-none hover:shadow-md self-center shrink-0"
                             }
                             onClick={() => {
                                 setOptions([...options, option]);
@@ -195,10 +204,34 @@ export default function FormMaker() {
                         >
                             <Plus className={"transition-all"} />
                         </Button>
+                    </div>
+                    <div className={"mx-2 overflow-y-auto h-fit max-h-32"}>
                         {options.map((op) => {
-                            return op;
+                            return(
+                                <div className={"flex flex-row flex-nowrap bg-background rounded-lg content-center p-[1px] mb-[2px]"}>
+                                    <Button
+                                        className={
+                                            "size-5 p-0 mx-2 bg-red-400 shadow-none hover:shadow-md hover:bg-red-500 self-center rounded-full"
+                                        }
+                                        onClick={() => {
+                                            setOptions(options.slice(0, options.indexOf(op)).concat(options.slice(options.indexOf(op) + 1)),);
+                                            setNewObject({
+                                                ...newObject,
+                                                [field]: options
+                                            });
+                                            console.log(options);
+                                            console.log(options.slice(0, options.indexOf(op)).concat(options.slice(options.indexOf(op) + 1)),);
+                                            console.log(options.indexOf(op));
+                                        }}
+                                    >
+                                        <X className={"transition-all"} />
+                                    </Button>
+                                    {op}
+                                </div>
+                            );
                         })}
                     </div>
+                </div>
                 );
             }
             // console.log("TYPE ==" + type);
@@ -437,7 +470,6 @@ export default function FormMaker() {
         label: {
             display: "Form Label",
             content: "label",
-            type: "",
             title: "",
         },
         textField: {
@@ -454,9 +486,9 @@ export default function FormMaker() {
             content: "select",
             title: "",
             placeholder: "",
-            required: false,
             id: 0,
             label: "",
+            required: false,
             options: [],
         },
         checkBox: {
@@ -472,25 +504,25 @@ export default function FormMaker() {
             content: "radio",
             title: "",
             placeholder: "",
-            required: false,
             id: 0,
+            required: false,
             options: [],
         },
         locationSelector: {
             display: "Location Selector",
-            content: "popover",
+            content: "location",
             title: "",
-            placeholder: "",
-            required: false,
             id: 0,
+            label: "",
+            required: false,
         },
         employeeSelector: {
             display: "Employee Selector",
             content: "employee",
             title: "",
-            placeholder: "",
-            required: false,
             id: 0,
+            label: "",
+            required: false,
         },
     };
 
@@ -509,9 +541,8 @@ export default function FormMaker() {
                             <div>
                             <Popover>
                                 <PopoverTrigger>
-                                    <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
-                                        {currComponent["display"] ||
-                                            "Select Optional Template"}
+                                    <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground">
+                                        {"Select Optional Template"}
                                     </Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="origin-top-left max-h-80 w-fit overflow-y-auto rounded-m">
@@ -527,7 +558,7 @@ export default function FormMaker() {
                                                         console.log(customForm);
                                                     }}
                                                 >
-                                                    {importedForms[option]["display"]}
+                                                    {option}
                                                 </div>
                                             );
                                         }
@@ -537,7 +568,7 @@ export default function FormMaker() {
                             </div>
                             <Popover>
                                 <PopoverTrigger>
-                                    <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
+                                    <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground">
                                         {currComponent["display"] ||
                                             "Select Element to Add"}
                                     </Button>
@@ -569,7 +600,7 @@ export default function FormMaker() {
                             <Popover>
                                 <PopoverTrigger>
                                     <Button
-                                        className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary"
+                                        className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground"
                                         disabled={customForm.length < 1}
                                     >
                                         {"Select Element to Alter" ||
