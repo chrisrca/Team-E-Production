@@ -2,6 +2,7 @@ import * as React from "react";
 import Carousel2 from "/src/images/carousel-2.jpeg";
 import Carousel3 from "/src/images/carousel-3.jpeg";
 import MapImage from "/src/images/BWH-high-res.jpg";
+import HospitalLogo from "/src/images/BWH logo.svg";
 //import bgImage from "/src/images/brighamandwomensbuildingimage.jpeg";
 //import { MapPinned, CircleUserRound } from "lucide-react";
 import ServiceImage from "/src/images/hospital-hero.jpg";
@@ -148,16 +149,10 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
         return (
             <div>
                 <div className="pr-20 pl-20 bg-background flex flex-col pb-8">
-                    {" "}
-                    {/* component wrapper*/}
-                    <div className="basis-1/2 flex flex-basis flex-col">
-                        <h1 className="pt-10 text-4xl font-bold">
-                            {translate("Brigham and Women's Hospital", language)}
-                        </h1>
-                        <h2 className="text-xl ">
+                    <div className="flex flex-basis flex-col justify-start items-start">
+                        <img className="h-32" src={HospitalLogo}/>
+                        <h2 className="text-lg">
                             {translate("Helping our patients and their families get back to what matters most.", language)}
-                            <br/><br/>
-                            {translate("This website is a term project exercise for WPI CS 3733 Software Engineering (Prof. Wong) and is not to be confused with the actual Brigham & Women’s Hospital website.", language)}
                         </h2>
                         {!exists && showDialog && (
                             <div className="fixed bottom-4 right-4 bg-background dark:bg-background text-sm text-gray-500 dark:text-gray-400 p-4 rounded-md shadow-md border border-gray-200 dark:border-gray-800 transition-all duration-300">
@@ -241,7 +236,7 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                             </div>
                                             <div className="flex">
                                                 <Button
-                                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded bg-destructive hover:bg-primary align-middle mt-1 ml-4"
+                                                    className="inline-block text-white text-md py-2 px-4 rounded bg-destructive align-middle mt-1 ml-4"
                                                     onClick={handleLogout}
                                                 >
                                                     {translate("Log-out", language)}
@@ -271,7 +266,7 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                             <div className="flex">
                                                 <Link
                                                     to="/map"
-                                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
+                                                    className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-inherit hover:border-2 border-accent transition-all align-middle mt-1 ml-4"
                                                 >
                                                     {translate("Get Started", language)}
                                                 </Link>
@@ -289,7 +284,7 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                     </div>
                     <div className={""}>
                         <div className={"grid gap-4 grid-cols-2"}>
-                            <Card className="bg-secondary shadow-md hover:shadow-lg">
+                            <Card className="shadow-md hover:shadow-lg">
                                 {/*card 1*/}
                                 <CardHeader>
                                     <CardTitle>{translate("Map", language)}</CardTitle>
@@ -306,13 +301,13 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                 <CardFooter className="flex justify-end items-center">
                                     <Link
                                         to="/map"
-                                        className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary"
+                                        className="inline-block text-foreground text-md py-2 px-4 rounded bg-accent hover:bg-inherit hover:border-2 border-accent transition-all align-middle"
                                     >
                                         {translate("View Map", language)}
                                     </Link>
                                 </CardFooter>
                             </Card>
-                            <Card className="bg-secondary shadow-md hover:shadow-lg">
+                            <Card className="shadow-md hover:shadow-lg">
                                 <CardHeader>
                                     <CardTitle>{translate("Services", language)}</CardTitle>
                                     <CardDescription>
@@ -327,7 +322,7 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
                                     <Link to="/services"
-                                          className="inline-block bg-accent text-foreground text-md py-2 px-4 rounded hover:bg-primary">
+                                          className="inline-block text-foreground text-md py-2 px-4 rounded bg-accent hover:bg-inherit hover:border-2 border-accent transition-all align-middle">
                                         {translate("View Services", language)}
                                     </Link>
                                 </CardFooter>
@@ -340,34 +335,6 @@ export default function Welcome({ nodes, setUser }: { nodes: DBNode[], setUser: 
     } else {
         return (
             <MapWindow nodes={nodes} />
-            // <div
-            //     className="absolute bg-gradient-to-l from-30% from-kiosk"
-            //     style={{
-            //         width: "100vw",
-            //         height: "100vh",
-            //         display: "flex",
-            //         alignItems: "center",
-            //         justifyContent: "center",
-            //         overflow: "hidden",
-            //     }}
-            // >
-            //     <div
-            //         className="absolute"
-            //         style={{
-            //             backgroundImage: `url(${bgImage})`,
-            //             backgroundSize: "cover",
-            //             backgroundPosition: "center",
-            //             width: "100vw",
-            //             height: "100vh",
-            //             zIndex: -1,
-            //         }}
-            //     ></div>
-            //       <div className="top-0 w-screen items-center align-center text-center absolute bg-accent text-sm">
-            //         This website is a term project exercise for CS 3733 Software Engineering (Prof. Wong) <br/> and is not to be confused with the actual Brigham and Women's Hospital website.
-            //     </div>
-            //     <MapPinned/>
-            //     <CircleUserRound/>
-            // </div>
         );
     }
 }

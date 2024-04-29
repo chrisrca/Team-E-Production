@@ -41,6 +41,7 @@ import {LanguageProvider} from "@/components/LanguageProvider.tsx";
 function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
     const navigate = useNavigate();
     const [userData, setUserData] = useState<User | null>(null);
+    
     // const axiosAuth = useAxiosWithAuth();
     // const [loading, setLoading] = useState<boolean>(true);
     // const [error, setError] = useState<string | null>(null);
