@@ -104,6 +104,64 @@ export const ServiceRequests = (
     bgPath: string,
     devNames: string,
 ) => {
+    const [nodes, setNodes] = useState<DBNode[]>([]);
+    const [filteredNodes, setFilteredNodes] = useState(nodes);
+    const [searchTerm, setSearchTerm] = useState("");
+    const searchRef = useRef<HTMLInputElement>(null);
+    const [employees, setEmployee] = useState<Employee[]>([]);
+    const [filteredEmployees, setFilteredEmployees] = useState(employees);
+
+    useEffect(() => {
+        async function fetchNodes() {
+            try {
+                const response = await axios.get("/api/nodes");
+                const originalNodes = response.data;
+                const returnNodes = originalNodes
+                    .filter((node) => {
+                        return node.nodeType != "HALL";
+                    })
+                    .sort(function (a, b) {
+                        if (a.longName < b.longName) {
+                            return -1;
+                        }
+                        if (a.longName > b.longName) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                setNodes(returnNodes);
+            } catch (error) {
+                console.error("Failed to fetch nodes: ", error);
+            }
+        }
+        fetchNodes();
+    }, []);
+    useEffect(() => {
+        async function fetchEmployees() {
+            try {
+                const response = await axios.get("/api/employee");
+                setEmployee(response.data);
+            } catch (error) {
+                console.error("Failed to fetch Employees: ", error);
+            }
+        }
+        fetchEmployees();
+    }, []);
+    useEffect(() => {
+        setFilteredNodes(
+            nodes.filter((node) =>
+                node.longName.toLowerCase().includes(searchTerm.toLowerCase()),
+            ),
+        );
+    }, [searchTerm, nodes]);
+    useEffect(() => {
+        setFilteredEmployees(
+            employees.filter((employee) =>
+                employee.name.toLowerCase().includes(searchTerm.toLowerCase()),
+            ),
+        );
+    }, [searchTerm, employees]);
+
     const [formSchema, setFormSchema] = useState(structuredClone(blankSchema));
     const schemaKeys = [] as string[];
 
@@ -141,7 +199,7 @@ export const ServiceRequests = (
             return radioGroupComp(props as FormSelect);
         } else if (props.content.includes("checkbox")) {
             return checkboxComp(props as FormComponent);
-        } else if (props.content.includes("popover")) {
+        } else if (props.content.includes("location")) {
             return LocationComp(props as FormComponent);
         } else if (props.content.includes("employee")) {
             return EmployeeComp(props as FormComponent);
@@ -192,7 +250,7 @@ export const ServiceRequests = (
         );
     };
     const selectComp = (props: FormSelect) => {
-        //console.log("making select '" + props.title + "' id: " + props.id);
+        console.log("making select '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className="col-auto">
@@ -231,7 +289,7 @@ export const ServiceRequests = (
     };
 
     const radioGroupComp = (props: FormSelect) => {
-        //console.log("making radio '" + props.title + "' id: " + props.id);
+        console.log("making radio '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className={"col-auto"}>
@@ -278,7 +336,7 @@ export const ServiceRequests = (
     };
 
     const checkboxComp = (props: FormComponent) => {
-        //console.log("making checkbox '" + props.title + "' id: " + props.id);
+        console.log("making checkbox '" + props.title + "' id: " + props.id);
         return (
             <>
                 <div className={"flex col-span-2 container:ml-0 pl-6 pt-2"}>
@@ -300,51 +358,9 @@ export const ServiceRequests = (
     };
 
     const LocationComp = (props: FormComponent) => {
-        // console.log(
-        //     "making Popover(Location) '" + props.title + "' id: " + props.id,
-        // );
-
-        const [nodes, setNodes] = useState<DBNode[]>([]);
-
-        useEffect(() => {
-            async function fetchNodes() {
-                try {
-                    const response = await axios.get("/api/nodes");
-                    const originalNodes = response.data;
-                    const returnNodes = originalNodes
-                        .filter((node) => {
-                            return node.nodeType != "HALL";
-                        })
-                        .sort(function (a, b) {
-                            if (a.longName < b.longName) {
-                                return -1;
-                            }
-                            if (a.longName > b.longName) {
-                                return 1;
-                            }
-                            return 0;
-                        });
-                    setNodes(returnNodes);
-                } catch (error) {
-                    console.error("Failed to fetch nodes: ", error);
-                }
-            }
-            fetchNodes();
-        }, []);
-
-        const [filteredNodes, setFilteredNodes] = useState(nodes);
-        const [searchTerm, setSearchTerm] = useState("");
-        const searchRef = useRef<HTMLInputElement>(null);
-
-        useEffect(() => {
-            setFilteredNodes(
-                nodes.filter((node) =>
-                    node.longName
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()),
-                ),
-            );
-        }, [searchTerm, nodes]);
+        console.log(
+            "making Popover(Location) '" + props.title + "' id: " + props.id,
+        );
 
         const handleLocationSelect = (longName: string) => {
             setFormSchema({ ...formSchema, [schemaKeys[props.id]]: longName });
@@ -394,36 +410,9 @@ export const ServiceRequests = (
     };
 
     const EmployeeComp = (props: FormComponent) => {
-        // console.log(
-        //     "making Popover(Employee) '" + props.title + "' id: " + props.id,
-        // );
-        const [employees, setEmployee] = useState<Employee[]>([]);
-
-        useEffect(() => {
-            async function fetchEmployees() {
-                try {
-                    const response = await axios.get("/api/employee");
-                    setEmployee(response.data);
-                } catch (error) {
-                    console.error("Failed to fetch Employees: ", error);
-                }
-            }
-            fetchEmployees();
-        }, []);
-
-        const [filteredEmployees, setFilteredEmployees] = useState(employees);
-        const [searchTerm, setSearchTerm] = useState("");
-        const searchRef = useRef<HTMLInputElement>(null);
-
-        useEffect(() => {
-            setFilteredEmployees(
-                employees.filter((employee) =>
-                    employee.name
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()),
-                ),
-            );
-        }, [searchTerm, employees]);
+        console.log(
+            "making Popover(Employee) '" + props.title + "' id: " + props.id,
+        );
         const handleLocationSelect = (name: string) => {
             setFormSchema({ ...formSchema, [schemaKeys[props.id]]: name });
             setSearchTerm("");

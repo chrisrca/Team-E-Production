@@ -14,6 +14,7 @@
 // } from "@/components/ui/carousel";
 
 import { ServiceRequests } from "@/components/ServiceRequests";
+import { medForm } from "./exampleForms";
 import medicinestore from "/src/images/medicinestore.jpg";
 export default function DrugDelivery() {
     // const [api, setApi] = React.useState<CarouselApi>();
@@ -31,81 +32,6 @@ export default function DrugDelivery() {
     };
 
     //Label is necessary, ids are calculated assuming that there is a title
-
-    const defaultForm = [
-        {
-            content: "label",
-            title: "Drug Delivery Request",
-            type: "header",
-            id: 0,
-        },
-        {
-            content: "text",
-            type: "string",
-            title: "Patient Name",
-            placeholder: "First, Last",
-            required: true,
-            id: 0,
-        },
-        {
-            content: "select",
-            type: "string",
-            title: "Medicine Type",
-            placeholder: "Select Medicine",
-            required: true,
-            id: 0,
-            label: "Options",
-            options: ["Tylenol - $5", "Advil - $7", "Melatonin - $10"],
-        },
-        {
-            content: "text",
-            type: "number",
-            title: "Drug Quantity",
-            placeholder: "Enter Drug Quantity",
-            required: true,
-            id: 0,
-        },
-        {
-            content: "popover",
-            type: "string",
-            title: "Select Location",
-            placeholder: "Select Placeholder 2",
-            required: true,
-            id: 0,
-            label: "",
-            options: [],
-        },
-        {
-            content: "radio",
-            type: "string",
-            title: "Status",
-            placeholder: "",
-            required: true,
-            id: 0,
-            label: "Request Status",
-            options: ["Unassigned", "Assigned", "In Progress", "Closed"],
-        },
-        {
-            content: "radio",
-            type: "string",
-            title: "Priority",
-            placeholder: "",
-            required: true,
-            id: 0,
-            label: "Request Priority",
-            options: ["Low", "Medium", "High", "Emergency"],
-        },
-        {
-            content: "employee",
-            type: "string",
-            title: "Assign Employee",
-            placeholder: "Select Employee",
-            required: false,
-            id: 0,
-            label: "",
-            options: [],
-        },
-    ];
 
     // React.useEffect(() => {
     //     if (!api) {
@@ -237,7 +163,7 @@ export default function DrugDelivery() {
                 </div>
             </div>*/}
             {ServiceRequests(
-                defaultForm,
+                medForm,
                 defaultFormSchema,
                 "/api/medicine",
                 medicinestore,

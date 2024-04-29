@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Button } from "../components/ui/button";
 import {
     ServiceRequests,
-    //FormSelect
 } from "@/components/ServiceRequests";
 import {
     Select,
@@ -14,16 +13,17 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { 
+    flowerForm,
+    giftForm,
+    medForm,
+    medicalForm,
+    sanitationForm,
+    roomForm,
+    secForm,
+    langForm,
+ } from "./exampleForms";
 
-// import {
-//     DropdownMenu,
-//     //DropdownMenuCheckboxItem,
-//     DropdownMenuContent,
-//     DropdownMenuItem,
-//     DropdownMenuLabel,
-//     //DropdownMenuSeparator,
-//     DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu";
 import {
     Popover,
     PopoverContent,
@@ -35,104 +35,12 @@ import { FormInput } from "@/components/ui/formInput";
 import { Plus, Minus } from "lucide-react";
 
 export default function FormMaker() {
-    const [customForm, setCustomForm] = useState([
-        // {
-        //     content: "label",
-        //     title: "Flower Service Request Form",
-        //     type: "header",
-        //     id: 0,
-        // },
-        // {
-        //     content: "text",
-        //     type: "string",
-        //     title: "Patient Name",
-        //     placeholder: "First, Last",
-        //     required: true,
-        //     id: 0,
-        // },
-        // {
-        //     content: "select",
-        //     type: "string",
-        //     title: "Type of Flower",
-        //     placeholder: "Please Select Flower",
-        //     required: true,
-        //     id: 0,
-        //     label: "Status",
-        //     options: ["Roses - $13", "Lilies - $50", "Chrysanthemums - $1000"],
-        // },
-        // {
-        //     content: "text",
-        //     type: "string",
-        //     title: "Sender Name",
-        //     placeholder: "First, Last",
-        //     required: true,
-        //     id: 0,
-        // },
-        // {
-        //     content: "text",
-        //     type: "string",
-        //     title: "Message",
-        //     placeholder: "Enter Message (Optional)",
-        //     required: false,
-        //     id: 0,
-        // },
-        // {
-        //     content: "popover",
-        //     type: "string",
-        //     title: "Select Location",
-        //     placeholder: "Select Placeholder 2",
-        //     required: true,
-        //     id: 0,
-        //     label: "",
-        //     options: [],
-        // },
-        // {
-        //     content: "radio",
-        //     type: "string",
-        //     title: "Status",
-        //     placeholder: "",
-        //     required: true,
-        //     id: 0,
-        //     label: "Request Status",
-        //     options: ["Unassigned", "Assigned", "In Progress", "Closed"],
-        // },
-        // {
-        //     content: "radio",
-        //     type: "string",
-        //     title: "Priority",
-        //     placeholder: "",
-        //     required: true,
-        //     id: 0,
-        //     label: "Request Priority",
-        //     options: ["Low", "Medium", "High", "Emergency"],
-        // },
-        // {
-        //     content: "employee",
-        //     type: "string",
-        //     title: "Assign Employee",
-        //     placeholder: "Select Employee",
-        //     required: false,
-        //     id: 0,
-        //     label: "",
-        //     options: [],
-        // },
-    ]);
-
-    // Object.keys(customForm[1]).map((key) => {
-    //     console.log(customForm[1][key]);
-    // });
-
+    const [customForm, setCustomForm] = useState([]);
     const [currComponent, setCurrComponent] = useState("");
     const [currEdit, setCurrEdit] = useState(-2);
 
     const AddField = (props, edit) => {
         const [newObject, setNewObject] = useState({});
-
-        // console.log(props);
-        // console.log(edit);
-        // console.log(customForm);
-        // console.log(newObject);
-
         if (
             edit &&
             props != undefined &&
@@ -317,7 +225,7 @@ export default function FormMaker() {
                     <>
                         <div
                             className={
-                                "size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"
+                                "size-full p-5 bg-popover rounded-xl flex flex-col capitalize"
                             }
                         >
                             {Object.keys(props).map((field) => {
@@ -357,7 +265,7 @@ export default function FormMaker() {
                             <div className={"flex flex-row flex-nowrap"}>
                                 <Button
                                     className={
-                                        "mx-auto size-fit ml-0 p-1 mt-5 bg-red-300 self-start"
+                                        "mx-auto size-fit ml-0 p-1 mt-5 bg-red-400 hover:bg-red-500 self-start"
                                     }
                                     onClick={() => {
                                         console.log(newObject);
@@ -385,7 +293,7 @@ export default function FormMaker() {
                                 </Button>
                                 <Button
                                     className={
-                                        "mx-auto size-fit mr-0 p-1 mt-5 bg-yellow-300 self-end"
+                                        "mx-auto size-fit mr-0 p-1 mt-5 bg-yellow-400 hover:bg-yellow-500 self-end"
                                     }
                                     onClick={() => {
                                         console.log(newObject);
@@ -421,7 +329,7 @@ export default function FormMaker() {
                     <>
                         <div
                             className={
-                                "size-fit p-5 bg-popover rounded-xl flex flex-col capitalize"
+                                "size-full p-5 bg-popover rounded-xl flex flex-col capitalize"
                             }
                         >
                             {Object.keys(props).map((field) => {
@@ -460,7 +368,7 @@ export default function FormMaker() {
                             })}
                             <Button
                                 className={
-                                    "mx-auto size-fit mr-0 p-1 mt-5 bg-green-300 self-end"
+                                    "mx-auto size-fit mr-0 p-1 mt-5 bg-green-400 hover:bg-green-500 self-end"
                                 }
                                 onClick={() => {
                                     console.log(newObject);
@@ -478,142 +386,58 @@ export default function FormMaker() {
         }
     };
 
-    // const EditComponent = (props) => {
-    //     setCurrEdit(props);
-    //     const [options, setOptions] = useState([]);
-    //     const [option, setOption] = useState("");
-    //
-    //
-    //     console.log(currEdit);
-    //     console.log(customForm);
-    //     const handleOption = (type: string, field) => {
-    //         if(type === "string"){
-    //             return(
-    //                 <FormInput
-    //                     placeholder={field}
-    //                     className={
-    //                         "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
-    //                     }
-    //                     onChange={e => {
-    //                         setCurrEdit({
-    //                                 ...currEdit,
-    //                                 [field] : e.target.value}
-    //                             //console.log(newObject);
-    //                         );
-    //                     }}
-    //                 />
-    //             );
-    //         }else if(type === "boolean"){
-    //             return(
-    //                 <Checkbox
-    //                     onCheckedChange={checked => {
-    //                         setCurrEdit({
-    //                                 ...currEdit,
-    //                                 [field] : checked}
-    //                             //console.log(newObject);
-    //                         );
-    //                     }}
-    //                     className={"hover:bg-accent my-auto ml-3"}
-    //                 />
-    //             );
-    //         }else if(type === "number"){
-    //             return(
-    //                 <FormInput
-    //                     placeholder={field}
-    //                     type={"number"}
-    //                     className={
-    //                         "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
-    //                     }
-    //                     onChange={e => {
-    //                         setCurrEdit({
-    //                             ...currEdit,
-    //                             [field] : e.target.value}
-    //                         );
-    //                     }}
-    //                 />
-    //             );
-    //         }else if(type === "object"){
-    //             return(
-    //                 <div>
-    //                     <FormInput
-    //                         placeholder={field}
-    //                         type={"string"}
-    //                         className={
-    //                             "w-fit shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
-    //                         }
-    //                         onChange={e => {
-    //                             console.log(option);
-    //                             setOption(e.target.value);
-    //                         }}
-    //                     />
-    //                     <Button
-    //                         className={"size-fit p-1 mt-5 bg-green-300 self-end"}
-    //                         onClick={() => {
-    //                             setOptions([...options, option]);
-    //                             setCurrEdit({
-    //                                 ...currEdit,
-    //                                 [field] : options}
-    //                             );
-    //                         }}
-    //                     >
-    //                         <Plus
-    //                             className={"transition-all"}
-    //                         />
-    //                     </Button>
-    //                     {options.map((op) => {
-    //                         return(op);
-    //                     })}
-    //                 </div>
-    //             );
-    //         }
-    //         console.log("TYPE ==" + type);
-    //         return;
-    //     };
-    //      if (!props || Object.keys(props).length === 0) {
-    //          return null;
-    //      }
-    //      else{
-    //         return (
-    //                 <div className={"size-fit p-5 bg-popover rounded-xl flex flex-col"}>
-    //                     {Object.keys(props).map((field) => {
-    //                         console.log(field);
-    //                         if(field === "display" || field === "content"){
-    //                             return;}
-    //                         return(
-    //                             <div className={""}>
-    //                                 <Label
-    //                                     className={
-    //                                         "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
-    //                                     }>
-    //                                     {field}
-    //                                 </Label>
-    //                                 {handleOption((typeof props[field]), field)}
-    //
-    //                             </div>
-    //                         );
-    //                     })}
-    //                 </div>
-    //         );
-    //
-    //     }
-    //
-    //
-    //
-    //     // return (
-    //     //     <>
-    //     //         {Object.keys(props).map((key) => (
-    //     //             <div className="size-16 bg-red-900" key={key}>
-    //     //                 {props[key]}
-    //     //             </div>
-    //     //         ))}
-    //     //     </>
-    //     // );
-    // };
+    const importedForms = {
+        None : {
+            display : "None",
+            form : [],
+        },
+        Flower :
+        {
+            display : "Flower Form",
+            form : flowerForm,
+        },
+        Gift : 
+        {
+            display : "Gift Form",
+            form : giftForm,
+        },
+        Med : 
+        {
+            display : "Medicine Form",
+            form : medForm,
+        },
+        Medical : 
+        {
+            display : "Medical Devices",
+            form : medicalForm,
+        },
+        Sanitation : 
+        {
+            display : "Sanitation Form",
+            form : sanitationForm,
+        },
+        Room : 
+        {
+            display : "Room Request Form",
+            form : roomForm,
+        },
+        Security : 
+        {
+            display : "Security Form",
+            form : secForm,
+        },
+        Language : 
+        {
+            display : "Language Form",
+            form : langForm,
+        },
+    };
 
     const components = {
         label: {
             display: "Form Label",
             content: "label",
+            type: "",
             title: "",
         },
         textField: {
@@ -679,9 +503,38 @@ export default function FormMaker() {
                     "bg-card w-full mx-auto rounded-lg transition-all h-screen grid grid-cols-3"
                 }
             >
-                <div className={"py-20 col-span overflow-y-auto relative"}>
+                <div className={"py-12 col-span flex place-items-start mx-auto overflow-y-auto relative"}>
                     <div className={"bg-card w-full mx-auto rounded-lg"}>
-                        <div className={"m-5"}>
+                        <div className={"space-y-12"}>
+                            <div>
+                            <Popover>
+                                <PopoverTrigger>
+                                    <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
+                                        {currComponent["display"] ||
+                                            "Select Optional Template"}
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="origin-top-left max-h-80 w-fit overflow-y-auto rounded-m">
+                                    {Object.keys(importedForms).map(
+                                        (option, index) => {
+                                            return(
+                                                <div
+                                                    key={index}
+                                                    className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap"
+                                                    onClick={() => {
+                                                        console.log(importedForms[option]["form"]);
+                                                        setCustomForm(importedForms[option]["form"]);
+                                                        console.log(customForm);
+                                                    }}
+                                                >
+                                                    {importedForms[option]["display"]}
+                                                </div>
+                                            );
+                                        }
+                                    )}
+                                </PopoverContent>
+                            </Popover>
+                            </div>
                             <Popover>
                                 <PopoverTrigger>
                                     <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary">
@@ -708,11 +561,11 @@ export default function FormMaker() {
                                     )}
                                 </PopoverContent>
                             </Popover>
-                            <div className={"transition-all p-3"}>
+                            <div className={"transition-all p-3 w-full"}>
                                 {AddField(currComponent, false)}
                             </div>
                         </div>
-                        <div className={"m-5"}>
+                        <div className={""}>
                             <Popover>
                                 <PopoverTrigger>
                                     <Button
@@ -726,7 +579,7 @@ export default function FormMaker() {
                                                 currEdit["content"]}
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md">
+                                <PopoverContent className="origin-top-left max-h-80 w-fit overflow-y-auto rounded-m">
                                     {customForm.map((option, index) => {
                                         return (
                                             <div
@@ -741,26 +594,27 @@ export default function FormMaker() {
                                             >
                                                 <div
                                                     className={
-                                                        "font-bold capitalize"
+                                                        "font-bold capitalize flex flex-row flex-nowrap"
                                                     }
                                                 >
                                                     {"ID "}
                                                     {option.id}
-                                                    {" : "}
-                                                    {option.content}
+                                                    {": "}
+                                                    <div className={"text-none"}>
+                                                        {option.content}
+                                                    </div>
                                                 </div>
                                             </div>
                                         );
                                     })}
                                 </PopoverContent>
                             </Popover>
-                            <div className={"transition-all p-3"}>
+                            <div className={"transition-all p-3 w-full"}>
                                 {AddField(customForm[currEdit], true)}
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div
                     className={
                         "bg-background w-full h-screen col-span-2 px-16 overflow-auto overflow-y-scroll"
