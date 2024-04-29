@@ -100,7 +100,7 @@ export default function InterpreterService(employee: string | undefined) {
     if(employee == undefined){
         return;
     }
-    defaultFormSchema.createdBy = JSON.stringify(employee);
+    defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
     return ServiceRequests(
         defaultForm,
         defaultFormSchema,
