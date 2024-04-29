@@ -15,7 +15,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, /*MoreHorizontal*/ } from "lucide-react";
+import { ChevronDown /*MoreHorizontal*/ } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
@@ -86,7 +86,6 @@ export function DataTableDemo(data, columns) {
     //const [pageMax, setPageMax] = useState(1);
     const [valueFilter, setValueFilter] = useState(Object.keys(data[0])[0]);
 
-
     return (
         <div className="w-screen p-10 overflow-auto">
             <div className="flex grow items-center py-4 space-x-2">
@@ -132,7 +131,8 @@ export function DataTableDemo(data, columns) {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className="ml-auto">
-                            Display Fields <ChevronDown className="ml-2 h-4 w-4" />
+                            Display Fields{" "}
+                            <ChevronDown className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">

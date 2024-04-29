@@ -31,6 +31,7 @@ import WelcomePage from "@/routes/WelcomePage.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import { ToastProvider } from "@radix-ui/react-toast";
 import CreditPage from "@/routes/CreditPage.tsx";
+import GravityBallGamePage from "@/routes/GravityBallGamePage.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -73,7 +74,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     <Route path="/home" element={<Welcome />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/map" element={<MapPage nodes={nodes} />} />
-                    <Route path="/about-us" element={<AboutUs/>} />
+                    <Route path="/about-us" element={<AboutUs />} />
                     <Route
                         path="/services"
                         element={
@@ -178,8 +179,12 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                             </ProtectedRoute>
                         }
                     />
-                    <Route path="*" element = {<BadRoutePage/>}/>
+                    <Route path="*" element={<BadRoutePage />} />
                     <Route path="/credit-page" element={<CreditPage />} />
+                    <Route
+                        path="/Gravity-Ball-Game-page"
+                        element={<GravityBallGamePage />}
+                    />
                 </Routes>
 
                 <div className="fixed z-50 bottom-0 pb-2 pl-2">
@@ -208,7 +213,7 @@ function App() {
     return (
         <BrowserRouter>
             <ToastProvider>
-            <AuthProviderWrapper nodes={nodesIn} />
+                <AuthProviderWrapper nodes={nodesIn} />
             </ToastProvider>
         </BrowserRouter>
     );
