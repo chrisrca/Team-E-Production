@@ -18,7 +18,6 @@ import Scheduling from "/src/images/scheduling.jpg";
 import Device from "/src/images/MedicalDevice.png";
 import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
 
-
 export default function Services() {
     const { language } = useLanguage();
     return (
