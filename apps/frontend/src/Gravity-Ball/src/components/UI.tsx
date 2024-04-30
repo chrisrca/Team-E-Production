@@ -1,11 +1,19 @@
-import { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { gameState, GameState, levelSeedState, levelState } from "./state";
+import {
+    gameState,
+    GameState,
+    levelSeedState,
+    levelState,
+    scoreState,
+} from "./state";
 
 export const UI = () => {
     const [_gameState, setGameState] = useRecoilState(gameState);
     const setLevel = useSetRecoilState(levelState);
     const setLevelSeed = useSetRecoilState(levelSeedState);
+    const [score, setScore] = useRecoilState(scoreState); // Initialize score state
+
     const initial = _gameState === GameState.initial;
     const lost = _gameState === GameState.lost;
     const won = _gameState === GameState.won;
@@ -18,6 +26,18 @@ export const UI = () => {
         setGameState(GameState.playing);
     }, [won, setLevel, setGameState]);
 
+    useEffect(() => {
+        if (won) {
+            setScore((prevScore) => prevScore + 1);
+        }
+    }, [won, setScore]);
+
+    useEffect(() => {
+        if (lost) {
+            setScore(0);
+        }
+    }, [lost, setScore]);
+
     const regenerateLevel = () => {
         setLevelSeed((seed) => seed + 1);
     };
@@ -27,7 +47,7 @@ export const UI = () => {
             return;
         }
 
-        const onKeyDown = (e: KeyboardEvent) => {
+        const onKeyDown = (e) => {
             if (e.code === "Space") {
                 start();
             }
@@ -46,29 +66,42 @@ export const UI = () => {
 
     return (
         <div className="absolute inset-0 z-20 bg-white/80 p-12 flex flex-col text-center items-center justify-between">
-            <h1 className="uppercase text-5xl">Gravity Ball</h1>
+            <div className="text-center">
+                <h1 className="text-4xl md:text-6xl text-black font-bold mb-8">
+                    Gravity Ball
+                </h1>
+                <div className="text-lg md:text-xl text-gray-600 mb-12">
+                    Use arrow keys or WASD to move and click "Play" or press
+                    space to start
+                </div>
+            </div>
 
-            <div>
+            <div className="flex flex-col items-center justify-center">
                 {won && (
-                    <div className="uppercase text-3xl text-green-500">Won</div>
+                    <div className="text-2xl text-green-600 font-bold mb-4">
+                        Congratulations, You Won!
+                    </div>
                 )}
                 {lost && (
-                    <div className="uppercase text-3xl text-red-500">Lost</div>
+                    <div className="text-2xl text-red-600 font-bold mb-4">
+                        Game Over, You Lost!
+                    </div>
                 )}
 
+                <div className="text-xl md:text-2xl text-black font-bold mb-4">
+                    Score: {score}
+                </div>
                 <button
                     onClick={start}
-                    className="uppercase text-xl border border-black py-1 p-4 my-4"
+                    className="uppercase text-xl md:text-2xl bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out mb-8"
                 >
                     Play
                 </button>
-            </div>
 
-            <div>
                 {lost && (
                     <button
                         onClick={regenerateLevel}
-                        className="uppercase text-xl border border-black py-1 p-4"
+                        className="uppercase text-xl md:text-2xl bg-gray-700 hover:bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out"
                     >
                         Regenerate Level
                     </button>

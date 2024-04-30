@@ -21,3 +21,8 @@ export const levelSeedState = atom<number>({
     key: "levelSeed",
     default: 0,
 });
+
+export const scoreState = atom<number>({
+    key: "score",
+    default: 0,
+});
