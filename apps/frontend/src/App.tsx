@@ -32,7 +32,7 @@ import { Toaster } from "@/components/ui/toaster.tsx";
 import { ToastProvider } from "@radix-ui/react-toast";
 import CreditPage from "@/routes/CreditPage.tsx";
 import FormMaker from "@/routes/CustomForms";
-import Mobile from "./routes/Mobile";
+// import Mobile from "./routes/Mobile";
 import { LanguageToggle } from "@/components/ui/LanguageToggle.tsx";
 import { LanguageProvider } from "@/components/LanguageProvider.tsx";
 import GravityBallGamePage from "@/routes/GravityBallGamePage.tsx";
@@ -114,10 +114,10 @@ function InnerApp({ nodes }: { nodes: DBNode[] }) {
                             element={<GravityBallGamePage />}
                         />
                         <Route path="/meettheteam" element={<ThreeSixty />} />
-                        <Route
+                        {/* <Route
                             path="/mobile/:start/:end/:algorithm"
                             element={<Mobile nodesIn={nodes} />}
-                        />
+                        /> */}
                         <Route
                             path="/services"
                             element={
