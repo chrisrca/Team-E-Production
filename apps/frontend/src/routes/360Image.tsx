@@ -1,7 +1,13 @@
-import React, {useRef, useMemo, useState, useEffect} from 'react';
-import { Canvas, extend, ThreeEvent, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Html } from '@react-three/drei';
-import { TextureLoader, Mesh, Vector3, Camera } from 'three';
+import React, { useRef, useMemo, useState, useEffect } from "react";
+import {
+    Canvas,
+    extend,
+    ThreeEvent,
+    useFrame,
+    useThree,
+} from "@react-three/fiber";
+import { OrbitControls, Html } from "@react-three/drei";
+import { TextureLoader, Mesh, Vector3, Camera } from "three";
 import imageSrc from "../images/360image.png";
 import { THREE } from "aframe";
 
@@ -24,7 +30,7 @@ function Scene() {
             meshRef.current.rotation.y += rotationSpeed;
         }
         if (hover) {
-            setRotationSpeed(speed => Math.max(0, speed - 0.00005));
+            setRotationSpeed((speed) => Math.max(0, speed - 0.00005));
         } else {
             setRotationSpeed(0.001);
         }
@@ -46,18 +52,114 @@ function Scene() {
     }, [hover]);
 
     const hotspots = [
-        { uMin: 0.0204, uMax: 0.0735, vMin: 0.3242, vMax: 0.6049, name: "Christian Reynolds", major: "Computer Science, IMGD Minor", year: "Sophomore" },
-        { uMin: 0.1261, uMax: 0.1709, vMin: 0.3092, vMax: 0.5817, name: "Aksel Jensen", major: "Bioinformatics Computational Biology and Computer Science, Psychology Minor", year: "Sophomore" },
-        { uMin: 0.2242, uMax: 0.2691, vMin: 0.3252, vMax: 0.5630, name: "Marc Wehbe", major: "Electrical and Computer Engineering and Robotics Engineering", year: "Junior" },
-        { uMin: 0.3031, uMax: 0.3429, vMin: 0.3496, vMax: 0.5526, name: "Devin Mihaichuk", major: "Computer Science", year: "Sophomore" },
-        { uMin: 0.3821, uMax: 0.4164, vMin: 0.3367, vMax: 0.5491, name: "Yan Acevedo", major: "Robotics Engineering", year: "Junior" },
-        { uMin: 0.4667, uMax: 0.5073, vMin: 0.3277, vMax: 0.5577, name: "Kai Davidson", major: "Computer Science and Bioinformatics", year: "Sophomore" },
-        { uMin: 0.5401, uMax: 0.5783, vMin: 0.3356, vMax: 0.5450, name: "Brendan Reilly", major: "Computer Science", year: "Sophomore" },
-        { uMin: 0.6157, uMax: 0.6577, vMin: 0.3287, vMax: 0.5470, name: "Tao Zou", major: "Robotics Engineering", year: "Senior" },
-        { uMin: 0.6839, uMax: 0.7181, vMin: 0.3421, vMax: 0.5483, name: "Tri Vien Le", major: "Computer Science", year: "Junior" },
-        { uMin: 0.7777, uMax: 0.8172, vMin: 0.3352, vMax: 0.5556, name: "Brandon Yeu", major: "Computer Science and Data Science", year: "Sophomore" },
-        { uMin: 0.8618, uMax: 0.9026, vMin: 0.3262, vMax: 0.5645, name: "Lorenzo Manfredi Segato", major: "Robotics Engineering & Computer Science, Mathematics and Physics minor", year: "Junior" },
-        { uMin: 0.9307, uMax: 0.9708, vMin: 0.3215, vMax: 0.5567, name: "Colin Williams", major: "Computer Science", year: "Sophomore" },
+        {
+            uMin: 0.0204,
+            uMax: 0.0735,
+            vMin: 0.3242,
+            vMax: 0.6049,
+            name: "Christian Reynolds",
+            major: "Computer Science, IMGD Minor",
+            year: "Sophomore",
+        },
+        {
+            uMin: 0.1261,
+            uMax: 0.1709,
+            vMin: 0.3092,
+            vMax: 0.5817,
+            name: "Aksel Jensen",
+            major: "Bioinformatics Computational Biology and Computer Science, Psychology Minor",
+            year: "Sophomore",
+        },
+        {
+            uMin: 0.2242,
+            uMax: 0.2691,
+            vMin: 0.3252,
+            vMax: 0.563,
+            name: "Marc Wehbe",
+            major: "Electrical and Computer Engineering and Robotics Engineering",
+            year: "Junior",
+        },
+        {
+            uMin: 0.3031,
+            uMax: 0.3429,
+            vMin: 0.3496,
+            vMax: 0.5526,
+            name: "Devin Mihaichuk",
+            major: "Computer Science",
+            year: "Sophomore",
+        },
+        {
+            uMin: 0.3821,
+            uMax: 0.4164,
+            vMin: 0.3367,
+            vMax: 0.5491,
+            name: "Yan Acevedo",
+            major: "Robotics Engineering",
+            year: "Junior",
+        },
+        {
+            uMin: 0.4667,
+            uMax: 0.5073,
+            vMin: 0.3277,
+            vMax: 0.5577,
+            name: "Kai Davidson",
+            major: "Computer Science and Bioinformatics",
+            year: "Sophomore",
+        },
+        {
+            uMin: 0.5401,
+            uMax: 0.5783,
+            vMin: 0.3356,
+            vMax: 0.545,
+            name: "Brendan Reilly",
+            major: "Computer Science",
+            year: "Sophomore",
+        },
+        {
+            uMin: 0.6157,
+            uMax: 0.6577,
+            vMin: 0.3287,
+            vMax: 0.547,
+            name: "Tao Zou",
+            major: "Robotics Engineering",
+            year: "Senior",
+        },
+        {
+            uMin: 0.6839,
+            uMax: 0.7181,
+            vMin: 0.3421,
+            vMax: 0.5483,
+            name: "Tri Vien Le",
+            major: "Computer Science",
+            year: "Junior",
+        },
+        {
+            uMin: 0.7777,
+            uMax: 0.8172,
+            vMin: 0.3352,
+            vMax: 0.5556,
+            name: "Brandon Yeu",
+            major: "Computer Science and Data Science",
+            year: "Sophomore",
+        },
+        {
+            uMin: 0.8618,
+            uMax: 0.9026,
+            vMin: 0.3262,
+            vMax: 0.5645,
+            name: "Lorenzo Manfredi Segato",
+            major: "Robotics Engineering & Computer Science, Mathematics and Physics minor",
+            year: "Junior",
+        },
+        {
+            uMin: 0.9307,
+            uMax: 0.9708,
+            vMin: 0.3215,
+            vMax: 0.5567,
+            name: "Colin Williams",
+            major: "Computer Science",
+            year: "Sophomore",
+        },
     ];
 
     const R = 7; // Radius of the sphere
@@ -67,9 +169,13 @@ function Scene() {
         if (!uv) {
             return;
         }
-        const isOverHotspot = hotspots.some(hotspot => {
-            if (uv.x >= hotspot.uMin && uv.x <= hotspot.uMax &&
-                uv.y >= hotspot.vMin && uv.y <= hotspot.vMax) {
+        const isOverHotspot = hotspots.some((hotspot) => {
+            if (
+                uv.x >= hotspot.uMin &&
+                uv.x <= hotspot.uMax &&
+                uv.y >= hotspot.vMin &&
+                uv.y <= hotspot.vMax
+            ) {
                 setName(hotspot.name);
                 setMajor(hotspot.major);
                 setYear(hotspot.year);
@@ -91,7 +197,7 @@ function Scene() {
         return { x, y, z };
     }
 
-    const vectors = hotspots.map(hotspot => {
+    const vectors = hotspots.map((hotspot) => {
         const u = (hotspot.uMin + hotspot.uMax) / 2;
         const v = hotspot.vMin; // Top v
         const vector = uvToVector3(u, v);
@@ -103,13 +209,17 @@ function Scene() {
 
         for (let i = 0; i < vectors.length; i++) {
             if (vectors[i].name === name) {
-                const vector = new Vector3(vectors[i].vector.x, vectors[i].vector.y, vectors[i].vector.z); // Adjust this to match the position you want to track
+                const vector = new Vector3(
+                    vectors[i].vector.x,
+                    vectors[i].vector.y,
+                    vectors[i].vector.z,
+                ); // Adjust this to match the position you want to track
                 vector.applyQuaternion(meshRef.current!.quaternion);
                 vector.project(camera);
 
                 const widthHalf = 0.5 * canvas.clientWidth;
                 const heightHalf = 0.5 * canvas.clientHeight;
-                vector.x = (vector.x * widthHalf);
+                vector.x = vector.x * widthHalf;
                 vector.y = -(vector.y * heightHalf);
 
                 if (annotationRef.current) {
@@ -124,15 +234,24 @@ function Scene() {
     return (
         <>
             <Html>
-                {hover && <div ref={annotationRef} className="annotation">
-                    <p><strong>{name}</strong></p> <br/>
-                    <p>{major}</p>
-                    <p>{year}</p>
-                </div>}
+                {hover && (
+                    <div ref={annotationRef} className="annotation">
+                        <p>
+                            <strong>{name}</strong>
+                        </p>{" "}
+                        <br />
+                        <p>{major}</p>
+                        <p>{year}</p>
+                    </div>
+                )}
             </Html>
-            <mesh ref={meshRef} position={[0, 0, 0]} onPointerMove={handlePointerMove}>
-                <sphereGeometry args={[7, 64, 64]}/>
-                <meshBasicMaterial map={texture} side={THREE.BackSide}/>
+            <mesh
+                ref={meshRef}
+                position={[0, 0, 0]}
+                onPointerMove={handlePointerMove}
+            >
+                <sphereGeometry args={[7, 64, 64]} />
+                <meshBasicMaterial map={texture} side={THREE.BackSide} />
             </mesh>
         </>
     );
@@ -140,9 +259,16 @@ function Scene() {
 
 const ThreeSixty = () => {
     return (
-        <Canvas camera={{ fov: 75, position: [0, 0, 5] }} style={{ height: '100vh', width: '100vw' }}>
-            <OrbitControls enableZoom={false} minPolarAngle={1.4} maxPolarAngle={1.4}/>
-            <Scene/>
+        <Canvas
+            camera={{ fov: 75, position: [0, 0, 5] }}
+            style={{ height: "100vh", width: "100vw" }}
+        >
+            <OrbitControls
+                enableZoom={false}
+                minPolarAngle={1.4}
+                maxPolarAngle={1.4}
+            />
+            <Scene />
         </Canvas>
     );
 };

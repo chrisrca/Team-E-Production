@@ -31,11 +31,11 @@ import AboutUs from "@/routes/AboutUs.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import { ToastProvider } from "@radix-ui/react-toast";
 import CreditPage from "@/routes/CreditPage.tsx";
+import FormMaker from "@/routes/CustomForms";
 import Mobile from "./routes/Mobile";
-import {LanguageToggle} from "@/components/ui/LanguageToggle.tsx";
-import {LanguageProvider} from "@/components/LanguageProvider.tsx";
+import { LanguageToggle } from "@/components/ui/LanguageToggle.tsx";
+import { LanguageProvider } from "@/components/LanguageProvider.tsx";
 import GravityBallGamePage from "@/routes/GravityBallGamePage.tsx";
-
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
@@ -68,7 +68,6 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                 scope: "openid profile email offline_access",
             }}
         >
-
             <ThemeProvider>
                 <LanguageProvider>
                     <div className="flex">
@@ -98,7 +97,10 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         <Route path="/about-us" element={<AboutUs />} />
                         <Route path="*" element={<BadRoutePage />} />
                         <Route path="/credit-page" element={<CreditPage />} />
-                        <Route path="/Gravity-Ball-Game-page" element={<GravityBallGamePage />}/>
+                        <Route
+                            path="/Gravity-Ball-Game-page"
+                            element={<GravityBallGamePage />}
+                        />
                         <Route path="/meettheteam" element={<ThreeSixty />} />
                         <Route
                             path="/mobile/:start/:end/:algorithm"
@@ -256,19 +258,25 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                                 </ProtectedRoute>
                             }
                         />
+                        <Route
+                        path="/form-maker"
+                        element={
+                            <ProtectedRoute>
+                                <FormMaker />
+                            </ProtectedRoute>
+                        }
+                        />
                     </Routes>
 
-                <div className="fixed z-50 bottom-0 pb-2 pl-2">
-                    <ModeToggle/>
-                </div>
+                    <div className="fixed z-50 bottom-0 pb-2 pl-2">
+                        <ModeToggle />
+                    </div>
 
-                <div className="fixed z-50 bottom-12 pb-2 pl-2">
-                    <LanguageToggle/>
-                </div>
-
+                    <div className="fixed z-50 bottom-12 pb-2 pl-2">
+                        <LanguageToggle />
+                    </div>
                 </LanguageProvider>
             </ThemeProvider>
-
         </Auth0Provider>
     );
 }

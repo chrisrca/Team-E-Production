@@ -10,6 +10,8 @@ import TextDirection, {
 } from "@/components/TextDirection.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { useLanguage } from "@/components/LanguageProvider";
+//import MapPage3d from "@/routes/MapPage3d.tsx";
+import {Box} from "lucide-react";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
@@ -75,48 +77,53 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
 
     return (
         <>
-            <div className="flex flex-col absolute h-screen space-y-4 left-0">
-                <div className="flex z-10 ml-20 mt-5">
-                    <SearchBar
-                        selection={nodes}
-                        start={[start, setStart]}
-                        end={[end, setEnd]}
-                        algorithm={[algorithm, setAlgorithm]}
-                    />
-                </div>
-
-                <div className="flex z-10 ml-20">
-                    <Button onClick={handleRandomize}>
-                        I'm Feeling Lucky
-                    </Button>
-                </div>
-
-                <div className="absolute top-0 left-0 z-10 ml-2.5 mt-20 pt-10">
-                    <LevelButtons levelProps={[level, setLevel]}/>
-                </div>
-
-                <div className="z-10 ml-20 mt-5 max-w-72">
-                    <TextDirectionComponent prompts={prompt} turns={turn} floors={floor}/>
-                </div>
+            <div className="fixed z-50 bottom-[6.5rem] pl-2">
+                <Button variant="outline" size="icon" onClick={() => { window.location.href = "/map3d"; }}>
+                    <Box/>
+                </Button>
             </div>
-
-            <div className="flex flex-col absolute h-screen space-y-4 right-0">
-                <div className="z-10 mt-14 mr-2.5">
-                    <Legend/>
-                </div>
-
-            </div>
-
-            <div style={{height: "100vh", overflow: "hidden"}}>
-                <CanvasMap
-                    level={level}
-                    path={pathNodes}
-                    nodes={nodes}
-                    setLevel={setLevel}
-                    start={setStart}
-                    end={setEnd}
+        <div className="flex flex-col absolute h-screen space-y-4 left-0">
+            <div className="flex z-10 ml-20 mt-5">
+                <SearchBar
+                    selection={nodes}
+                    start={[start, setStart]}
+                    end={[end, setEnd]}
+                    algorithm={[algorithm, setAlgorithm]}
                 />
             </div>
+
+            <div className="flex z-10 ml-20">
+                <Button onClick={handleRandomize}>
+                    I'm Feeling Lucky
+                </Button>
+            </div>
+
+            <div className="absolute top-0 left-0 z-10 ml-2.5 mt-20 pt-10">
+                <LevelButtons levelProps={[level, setLevel]}/>
+            </div>
+
+            <div className="z-10 ml-20 mt-5 max-w-72">
+                <TextDirectionComponent prompts={prompt} turns={turn} floors={floor}/>
+            </div>
+        </div>
+
+        <div className="flex flex-col absolute h-screen space-y-4 right-0">
+            <div className="z-10 mt-14 mr-2.5">
+                <Legend/>
+            </div>
+
+        </div>
+
+        <div style={{height: "100vh", overflow: "hidden"}}>
+            <CanvasMap
+                level={level}
+                path={pathNodes}
+                nodes={nodes}
+                setLevel={setLevel}
+                start={setStart}
+                end={setEnd}
+            />
+        </div>
         </>
     );
 }

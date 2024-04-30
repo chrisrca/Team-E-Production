@@ -115,13 +115,13 @@ export const Player = forwardRef<Mesh>((_, forwardedRef) => {
         }
         texture.wrapS = RepeatWrapping;
         texture.wrapT = RepeatWrapping;
-        texture.repeat.set(1, 4);
+        texture.repeat.set(1, 1);
     });
 
     return (
         <mesh ref={ref} receiveShadow castShadow>
             <sphereGeometry />
-            <meshStandardMaterial map={texture} color="#FFA500" />
+            <meshStandardMaterial map={texture} />
         </mesh>
     );
 });

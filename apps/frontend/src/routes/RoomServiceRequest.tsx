@@ -2,7 +2,7 @@ import { ServiceRequests } from "@/components/ServiceRequests";
 import scheduling from "/src/images/scheduling.jpg";
 import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
-export default function RoomScheduling() {
+export default function RoomScheduling(employee: string | undefined) {
     const { language } = useLanguage();
 
     const defaultFormSchema = {
@@ -114,6 +114,11 @@ export default function RoomScheduling() {
         },
     ];
 
+    if(employee == undefined){
+        return;
+    }
+    defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
+  
     return ServiceRequests(
         serviceForm,
         defaultFormSchema,

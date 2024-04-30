@@ -5,18 +5,20 @@ import { UI } from "./UI";
 import { HUD } from "./HUD";
 import { DisablePageScroll } from "./DisablePageScroll";
 import { JoystickControlsRoot } from "./JoystickControls";
+import { useState } from "react";
 
 const CanvasRootLazy = dynamic(() =>
     import("./CanvasRoot").then((mod) => mod.CanvasRoot),
 );
 
 export const Game = () => {
+    const [score, setScore] = useState(0);
     return (
         <RecoilRoot>
             <DisablePageScroll />
             <div className="h-screen">
                 <JoystickControlsRoot>
-                    <UI />
+                    <UI score={score} setScore={setScore} />
                     <HUD />
                     <KeyboardControlsRoot>
                         <CanvasRootLazy />

@@ -6,7 +6,6 @@ const defaultFormSchema = {
     patientName: "",
     flowerType: "",
     senderName: "",
-    cardMessage: "",
     location: "",
     status: "",
     priority: "",
@@ -16,9 +15,10 @@ const defaultFormSchema = {
 
 // Label is necessary, ids are calculated assuming that there is a title
 
-const FlowerService = () => {
+export default function FlowerService (employee: string | undefined) {
     const { language } = useLanguage(); // Using the useLanguage hook here
-    const flowerForm = [
+
+        const flowerForm = [
         {
             content: "label",
             title: translate("Flower Service Request Form", language), // Using translate function for localization
@@ -100,7 +100,10 @@ const FlowerService = () => {
             options: [],
         },
     ];
-
+        if(employee == undefined){
+            return;
+        }
+    defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
     return ServiceRequests(
         flowerForm,
         defaultFormSchema,
@@ -110,4 +113,3 @@ const FlowerService = () => {
     );
 };
 
-export default FlowerService;

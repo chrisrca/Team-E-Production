@@ -5,6 +5,8 @@ import { DBNode } from "common/src/types";
 import Legend from "@/components/canvasmap/map/Legend";
 import { useEffect, useState } from "react";
 import Map3d from "@/components/canvasmap/map3d/Map3d";
+import { Square } from "lucide-react";
+import { Button } from "@/components/ui/button";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
@@ -40,21 +42,28 @@ export default function MapPage3d({ nodes }: { nodes: DBNode[] }) {
 
     return (
         <>
-            <div className="z-0 relative flex">
-                <div className="z-10">
+            <div className="fixed z-50 bottom-[6.5rem] pl-2">
+                <Button variant="outline" size="icon" onClick={() => { window.location.href = "/map"; }}>
+                    <Square/>
+                </Button>
+            </div>
+            <div className="flex flex-col absolute h-screen space-y-4 left-0">
+                <div className="flex z-10 ml-20 mt-5">
                     <SearchBar
                         selection={nodes}
                         start={[start, setStart]}
                         end={[end, setEnd]}
                         algorithm={[algorithm, setAlgorithm]}
                     />
-                    <div className="mr-5 max-h-full mb-10 absolute bottom-0 right-0 z-10">
-                        <Legend />
-                    </div>
+                </div>
+                <div className="absolute top-0 left-0 z-10 ml-2.5 mt-20 pt-10">
                     <LevelButtons levelProps={[level, setLevel]} />
                 </div>
-                <Map3d pathNodes={pathNodes} level={level} nodes={nodes} setStart={setStart} setEnd={setEnd} setLevel={setLevel}/>
             </div>
+            <div className="mr-5 max-h-full mb-10 absolute bottom-0 right-0 z-10">
+                    <Legend />
+                </div>
+            <Map3d pathNodes={pathNodes} level={level} nodes={nodes} setStart={setStart} setEnd={setEnd} setLevel={setLevel}/>
         </>
     );
 }
