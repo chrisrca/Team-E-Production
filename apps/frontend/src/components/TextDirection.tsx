@@ -167,26 +167,25 @@ export function TextDirectionComponent(props: TextDirectionProps) {
 
     return (
         <div>
-            <Accordion type="single" collapsible className="w-full px-2 drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg overflow-auto h-fit max-h-custom">
-                {floorsUsed?.map((flr,idx) => (
-                    <AccordionItem value={`${idx}`}>
-                        <AccordionTrigger className="max-h-11 px-2">{flr}</AccordionTrigger>
-                        <AccordionContent className="overflow-y-auto h-fit max-h-60">
-                            {prompts?.map((prompt, index) => (
-                                (floors[index]===flr && floorBool(indexOfFloorUsed,idx,index)) ?
-                                <div key={index}
-                                     className="flex-row p-2 border z-10 bg-secondary text-foreground rounded-lg flex items-center">
-                                    <div className="border-black rounded-lg p-1">
-                                        {componentMapping[turns [index]] ? React.createElement(componentMapping[turns[index]]) : `?`}
-                                    </div>
-                                ) : (
-                                    <></>
-                                ),
-                            )}
-                        </AccordionContent>
-                    </AccordionItem>
-                ))}
-            </Accordion>
+        <Accordion type="single" collapsible className="w-full px-3 drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg">
+            {floorsUsed?.map((flr,idx) => (
+                <AccordionItem value={`${idx}`}>
+                    <AccordionTrigger>{flr}</AccordionTrigger>
+                    <AccordionContent className="overflow-x-auto overflow-y-auto h-64">
+                        {prompts?.map((prompt, index) => (
+                            (floors[index]===flr && floorBool(indexOfFloorUsed,idx,index)) ?
+                            <div key={index}
+                                 className="flex-row p-2 border z-10 bg-secondary text-foreground rounded-lg flex items-center">
+                                <div className="border-black rounded-lg p-1">
+                                    {componentMapping[turns [index]] ? React.createElement(componentMapping[turns[index]]) : `?`}
+                                </div>
+                                <div className="px-3">{prompt}</div>
+                            </div> : <></>
+                        ))}
+                    </AccordionContent>
+                </AccordionItem>
+            ))}
+        </Accordion>
         </div>
     );
 }
