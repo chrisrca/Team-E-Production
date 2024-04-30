@@ -2,7 +2,7 @@ import { ServiceRequests } from "@/components/ServiceRequests";
 import cleaning from "/src/images/cleaning.jpg";
 import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
-export default function SanitationService() {
+export default function SanitationService(employee: string | undefined) {
     const { language } = useLanguage(); // Using the useLanguage hook to get the language variable
 
     const defaultFormSchema = {
@@ -16,6 +16,7 @@ export default function SanitationService() {
         createdBy: "",
     };
 
+    
     // Label is necessary, ids are calculated assuming that there is a title
 
     const sanitationForm = [
@@ -109,7 +110,12 @@ export default function SanitationService() {
             options: [],
         },
     ];
-
+    
+    if(employee == undefined){
+        return;
+    }
+    defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);  
+  
     return (
         <div>
             {ServiceRequests(

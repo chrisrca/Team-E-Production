@@ -2,7 +2,7 @@ import { ServiceRequests } from "@/components/ServiceRequests";
 import medicinestore from "/src/images/medicinestore.jpg";
 import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
-export default function DrugDelivery() {
+export default function DrugDelivery(employee: string | undefined) {
     const { language } = useLanguage(); // Using the useLanguage hook to get the language variable
 
     const defaultFormSchema = {
@@ -108,6 +108,10 @@ export default function DrugDelivery() {
         },
     ];
 
+    if(employee == undefined){
+        return;
+    }
+    defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
     return (
         <div>
             {ServiceRequests(

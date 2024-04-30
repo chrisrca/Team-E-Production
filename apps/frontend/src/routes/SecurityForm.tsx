@@ -2,7 +2,7 @@ import { ServiceRequests } from "@/components/ServiceRequests";
 import security from "/src/images/security.avif";
 import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
-export default function SecurityForm() {
+export default function SecurityForm(employee: string | undefined) {
     const { language } = useLanguage(); // Using the useLanguage hook to get the language variable
 
     const defaultFormSchema = {
@@ -96,7 +96,12 @@ export default function SecurityForm() {
             options: [],
         },
     ];
-
+    
+    if(employee == undefined){
+        return;
+    }
+    defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
+  
     return (
         <div>
             {ServiceRequests(

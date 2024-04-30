@@ -24,6 +24,7 @@ function ProfilePage() {
         }
         const fetchServiceRequests = async () => {
             try {
+                console.log(employeeName);
                 const response = await axios.get(
                     `/api/service-requests/${employeeName}`,
                 );
@@ -46,7 +47,7 @@ function ProfilePage() {
         const checkEmployeeAdmin = async () => {
             try {
                 const response = await axios.get(
-                    `/employees/${employeeName}/boolean`,
+                    `/api/employee/${employeeName}/boolean`
                 );
                 if (response.data) {
                     const { name, booleanValue } = response.data;
@@ -78,41 +79,54 @@ function ProfilePage() {
     };
 
     const chartData = aggregateData(activeTab);
+
+    const handleAdminToggle = async () => {
+        try {
+            const response = await axios.post(`/api/employee/${employeeName}/boolean/toggle`);
+            if (response.data) {
+                const { name, admin } = response.data;
+                console.log(`${name}'s admin permission is now: ${admin}`);
+                setAdminPerm(admin);
+            } else {
+                console.error("Failed to toggle admin permission");
+            }
+        } catch (error) {
+            console.error("Error toggling admin permission:", error);
+        }
+    };
+
     if (userInfo && adminPerm)
-        return (
-            <div className="container mx-auto p-4">
-                <div className="mb-8">
-                    <h1 className="text-xl font-bold mt-12 m-4">
-                        Admin Profile
-                    </h1>
-                    <p className="text-gray-700"> {employeeName} </p>
-                </div>
-                <h1 className="text-xl mt-12 m-4">Employees</h1>
-                <ViewNodes data={employeeData} />
-                <h1 className="text-xl  mt-12 m-4">Services</h1>
-                <ViewNodes data={serviceRequests} />
-                <div className="flex">
-                    <div>
-                        <h1 className="text-xl font-bold mt-12 m-4">
-                            Service Chart Data
-                        </h1>
-                        <Tabs
-                            defaultValue="location"
-                            onValueChange={setActiveTab}
-                        >
+    return (
+        <div className="container mx-auto p-4">
+            <div className="mb-8">
+                <h1 className="text-xl font-bold mt-12 mb-4">Admin Profile</h1>
+                <p className="text-gray-700 text-l">{employeeName}</p>
+            </div>
+
+            <div className="mb-8">
+                <h1 className="text-xl mt-12 mb-4">Employee Manager</h1>
+                <ViewNodes data={employeeData}/>
+            </div>
+
+            <div className="mb-8">
+                <h1 className="text-xl mt-12 mb-4">Service Manager</h1>
+                <ViewNodes data={serviceRequests}/>
+            </div>
+
+            <div className="mb-8">
+                <h1 className="text-xl font-bold mt-12 mb-4">Service Chart Data</h1>
+                <div className="flex flex-col md:flex-row items-start">
+                    <div className="mr-8">
+                        <Tabs defaultValue="location" onValueChange={setActiveTab}>
                             <TabsList>
-                                <TabsTrigger value="location">
-                                    Location
-                                </TabsTrigger>
+                                <TabsTrigger value="location">Location</TabsTrigger>
                                 <TabsTrigger value="status">Status</TabsTrigger>
-                                <TabsTrigger value="priority">
-                                    Priority
-                                </TabsTrigger>
-                                <TabsTrigger value="serviceType">
-                                    Service Type
-                                </TabsTrigger>
+                                <TabsTrigger value="priority">Priority</TabsTrigger>
+                                <TabsTrigger value="serviceType">Service Type</TabsTrigger>
                             </TabsList>
                         </Tabs>
+                    </div>
+                    <div>
                         <Tabs defaultValue="bar" onValueChange={setChartType}>
                             <TabsList>
                                 <TabsTrigger value="bar">Bar Chart</TabsTrigger>
@@ -121,21 +135,33 @@ function ProfilePage() {
                         </Tabs>
                     </div>
                 </div>
-                <h1 className="flex justify-center text-l mt-12 m-4">
-                    Services grouped by: {activeTab} in form: {chartType}
-                </h1>
+            </div>
+
+            <h1 className="text-xl flex justify-center mt-12 mb-4">
+                Services grouped by: {activeTab} in form: {chartType}
+            </h1>
+
+            <div className="mb-8">
                 {chartType === "bar" ? (
                     <Chart
                         yMeasure="Count"
-                        sources={[{ displayName: activeTab, dataKey: "count" }]}
+                        sources={[{displayName: activeTab, dataKey: "count"}]}
                         data={chartData}
                         dataKey="count"
                     />
                 ) : (
-                    <PiChart data={chartData} dataKey="count" />
+                    <PiChart data={chartData} dataKey="count"/>
                 )}
             </div>
-        );
+
+            <button
+                onClick={handleAdminToggle}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+                {adminPerm ? "Revoke Admin" : "Grant Admin"}
+            </button>
+        </div>
+    );
     if (userInfo)
         return (
             <div className="container mx-auto p-4">
@@ -143,10 +169,10 @@ function ProfilePage() {
                     <h1 className="text-xl font-bold mt-12 m-4">
                         User Profile
                     </h1>
-                    <p className="text-gray-700"> {employeeName} </p>
+                    <p className="text-gray-700 text-l"> {employeeName} </p>
                 </div>
-                <h1 className="text-xl  mt-12 m-4">Services</h1>
-                <ViewNodes data={serviceRequests} />
+                <h1 className="text-xl  mt-12 m-4">Service Manager</h1>
+                <ViewNodes data={serviceRequests}/>
                 <div className="flex">
                     <div>
                         <h1 className="text-xl font-bold mt-12 m-4">
@@ -183,13 +209,17 @@ function ProfilePage() {
                 {chartType === "bar" ? (
                     <Chart
                         yMeasure="Count"
-                        sources={[{ displayName: activeTab, dataKey: "count" }]}
+                        sources={[{displayName: activeTab, dataKey: "count" }]}
                         data={chartData}
                         dataKey="count"
                     />
                 ) : (
                     <PiChart data={chartData} dataKey="count" />
                 )}
+                <button onClick={handleAdminToggle}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    {adminPerm ? "Revoke Admin" : "Grant Admin"}
+                </button>
             </div>
         );
 }
