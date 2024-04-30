@@ -44,6 +44,8 @@ import {
     MapPinned,
     TextCursorInput,
     ListChecks,
+    MoreHorizontal,
+    FileInput,
  } from "lucide-react";
 
 export default function FormMaker() {
@@ -68,6 +70,7 @@ export default function FormMaker() {
 
         const [options, setOptions] = useState([]);
         const [option, setOption] = useState("");
+        const [id, setID] = useState("");
 
         // console.log(newObject);
         // console.log(customForm);
@@ -223,7 +226,11 @@ export default function FormMaker() {
                     />
                 );
             } else if (type === "object") {
-                if(edit && (options.length === 0 && newObject[field] !== undefined)){
+                if(edit && id !== props["id"] && newObject !== undefined){
+                    console.log("changing id from " + id + " to " + props["id"]);
+                    setOptions([]);
+                    setID(props["id"]);
+                }else if(edit && (options.length === 0 && newObject[field] !== undefined)){
                     setOptions(newObject[field]);
                 }else if(newObject[field] !== options){
                     setNewObject({
@@ -314,7 +321,7 @@ export default function FormMaker() {
                     <>
                         <div
                             className={
-                                "size-full p-5 bg-popover rounded-xl flex flex-col capitalize"
+                                "size-full px-5 pb-5 bg-popover rounded-xl flex flex-col capitalize"
                             }
                         >
                             {Object.keys(props).map((field) => {
@@ -339,7 +346,7 @@ export default function FormMaker() {
                                     <div className={""}>
                                         <Label
                                             className={
-                                                "block text-sm text-bold font-medium text-gray-700 dark:text-foreground my-3"
+                                                "block text-sm text-bold font-medium text-gray-700 dark:text-foreground mt-2"
                                             }
                                         >
                                             {field}
@@ -357,7 +364,7 @@ export default function FormMaker() {
                                         "mx-auto size-fit ml-0 p-1 mt-5 bg-red-400 hover:bg-red-500 self-start shadow-none hover:shadow-md"
                                     }
                                     onClick={() => {
-                                        console.log(newObject);
+                                        //console.log(newObject);
                                         if (edit) {
                                             setCustomForm([
                                                 ...customForm.slice(
@@ -376,7 +383,7 @@ export default function FormMaker() {
                                             ...customForm,
                                             newObject,
                                         ]);
-                                        console.log(customForm);
+                                        //console.log(customForm);
                                     }}
                                 >
                                     Remove
@@ -387,7 +394,7 @@ export default function FormMaker() {
                                         "mx-auto size-fit mr-0 p-1 mt-5 bg-yellow-400 hover:bg-yellow-500 self-end shadow-none hover:shadow-md"
                                     }
                                     onClick={() => {
-                                        console.log(newObject);
+                                        //console.log(newObject);
                                         if (edit) {
                                             setCustomForm([
                                                 ...customForm.slice(
@@ -407,7 +414,7 @@ export default function FormMaker() {
                                             ...customForm,
                                             newObject,
                                         ]);
-                                        console.log(customForm);
+                                        //console.log(customForm);
                                     }}
                                 >
                                     Modify
@@ -422,7 +429,7 @@ export default function FormMaker() {
                     <>
                         <div
                             className={
-                                "size-full p-5 bg-popover rounded-xl flex flex-col capitalize"
+                                "size-full px-5 pb-5 bg-popover rounded-xl flex flex-col capitalize"
                             }
                         >
                             {Object.keys(props).map((field) => {
@@ -447,7 +454,7 @@ export default function FormMaker() {
                                     <div className={""}>
                                         <Label
                                             className={
-                                                "block text-sm text-bold font-medium text-gray-700 dark:text-foreground my-3"
+                                                "block text-sm text-bold font-medium text-gray-700 dark:text-foreground mt-2"
                                             }
                                         >
                                             {field}
@@ -554,6 +561,14 @@ export default function FormMaker() {
             required: false,
             id: 0,
         },
+        checkBox: {
+            display: "Checkbox",
+            width: "col-span-1",
+            content: "checkbox",
+            title: "",
+            required: false,
+            id: 0,
+        },
         select: {
             display: "Select",
             width: "col-span-1",
@@ -565,21 +580,11 @@ export default function FormMaker() {
             required: false,
             options: [],
         },
-        checkBox: {
-            display: "Checkbox",
-            width: "col-span-1",
-            content: "checkbox",
-            title: "",
-            placeholder: "",
-            required: false,
-            id: 0,
-        },
         radioButtons: {
             display: "Radio Select",
             width: "col-span-1",
             content: "radio",
             title: "",
-            placeholder: "",
             id: 0,
             required: false,
             options: [],
@@ -618,20 +623,20 @@ export default function FormMaker() {
         <>
             <div
                 className={
-                    "bg-card flex items-center w-full mx-auto rounded-lg transition-all min-h-screen grid grid-cols-3"
+                    "bg-card flex items-center w-full mx-auto rounded-lg min-h-screen grid grid-cols-3"
                 }
             >
-                <div className={"relative pt-20 px-20 col-span flex flex-col self-start w-full h-screen relative overflow-auto pb-16"}>
-                    <div className={"bg-card w-full rounded-lg mx-auto "}>
-                        <div className={"space-y-6"}>
-                            <div className={"mb-6"}>
+                <div className={"relative pt-20 pr-4 pl-14 col-span flex flex-col self-start w-full h-screen relative overflow-auto"}>
+                    <div className={"bg-card w-full rounded-lg"}>
+                        <div className={"flex flex-col space-y-10 place-content-evenly pb-20"}>
                             <Popover>
                                 <PopoverTrigger>
-                                    <Button className="flex h-11 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground">
-                                        {"Select Optional Template"}
+                                    <Button className="flex h-11 w-56 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring shadow-none hover:shadow-md text-sm font-bold text-gray-700 hover:text-foreground bg-accent hover:bg-inherit border-2 border-notcolor hover:border-accent transition-all">
+                                        {"Use Existing Template"}
+                                        <FileInput className={"size-5 mr-0 ml-auto"}/>
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-m">
+                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-md">
                                     {Object.keys(importedForms).map(
                                         (option, index) => {
                                             return(
@@ -639,9 +644,11 @@ export default function FormMaker() {
                                                     key={index}
                                                     className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap"
                                                     onClick={() => {
-                                                        console.log(importedForms[option]["form"]);
+                                                        //console.log(importedForms[option]["form"]);
                                                         setCustomForm(importedForms[option]["form"]);
-                                                        console.log(customForm);
+                                                        setCurrComponent("");
+                                                        setCurrEdit(-2);
+                                                        //console.log(customForm);
                                                     }}
                                                 >
                                                     {option}
@@ -651,12 +658,12 @@ export default function FormMaker() {
                                     )}
                                 </PopoverContent>
                             </Popover>
-                            </div>
                             <Popover>
                                 <PopoverTrigger>
-                                    <Button className="flex h-11 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground">
+                                    <Button className="flex h-11 min-w-56 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring shadow-none hover:shadow-md text-sm font-bold text-gray-700 hover:text-foreground bg-accent hover:bg-inherit border-2 border-notcolor hover:border-accent transition-all">
                                         {currComponent["display"] ||
                                             "Select Element to Add"}
+                                            <Plus className={"size-5 mr-0 ml-auto"}/> 
                                     </Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-m">
@@ -673,12 +680,8 @@ export default function FormMaker() {
                                                 }}
                                             >
                                                 <div className={"text-nowrap flex flex-row flex-nowrap w-full items-stretch columns-2"}>
-
                                                     <div className={"w-full self-end"}>{components[option]["display"]}</div>
-
-
                                                     <div className={"w-fit self-end"}>{icons(index)}</div>
-
                                                  </div>
                                             </div>
                                         ),
@@ -688,13 +691,11 @@ export default function FormMaker() {
                             <div className={"transition-all w-full min-w-48"}>
                                 {AddField(currComponent, false)}
                             </div>
-                        </div>
-                        <div className={"mt-12"}>
                             <Popover>
                                 <PopoverTrigger
                                     disabled={customForm.length < 1}>
                                     <Button
-                                        className="flex h-11 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground"
+                                        className="flex h-11 w-56 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring shadow-none hover:shadow-md text-sm font-bold text-gray-700 hover:text-foreground bg-accent hover:bg-inherit border-2 border-notcolor hover:border-accent transition-all disabled:bg-primary"
                                         disabled={customForm.length < 1}
                                     >
                                         {"Select Element to Alter" ||
@@ -702,18 +703,19 @@ export default function FormMaker() {
                                                 currEdit["id"] +
                                                 " : " +
                                                 currEdit["content"]}
+                                        <MoreHorizontal className={"size-5 mr-0 ml-auto"}/>
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-m">
+                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-md">
                                     {customForm.map((option, index) => {
                                         return (
                                             <div
                                                 key={index}
                                                 className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap"
                                                 onClick={() => {
-                                                    console.log(
-                                                        customForm[index],
-                                                    );
+                                                    // console.log(
+                                                    //     customForm[index],
+                                                    // );
                                                     setCurrEdit(index);
                                                 }}
                                             >
@@ -734,7 +736,7 @@ export default function FormMaker() {
                                     })}
                                 </PopoverContent>
                             </Popover>
-                            <div className={"transition-all w-full min-w-48 mt-6"}>
+                            <div className={"transition-all w-full min-w-48"}>
                                 {AddField(customForm[currEdit], true)}
                             </div>
                         </div>
