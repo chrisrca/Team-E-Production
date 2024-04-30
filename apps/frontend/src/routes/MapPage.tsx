@@ -61,7 +61,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 }
 
                 setPathNodes(res.data);
-                const { prompts, turns, floors } = TextDirection(res.data, language);
+                const { prompts, turns, floors } = TextDirection(res.data, `${language}`);
                 setPrompt(prompts);
                 setTurn(turns);
                 setFloor(floors);
@@ -75,47 +75,47 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
 
     return (
         <>
-            <div className="z-0 relative flex">
-                <div className="z-10">
+            <div className="flex flex-col absolute h-screen space-y-4 left-0">
+                <div className="flex z-10 ml-20 mt-5">
                     <SearchBar
                         selection={nodes}
                         start={[start, setStart]}
                         end={[end, setEnd]}
                         algorithm={[algorithm, setAlgorithm]}
                     />
-                    <div className="mr-5 max-h-full mb-3 absolute bottom-0 right-0 z-10">
-                        <Legend/>
-                    </div>
+                </div>
+
+                <div className="flex z-10 ml-20">
+                    <Button onClick={handleRandomize}>
+                        I'm Feeling Lucky
+                    </Button>
+                </div>
+
+                <div className="absolute top-0 left-0 z-10 ml-2.5 mt-20 pt-10">
                     <LevelButtons levelProps={[level, setLevel]}/>
-                    <div style={{position: "absolute", top: "400px", left: ""}}>
-                        <TextDirectionComponent prompts={prompt} turns={turn} floors={floor} />
-                    </div>
-                    <div style={{position: "absolute", top: "240px", left: "60px"}}>
-                        <Button onClick={handleRandomize}>I'm Feeling Lucky</Button>
-                    </div>
-                    <LevelButtons levelProps={[level, setLevel]} />
-                    <div
-                        style={{
-                            position: "absolute",
-                            top: "240px",
-                            left: "60px",
-                        }}
-                    >
-                        <Button onClick={handleRandomize}>
-                            I'm Feeling Lucky
-                        </Button>
-                    </div>
                 </div>
-                <div style={{ height: "100vh", overflow: "hidden" }}>
-                    <CanvasMap
-                        level={level}
-                        path={pathNodes}
-                        nodes={nodes}
-                        setLevel={setLevel}
-                        start={setStart}
-                        end={setEnd}
-                    />
+
+                <div className="z-10 ml-20 mt-5 max-w-72">
+                    <TextDirectionComponent prompts={prompt} turns={turn} floors={floor}/>
                 </div>
+            </div>
+
+            <div className="flex flex-col absolute h-screen space-y-4 right-0">
+                <div className="z-10 mt-14 mr-2.5">
+                    <Legend/>
+                </div>
+
+            </div>
+
+            <div style={{height: "100vh", overflow: "hidden"}}>
+                <CanvasMap
+                    level={level}
+                    path={pathNodes}
+                    nodes={nodes}
+                    setLevel={setLevel}
+                    start={setStart}
+                    end={setEnd}
+                />
             </div>
         </>
     );

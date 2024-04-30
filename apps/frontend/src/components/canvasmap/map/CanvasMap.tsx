@@ -392,10 +392,10 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         <div>
             {hoverNode.longName && (
                 <div // ml-4 justify-items-center bg-background  absolute z-10 text-md rounded-md px-2 py-1 flex flex-col rounded-2 float-left top-0
-                    className="absolute z-10 rounded-md bg-background shadow-lg flex-col rounded-2 float-left top-1/3 left-[60px] "
+                    className="absolute z-10 rounded-md bg-background shadow-lg flex-col rounded-2 right-0 bottom-0 mr-2.5 mb-1"
                     style={{
-                        top: `300px`,
-                        left: `60px`,
+                        // top: `300px`,
+                        // left: `60px`,
                         zIndex: `9999px`,
                         whiteSpace: "nowrap",
                         minWidth: "fit-content",
