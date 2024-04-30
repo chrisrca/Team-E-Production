@@ -25,8 +25,6 @@ import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
 import Profile from "@/routes/Profile.tsx";
 import Settings from "@/routes/Settings.tsx";
-import DiagnosisBotRequest from "@/routes/DiagnosisBotRequest.tsx";
-import SymptomsService from "@/routes/SymptomsRequest.tsx";
 import ThreeSixty from "./routes/360Image.tsx";
 import BadRoutePage from "@/routes/404Page.tsx";
 import AboutUs from "@/routes/AboutUs.tsx";
