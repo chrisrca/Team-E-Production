@@ -5,13 +5,13 @@ import { roomForm } from "./exampleForms";
 export default function RoomScheduling(employee: string | undefined) {
 
     const defaultFormSchema = {
+        employeeName: "",
         serviceType: "",
+        location: "",
         startTime: "",
         endTime: "",
-        location: "",
         status: "",
         priority: "",
-        employeeName: "",
         createdBy: "",
     };
 

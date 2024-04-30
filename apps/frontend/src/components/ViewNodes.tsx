@@ -475,7 +475,15 @@ export default function ViewNodes(inputData: {
 
     if (data[0] != undefined) {
         Object.keys(data[0]).map((value) => {
-            if (value.includes("flower")) {
+            if (
+                value.includes("flower") ||
+                value.includes("gift") ||
+                value.includes("med") ||
+                value.includes("inter") ||
+                value.includes("sanitation") ||
+                value.includes("security") ||
+                value.includes("roomschedule")
+            ) {
                 return;
             }
             columns.push({
