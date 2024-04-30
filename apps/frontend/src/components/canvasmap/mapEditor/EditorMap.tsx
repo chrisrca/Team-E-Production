@@ -446,7 +446,7 @@ export default function EditorMap(props: CanvasMapProps) {
                     {/* Top color bar */}
                     <div
                         className="text-foreground text-white text-lg font-bold px-4 py-2"
-                        style={{backgroundColor: setColor(selectedNode)}}
+                        style={{ backgroundColor: setColor(selectedNode) }}
                     >
                         <p>Edge Editor/Creator</p>
                         {selectedNode.longName}
@@ -490,7 +490,7 @@ export default function EditorMap(props: CanvasMapProps) {
                 limitToBounds={true}
                 minScale={1}
                 maxScale={4}
-                wheel={{step: 0.5}}
+                wheel={{ step: 0.5 }}
                 doubleClick={{ disabled: false }}
                 onPanningStop={handlePanningStopped}
                 disabled={isDragging}

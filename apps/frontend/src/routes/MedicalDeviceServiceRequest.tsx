@@ -1,91 +1,107 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
 import MedicalDevice from "/src/images/MedicalDevice.png";
+import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
-const defaultFormSchema = {
-    location: "",
-    selectedDevice: "",
-    withBalloons: "false",
-    status: "",
-    priority: "",
-    employeeName: "",
-    createdBy: "",
-};
-
-//Label is necessary, ids are calculated assuming that there is a title
-
-const defaultForm = [
-    {
-        content: "label",
-        title: "Medical Device Request",
-        type: "header",
-        id: 0,
-    },
-    {
-        content: "popover",
-        type: "string",
-        title: "Select Location",
-        placeholder: "Select Placeholder 2",
-        required: true,
-        id: 0,
-        label: "",
-        options: [],
-    },
-    {
-        content: "select",
-        type: "string",
-        title: "Service Type",
-        placeholder: "Please Select Service",
-        required: true,
-        id: 0,
-        label: "Service Type",
-        options: ["Hospital Bed", "IV Pump", "Recliner"],
-    },
-    {
-        content: "checkbox",
-        type: "boolean",
-        title: "withBalloons",
-        placeholder: "With Balloons?",
-        required: false,
-        id: 0,
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Status",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed"],
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Priority",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Priority",
-        options: ["Low", "Medium", "High", "Emergency"],
-    },
-    {
-        content: "employee",
-        type: "string",
-        title: "Assign Employee",
-        placeholder: "Select Employee",
-        required: false,
-        id: 0,
-        label: "",
-        options: [],
-    },
-];
 export default function MedicalDeviceService(employee: string | undefined) {
+    const { language } = useLanguage();
+
+    const defaultFormSchema = {
+        location: "",
+        selectedDevice: "",
+        withBalloons: "false",
+        status: "",
+        priority: "",
+        employeeName: "",
+        createdBy: "",
+    };
+
+    const deviceForm = [
+        {
+            content: "label",
+            title: translate("Medical Device Request", language),
+            type: "header",
+            id: 0,
+        },
+        {
+            content: "popover",
+            type: "string",
+            title: translate("Select Location", language),
+            placeholder: translate("Select Placeholder 2", language),
+            required: true,
+            id: 0,
+            label: "",
+            options: [],
+        },
+        {
+            content: "select",
+            type: "string",
+            title: translate("Service Type", language),
+            placeholder: translate("Please Select Service", language),
+            required: true,
+            id: 0,
+            label: translate("Service Type", language),
+            options: [
+                translate("Hospital Bed", language),
+                translate("IV Pump", language),
+                translate("Recliner", language),
+            ],
+        },
+        {
+            content: "checkbox",
+            type: "boolean",
+            title: translate("With Balloons?", language),
+            placeholder: translate("With Balloons?", language),
+            required: false,
+            id: 0,
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: translate("Status", language),
+            placeholder: "",
+            required: true,
+            id: 0,
+            label: translate("Request Status", language),
+            options: [
+                translate("Unassigned", language),
+                translate("Assigned", language),
+                translate("In Progress", language),
+                translate("Closed", language),
+            ],
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: translate("Priority", language),
+            placeholder: "",
+            required: true,
+            id: 0,
+            label: translate("Request Priority", language),
+            options: [
+                translate("Low", language),
+                translate("Medium", language),
+                translate("High", language),
+                translate("Emergency", language),
+            ],
+        },
+        {
+            content: "employee",
+            type: "string",
+            title: translate("Assign Employee", language),
+            placeholder: translate("Select Employee", language),
+            required: false,
+            id: 0,
+            label: "",
+            options: [],
+        },
+    ];
     if(employee == undefined){
         return;
     }
     defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
+
     return ServiceRequests(
-        defaultForm,
+        deviceForm,
         defaultFormSchema,
         "/api/medical-device",
         MedicalDevice,

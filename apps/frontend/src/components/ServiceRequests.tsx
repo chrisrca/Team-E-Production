@@ -417,8 +417,7 @@ export const ServiceRequests = (
         useEffect(() => {
             setFilteredEmployees(
                 employees.filter((employee) =>
-                    employee.displayName
-                        .includes(searchTerm.toLowerCase()),
+                    employee.displayName.includes(searchTerm.toLowerCase()),
                 ),
             );
         }, [searchTerm, employees]);

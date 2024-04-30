@@ -1,5 +1,6 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
 import gifts from "/src/images/gifts.jpg";
+import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
 const defaultFormSchema = {
     recipientName: "",
@@ -9,93 +10,107 @@ const defaultFormSchema = {
     status: "",
     priority: "",
     employeeName: "",
-    wrapping: "Default - $15",
+    wrapping: "",
     createdBy: "",
 };
 
-//Label is necessary, ids are calculated assuming that there is a title
-
-const defaultForm = [
-    {
-        content: "label",
-        title: "Gift Delivery Request",
-        type: "header",
-        id: 0,
-    },
-    {
-        content: "text",
-        type: "string",
-        title: "Recipient Name",
-        placeholder: "First, Last",
-        required: true,
-        id: 0,
-    },
-    {
-        content: "select",
-        type: "string",
-        title: "Gift Size",
-        placeholder: "Select Size",
-        required: true,
-        id: 0,
-        label: "Options",
-        options: ["Small", "Medium", "Large"],
-    },
-    {
-        content: "text",
-        type: "string",
-        title: "Message",
-        placeholder: "Enter a Message... (Optional)",
-        required: false,
-        id: 0,
-    },
-    {
-        content: "popover",
-        type: "string",
-        title: "Select Location",
-        placeholder: "Select Placeholder 2",
-        required: true,
-        id: 0,
-        label: "",
-        options: [],
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Status",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed"],
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Priority",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Priority",
-        options: ["Low", "Medium", "High", "Emergency"],
-    },
-    {
-        content: "employee",
-        type: "string",
-        title: "Assign Employee",
-        placeholder: "Select Employee",
-        required: false,
-        id: 0,
-        label: "",
-        options: [],
-    },
-];
 export default function GiftServiceRequest(employee: string | undefined) {
+    const { language } = useLanguage(); // Using the useLanguage hook to get the language variable
+    defaultFormSchema.wrapping = translate("Default - $15", language); // Translating the wrapping value
+    const giftForm = [
+        {
+            content: "label",
+            title: translate("Gift Delivery Request", language), // Translating the title
+            type: "header",
+            id: 0,
+        },
+        {
+            content: "text",
+            type: "string",
+            title: translate("Recipient Name", language), // Translating the title
+            placeholder: translate("First, Last", language), // Translating the placeholder
+            required: true,
+            id: 0,
+        },
+        {
+            content: "select",
+            type: "string",
+            title: translate("Gift Size", language), // Translating the title
+            placeholder: translate("Select Size", language), // Translating the placeholder
+            required: true,
+            id: 0,
+            label: translate("Options", language), // Translating the label
+            options: [
+                translate("Small", language), // Translating the option
+                translate("Medium", language), // Translating the option
+                translate("Large", language), // Translating the option
+            ],
+        },
+        {
+            content: "text",
+            type: "string",
+            title: translate("Message", language), // Translating the title
+            placeholder: translate("Enter a Message... (Optional)", language), // Translating the placeholder
+            required: false,
+            id: 0,
+        },
+        {
+            content: "popover",
+            type: "string",
+            title: translate("Select Location", language), // Translating the title
+            placeholder: translate("Select Location", language),
+            required: true,
+            id: 0,
+            label: "",
+            options: [],
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: translate("Status", language), // Translating the title
+            placeholder: "",
+            required: true,
+            id: 0,
+            label: translate("Request Status", language), // Translating the label
+            options: [
+                translate("Unassigned", language), // Translating the option
+                translate("Assigned", language), // Translating the option
+                translate("In Progress", language), // Translating the option
+                translate("Closed", language), // Translating the option
+            ],
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: translate("Priority", language), // Translating the title
+            placeholder: "",
+            required: true,
+            id: 0,
+            label: translate("Request Priority", language), // Translating the label
+            options: [
+                translate("Low", language), // Translating the option
+                translate("Medium", language), // Translating the option
+                translate("High", language), // Translating the option
+                translate("Emergency", language), // Translating the option
+            ],
+        },
+        {
+            content: "employee",
+            type: "string",
+            title: translate("Assign Employee", language), // Translating the title
+            placeholder: translate("Select Employee", language), // Translating the placeholder
+            required: false,
+            id: 0,
+            label: "",
+            options: [],
+        },
+    ];
     if(employee == undefined){
         return;
     }
     defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
     return ServiceRequests(
-        defaultForm,
+        giftForm,
         defaultFormSchema,
         "/api/gift",
         gifts,

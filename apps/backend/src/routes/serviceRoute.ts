@@ -17,11 +17,10 @@ async function getAllServicesFromDB(name: string): Promise<string> {
             medicine: true,
             roomschedule: true,
             interpreter: true,
-        }
+        },
     });
     return JSON.stringify(services);
 }
-
 
 router.get("/:employeeName", async (req: Request, res: Response) => {
     const employeeName = req.params.employeeName;
@@ -30,7 +29,9 @@ router.get("/:employeeName", async (req: Request, res: Response) => {
         res.send(services);
     } catch (e) {
         console.error(e);
-        res.status(500).send("Failed to retrieve Employees services from database");
+        res.status(500).send(
+            "Failed to retrieve Employees services from database",
+        );
     }
 });
 

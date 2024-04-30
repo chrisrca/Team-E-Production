@@ -1,140 +1,127 @@
-// import * as React from "react";
-// import Autoplay from "embla-carousel-autoplay";
-// import MedicineStore from "@/images/medicinestore.jpg";
-// import Tylenol from "@/images/tylenol.jpg";
-// import Advil from "@/images/advil.jpg";
-// import Melatonin from "@/images/melatonin.jpg";
-// import {
-//     Carousel,
-//     type CarouselApi,
-//     CarouselContent,
-//     CarouselItem,
-//     CarouselNext,
-//     CarouselPrevious,
-// } from "@/components/ui/carousel";
-
 import { ServiceRequests } from "@/components/ServiceRequests";
 import medicinestore from "/src/images/medicinestore.jpg";
+import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
-const defaultFormSchema = {
-    patientName: "",
-    drugName: "",
-    drugQuantity: "",
-    location: "",
-    status: "",
-    priority: "",
-    employeeName: "",
-    patientCondition: "Fever",
-    createdBy: "",
-};
-
-//Label is necessary, ids are calculated assuming that there is a title
-
-const defaultForm = [
-    {
-        content: "label",
-        title: "Drug Delivery Request",
-        type: "header",
-        id: 0,
-    },
-    {
-        content: "text",
-        type: "string",
-        title: "Patient Name",
-        placeholder: "First, Last",
-        required: true,
-        id: 0,
-    },
-    {
-        content: "select",
-        type: "string",
-        title: "Medicine Type",
-        placeholder: "Select Medicine",
-        required: true,
-        id: 0,
-        label: "Options",
-        options: ["Tylenol - $5", "Advil - $7", "Melatonin - $10"],
-    },
-    {
-        content: "text",
-        type: "number",
-        title: "Drug Quantity",
-        placeholder: "Enter Drug Quantity",
-        required: true,
-        id: 0,
-    },
-    {
-        content: "popover",
-        type: "string",
-        title: "Select Location",
-        placeholder: "Select Placeholder 2",
-        required: true,
-        id: 0,
-        label: "",
-        options: [],
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Status",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed"],
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Priority",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Priority",
-        options: ["Low", "Medium", "High", "Emergency"],
-    },
-    {
-        content: "employee",
-        type: "string",
-        title: "Assign Employee",
-        placeholder: "Select Employee",
-        required: false,
-        id: 0,
-        label: "",
-        options: [],
-    },
-];
-
-
-    // const [api, setApi] = React.useState<CarouselApi>();
-    // const [current, setCurrent] = React.useState(0);
-    // const [count, setCount] = React.useState(0);
-
-
-    // React.useEffect(() => {
-    //     if (!api) {
-    //         return;
-    //     }
-    //
-    //     setCount(api.scrollSnapList().length);
-    //     setCurrent(api.selectedScrollSnap() + 1);
-    //
-    //     api.on("select", () => {
-    //         setCurrent(api.selectedScrollSnap() + 1);
-    //     });
-    // }, [api]);
 export default function DrugDelivery(employee: string | undefined) {
+    const { language } = useLanguage(); // Using the useLanguage hook to get the language variable
+
+    const defaultFormSchema = {
+        patientName: "",
+        drugName: "",
+        drugQuantity: "",
+        location: "",
+        status: "",
+        priority: "",
+        employeeName: "",
+        patientCondition: translate("Fever", language), // Translating the patient condition
+        createdBy: "",
+    };
+
+    // Label is necessary, ids are calculated assuming that there is a title
+
+    const drugForm = [
+        {
+            content: "label",
+            title: translate("Drug Delivery Request", language), // Translating the title
+            type: "header",
+            id: 0,
+        },
+        {
+            content: "text",
+            type: "string",
+            title: translate("Patient Name", language), // Translating the title
+            placeholder: translate("First, Last", language), // Translating the placeholder
+            required: true,
+            id: 0,
+        },
+        {
+            content: "select",
+            type: "string",
+            title: translate("Medicine Type", language), // Translating the title
+            placeholder: translate("Select Medicine", language), // Translating the placeholder
+            required: true,
+            id: 0,
+            label: translate("Options", language), // Translating the label
+            options: [
+                translate("Tylenol - $5", language), // Translating the option
+                translate("Advil - $7", language), // Translating the option
+                translate("Melatonin - $10", language), // Translating the option
+            ],
+        },
+        {
+            content: "text",
+            type: "number",
+            title: translate("Drug Quantity", language), // Translating the title
+            placeholder: translate("Enter Drug Quantity", language), // Translating the placeholder
+            required: true,
+            id: 0,
+        },
+        {
+            content: "popover",
+            type: "string",
+            title: translate("Select Location", language), // Translating the title
+            placeholder: translate("Select Placeholder 2", language), // Translating the placeholder
+            required: true,
+            id: 0,
+            label: "",
+            options: [],
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: translate("Status", language), // Translating the title
+            placeholder: "",
+            required: true,
+            id: 0,
+            label: translate("Request Status", language), // Translating the label
+            options: [
+                translate("Unassigned", language), // Translating the option
+                translate("Assigned", language), // Translating the option
+                translate("In Progress", language), // Translating the option
+                translate("Closed", language), // Translating the option
+            ],
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: translate("Priority", language), // Translating the title
+            placeholder: "",
+            required: true,
+            id: 0,
+            label: translate("Request Priority", language), // Translating the label
+            options: [
+                translate("Low", language), // Translating the option
+                translate("Medium", language), // Translating the option
+                translate("High", language), // Translating the option
+                translate("Emergency", language), // Translating the option
+            ],
+        },
+        {
+            content: "employee",
+            type: "string",
+            title: translate("Assign Employee", language), // Translating the title
+            placeholder: translate("Select Employee", language), // Translating the placeholder
+            required: false,
+            id: 0,
+            label: "",
+            options: [],
+        },
+    ];
+
     if(employee == undefined){
         return;
     }
     defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
     return (
-        ServiceRequests(
-            defaultForm,
-            defaultFormSchema,
-            "/api/medicine",
-            medicinestore,
-            "Tri and Brendan",
-        )
+        <div>
+            {ServiceRequests(
+                drugForm,
+                defaultFormSchema,
+                "/api/medicine",
+                medicinestore,
+                "Tri and Brendan"
+            )}
+        </div>
     );
 }
+
