@@ -100,16 +100,16 @@ function ProfilePage() {
         <div className="container mx-auto p-4">
             <div className="mb-8">
                 <h1 className="text-xl font-bold mt-12 mb-4">Admin Profile</h1>
-                <p className="text-gray-700 text-l">{employeeName}</p>
+                <p className="text-foreground font-light text-lg">{employeeName}</p>
             </div>
 
             <div className="mb-8">
-                <h1 className="text-xl mt-12 mb-4">Employee Manager</h1>
+                <h1 className="text-xl font-bold mt-12 m-4">Employee Manager</h1>
                 <ViewNodes data={employeeData}/>
             </div>
 
             <div className="mb-8">
-                <h1 className="text-xl mt-12 mb-4">Service Manager</h1>
+                <h1 className="text-xl font-bold mt-12 m-4">Service Manager</h1>
                 <ViewNodes data={serviceRequests}/>
             </div>
 
