@@ -62,6 +62,7 @@ export type FormLabel = {
     type: string; //Element type - (string, number, etc)
     required: boolean; //Required? field
     id: number;
+    width: string;
 };
 
 export type FormComponent = FormLabel & {
@@ -214,7 +215,11 @@ export const ServiceRequests = (
         console.log("making label '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className="col-span-full text-extrabold basis-full text-center text-3xl">
+                <div
+                    className={
+                        "col-span-full text-extrabold basis-full text-center text-3xl"
+                    }
+                >
                     <Label>{props.title}</Label>
                 </div>
             </>
@@ -226,7 +231,7 @@ export const ServiceRequests = (
         console.log(props);
         return (
             <>
-                <div className="col-span-full">
+                <div className={props.width}>
                     <label
                         className={
                             "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
@@ -253,7 +258,7 @@ export const ServiceRequests = (
         console.log("making select '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className="col-auto">
+                <div className={props.width}>
                     <label className="block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1">
                         {props.title}
                     </label>
@@ -292,7 +297,7 @@ export const ServiceRequests = (
         console.log("making radio '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className={"col-auto"}>
+                <div className={props.width}>
                     <label
                         className={
                             "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
@@ -339,19 +344,21 @@ export const ServiceRequests = (
         console.log("making checkbox '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className={"flex col-span-2 container:ml-0 pl-6 pt-2"}>
-                    <Checkbox
-                        onChange={(e) =>
-                            (formSchema[schemaKeys[props.id]] =
-                                e.target.value.toString())
-                        }
-                        className={"hover:bg-accent my-auto"}
-                    >
-                        {props.title}
-                    </Checkbox>
-                    <Label className="ml-4 text-sm font-medium text-gray-700 dark:text-foreground my-auto">
-                        {props.placeholder}
-                    </Label>
+                <div className={props.width}>
+                    <div className={"flex container:ml-0 pl-6 pt-2"}>
+                        <Checkbox
+                            onChange={(e) =>
+                                (formSchema[schemaKeys[props.id]] =
+                                    e.target.value.toString())
+                            }
+                            className={"hover:bg-accent my-auto"}
+                        >
+                            {props.title}
+                        </Checkbox>
+                        <Label className="ml-4 text-sm font-medium text-gray-700 dark:text-foreground my-auto">
+                            {props.placeholder}
+                        </Label>
+                    </div>
                 </div>
             </>
         );
@@ -368,7 +375,7 @@ export const ServiceRequests = (
         };
 
         return (
-            <div className={"col-span-auto"}>
+            <div className={props.width}>
                 <label
                     className={
                         "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
@@ -421,7 +428,7 @@ export const ServiceRequests = (
         // console.log(employees);
 
         return (
-            <div className={"col-span-auto"}>
+            <div className={props.width}>
                 <label
                     className={
                         "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
@@ -553,8 +560,10 @@ export const ServiceRequests = (
                                         Clear Form
                                     </button>
                                     <div></div>
-                                    <button className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
-                                            onClick={handleClearForm}>
+                                    <button
+                                        className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                                        onClick={handleClearForm}
+                                    >
                                         Submit
                                     </button>
                                 </div>

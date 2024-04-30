@@ -4,11 +4,11 @@ import security from "/src/images/security.avif";
 
 const defaultFormSchema = {
     requestType: "",
-    alertAuthorities: "false",
+    employeeName: "",
     location: "",
     status: "",
     priority: "",
-    employeeName: "",
+    alertAuthorities: "false",
 };
 
 //Label is necessary, ids are calculated assuming that there is a title

@@ -6,6 +6,7 @@ export const flowerForm = [
     },
     {
         content: "text",
+        width: "col-span-2",
         type: "string",
         title: "Patient Name",
         placeholder: "First, Last",
@@ -14,6 +15,7 @@ export const flowerForm = [
     },
     {
         content: "select",
+        width: "col-span-1",
         type: "string",
         title: "Type of Flower",
         placeholder: "Please Select Flower",
@@ -24,6 +26,7 @@ export const flowerForm = [
     },
     {
         content: "text",
+        width: "col-span-1",
         type: "string",
         title: "Sender Name",
         placeholder: "First, Last",
@@ -31,15 +34,8 @@ export const flowerForm = [
         id: 0,
     },
     {
-        content: "text",
-        type: "string",
-        title: "Message",
-        placeholder: "Enter Message (Optional)",
-        required: false,
-        id: 0,
-    },
-    {
         content: "location",
+        width: "col-span-2",
         type: "string",
         title: "Select Location",
         placeholder: "Select Placeholder 2",
@@ -48,6 +44,7 @@ export const flowerForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Status",
         placeholder: "",
@@ -58,6 +55,7 @@ export const flowerForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Priority",
         placeholder: "",
@@ -68,9 +66,19 @@ export const flowerForm = [
     },
     {
         content: "employee",
+        width: "col-span-1",
         type: "string",
         title: "Assign Employee",
         placeholder: "Select Employee",
+        required: false,
+        id: 0,
+    },
+    {
+        content: "text",
+        width: "col-span-1",
+        type: "string",
+        title: "Message",
+        placeholder: "Enter Message (Optional)",
         required: false,
         id: 0,
     },
@@ -84,6 +92,7 @@ export const giftForm = [
     },
     {
         content: "text",
+        width: "col-span-1",
         type: "string",
         title: "Recipient Name",
         placeholder: "First, Last",
@@ -92,6 +101,7 @@ export const giftForm = [
     },
     {
         content: "select",
+        width: "col-span-1",
         type: "string",
         title: "Gift Size",
         placeholder: "Select Size",
@@ -102,6 +112,7 @@ export const giftForm = [
     },
     {
         content: "text",
+        width: "col-span-2",
         type: "string",
         title: "Message",
         placeholder: "Enter a Message... (Optional)",
@@ -110,6 +121,7 @@ export const giftForm = [
     },
     {
         content: "location",
+        width: "col-span-2",
         type: "string",
         title: "Select Location",
         placeholder: "Select Placeholder 2",
@@ -120,6 +132,7 @@ export const giftForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Status",
         placeholder: "",
@@ -130,6 +143,7 @@ export const giftForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Priority",
         placeholder: "",
@@ -140,6 +154,7 @@ export const giftForm = [
     },
     {
         content: "employee",
+        width: "col-span-1",
         type: "string",
         title: "Assign Employee",
         placeholder: "Select Employee",
@@ -158,6 +173,7 @@ export const medForm = [
     },
     {
         content: "text",
+        width: "col-span-2",
         type: "string",
         title: "Patient Name",
         placeholder: "First, Last",
@@ -166,6 +182,7 @@ export const medForm = [
     },
     {
         content: "select",
+        width: "col-span-1",
         type: "string",
         title: "Medicine Type",
         placeholder: "Select Medicine",
@@ -176,6 +193,7 @@ export const medForm = [
     },
     {
         content: "text",
+        width: "col-span-2",
         type: "number",
         title: "Drug Quantity",
         placeholder: "Enter Drug Quantity",
@@ -184,6 +202,7 @@ export const medForm = [
     },
     {
         content: "location",
+        width: "col-span-1",
         type: "string",
         title: "Select Location",
         placeholder: "Select Placeholder 2",
@@ -194,6 +213,7 @@ export const medForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Status",
         placeholder: "",
@@ -204,6 +224,7 @@ export const medForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Priority",
         placeholder: "",
@@ -214,6 +235,7 @@ export const medForm = [
     },
     {
         content: "employee",
+        width: "col-span-1",
         type: "string",
         title: "Assign Employee",
         placeholder: "Select Employee",
@@ -232,6 +254,7 @@ export const langForm = [
     },
     {
         content: "text",
+        width: "col-span-2",
         type: "string",
         title: "Client Name",
         placeholder: "First, Last",
@@ -240,6 +263,7 @@ export const langForm = [
     },
     {
         content: "text",
+        width: "col-span-2",
         type: "string",
         title: "Language",
         placeholder: "Enter Language",
@@ -248,6 +272,7 @@ export const langForm = [
     },
     {
         content: "location",
+        width: "col-span-1",
         type: "string",
         title: "Select Location",
         placeholder: "Select Placeholder 2",
@@ -258,6 +283,7 @@ export const langForm = [
     },
     {
         content: "employee",
+        width: "col-span-1",
         type: "string",
         title: "Assign Employee",
         placeholder: "Select Employee",
@@ -268,6 +294,7 @@ export const langForm = [
     },
     {
         content: "text",
+        width: "col-span-1",
         type: "string",
         title: "Duration",
         placeholder: "Enter Duration",
@@ -276,6 +303,7 @@ export const langForm = [
     },
     {
         content: "text",
+        width: "col-span-1",
         type: "string",
         title: "Additional Information",
         placeholder: "Enter Additional Information... (Optional)",
@@ -284,6 +312,7 @@ export const langForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Status",
         placeholder: "",
@@ -294,6 +323,7 @@ export const langForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Priority",
         placeholder: "",
@@ -312,6 +342,7 @@ export const medicalForm = [
     },
     {
         content: "location",
+        width: "col-span-1",
         type: "string",
         title: "Select Location",
         placeholder: "Select Placeholder 2",
@@ -322,6 +353,7 @@ export const medicalForm = [
     },
     {
         content: "select",
+        width: "col-span-1",
         type: "string",
         title: "Service Type",
         placeholder: "Please Select Service",
@@ -332,6 +364,7 @@ export const medicalForm = [
     },
     {
         content: "checkbox",
+        width: "col-span-2",
         type: "boolean",
         title: "withBalloons",
         placeholder: "With Balloons?",
@@ -340,6 +373,7 @@ export const medicalForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Status",
         placeholder: "",
@@ -350,6 +384,7 @@ export const medicalForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Priority",
         placeholder: "",
@@ -360,6 +395,7 @@ export const medicalForm = [
     },
     {
         content: "employee",
+        width: "col-span-1",
         type: "string",
         title: "Assign Employee",
         placeholder: "Select Employee",
@@ -378,6 +414,7 @@ export const roomForm = [
     },
     {
         content: "text",
+        width: "col-span-2",
         type: "string",
         title: "Employee Name",
         placeholder: "First, Last",
@@ -386,6 +423,7 @@ export const roomForm = [
     },
     {
         content: "select",
+        width: "col-span-2",
         type: "string",
         title: "Service Type",
         placeholder: "Please Select Service",
@@ -396,6 +434,7 @@ export const roomForm = [
     },
     {
         content: "text",
+        width: "col-span-1",
         type: "datetime-local",
         title: "Start Time",
         placeholder: "",
@@ -404,6 +443,7 @@ export const roomForm = [
     },
     {
         content: "text",
+        width: "col-span-1",
         type: "datetime-local",
         title: "End Time",
         placeholder: "",
@@ -411,17 +451,8 @@ export const roomForm = [
         id: 0,
     },
     {
-        content: "location",
-        type: "string",
-        title: "Select Location",
-        placeholder: "Select Placeholder 2",
-        required: true,
-        id: 0,
-        label: "",
-        options: [],
-    },
-    {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Status",
         placeholder: "",
@@ -432,6 +463,7 @@ export const roomForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Priority",
         placeholder: "",
@@ -441,7 +473,19 @@ export const roomForm = [
         options: ["Low", "Medium", "High", "Emergency"],
     },
     {
+        content: "location",
+        width: "col-span-1",
+        type: "string",
+        title: "Select Location",
+        placeholder: "Select Placeholder 2",
+        required: true,
+        id: 0,
+        label: "",
+        options: [],
+    },
+    {
         content: "employee",
+        width: "col-span-1",
         type: "string",
         title: "Assign Employee",
         placeholder: "Select Employee",
@@ -460,6 +504,7 @@ export const sanitationForm = [
     },
     {
         content: "text",
+        width: "col-span-2",
         type: "string",
         title: "Employee Name",
         placeholder: "First, Last",
@@ -468,6 +513,7 @@ export const sanitationForm = [
     },
     {
         content: "select",
+        width: "col-span-1",
         type: "string",
         title: "Service Type",
         placeholder: "Please Select Service",
@@ -478,6 +524,7 @@ export const sanitationForm = [
     },
     {
         content: "text",
+        width: "col-span-1",
         type: "string",
         title: "Additional Information",
         placeholder: "Enter Additional Information...",
@@ -486,17 +533,8 @@ export const sanitationForm = [
         variant: "large",
     },
     {
-        content: "location",
-        type: "string",
-        title: "Select Location",
-        placeholder: "Select Placeholder 2",
-        required: true,
-        id: 0,
-        label: "",
-        options: [],
-    },
-    {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Status",
         placeholder: "",
@@ -507,6 +545,7 @@ export const sanitationForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Priority",
         placeholder: "",
@@ -516,7 +555,19 @@ export const sanitationForm = [
         options: ["Low", "Medium", "High", "Emergency"],
     },
     {
+        content: "location",
+        width: "col-span-1",
+        type: "string",
+        title: "Select Location",
+        placeholder: "Select Placeholder 2",
+        required: true,
+        id: 0,
+        label: "",
+        options: [],
+    },
+    {
         content: "employee",
+        width: "col-span-1",
         type: "string",
         title: "Assign Employee",
         placeholder: "Select Employee",
@@ -535,6 +586,7 @@ export const secForm = [
     },
     {
         content: "select",
+        width: "col-span-1",
         type: "string",
         title: "Type",
         placeholder: "Request Type",
@@ -544,15 +596,19 @@ export const secForm = [
         options: ["Patient Threat", "Staff Threat"],
     },
     {
-        content: "checkbox",
+        content: "employee",
+        width: "col-span-1",
         type: "string",
-        title: "Authorities",
-        placeholder: "Alert Authorities?",
+        title: "Assign Employee",
+        placeholder: "Select Employee",
         required: false,
         id: 0,
+        label: "",
+        options: [],
     },
     {
         content: "location",
+        width: "col-span-2",
         type: "string",
         title: "Select Location",
         placeholder: "Select Placeholder 2",
@@ -563,6 +619,7 @@ export const secForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Status",
         placeholder: "",
@@ -573,6 +630,7 @@ export const secForm = [
     },
     {
         content: "radio",
+        width: "col-span-1",
         type: "string",
         title: "Priority",
         placeholder: "",
@@ -582,13 +640,12 @@ export const secForm = [
         options: ["Low", "Medium", "High", "Emergency"],
     },
     {
-        content: "employee",
+        content: "checkbox",
+        width: "col-span-1",
         type: "string",
-        title: "Assign Employee",
-        placeholder: "Select Employee",
+        title: "Authorities",
+        placeholder: "Alert Authorities?",
         required: false,
         id: 0,
-        label: "",
-        options: [],
     },
 ];

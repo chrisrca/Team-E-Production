@@ -6,9 +6,9 @@ const defaultFormSchema = {
     patientName: "",
     serviceType: "",
     additionalInfo: "",
-    location: "",
     status: "",
     priority: "",
+    location: "",
     employeeName: "",
 };
 

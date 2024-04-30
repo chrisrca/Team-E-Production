@@ -6,9 +6,9 @@ const defaultFormSchema = {
     serviceType: "",
     startTime: "",
     endTime: "",
-    location: "",
     status: "",
     priority: "",
+    location: "",
     employeeName: "",
 };
 

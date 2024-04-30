@@ -4,6 +4,7 @@ import { Button } from "../components/ui/button";
 import {
     ServiceRequests,
 } from "@/components/ServiceRequests";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
     Select,
     SelectContent,
@@ -32,7 +33,18 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { FormInput } from "@/components/ui/formInput";
-import { Plus, Minus, X } from "lucide-react";
+import { 
+    Plus, 
+    Minus, 
+    X, 
+    ALargeSmall,
+    SquareCheck,
+    Circle,
+    UserRoundSearch,
+    MapPinned,
+    TextCursorInput,
+    ListChecks,
+ } from "lucide-react";
 
 export default function FormMaker() {
     const [customForm, setCustomForm] = useState([]);
@@ -44,13 +56,12 @@ export default function FormMaker() {
         if (
             edit &&
             props != undefined &&
-            newObject["content"] !== props["content"]
+            newObject["id"] !== props["id"]
         ) {
             setNewObject(props);
         } else if (!edit && newObject["content"] !== props["content"]) {
             setNewObject(props);
         }
-
         if (edit) {
             props = newObject;
         }
@@ -116,6 +127,50 @@ export default function FormMaker() {
                         </SelectContent>
                     </Select>
                 );
+            }else if(field === "width"){
+                return (
+                    <>
+                    <div
+                        className={
+                            "p-2 w-full bg-background border-input border shadow-md rounded pt-3"
+                        }
+                    >
+                    <RadioGroup
+                            onValueChange={(value) =>
+                                (setNewObject({
+                                    ...newObject,
+                                    [field]: value,
+                                }))
+                            }
+                        >
+                            <div className="flex grid grid-flow-dense grid-cols-auto grid-rows-auto px-4">
+                                    <div
+                                        className="flex cols-span-1"
+                                    >
+                                        <RadioGroupItem
+                                            className={"hover:bg-accent"}
+                                            value={"col-span-1"}
+                                        />
+                                        <Label className="ml-2 text-sm font-medium text-gray-700 dark:text-foreground flex-nowrap">
+                                            {"Single"}
+                                        </Label>
+                                    </div>
+                                    <div
+                                        className="flex cols-span-1"
+                                    >
+                                        <RadioGroupItem
+                                            className={"hover:bg-accent"}
+                                            value={"col-span-2"}
+                                        />
+                                        <Label className="ml-2 text-sm font-medium text-gray-700 dark:text-foreground flex-nowrap">
+                                            {"Double"}
+                                        </Label>
+                                    </div>
+                                </div>
+                        </RadioGroup>
+                    </div>
+                    </>
+                );
             }
 
             if (type === "string") {
@@ -177,8 +232,8 @@ export default function FormMaker() {
                     });
                 }
                 return (
-                    <div className={"bg-card rounded-lg pb-2 transition-all"}>
-                    <div className={"flex flex-row flex-nowrap mb-2"}>
+                    <div className={"bg-card rounded-lg transition-all"}>
+                    <div className={"flex flex-row flex-nowrap mb-1"}>
                         <FormInput
                             placeholder={"Input Options"}
                             type={"string"}
@@ -219,9 +274,9 @@ export default function FormMaker() {
                                                 ...newObject,
                                                 [field]: options
                                             });
-                                            console.log(options);
-                                            console.log(options.slice(0, options.indexOf(op)).concat(options.slice(options.indexOf(op) + 1)),);
-                                            console.log(options.indexOf(op));
+                                            // console.log(options);
+                                            // console.log(options.slice(0, options.indexOf(op)).concat(options.slice(options.indexOf(op) + 1)),);
+                                            // console.log(options.indexOf(op));
                                         }}
                                     >
                                         <X className={"transition-all"} />
@@ -283,7 +338,7 @@ export default function FormMaker() {
                                     <div className={""}>
                                         <Label
                                             className={
-                                                "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+                                                "block text-sm text-bold font-medium text-gray-700 dark:text-foreground my-3"
                                             }
                                         >
                                             {field}
@@ -298,7 +353,7 @@ export default function FormMaker() {
                             <div className={"flex flex-row flex-nowrap"}>
                                 <Button
                                     className={
-                                        "mx-auto size-fit ml-0 p-1 mt-5 bg-red-400 hover:bg-red-500 self-start"
+                                        "mx-auto size-fit ml-0 p-1 mt-5 bg-red-400 hover:bg-red-500 self-start shadow-none hover:shadow-md"
                                     }
                                     onClick={() => {
                                         console.log(newObject);
@@ -312,6 +367,8 @@ export default function FormMaker() {
                                                     newObject["id"] + 2,
                                                 ),
                                             ]);
+                                            setNewObject({});
+                                            setCurrEdit(-2);
                                             return;
                                         }
                                         setCustomForm([
@@ -326,7 +383,7 @@ export default function FormMaker() {
                                 </Button>
                                 <Button
                                     className={
-                                        "mx-auto size-fit mr-0 p-1 mt-5 bg-yellow-400 hover:bg-yellow-500 self-end"
+                                        "mx-auto size-fit mr-0 p-1 mt-5 bg-yellow-400 hover:bg-yellow-500 self-end shadow-none hover:shadow-md"
                                     }
                                     onClick={() => {
                                         console.log(newObject);
@@ -341,6 +398,8 @@ export default function FormMaker() {
                                                     newObject["id"] + 2,
                                                 ),
                                             ]);
+                                            setNewObject({});
+                                            setCurrEdit(-2);
                                             return;
                                         }
                                         setCustomForm([
@@ -387,7 +446,7 @@ export default function FormMaker() {
                                     <div className={""}>
                                         <Label
                                             className={
-                                                "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
+                                                "block text-sm text-bold font-medium text-gray-700 dark:text-foreground my-3"
                                             }
                                         >
                                             {field}
@@ -399,19 +458,31 @@ export default function FormMaker() {
                                     </div>
                                 );
                             })}
+                            <div className={"flex flex-row flex-nowrap"}>
                             <Button
                                 className={
-                                    "mx-auto size-fit mr-0 p-1 mt-5 bg-green-400 hover:bg-green-500 self-end"
+                                    "bg-transparent p-3 bottom-0 pt-9"
                                 }
                                 onClick={() => {
-                                    console.log(newObject);
+                                    setCurrComponent("");
+                                }}
+                            >
+                                <X className={"transition-all text-foreground size-auto"} />
+                            </Button>
+                            <Button
+                                className={
+                                    "mx-auto size-fit mr-0 p-1 mt-5 bg-green-400 hover:bg-green-500 self-end shadow-none hover:shadow-md"
+                                }
+                                onClick={() => {
                                     setCustomForm([...customForm, newObject]);
-                                    console.log(customForm);
+                                    setCurrComponent("");
+                                    setOptions([]);
                                 }}
                             >
                                 Add
-                                <Plus className={"transition-all"} />
+                                <Plus className={"transition-all p-[2px]"} />
                             </Button>
+                            </div>
                         </div>
                     </>
                 );
@@ -474,6 +545,7 @@ export default function FormMaker() {
         },
         textField: {
             display: "Text Field",
+            width: "col-span-1",
             content: "text",
             type: "",
             title: "",
@@ -483,6 +555,7 @@ export default function FormMaker() {
         },
         select: {
             display: "Select",
+            width: "col-span-1",
             content: "select",
             title: "",
             placeholder: "",
@@ -493,6 +566,7 @@ export default function FormMaker() {
         },
         checkBox: {
             display: "Checkbox",
+            width: "col-span-1",
             content: "checkbox",
             title: "",
             placeholder: "",
@@ -500,7 +574,8 @@ export default function FormMaker() {
             id: 0,
         },
         radioButtons: {
-            display: "Radio Buttons",
+            display: "Radio Select",
+            width: "col-span-1",
             content: "radio",
             title: "",
             placeholder: "",
@@ -509,21 +584,31 @@ export default function FormMaker() {
             options: [],
         },
         locationSelector: {
-            display: "Location Selector",
+            display: "Location ",
+            width: "col-span-1",
             content: "location",
             title: "",
             id: 0,
-            label: "",
             required: false,
         },
         employeeSelector: {
-            display: "Employee Selector",
+            display: "Employee ",
+            width: "col-span-1",
             content: "employee",
             title: "",
             id: 0,
-            label: "",
             required: false,
         },
+    };
+
+    const icons = (index) => {
+        if(index === 0){return(<ALargeSmall className={"size-fit transition-all"}/>);}
+        if(index === 1){return(<TextCursorInput className={"size-fit transition-all"}/>);}
+        if(index === 2){return(<ListChecks className={"size-fit transition-all"}/>);}
+        if(index === 3){return(<SquareCheck className={"size-fit transition-all"}/>);}
+        if(index === 4){return(<Circle className={"size-fit transition-all"}/>);}
+        if(index === 5){return(<MapPinned className={"size-fit transition-all"}/>);}
+        if(index === 6){return(<UserRoundSearch className={"size-fit transition-all"}/>);}
     };
 
     //console.log(currEdit);
@@ -532,20 +617,20 @@ export default function FormMaker() {
         <>
             <div
                 className={
-                    "bg-card w-full mx-auto rounded-lg transition-all h-screen grid grid-cols-3"
+                    "bg-card flex items-center w-full mx-auto rounded-lg transition-all min-h-screen grid grid-cols-3"
                 }
             >
-                <div className={"py-12 col-span flex place-items-start mx-auto overflow-y-auto relative"}>
-                    <div className={"bg-card w-full mx-auto rounded-lg"}>
-                        <div className={"space-y-12"}>
-                            <div>
+                <div className={"relative pt-20 px-20 col-span flex flex-col self-start w-full h-screen relative overflow-auto pb-16"}>
+                    <div className={"bg-card w-full rounded-lg mx-auto "}>
+                        <div className={"space-y-6"}>
+                            <div className={"mb-6"}>
                             <Popover>
                                 <PopoverTrigger>
-                                    <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground">
+                                    <Button className="flex h-11 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground">
                                         {"Select Optional Template"}
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="origin-top-left max-h-80 w-fit overflow-y-auto rounded-m">
+                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-m">
                                     {Object.keys(importedForms).map(
                                         (option, index) => {
                                             return(
@@ -568,17 +653,17 @@ export default function FormMaker() {
                             </div>
                             <Popover>
                                 <PopoverTrigger>
-                                    <Button className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground">
+                                    <Button className="flex h-11 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground">
                                         {currComponent["display"] ||
                                             "Select Element to Add"}
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="origin-top-left max-h-80 w-fit overflow-y-auto rounded-m">
+                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-m">
                                     {Object.keys(components).map(
                                         (option, index) => (
                                             <div
                                                 key={index}
-                                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap"
+                                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize w-full"
                                                 onClick={() => {
                                                     //console.log(option);
                                                     setCurrComponent(
@@ -586,21 +671,29 @@ export default function FormMaker() {
                                                     );
                                                 }}
                                             >
-                                                {components[option]["display"]}
+                                                <div className={"text-nowrap flex flex-row flex-nowrap w-full items-stretch columns-2"}>
+
+                                                    <div className={"w-full self-end"}>{components[option]["display"]}</div>
+
+
+                                                    <div className={"w-fit self-end"}>{icons(index)}</div>
+
+                                                 </div>
                                             </div>
                                         ),
                                     )}
                                 </PopoverContent>
                             </Popover>
-                            <div className={"transition-all p-3 w-full"}>
+                            <div className={"transition-all w-full min-w-48"}>
                                 {AddField(currComponent, false)}
                             </div>
                         </div>
-                        <div className={""}>
+                        <div className={"mt-12"}>
                             <Popover>
-                                <PopoverTrigger>
+                                <PopoverTrigger
+                                    disabled={customForm.length < 1}>
                                     <Button
-                                        className="flex h-10 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground"
+                                        className="flex h-11 w-48 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 hover:ring-0 hover:bg-accent ring-0 text-sm text-bold font-sm text-accent-foreground dark:text-foreground dark:bg-accent dark:hover:bg-primary font-bold bg-primary hover:text-foreground"
                                         disabled={customForm.length < 1}
                                     >
                                         {"Select Element to Alter" ||
@@ -610,7 +703,7 @@ export default function FormMaker() {
                                                 currEdit["content"]}
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="origin-top-left max-h-80 w-fit overflow-y-auto rounded-m">
+                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-m">
                                     {customForm.map((option, index) => {
                                         return (
                                             <div
@@ -640,7 +733,7 @@ export default function FormMaker() {
                                     })}
                                 </PopoverContent>
                             </Popover>
-                            <div className={"transition-all p-3 w-full"}>
+                            <div className={"transition-all w-full min-w-48 mt-6"}>
                                 {AddField(customForm[currEdit], true)}
                             </div>
                         </div>
@@ -658,7 +751,7 @@ export default function FormMaker() {
                     >
                         Form Preview
                     </div>
-                    <div className={"mx-auto"}>
+                    <div className={"mx-auto mb-6"}>
                         {ServiceRequests(customForm, {}, "", "", "")}
                     </div>
                 </div>

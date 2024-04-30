@@ -2,25 +2,25 @@ import { ServiceRequests } from "@/components/ServiceRequests";
 import { flowerForm } from "./exampleForms";
 import Lilacs from "/src/images/Lilacs.png";
 
-const defaultFlowerSchema = {
+const defaultFormSchema = {
     patientName: "",
     flowerType: "",
     senderName: "",
-    cardMessage: "",
     location: "",
     status: "",
     priority: "",
     employeeName: "",
+    cardMessage: "",
+    createdBy: "",
 };
-
-//Label is necessary, ids are calculated assuming that there is a title
 
 export default function FlowerService() {
     return ServiceRequests(
         flowerForm,
-        defaultFlowerSchema,
+        defaultFormSchema,
         "/api/flower",
         Lilacs,
-        "Marc, Colin, and Brendan",
+        "Marc, Colin, and Brendan"
     );
-}
+};
+
