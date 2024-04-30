@@ -22,7 +22,7 @@ import {
     SanitationServiceRequest,
     RoomSchedulingForm,
     MedicalDeviceServiceRequest,
-    EmployeeType,
+    Employee
 } from "common/src/types";
 import { Input } from "@/components/ui/input";
 
@@ -37,6 +37,7 @@ type DataViewerProps =
     | SanitationServiceRequest[]
     | RoomSchedulingForm[]
     | MedicalDeviceServiceRequest[]
+    | Employee[]
     | [];
 
 function DataViewer() {
@@ -58,9 +59,7 @@ function DataViewer() {
     const [medicalDeviceData, setMedicalDeviceData] = useState<
         MedicalDeviceServiceRequest[]
     >([]);
-
-    const [employeeData, setEmployeeData] = useState<EmployeeType[]>([]);
-
+    const [employeeData, setEmployeeData] = useState<Employee[]>([]);
     const [uploadData, setUploadData] = useState<File | null | undefined>();
     const [currData, setCurrData] = useState<DataViewerProps>(nodeData);
 
@@ -154,7 +153,8 @@ function DataViewer() {
             | DrugDeliveryData[]
             | SanitationServiceRequest[]
             | RoomSchedulingForm[]
-            | MedicalDeviceServiceRequest[],
+            | MedicalDeviceServiceRequest[]
+            | Employee[],
     ) => {
         const headers = Object.keys(data[0]).join(",");
         const csv = data.map((row) => Object.values(row).join(","));
@@ -272,14 +272,13 @@ function DataViewer() {
 
     return (
         <div className="p-10 flex flex-auto flex-col items-center align-center">
-            <div className="flex flex-row flex-nowrap text-center">
-                <Select
-                    onValueChange={(value) => {
+            <div className="flex flex-row">
+                    <Select onValueChange={(value) => {
                         if (!(typeof value === "string")) {
-                            //console.log("data != serviceData");
+                            console.log("data != serviceData");
                             setCurrData(value);
                         } else {
-                            //console.log("data == serviceData");
+                            console.log("data == serviceData");
                             const aggregateArr = [];
                             const servicesArr = [];
                             servicesArr.push(
@@ -303,116 +302,112 @@ function DataViewer() {
                             );
                             setCurrData(aggregateArr);
                         }
-                    }}
-                >
-                    <SelectTrigger className="flex h-30 w-60 focus:ring-0 ring-0 ring-accent border-0 focus:ring-accent bg-card text-xl text-bold font-medium text-center rounded-md bg-primary-element hover:border-accent hover:ring-1 focus:ring-1">
-                        <SelectValue 
-                        className={"text-background"}
-                        placeholder={"Select a Data Type"} />
-                    </SelectTrigger>
-                    <SelectContent
-                        className={"bg-secondary-element"}>
-                        <SelectGroup>
-                            <SelectLabel className={"bg-primary-element rounded-sm"}>{"Select Data Type"}</SelectLabel>
-                            <SelectItem
-                                value={nodeData}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Node Data"}
-                            </SelectItem>
-                            <SelectItem
-                                value={edgeData}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Edge Data"}
-                            </SelectItem>
-                            <SelectItem
-                                value={employeeData}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Employee Data"}
-                            </SelectItem>
-                            <SelectItem
-                                value={"Services Data"}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Services Data"}
-                            </SelectItem>
-                            <SelectItem
-                                value={flowerData}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Flower Data"}
-                            </SelectItem>
-                            <SelectItem
-                                value={giftData}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Gift Data"}
-                            </SelectItem>
-                            <SelectItem
-                                value={interpreterData}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Interpreter Data"}
-                            </SelectItem>
-                            <SelectItem
-                                value={securityData}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Security Data"}
-                            </SelectItem>
-                            <SelectItem
-                                value={drugData}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Drug Data"}
-                            </SelectItem>
-                            <SelectItem
-                                value={sanitationData}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Sanitation Data"}
-                            </SelectItem>
-                            <SelectItem
-                                value={roomData}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Room Data"}
-                            </SelectItem>
-                            <SelectItem
-                                value={medicalDeviceData}
-                                className={
-                                    "text-sm text-bold font-medium text-gray-700 dark:text-foreground focus:bg-tertiary-element"
-                                }
-                            >
-                                {"Medical Device Data"}
-                            </SelectItem>
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
+                    }}>
+                        <SelectTrigger className="flex h-30 w-60 bg-secondary hover:ring-2 ring-accent text-xl text-bold font-medium text-gray-700 dark:text-foreground">
+                            <SelectValue placeholder={"Select a Data Type"} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>{"Select Data Type"}</SelectLabel>
+                                <SelectItem
+                                    value={nodeData}
+                                    className={
+                                        " text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Node Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={edgeData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Edge Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={"Services Data"}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Services Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={flowerData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Flower Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={giftData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Gift Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={interpreterData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Interpreter Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={securityData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Security Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={drugData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Drug Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={sanitationData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Sanitation Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={roomData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Room Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={medicalDeviceData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Medical Device Data"}
+                                </SelectItem>
+                                <SelectItem
+                                    value={employeeData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Employee Data"}
+                                </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 <div className="flex flex-col space-y-2">
                     <div className="flex flex-row px-2 space-x-2">
                         <Input

@@ -445,9 +445,10 @@ export default function EditorMap(props: CanvasMapProps) {
                 >
                     {/* Top color bar */}
                     <div
-                        className="text-foreground text-white text-lg font-bold rounded-t-md px-4 py-2"
+                        className="text-foreground text-white text-lg font-bold px-4 py-2"
                         style={{ backgroundColor: setColor(selectedNode) }}
                     >
+                        <p>Edge Editor/Creator</p>
                         {selectedNode.longName}
                     </div>
 

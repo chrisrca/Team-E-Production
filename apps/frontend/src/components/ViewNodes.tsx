@@ -1,9 +1,9 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { ViewNodes } from "@/components";
 import { Button } from "@/components/ui/button";
 //import { Checkbox } from "@/components/ui/checkbox";
+import axios from "axios";
 import {
     ColumnFiltersState,
     SortingState,
@@ -453,12 +453,43 @@ export default function ViewNodes(inputData: {
         | MedicalDeviceServiceRequest[];
 }) {
     const columns = [];
-
     const data = inputData.data;
+
+    // const employeeName = data[0].name;
+    const handleAdminToggle = async (adminName : string) => {
+        const admin = JSON.stringify(adminName).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
+        try {
+            const response = await axios.post(`/api/employee/${admin}/boolean/toggle`);
+            if (response.data) {
+                const { name, admin } = response.data;
+                console.log(`${name}'s admin permission is now: ${admin}`);
+            } else {
+                console.error("Failed to toggle admin permission");
+            }
+        } catch (error) {
+            console.error("Error toggling admin permission:", error);
+        }
+    };
+
+    function ToggleButton(adminName : string) {
+        return (
+            <Button onClick={() => handleAdminToggle(adminName)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <MoreHorizontal className="h-4"/>
+            </Button>
+        );
+    }
 
     if (data[0] != undefined) {
         Object.keys(data[0]).map((value) => {
-            if (value.includes("flower")) {
+            if (
+                value.includes("flower") ||
+                value.includes("gift") ||
+                value.includes("med") ||
+                value.includes("inter") ||
+                value.includes("sanitation") ||
+                value.includes("security") ||
+                value.includes("roomschedule")
+            ) {
                 return;
             }
             columns.push({
@@ -503,17 +534,16 @@ export default function ViewNodes(inputData: {
             id: "actions",
             enableHiding: false,
             header: "Details",
-            cell: ({ row }) => {
+            cell: ({row}) => {
                 const details = row.original;
 
-                //console.log(row);
                 const order = details[details["serviceType"].toLowerCase()];
                 return (
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" className="h-8 w-8 p-0">
                                 <span className="sr-only">Open menu</span>
-                                <MoreHorizontal className="h-4" />
+                                <MoreHorizontal className="h-4"/>
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
@@ -532,7 +562,8 @@ export default function ViewNodes(inputData: {
                                     <DropdownMenuItem key={index}>
                                         <div className={"font-bold"}>
                                             {fixed.join("")}
-                                        </div>{" "}
+                                        </div>
+                                        {" "}
                                         : {order[key]}
                                     </DropdownMenuItem>
                                 );
@@ -543,6 +574,24 @@ export default function ViewNodes(inputData: {
             },
         });
     }
+    if (
+        data[0] != undefined &&
+        !(Object.keys(data[0]).indexOf("admin") === -1)
+    ) {
+        columns.push({
+            id: "actions",
+            enableHiding: false,
+            header: "Admin Toggle",
+            cell: ({row}) => {
+                const user = row.original.name;
+                return(
+                    <ToggleButton adminName={user}/>
+                    );
+            },
+        });
+    }
+
+
     if (data.length !== 0) {
         //const isDBNodeData = data.length > 0 && "edges" in data[0];
 

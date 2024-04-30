@@ -8,10 +8,17 @@ import { MoveUp } from "lucide-react";
 import { Goal } from "lucide-react";
 import { Map } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 import { DBNode } from "common/src/types";
 import React from "react";
+import { translate } from "./LanguageProvider";
 
-export default function TextDirection(nodes: DBNode[]) {
+export default function TextDirection(nodes: DBNode[], language: string) {
     let { prompts, turns, floors, previousAngle } = initTextDirection(nodes);
 
     for (let i = 1; i < nodes.length; i++) {
@@ -22,7 +29,7 @@ export default function TextDirection(nodes: DBNode[]) {
         if (!nextNode) {
             // on last node
             prompts.push(
-                `You have reached your destination, ${currNode.longName}.`,
+                `${translate("You have reached your destination", language)}, ${currNode.longName}.`,
             );
             turns.push("end");
             floors.push(`${currNode.floor}`);
@@ -45,6 +52,7 @@ export default function TextDirection(nodes: DBNode[]) {
                 turns,
                 floors,
                 promptType,
+                language,
             );
 
             previousAngle = prevAngle;
@@ -69,6 +77,7 @@ export default function TextDirection(nodes: DBNode[]) {
                 turns,
                 floors,
                 promptType,
+                language,
             );
 
             previousAngle = prevAngle;
@@ -90,6 +99,7 @@ export default function TextDirection(nodes: DBNode[]) {
                 turns,
                 floors,
                 promptType,
+                language,
             );
 
             previousAngle = prevAngle;
@@ -116,7 +126,6 @@ interface TextDirectionProps {
     prompts: string[];
     turns: string[];
     floors: string[];
-    currFloor: number;
 }
 
 // this is what actually displays to screen
@@ -124,7 +133,23 @@ export function TextDirectionComponent(props: TextDirectionProps) {
     const prompts = props.prompts;
     const turns = props.turns;
     const floors = props.floors;
-    const currFloor = props.currFloor;
+    const floorsUsed: string[] = []; // list of the floors used in order
+    const indexOfFloorUsed: number[] = []; // prevents directions from being displayed twice if a floor is re-entered
+
+    // create a list of floors used to title each accordion section
+    for (let i = 0; i < floors.length; i++) {
+        if (i === 0) floorsUsed.push(floors[i]);
+        if (
+            floors[i] !== floors[i + 1] &&
+            floors[i + 1] !== undefined &&
+            floors[i + 1] !== null
+        ) {
+            // check if floors[i+1] exists
+            floorsUsed.push(floors[i + 1]);
+            indexOfFloorUsed.push(i + 1);
+        }
+        if (i === floors.length - 1) indexOfFloorUsed.push(i + 1);
+    }
 
     // Define a mapping object
     const componentMapping: { [key: string]: React.ComponentType } = {
@@ -140,41 +165,44 @@ export function TextDirectionComponent(props: TextDirectionProps) {
         arise: ArrowUpDown,
     };
 
-    const floor =
-        currFloor === 0
-            ? "L2"
-            : currFloor === 1
-              ? "L1"
-              : currFloor === 2
-                ? "1"
-                : currFloor === 3
-                  ? "2"
-                  : "3";
 
-    const filteredPrompts = prompts.filter(
-        (_, index) => floors[index] === floor,
-    );
-    const filteredTurns = turns.filter((_, index) => floors[index] === floor);
-
-    return (
-        <div className="z-10 scrollbar scrollbar-track-rounded-full scrollbar-track-background scrollbar-thumb-rounded-full  scrollbar-thumb-primary w-[400px] h-[300px] absolute ml-14 top-2/3 mb-10 flex flex-col grow overflow-auto">
-            {filteredPrompts?.map((prompt, index) => (
-                <div
-                    key={index}
-                    className="flex-row p-2 border drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg flex items-center"
-                >
-                    <div className="border-black rounded-lg p-1">
-                        {componentMapping[filteredTurns[index]]
-                            ? React.createElement(
-                                  componentMapping[filteredTurns[index]],
-                              )
-                            : `?`}
-                    </div>
-                    <div className="px-3">{prompt}</div>
-                </div>
+      return (
+        prompts[0]!=='' ?
+        <Accordion type="single" collapsible className="w-full px-3 drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg">
+            {floorsUsed?.map((flr,idx) => (
+                <AccordionItem value={`${idx}`}>
+                    <AccordionTrigger className="max-h-11 px-2">{flr}</AccordionTrigger>
+                    <AccordionContent className="overflow-y-auto h-fit max-h-60">
+                        {prompts?.map((prompt, index) => (
+                            (floors[index]===flr && floorBool(indexOfFloorUsed,idx,index)) ?
+                            <div key={index}
+                                 className="flex-row p-2 border z-10 bg-secondary text-foreground rounded-lg flex items-center">
+                                <div className="border-black rounded-lg p-1">
+                                    {componentMapping[turns [index]] ? React.createElement(componentMapping[turns[index]]) : "Please Select Path"}
+                                </div>
+                                <div className="px-3">{prompt}</div>
+                            </div> : <></>
+                        ))}
+                    </AccordionContent>
+                </AccordionItem>
             ))}
-        </div>
+        </Accordion> : <></>
     );
+}
+
+// matches prompts to accordion section
+// indexOfFloorUsed:number[] - holds list of indexes that tracks floor changes
+// idx:number - accordion header index
+// index:number - prompt list index
+function floorBool(indexOfFloorUsed: number[], idx: number, index: number) {
+    if (!indexOfFloorUsed[idx - 1] && index < indexOfFloorUsed[idx])
+        return true; // accounts for first case when [idx-1] doesnt exist
+    else if (
+        indexOfFloorUsed[idx - 1] <= index &&
+        index < indexOfFloorUsed[idx]
+    )
+        return true;
+    else return false;
 }
 
 //////////////////REFACTORED FOR CODE REUSE////////////////////////////////////
@@ -185,7 +213,6 @@ function initTextDirection(nodes: DBNode[]) {
     const prompts = [
         `Directions from ${nodes[0].longName} to ${nodes[nodes.length - 1].longName}:`,
     ]; // stores prompts
-
     // decide how to start the directions
     if (
         nodes[0].floor === nodes[1].floor &&
@@ -226,7 +253,7 @@ function initTextDirection(nodes: DBNode[]) {
     return { prompts, turns, floors, previousAngle };
 }
 
-// determines the next prompt to store in array based on the inputs provided
+// determines the next prompt to store in array based on the inputs provide
 function determinePrompt(
     nextNode: DBNode,
     currNode: DBNode,
@@ -235,33 +262,35 @@ function determinePrompt(
     turnArr: string[],
     floorArr: string[],
     promptType: string,
+    language: string,
 ) {
     let scriptArr: string[] = [""]; // set of listed possible prompts
     let turnScriptArr: string[] = [""]; // set of listed possible turns
     if (promptType === "same building and floor") {
         // same building and floor between this node and the next
         const distance = Math.round(euclideanDistance(currNode, nextNode));
+
         scriptArr = [
-            `Take a slight right and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a right and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a sharp right and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a sharp left and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a left and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a slight left and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Head straight for ${distance} units of distance until you reach ${nextNode.shortName}.`,
+            `${translate("Take a slight right and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a right and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a sharp right and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a sharp left and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a left and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a slight left and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Head straight for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
         ];
         turnScriptArr = ["SLR", "R", "SHR", "SHL", "L", "SLL", "S"];
     } else if (promptType === "diff building same floor") {
         // different building but same floor between this node and the next
         const distance = Math.round(euclideanDistance(currNode, nextNode));
         scriptArr = [
-            `Take a slight right into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a right into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a sharp right into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a sharp left into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a left into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Take a slight left into building ${nextNode.building} and continue for ${distance} units of distance until you reach ${nextNode.shortName}.`,
-            `Head straight into building ${nextNode.building} for ${distance} units of distance until you reach ${nextNode.shortName}.`,
+            `${translate("Take a slight right into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a right into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a sharp right into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a sharp left into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a left into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Take a slight left into building", language)} ${nextNode.building} ${translate("and continue for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
+            `${translate("Head straight into building", language)} ${nextNode.building} ${translate("for", language)} ${distance} ${translate("units of distance until you reach", language)} ${nextNode.shortName}.`,
         ];
         turnScriptArr = ["SLR", "R", "SHR", "SHL", "L", "SLL", "S"];
     } else if (promptType === "diff floor") {

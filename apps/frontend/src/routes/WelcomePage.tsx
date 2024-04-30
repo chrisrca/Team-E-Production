@@ -1,31 +1,3 @@
-// import bgImage from "/src/images/brighamandwomensbuildingimage.jpeg";
-//
-// export default function WelcomePage(){
-//
-//     return(
-//         <div className='absolute bg-gradient-to-r from-50% to-012D5A'>
-//             <div
-//                 style={{
-//                     backgroundImage: 'linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1))',
-//                     width: '100%',
-//                     height: '100%',
-//                 }}
-//             >
-//
-//             </div>
-//
-//             <div className='absolute'
-//                  style={{
-//                      backgroundImage: `url(${bgImage})`,
-//                      backgroundSize: "cover",
-//                  }}
-//             >
-//
-//             </div>
-//         </div>
-//     );
-// }
-
 import bgImage from "/src/images/brighamandwomensbuildingimage.jpeg";
 import { MapPinned, CircleUserRound, HandPlatter } from "lucide-react";
 import "../index.css";

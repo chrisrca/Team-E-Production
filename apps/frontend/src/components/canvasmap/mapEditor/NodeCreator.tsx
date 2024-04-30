@@ -52,7 +52,7 @@ export default function NodeCreator({ triggerRefresh }: NodeCreatorProps) {
 
     return (
         <div className="absolute bg-secondary rounded-lg p-5 space-y-2 z-50 top-[10vh] ml-10">
-            <h3>Edit Node</h3>
+            <h3>Create Node</h3>
             <div>
                 <Label>
                     {" "}

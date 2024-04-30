@@ -1,10 +1,5 @@
-import {
-    CardContent,
-    CardDescription,
-    CardTitle,
-    PortraitCard,
-} from "@/components/ui/card.tsx";
-import React from "react";
+import {CardContent, CardDescription, CardTitle, PortraitCard} from "@/components/ui/card.tsx";
+import React, {useState} from 'react';
 import kai from "/src/images/kai.png";
 import aksel from "/src/images/aksel.png";
 import yan from "/src/images/yan.png";
@@ -18,157 +13,172 @@ import christian from "/src/images/christian.png";
 import marc from "/src/images/marc.png";
 import colin from "/src/images/colin.png";
 import funny from "/src/sounds/metal-pipe-falling-sound-effect-made-with-Voicemod.mp3";
+import fortnite from "/src/sounds/fortnite-dance-moves-emote-music-tv9iv8cxmo0-1.mp3";
+
+import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
+import { Button } from "@/components/ui/button";
 
 export default function AboutUs() {
+    const { language } = useLanguage();
+    const[selectedMember, setSelectedMember] = useState<string | null>(null);
+
     // Array of objects representing each team member
     const teamMembers = [
         {
-            name: "Yan Acevedo",
-            role: "Project Manager",
-            major: "Robotics Engineering",
+            name: translate("Yan Acevedo", language),
+            role: translate("Project Manager", language),
+            major: translate("Robotics", language),
             class: "2025",
+            quote: "La vida es un carnaval. - Celia Cruz",
             image: yan,
             audio: funny,
         },
         {
-            name: "Kai Davidson",
-            role: "Lead Developer",
-            major: "Computer Science / Bioinformatics and Computational Biology",
+            name: translate("Kai Davidson", language),
+            role: translate("Lead Developer", language),
+            major: translate("ComputerBioinformatics", language),
             class: "2026",
+            quote: "Only one man ever understood me, and even he didn’t understand me. - Georg Wilhelm Hegel",
             image: kai,
             audio: funny,
         },
         {
-            name: "Aksel Jensen",
-            role: "Assistant Lead Developer",
-            major: "Computer Science / Bioinformatics and Computational Biology",
+            name: translate("Aksel Jensen", language),
+            role: translate("Assistant Lead Developer", language),
+            major: translate("ComputerBioinformatics", language),
             class: "2026",
+            quote: "How fleeting are all human passions when compared with the massive continuity of ducks. - Dorothy L. Sayers",
             image: aksel,
             audio: funny,
         },
         {
-            name: "Tri Vien Le",
-            role: "Scrum Master",
-            major: "Computer Science",
-            class: "2026",
+            name: translate("Tri Vien Le", language),
+            role: translate("Scrum Master", language),
+            major: translate("Computer", language),
+            class: "2025",
+            quote: "On my momma, I did not rebase the repo.",
             image: tri,
             audio: funny,
         },
         {
-            name: "Lorenzo Manfredi Segato",
-            role: "Assistant Lead Software Engineer",
-            major: "Computer Science / Robotics Engineering",
+            name: translate("Lorenzo Manfredi Segato", language),
+            role: translate("Assistant Lead Software Engineer", language),
+            major: translate("ComputerRobotics", language),
             class: "2025",
+            quote: "The fire of extravagance can never burn simplicity",
             image: lorenzo,
             audio: funny,
         },
         {
-            name: "Devin Mihaichuk",
-            role: "Algorithms",
-            major: "Computer Science",
+            name: translate("Devin Mihaichuk", language),
+            role: translate("Algorithms", language),
+            major: translate("Computer", language),
             class: "2026",
+            quote: "I want to be the best like no one ever was, I guess.",
             image: devin,
             audio: funny,
         },
         {
-            name: "Brendan Reilly",
-            role: "Backend Database Engineer",
-            major: "Computer Science",
+            name: translate("Brendan Reilly", language),
+            role: translate("Backend Database Engineer", language),
+            major: translate("Computer", language),
             class: "2026",
+            quote: "To do anything to a high level, it has to be total obsession - Conor McGregor",
             image: brendan,
             audio: funny,
         },
         {
-            name: "Christian Reynolds",
-            role: "Algorithms",
-            major: "Computer Science",
+            name: translate("Christian Reynolds", language),
+            role: translate("Algorithms", language),
+            major: translate("Computer", language),
             class: "2026",
+            quote: "You miss 100% of the shots you don't take - Wayne Gretzky",
             image: christian,
-            audio: funny,
+            audio: fortnite,
         },
         {
-            name: "Marc Wehbe",
-            role: "Frontend",
-            major: "Electrical and Computer Engineering / Robotics Engineering",
+            name: translate("Marc Wehbe", language),
+            role: translate("Frontend", language),
+            major: translate("Electrical", language),
             class: "2025",
+            quote: "At the end of the day, it's the end of the day",
             image: marc,
             audio: funny,
         },
         {
-            name: "Colin Williams",
-            role: "Frontend",
-            major: "Computer Science",
+            name: translate("Colin Williams", language),
+            role: translate("Frontend", language),
+            major: translate("Computer", language),
             class: "2026",
+            quote: "Ooohh... I like that",
             image: colin,
             audio: funny,
         },
         {
-            name: "Brandon Yeu",
-            role: "Product Owner",
-            major: "Computer Science / Data Science",
+            name: translate("Brandon Yeu", language),
+            role: translate("Product Owner", language),
+            major: translate("Data Science", language),
             class: "2026",
+            quote: "Do the best you can until you know better. Then when you know better, do better. — Maya Angelou",
             image: brandon,
             audio: funny,
         },
         {
-            name: "Tao Zou",
-            role: "Documentation Analyst",
-            major: "Robotics Engineering",
+            name: translate("Tao Zou", language),
+            role: translate("Documentation Analyst", language),
+            major: translate("Robotics", language),
             class: "2024",
+            quote: "宽以律己 严以待人",
             image: tao,
             audio: funny,
         },
     ];
 
+    const toggleQuote = (member: typeof teamMembers[number]) => {
+        setSelectedMember(member.quote === selectedMember ? null : member.quote);
+    };
+
     return (
         <div>
-            <div className="flex items-center justify-center pt-10 text-4xl font-bold">
-                About Us
+            <div className="flex flex-col items-center justify-center pt-10 text-4xl font-bold">
+                {translate("aboutus", language)}
+                <div className="p-10">
+                    <Button className="text-3xl bg-accent" onClick={() => {window.location.href = "/meettheteam";}}>Meet The Team!</Button>
+                </div>
             </div>
-            <div className="flex items-center text-center justify-center pt-5">
-                We are the Emerald Ewoks, a team of students taking Software
-                Engineering at Worcester Polytechnic Institute. <br />
-                WPI Computer Science Department | CS3733-D24 Software
-                Engineering | Professor Wilson Wong <br /> Many thanks to our
-                Team Coach, Keira Schoolcraft
+            <div className="flex items-center text-center justify-center pt-5">    
+                {translate("aboutusdes1", language)} <br/>
+                {translate("aboutusdes2", language)}<br/> {translate("aboutusdes3", language)}
             </div>
-            <div className="grid gap-x-3 gap-y-3 grid-cols-3 auto-rows-auto pt-10 p-10">
-                {/* Iterate over the teamMembers array and render each team member */}
+            <div className="grid gap-x-3 gap-y-3 grid-cols-3 auto-rows-auto pt-10 p-10" style={{ display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
                 {teamMembers.map((member, index) => (
-                    <PortraitCard
-                        key={index}
-                        className="bg-secondary shadow-md hover:cursor-pointer hover:outline"
-                    >
-                        <CardContent>
-                            <img
-                                className="rounded-md"
-                                src={member.image}
-                                alt={member.name}
-                            />
-                        </CardContent>
-                        <div className="">
-                            <CardTitle>{member.name}</CardTitle>
-                            <CardDescription>{member.role}</CardDescription>
-                            <CardDescription>
-                                {member.major} Major
-                            </CardDescription>
-                            <CardDescription>
-                                Class of {member.class}
-                            </CardDescription>
-                            <br />
-                            {/* <audio controls>
-                                <source src={member.audio} type="audio/mp3"/>
-                            </audio> */}
-                        </div>
-                    </PortraitCard>
+                    <div key={index} style={{flex: '0 0 calc(33.33% - 2rem)'}}>
+                        <PortraitCard className="bg-secondary shadow-md hover:cursor-pointer hover:outline" onClick={() => toggleQuote(member)}>
+                            <CardContent style={{height: selectedMember === member.quote ? 'auto' : '475px' }}>
+                                <div className="flex flex-col justify-between h-full">
+                                    <div>
+                                        <img className="rounded-md" src={member.image} alt={member.name}/>
+                                        <div className="mt-3">
+                                            <CardTitle>{member.name}</CardTitle>
+                                            <CardDescription className="mt-1">{member.role}</CardDescription>
+                                            <CardDescription>{member.major} Major</CardDescription>
+                                            <CardDescription>Class of {member.class}</CardDescription>
+                                        </div>
+                                    </div>
+                                    {selectedMember === member.quote && (
+                                        <div className="p-4 italic">
+                                            <CardDescription className="text-center">Quote: {member.quote}</CardDescription>
+                                        </div>
+                                    )}
+                                </div>
+                            </CardContent>
+                        </PortraitCard>
+                    </div>
                 ))}
             </div>
+            {/* Thank you message */}            
             <div className="p-10 flex text-center items-center justify-center font-bold">
-                Thank you to the Brigham and Women's Hostpital and Andrew Shinn
-                for providing us with the opportunity to work on this project.
-                <br /> The Brigham and Women's Hospital maps used in this
-                application are copyrighted and provided for the sole use of
-                educational purposes.
+                {translate("aboutusthank1", language)}<br/> {translate("aboutusthank2", language)}
             </div>
         </div>
     );
