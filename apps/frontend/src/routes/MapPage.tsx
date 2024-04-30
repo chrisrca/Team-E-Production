@@ -31,6 +31,12 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
         const nonHallNodes = nodes.filter((node) => {
             return node.nodeType != "HALL";
         });
+    
+        if (nonHallNodes.length === 0) {
+            console.error("No non-hall nodes available");
+            return;
+        }
+    
         const randomStart =
             nonHallNodes[Math.floor(Math.random() * nonHallNodes.length)].nodeID;
         const randomEnd =
@@ -59,7 +65,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 }
 
                 setPathNodes(res.data);
-                const { prompts, turns, floors } = TextDirection(res.data, language);
+                const { prompts, turns, floors } = TextDirection(res.data, `${language}`);
                 setPrompt(prompts);
                 setTurn(turns);
                 setFloor(floors);

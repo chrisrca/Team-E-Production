@@ -1,5 +1,4 @@
 import "./index.css";
-import Login from "./routes/Login.tsx";
 import Welcome from "./routes/Welcome.tsx";
 import Services from "@/routes/Services";
 import FlowerService from "@/routes/FlowerServiceRequest.tsx";
@@ -35,12 +34,14 @@ import CreditPage from "@/routes/CreditPage.tsx";
 import Mobile from "./routes/Mobile";
 import { LanguageToggle } from "@/components/ui/LanguageToggle.tsx";
 import { LanguageProvider } from "@/components/LanguageProvider.tsx";
+import GravityBallGamePage from "@/routes/GravityBallGamePage.tsx";
 
 // import { useAxiosWithAuth } from "./hooks/useAxiosWithAuth0";
 
 function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
     const navigate = useNavigate();
     const [userData, setUserData] = useState<User | null>(null);
+
     // const axiosAuth = useAxiosWithAuth();
     // const [loading, setLoading] = useState<boolean>(true);
     // const [error, setError] = useState<string | null>(null);
@@ -84,7 +85,6 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                                 <Welcome nodes={nodes} setUser={setUserData} />
                             }
                         />
-                        <Route path="/login" element={<Login />} />
                         <Route
                             path="/map"
                             element={<MapPage nodes={nodes} />}
@@ -96,6 +96,10 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                         <Route path="/about-us" element={<AboutUs />} />
                         <Route path="*" element={<BadRoutePage />} />
                         <Route path="/credit-page" element={<CreditPage />} />
+                        <Route
+                            path="/Gravity-Ball-Game-page"
+                            element={<GravityBallGamePage />}
+                        />
                         <Route path="/meettheteam" element={<ThreeSixty />} />
                         <Route
                             path="/mobile/:start/:end/:algorithm"
@@ -118,7 +122,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                             }
                         />
                         <Route
-                            path="/profile"
+                            path="/dashboard"
                             element={
                                 <ProtectedRoute>
                                     <Profile />
