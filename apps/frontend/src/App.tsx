@@ -19,7 +19,7 @@ import RoomScheduling from "@/routes/RoomServiceRequest.tsx";
 import MedicalDeviceService from "@/routes/MedicalDeviceServiceRequest.tsx";
 import { DBNode } from "common/src/types";
 import axios from "axios";
-import { Auth0Provider, User } from "@auth0/auth0-react";
+import { Auth0Provider, User, useAuth0 } from "@auth0/auth0-react";
 import React, { useState, useEffect } from "react";
 import { ProtectedRoute } from "@/routes/Authenticated.tsx";
 import UserArea from "./components/UserArea.tsx";
@@ -41,7 +41,6 @@ import GravityBallGamePage from "@/routes/GravityBallGamePage.tsx";
 
 function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
     const navigate = useNavigate();
-    const [userData, setUserData] = useState<User | null>(null);
 
     // const axiosAuth = useAxiosWithAuth();
     // const [loading, setLoading] = useState<boolean>(true);
@@ -49,9 +48,6 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
 
     // if (loading) return <div>Loading...</div>;
     // if (error) return <div>Error: {error}</div>;
-    useEffect(() => {
-        console.log(userData);
-    }, [userData]);
 
     return (
         <Auth0Provider
@@ -68,7 +64,23 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                 scope: "openid profile email offline_access",
             }}
         >
-            <ThemeProvider>
+            <InnerApp nodes={nodes}/>
+        </Auth0Provider>
+    );
+}
+
+function InnerApp({ nodes }: { nodes: DBNode[] }) {
+    const [userData, setUserData] = useState<User | null>(null);
+    const { user } = useAuth0();
+
+    useEffect(() => {
+        if (user) {
+            setUserData(user);
+        }
+    }, [user]);
+
+    return (
+        <ThemeProvider>
                 <LanguageProvider>
                     <div className="flex">
                         <div>
@@ -277,7 +289,6 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                     </div>
                 </LanguageProvider>
             </ThemeProvider>
-        </Auth0Provider>
     );
 }
 
