@@ -138,7 +138,7 @@ function ProfilePage() {
         );
     if (userInfo)
         return (
-            <div className="container mx-auto p-4">
+            <div className="container mx-auto p-4 rounded-full">
                 <div className="mb-8">
                     <h1 className="text-xl font-bold mt-12 m-4">
                         User Profile

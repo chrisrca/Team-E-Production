@@ -52,7 +52,7 @@ export default function UserArea() {
         <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={() => setIsOpen(!isOpen)}>
                 <Button
-                    className={`fixed top-0 right-0 mt-2 mr-2 z-50 bg-background text-foreground dark:border-2 dark:border-border ${isAuthenticated ? " w-10 h-10" : "hover:bg-accent"}`}
+                    className={`fixed top-0 right-0 mt-2 mr-2 z-50 text-foreground dark:border-2 dark:border-border ${isAuthenticated ? " w-10 h-10 rounded-full" : "hover:bg-accent"}`}
                 >
                     {isAuthenticated ? (
                         <Avatar>

@@ -46,7 +46,7 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/flower-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary transition-all"
                             >
                                 {translate("Order", language)}
                             </Link>
@@ -69,7 +69,7 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/security"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4 transition-all"
                             >
                                 {translate("Request", language)}
                             </Link>
@@ -92,7 +92,7 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/drug-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4 transition-all"
                             >
                                 {translate("Order", language)}
                             </Link>
@@ -115,7 +115,7 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/gift-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 transition-all"
                             >
                                 {translate("Order", language)}
                             </Link>
@@ -139,7 +139,7 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/language-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 transition-all"
                             >
                                 {translate("Request", language)}
                             </Link>
@@ -162,7 +162,7 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/sanitation"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 transition-all"
                             >
                                 {translate("Request", language)}
                             </Link>
@@ -185,7 +185,7 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/room-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 transition-all"
                             >
                                 {translate("Take me there", language)}
                             </Link>
@@ -208,7 +208,7 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/medical-device-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 transition-all"
                             >
                                 {translate("Request", language)}
                             </Link>

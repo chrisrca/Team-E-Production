@@ -527,7 +527,7 @@ export const ServiceRequests = (
                 }}
             />
             {isSubmitted && <Confetti />}
-            <div className="flex justify-center container shrink-0 w-full h-dvh">
+            <div className="flex justify-center container shrink-0 w-full h-dvh py-8">
                 <div className="m-auto relative w-2/3 min-w-[35rem]">
                     <div className="block shadow-lg bg-secondary rounded-lg border-4 border-background">
                         <form className="px-16 py-8" onSubmit={handleSubmit}>

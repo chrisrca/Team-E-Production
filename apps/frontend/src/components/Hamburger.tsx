@@ -15,7 +15,14 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ChevronRight } from "lucide-react";
+import { 
+    ChevronRight,
+    Map,
+    HandHelping,
+    Database,
+    Sticker,
+    FileText,
+ } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
@@ -25,7 +32,7 @@ export default function Hamburger() {
 
     return (
         <Sheet>
-            <SheetTrigger className="fixed top-0 z-50 pl-2 pt-2 flex ">
+            <SheetTrigger className="fixed top-0 z-50 pl-2 pt-2 flex transition-all">
                 <Button variant={"outline"} size={"icon"}>
                     <Menu className={"transition-all"} />
                 </Button>
@@ -35,19 +42,25 @@ export default function Hamburger() {
                     <SheetClose asChild>
                         <Link
                             to="/"
-                            className="rounded hover:bg-accent pl-2 dark:bg-foreground dark:hover:bg-accent inline-block"
+                            className="rounded hover:bg-accent dark:bg-foreground dark:hover:bg-accent inline-block "
                         >
-                            <img
-                                src={bwhLogo}
-                                alt="BWH logo"
-                                style={{ height: "50px" }}
-                            />
+                            <div className={"mx-auto size-fit"}>
+                                <img
+                                    src={bwhLogo}
+                                    alt="BWH logo"
+                                    style={{ height: "70px" }}
+                                />
+                            </div>
+                            
                         </Link>
                     </SheetClose>
                     {isAuthenticated && (
                         <Collapsible className="grid gap-4 dark:bg-secondary">
                             <CollapsibleTrigger className="flex rounded-sm p-2 px-4 hover:bg-accent w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                                <div className={"w-full flex flex-row"}>
                                 {translate("services", language)}{" "}
+                                <HandHelping className={"mx-auto mr-4"}/>
+                                </div>
                                 <ChevronRight className="ml-auto w-4 h-4 transition-all" />
                             </CollapsibleTrigger>
                             <CollapsibleContent>
@@ -176,8 +189,11 @@ export default function Hamburger() {
                     )}
                     <Collapsible className="grid gap-4 dark:bg-secondary">
                         <CollapsibleTrigger className="flex rounded-sm p-2 px-4 hover:bg-accent w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
+                            <div className={"w-full flex flex-row"}>
                             {translate("Map", language)}{" "}
-                            <ChevronRight className="ml-auto w-4 h-4 transition-all" />
+                            <Map className={"mx-auto mr-4"}/>
+                            </div>
+                            <ChevronRight className="self-center self-end w-4 h-4 transition-all size-full" />
                         </CollapsibleTrigger>
                         <CollapsibleContent>
                             <div className="grid gap-3 bg-gray-150 px-3">
@@ -212,33 +228,41 @@ export default function Hamburger() {
                     {isAuthenticated && (
                         <SheetClose asChild>
                             <Link
-                                className="group rounded-sm p-2 px-4 hover:bg-accent grid h-auto w-full justify-start gap-1"
+                                className="group rounded-sm p-2 px-4 hover:bg-accend h-auto w-full justify-start gap-1 hover:bg-accent"
                                 to="data"
                             >
-                                <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                                    {translate("dataviewer", language)}
+                                <div className={"w-full flex flex-row text-lg font-semibold"}>
+                                {translate("dataviewer", language)}
+                                <Database className={"mx-auto mr-4 self-end"}/>
+                                <ChevronRight className="self-end w-4 h-4 transition-all opacity-0" />
                                 </div>
+                                
+                                
                             </Link>
                         </SheetClose>
                     )}
                     <SheetClose asChild>
                         <Link
-                            className="group rounded-sm p-2 px-4 hover:bg-accent grid h-auto w-full justify-start gap-1"
+                            className="group rounded-sm p-2 px-4 hover:bg-accent h-auto w-full justify-start gap-1 hover:bg-accent"
                             to="about-us"
                         >
-                            <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                                {translate("aboutus", language)}
-                            </div>
+                                <div className={"w-full flex flex-row text-lg font-semibold"}>
+                                {translate("aboutus", language)}{" "}
+                                <Sticker className={"mx-auto mr-4 self-end"}/>
+                                <ChevronRight className="self-end w-4 h-4 transition-all opacity-0" />
+                                </div>
                         </Link>
                     </SheetClose>
                     <SheetClose asChild>
                         <Link
-                            className="group rounded-sm p-2 px-4 hover:bg-accent grid h-auto w-full justify-start gap-1"
+                            className="group rounded-sm p-2 px-4 hover:bg-accent h-auto w-full justify-start gap-1"
                             to="credit-page"
                         >
-                            <div className="flex w-full items-center text-lg font-semibold [&[data-state=open]>svg]:rotate-90">
-                                {translate("Credit", language)}
-                            </div>
+                                <div className={"w-full flex flex-row text-lg font-semibold"}>
+                                {translate("Credit", language)}{" "}
+                                <FileText className={"mx-auto mr-4 self-end transition-all"}/>
+                                <ChevronRight className="self-end w-4 h-4 transition-all opacity-0" />
+                                </div>
                         </Link>
                     </SheetClose>
                 </div>
