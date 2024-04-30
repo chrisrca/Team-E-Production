@@ -273,22 +273,6 @@ function InnerApp({ nodes }: { nodes: DBNode[] }) {
                             }
                         />
                         <Route
-                        path="/diagnosis-bot-service"
-                        element={
-                            <ProtectedRoute>
-                                <DiagnosisBotRequest />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path="/symptoms-service-request"
-                        element={
-                            <ProtectedRoute>
-                                <SymptomsService />
-                            </ProtectedRoute>
-                        }
-                    />
-                        <Route
                         path="/form-maker"
                         element={
                             <ProtectedRoute>
