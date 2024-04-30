@@ -78,7 +78,7 @@ export default function UserArea() {
                         <DropdownMenuGroup>
                             <DropdownMenuItem>
                                 <User className="mr-2 h-4 w-4" />
-                                <Link to="/profile">Profile</Link>
+                                <Link to="/dashboard">Dashboard</Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
                                 <Settings className="mr-2 h-4 w-4" />

@@ -121,7 +121,7 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                             }
                         />
                         <Route
-                            path="/profile"
+                            path="/dashboard"
                             element={
                                 <ProtectedRoute>
                                     <Profile />

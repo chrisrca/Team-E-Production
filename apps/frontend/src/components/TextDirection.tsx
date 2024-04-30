@@ -179,10 +179,9 @@ export function TextDirectionComponent(props: TextDirectionProps) {
                                     <div className="border-black rounded-lg p-1">
                                         {componentMapping[turns [index]] ? React.createElement(componentMapping[turns[index]]) : `?`}
                                     </div>
-                                ) : (
-                                    <></>
-                                ),
-                            )}
+                                    <div className="px-3">{prompt}</div>
+                                </div> : <></>
+                            ))}
                         </AccordionContent>
                     </AccordionItem>
                 ))}
