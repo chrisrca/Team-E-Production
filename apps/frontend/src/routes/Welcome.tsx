@@ -3,6 +3,8 @@ import Carousel2 from "/src/images/carousel-2.jpeg";
 import Carousel3 from "/src/images/carousel-3.jpeg";
 import MapImage from "/src/images/BWH-high-res.jpg";
 import HospitalLogo from "/src/images/BWH logo.svg";
+import Carousel4 from "/src/images/ygr51uxh.png";
+import DataImage from "/src/images/xyxw4u0t.png";
 //import bgImage from "/src/images/brighamandwomensbuildingimage.jpeg";
 //import { MapPinned, CircleUserRound } from "lucide-react";
 import ServiceImage from "/src/images/hospital-hero.jpg";
@@ -225,7 +227,9 @@ export default function Welcome({
             <div>
                 <div className="pr-20 pl-20 bg-background flex flex-col pb-8">
                     <div className="flex flex-basis flex-col justify-start items-start">
-                        <img className="h-32" src={HospitalLogo}/>
+                      <div className="pt-2">
+                        <img className="h-32 dark:bg-foreground rounded-md inline-block pl-2 pr-2" src={HospitalLogo}/>
+                      </div>
                         <h2 className="text-lg">
                             {translate("Helping our patients and their families get back to what matters most.", language)}
                         </h2>
@@ -384,6 +388,44 @@ export default function Welcome({
                                         </div>
                                     </div>
                                 </CarouselItem>
+                              <CarouselItem>
+                                <div
+                                  className="mt-5 rounded-lg"
+                                  style={{
+                                    backgroundImage: `url(${Carousel4})`,
+                                    backgroundSize: "cover",
+                                    minHeight: "400px",
+                                  }}
+                                >
+                                  <h1 className="z-1 text-white text-4xl font-bold pt-[300px] pl-8">
+                                    {translate(
+                                      "How can we help you?",
+                                      language,
+                                    )}
+                                  </h1>
+                                  <div className="flex">
+                                    <div className="flex">
+                                      <h2 className="z-1 text-white text-2xl pt-2 pl-8">
+                                        {translate(
+                                          "Use our assorted service requests to suit your needs",
+                                          language,
+                                        )}{" "}
+                                      </h2>
+                                    </div>
+                                    <div className="flex">
+                                      <Link
+                                        to="/services"
+                                        className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-inherit hover:border-2 border-accent transition-all align-middle mt-1 ml-4"
+                                      >
+                                        {translate(
+                                          "Services",
+                                          language,
+                                        )}
+                                      </Link>
+                                    </div>
+                                  </div>
+                                </div>
+                              </CarouselItem>
                             </CarouselContent>
                             <CarouselPrevious className="" />
                             <CarouselNext className="" />
@@ -393,16 +435,16 @@ export default function Welcome({
                         </div>
                     </div>
                     <div className={""}>
-                        <div className={"grid gap-4 grid-cols-2"}>
+                        <div className={"grid gap-4 grid-cols-3"}>
                             <Card className="shadow-md hover:shadow-lg">
                                 {/*card 1*/}
                                 <CardHeader>
                                     <CardTitle>
-                                        {translate("Map", language)}
+                                        {translate("Map Editor", language)}
                                     </CardTitle>
                                     <CardDescription>
                                         {translate(
-                                            "Find the path to your destination on our interactive map.",
+                                            "Edit nodes and edges on the map.",
                                             language,
                                         )}
                                     </CardDescription>
@@ -415,21 +457,21 @@ export default function Welcome({
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
                                     <Link
-                                        to="/map"
+                                        to="/map-editor"
                                         className="inline-block text-foreground text-md py-2 px-4 rounded bg-accent hover:bg-inherit hover:border-2 border-accent transition-all align-middle"
                                     >
-                                        {translate("View Map", language)}
+                                        {translate("Edit Map", language)}
                                     </Link>
                                 </CardFooter>
                             </Card>
                             <Card className="shadow-md hover:shadow-lg">
                                 <CardHeader>
                                     <CardTitle>
-                                        {translate("Services", language)}
+                                        {translate("Custom Service Form", language)}
                                     </CardTitle>
                                     <CardDescription>
                                         {translate(
-                                            "View and request services here.",
+                                            "Use our custom form creator to make any service form you need.",
                                             language,
                                         )}
                                     </CardDescription>
@@ -441,12 +483,40 @@ export default function Welcome({
                                     />
                                 </CardContent>
                                 <CardFooter className="flex justify-end items-center">
-                                    <Link to="/services"
+                                    <Link to="/form-maker"
                                           className="inline-block text-foreground text-md py-2 px-4 rounded bg-accent hover:bg-inherit hover:border-2 border-accent transition-all align-middle">
-                                        {translate("View Services", language)}
+                                        {translate("Create Form", language)}
                                     </Link>
                                 </CardFooter>
                             </Card>
+                          <Card className="shadow-md hover:shadow-lg">
+                            {/*card 1*/}
+                            <CardHeader>
+                              <CardTitle>
+                                {translate("Data Viewer", language)}
+                              </CardTitle>
+                              <CardDescription>
+                                {translate(
+                                  "Take a look at our robust database.",
+                                  language,
+                                )}
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent className="">
+                              <img
+                                src={DataImage}
+                                className="rounded-sm w-full overflow-hidden object-cover aspect-[16/9] h-[200px]"
+                              />
+                            </CardContent>
+                            <CardFooter className="flex justify-end items-center">
+                              <Link
+                                to="/data"
+                                className="inline-block text-foreground text-md py-2 px-4 rounded bg-accent hover:bg-inherit hover:border-2 border-accent transition-all align-middle"
+                              >
+                                {translate("View Data", language)}
+                              </Link>
+                            </CardFooter>
+                          </Card>
                         </div>
                     </div>
                 </div>
