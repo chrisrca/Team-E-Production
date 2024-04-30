@@ -98,29 +98,6 @@ export default function Services() {
                         </CardFooter>
                     </Card>
                     <Card className="bg-secondary shadow-md hover:shadow-lg">
-                        {/*card 3*/}
-                        <CardHeader>
-                            <CardTitle>Diagnosis Bot</CardTitle>
-                            <CardDescription>
-                                Talk to a Bot to help with your diagnosis!
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <img
-                                src={Medication}
-                                className={"rounded-sm aspect-[16/9]"}
-                            ></img>
-                        </CardContent>
-                        <CardFooter className="flex justify-end items-center">
-                            <Link
-                                to="/diagnosis-bot-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
-                            >
-                                Order
-                            </Link>
-                        </CardFooter>
-                    </Card>
-                    <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 4*/}
                         <CardHeader>
                             <CardTitle>{translate("Gifttitle", language)}</CardTitle>
