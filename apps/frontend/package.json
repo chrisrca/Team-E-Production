@@ -54,6 +54,7 @@
         "clsx": "^2.1.0",
         "cmdk": "^1.0.0",
         "common": "workspace:*",
+        "dynamic": "^4.2.2",
         "embla-carousel": "^8.0.1",
         "embla-carousel-autoplay": "^8.0.1",
         "embla-carousel-react": "^8.0.1",

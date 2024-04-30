@@ -9866,6 +9866,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dynamic@npm:^4.2.2":
+  version: 4.2.2
+  resolution: "dynamic@npm:4.2.2"
+  dependencies:
+    expression-eval: "npm:^1.4.0"
+    jquery: "npm:^3.4.1"
+    microdash: "npm:~1.3"
+  checksum: b74dc4924669a2baa024466d7b63cecc2611eeb7052abff70dae2320d063d54587984a29ed93815771299dc7b7d76ca77e06aeda3fd60936d546295ff975b478
+  languageName: node
+  linkType: hard
+
 "eastasianwidth@npm:^0.2.0":
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
@@ -11099,6 +11110,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expression-eval@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "expression-eval@npm:1.4.0"
+  dependencies:
+    jsep: "npm:^0.3.0"
+  checksum: ac791b6c96133616489f75f7c7d57a8f76c8e8f6ef758b6e54967bc41a0a76ab23fe5997a0ca915c8c62a38fe3a72d5fbdc820e6b86d610ec5ef30bad3214daf
+  languageName: node
+  linkType: hard
+
 "fast-deep-equal@npm:^3.1.1, fast-deep-equal@npm:^3.1.3":
   version: 3.1.3
   resolution: "fast-deep-equal@npm:3.1.3"
@@ -11543,6 +11563,7 @@ __metadata:
     cmdk: "npm:^1.0.0"
     common: "workspace:*"
     database: "workspace:*"
+    dynamic: "npm:^4.2.2"
     embla-carousel: "npm:^8.0.1"
     embla-carousel-autoplay: "npm:^8.0.1"
     embla-carousel-react: "npm:^8.0.1"
@@ -13849,6 +13870,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jquery@npm:^3.4.1":
+  version: 3.7.1
+  resolution: "jquery@npm:3.7.1"
+  checksum: 17be9929f5fa37697d9848284f0d108c543318ef79ec794e130cd0c49f6c050d60c803a69e8cfa16fa19f5ff7cdb814a6905cceab0831186560c65ed113cd579
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -13916,6 +13944,13 @@ __metadata:
     canvas:
       optional: true
   checksum: c530c04b0e3718769a66e19b0b5c762126658bce384d6743b807a28a9d89beba4ad932e474f570323efe6ce832b3d9a8f94816fd6c4d386416d5ea0b64e07ebc
+  languageName: node
+  linkType: hard
+
+"jsep@npm:^0.3.0":
+  version: 0.3.5
+  resolution: "jsep@npm:0.3.5"
+  checksum: cfdb0cf6553dc2febc85e2741667f81fdd1d7b062207c8fbf03dea399f29c7c3cd448f3147e96d1b2082a399e8a419a5462d5c79569efb18dba0eb3596755e50
   languageName: node
   linkType: hard
 
@@ -14641,6 +14676,13 @@ __metadata:
   version: 1.1.2
   resolution: "methods@npm:1.1.2"
   checksum: a385dd974faa34b5dd021b2bbf78c722881bf6f003bfe6d391d7da3ea1ed625d1ff10ddd13c57531f628b3e785be38d3eed10ad03cebd90b76932413df9a1820
+  languageName: node
+  linkType: hard
+
+"microdash@npm:~1.3":
+  version: 1.3.0
+  resolution: "microdash@npm:1.3.0"
+  checksum: 4c35eac7e03c11cd80cbc930f91b3f2d5849776a577758545b8cb18f0a0a26c04c583319e0a4911768f7779e4e601ae92a4f816eee7c82b9880ec2ac0c647ad3
   languageName: node
   linkType: hard
 
@@ -19091,6 +19133,7 @@ __metadata:
     happy-dom: "npm:^10.6.3"
     husky: "npm:^8.0.0"
     lucide-react: "npm:^0.363.0"
+    next: "npm:^14.2.3"
     postcss: "npm:^8.4.38"
     prettier: "npm:2.8.8"
     prettier-config-custom: "workspace:*"
