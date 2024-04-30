@@ -10,6 +10,9 @@ import TextDirection, {
 } from "@/components/TextDirection.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { useLanguage } from "@/components/LanguageProvider";
+//import MapPage3d from "@/routes/MapPage3d.tsx";
+import Map3d from "@/components/canvasmap/map3d/Map3d.tsx";
+import {Box, Square} from "lucide-react";
 // import NodeDisplay from "@/components/canvasmap/NodeDisplay.tsx";
 //import { Node } from "common/src/types";
 
@@ -23,6 +26,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
     const [turn, setTurn] = useState<string[]>([""]);
     const [floor, setFloor] = useState<string[]>([""]);
     const language = useLanguage();
+    const [is3d, setIs3d] = useState<boolean>(false);
     const handleRandomize = () => {
         const nonHallNodes = nodes.filter((node) => {
             return node.nodeType != "HALL";
@@ -73,50 +77,91 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
         fetchPathData().then();
     }, [start, end, algorithm, language]);
 
+    const handle3d = () => {
+        if (is3d) {
+            setIs3d(false);
+        } else{
+            setIs3d(true);
+        }
+    };
     return (
-        <>
-            <div className="flex flex-col absolute h-screen space-y-4 left-0">
-                <div className="flex z-10 ml-20 mt-5">
-                    <SearchBar
-                        selection={nodes}
-                        start={[start, setStart]}
-                        end={[end, setEnd]}
-                        algorithm={[algorithm, setAlgorithm]}
-                    />
-                </div>
-
-                <div className="flex z-10 ml-20">
-                    <Button onClick={handleRandomize}>
-                        I'm Feeling Lucky
-                    </Button>
-                </div>
-
-                <div className="absolute top-0 left-0 z-10 ml-2.5 mt-20 pt-10">
-                    <LevelButtons levelProps={[level, setLevel]}/>
-                </div>
-
-                <div className="z-10 ml-20 mt-5 max-w-72">
-                    <TextDirectionComponent prompts={prompt} turns={turn} floors={floor}/>
-                </div>
-            </div>
-
-            <div className="flex flex-col absolute h-screen space-y-4 right-0">
-                <div className="z-10 mt-14 mr-2.5">
-                    <Legend/>
-                </div>
-
-            </div>
-
-            <div style={{height: "100vh", overflow: "hidden"}}>
-                <CanvasMap
-                    level={level}
-                    path={pathNodes}
-                    nodes={nodes}
-                    setLevel={setLevel}
-                    start={setStart}
-                    end={setEnd}
-                />
-            </div>
-        </>
+        <div>
+            {is3d &&
+                <>
+                    <div className="fixed z-50 bottom-[6.5rem] pl-2">
+                        <Button variant="outline" size="icon" onClick={handle3d}>
+                            <Square />
+                        </Button>
+                    </div>
+                    <div className="z-0 relative flex">
+                        <div className="z-10">
+                            <SearchBar
+                                selection={nodes}
+                                start={[start, setStart]}
+                                end={[end, setEnd]}
+                                algorithm={[algorithm, setAlgorithm]}
+                            />
+                            <div className="mr-5 max-h-full mb-10 absolute bottom-0 right-0 z-10">
+                                <Legend/>
+                            </div>
+                            <LevelButtons levelProps={[level, setLevel]}/>
+                        </div>
+                        <Map3d pathNodes={pathNodes} level={level} nodes={nodes} setStart={setStart} setEnd={setEnd}
+                               setLevel={setLevel}/>
+                    </div>
+                </>
+            }
+            {!is3d &&
+                <>
+                    <div className="fixed z-50 bottom-[6.5rem] pl-2">
+                        <Button variant="outline" size="icon" onClick={handle3d}>
+                        <Box/>
+                        </Button>
+                    </div>
+                    <div className="z-0 relative flex">
+                        <div className="z-10">
+                            <SearchBar
+                                selection={nodes}
+                                start={[start, setStart]}
+                                end={[end, setEnd]}
+                                algorithm={[algorithm, setAlgorithm]}
+                            />
+                            <div className="mr-5 max-h-full mb-3 absolute bottom-0 right-0 z-10">
+                                <Legend/>
+                            </div>
+                            <LevelButtons levelProps={[level, setLevel]}/>
+                                <div style={{position: "absolute", top: "400px", left: ""}}>
+                                    <TextDirectionComponent prompts={prompt} turns={turn} floors={floor} />
+                                </div>
+                                <div style={{position: "absolute", top: "240px", left: "60px"}}>
+                                    <Button onClick={handleRandomize}>I'm Feeling Lucky</Button>
+                                </div>
+                                <LevelButtons levelProps={[level, setLevel]} />
+                                    <div
+                                        style={{
+                                            position: "absolute",
+                                            top: "240px",
+                                            left: "60px",
+                                        }}
+                                    >
+                                        <Button onClick={handleRandomize}>
+                                            I'm Feeling Lucky
+                                        </Button>
+                                    </div>
+                                </div>
+                                <div style={{ height: "100vh", overflow: "hidden" }}>
+                                    <CanvasMap
+                                        level={level}
+                                        path={pathNodes}
+                                        nodes={nodes}
+                                        setLevel={setLevel}
+                                        start={setStart}
+                                        end={setEnd}
+                                    />
+                                </div>
+                            </div>
+                        </>
+            }
+        </div>
     );
 }
