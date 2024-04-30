@@ -2,7 +2,7 @@ import { ServiceRequests } from "@/components/ServiceRequests";
 import MedicalDevice from "/src/images/MedicalDevice.png";
 import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
 
-export default function MedicalDeviceService() {
+export default function MedicalDeviceService(employee: string | undefined) {
     const { language } = useLanguage();
 
     const defaultFormSchema = {
@@ -95,6 +95,10 @@ export default function MedicalDeviceService() {
             options: [],
         },
     ];
+    if(employee == undefined){
+        return;
+    }
+    defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
 
     return ServiceRequests(
         deviceForm,

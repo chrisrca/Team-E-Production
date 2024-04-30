@@ -14,7 +14,7 @@ const defaultFormSchema = {
     createdBy: "",
 };
 
-export default function GiftServiceRequest() {
+export default function GiftServiceRequest(employee: string | undefined) {
     const { language } = useLanguage(); // Using the useLanguage hook to get the language variable
     defaultFormSchema.wrapping = translate("Default - $15", language); // Translating the wrapping value
     const giftForm = [
@@ -105,7 +105,10 @@ export default function GiftServiceRequest() {
             options: [],
         },
     ];
-
+    if(employee == undefined){
+        return;
+    }
+    defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
     return ServiceRequests(
         giftForm,
         defaultFormSchema,

@@ -1,3 +1,4 @@
+
 generator client {
   provider   = "prisma-client-js"
   output     = "../.prisma/client"
@@ -70,6 +71,8 @@ model service {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime?
 
+  // Iteration 5 change
+  createdBy     String         @default("")
   // potential types
   serviceType   ServiceType
   flower        flower?
