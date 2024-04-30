@@ -63,7 +63,7 @@ export default function FlowerService (employee: string | undefined) {
             content: "popover",
             type: "string",
             title: translate("Select Location", language),
-            placeholder: translate("Select Location", language),
+            placeholder: "",
             required: true,
             id: 0,
             label: "",
