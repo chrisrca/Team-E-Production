@@ -275,10 +275,10 @@ function DataViewer() {
             <div className="flex flex-row">
                     <Select onValueChange={(value) => {
                         if (!(typeof value === "string")) {
-                            //console.log("data != serviceData");
+                            console.log("data != serviceData");
                             setCurrData(value);
                         } else {
-                            //console.log("data == serviceData");
+                            console.log("data == serviceData");
                             const aggregateArr = [];
                             const servicesArr = [];
                             servicesArr.push(

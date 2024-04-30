@@ -256,6 +256,7 @@ export default function FormMaker() {
                                     [field]: options,
                                 });
                             }}
+                            disabled={option === ""}
                         >
                             <Plus className={"transition-all"} />
                         </Button>

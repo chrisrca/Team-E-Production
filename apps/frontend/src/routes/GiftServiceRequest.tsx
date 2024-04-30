@@ -10,7 +10,7 @@ const defaultFormSchema = {
     status: "",
     priority: "",
     employeeName: "",
-    wrapping: "",
+    wrapping: "festive",
     createdBy: "",
 };
 

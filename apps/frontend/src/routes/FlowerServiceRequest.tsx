@@ -10,6 +10,7 @@ const defaultFormSchema = {
     status: "",
     priority: "",
     employeeName: "",
+    cardMessage: "",
     createdBy: "",
 };
 

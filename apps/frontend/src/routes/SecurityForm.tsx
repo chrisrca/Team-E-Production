@@ -6,11 +6,11 @@ export default function SecurityForm(employee: string | undefined) {
 
     const defaultFormSchema = {
         requestType: "",
-        alertAuthorities: "false",
+        employeeName: "",
         location: "",
         status: "",
         priority: "",
-        employeeName: "",
+        alertAuthorities: "false",
         createdBy: "",
     };
 
