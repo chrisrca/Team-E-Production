@@ -3,5 +3,5 @@ export interface EmployeeType {
     nickname: string;
     displayname?: string | null;
     phone_number?: string | null;
-    admin: boolean
+    admin: boolean;
 }

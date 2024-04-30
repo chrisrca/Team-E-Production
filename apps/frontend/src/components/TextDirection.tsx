@@ -1,13 +1,13 @@
-import { CornerUpLeft } from 'lucide-react';
-import { MoveDownLeft } from 'lucide-react';
-import { MoveDownRight } from 'lucide-react';
-import { CornerUpRight } from 'lucide-react';
-import { MoveUpLeft } from 'lucide-react';
-import { MoveUpRight } from 'lucide-react';
-import { MoveUp } from 'lucide-react';
-import { Goal } from 'lucide-react';
-import { Map } from 'lucide-react';
-import { ArrowUpDown } from 'lucide-react';
+import { CornerUpLeft } from "lucide-react";
+import { MoveDownLeft } from "lucide-react";
+import { MoveDownRight } from "lucide-react";
+import { CornerUpRight } from "lucide-react";
+import { MoveUpLeft } from "lucide-react";
+import { MoveUpRight } from "lucide-react";
+import { MoveUp } from "lucide-react";
+import { Goal } from "lucide-react";
+import { Map } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import {
     Accordion,
     AccordionContent,
@@ -16,8 +16,7 @@ import {
 } from "@/components/ui/accordion";
 import { DBNode } from "common/src/types";
 import React from "react";
-import { translate } from './LanguageProvider';
-
+import { translate } from "./LanguageProvider";
 
 export default function TextDirection(nodes: DBNode[], language: string) {
     let { prompts, turns, floors, previousAngle } = initTextDirection(nodes);
@@ -53,7 +52,7 @@ export default function TextDirection(nodes: DBNode[], language: string) {
                 turns,
                 floors,
                 promptType,
-                language
+                language,
             );
 
             previousAngle = prevAngle;
@@ -78,7 +77,7 @@ export default function TextDirection(nodes: DBNode[], language: string) {
                 turns,
                 floors,
                 promptType,
-                language
+                language,
             );
 
             previousAngle = prevAngle;
@@ -100,7 +99,7 @@ export default function TextDirection(nodes: DBNode[], language: string) {
                 turns,
                 floors,
                 promptType,
-                language
+                language,
             );
 
             previousAngle = prevAngle;
@@ -134,19 +133,23 @@ export function TextDirectionComponent(props: TextDirectionProps) {
     const prompts = props.prompts;
     const turns = props.turns;
     const floors = props.floors;
-    const floorsUsed:string[]=[]; // list of the floors used in order
-    const indexOfFloorUsed:number[]=[]; // prevents directions from being displayed twice if a floor is re-entered
+    const floorsUsed: string[] = []; // list of the floors used in order
+    const indexOfFloorUsed: number[] = []; // prevents directions from being displayed twice if a floor is re-entered
 
     // create a list of floors used to title each accordion section
-    for(let i=0;i<floors.length;i++) {
-        if(i===0) floorsUsed.push(floors[i]);
-        if(floors[i]!==floors[i+1] && floors[i+1]!==undefined && floors[i+1]!==null) { // check if floors[i+1] exists
-            floorsUsed.push(floors[i+1]);
-            indexOfFloorUsed.push(i+1);
+    for (let i = 0; i < floors.length; i++) {
+        if (i === 0) floorsUsed.push(floors[i]);
+        if (
+            floors[i] !== floors[i + 1] &&
+            floors[i + 1] !== undefined &&
+            floors[i + 1] !== null
+        ) {
+            // check if floors[i+1] exists
+            floorsUsed.push(floors[i + 1]);
+            indexOfFloorUsed.push(i + 1);
         }
-        if(i===floors.length-1) indexOfFloorUsed.push(i+1);
+        if (i === floors.length - 1) indexOfFloorUsed.push(i + 1);
     }
-
 
     // Define a mapping object
     const componentMapping: { [key: string]: React.ComponentType } = {
@@ -161,7 +164,7 @@ export function TextDirectionComponent(props: TextDirectionProps) {
         end: Goal,
         arise: ArrowUpDown,
     };
-  
+
     return (
         <div>
             <Accordion type="single" collapsible className="w-full px-2 drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg overflow-auto h-fit max-h-custom">
@@ -176,9 +179,10 @@ export function TextDirectionComponent(props: TextDirectionProps) {
                                     <div className="border-black rounded-lg p-1">
                                         {componentMapping[turns [index]] ? React.createElement(componentMapping[turns[index]]) : `?`}
                                     </div>
-                                    <div className="px-3">{prompt}</div>
-                                </div> : <></>
-                            ))}
+                                ) : (
+                                    <></>
+                                ),
+                            )}
                         </AccordionContent>
                     </AccordionItem>
                 ))}
@@ -191,12 +195,16 @@ export function TextDirectionComponent(props: TextDirectionProps) {
 // indexOfFloorUsed:number[] - holds list of indexes that tracks floor changes
 // idx:number - accordion header index
 // index:number - prompt list index
-function floorBool(indexOfFloorUsed:number[],idx:number,index:number) {
-    if(!indexOfFloorUsed[idx-1] && index<indexOfFloorUsed[idx]) return true; // accounts for first case when [idx-1] doesnt exist
-    else if(indexOfFloorUsed[idx-1]<=index && index<indexOfFloorUsed[idx]) return true;
+function floorBool(indexOfFloorUsed: number[], idx: number, index: number) {
+    if (!indexOfFloorUsed[idx - 1] && index < indexOfFloorUsed[idx])
+        return true; // accounts for first case when [idx-1] doesnt exist
+    else if (
+        indexOfFloorUsed[idx - 1] <= index &&
+        index < indexOfFloorUsed[idx]
+    )
+        return true;
     else return false;
 }
-
 
 //////////////////REFACTORED FOR CODE REUSE////////////////////////////////////
 
