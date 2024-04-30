@@ -128,10 +128,10 @@ export default function Welcome({
         fetchPathData().then();
     }, [start, end, language]);
 
-    const { logout, isAuthenticated, isLoading, user } = useAuth0();
-    // const handleLogin = () => {
-    //     loginWithRedirect();
-    // };
+    const { loginWithRedirect, logout, isAuthenticated, isLoading, user } = useAuth0();
+    const handleLogin = () => {
+        loginWithRedirect();
+    };
     const handleLogout = () => {
         logout();
     };
@@ -453,19 +453,23 @@ export default function Welcome({
             </div>
         );
     } else {
-        return (            
+        return (
             <>
                 <ProjectWarning />
-                <div className="absolute items-center justify-center flex flex-col bg-background top-1/6 z-10 m-16 p-5 rounded-md">
-                    <div>
-                        <div className="text-7xl font-bold">
+                <div className="fixed flex items-center content-center justify-center top-1/4 right-1/3 bg-background p-5 z-10 rounded-md">
+                    <div className="flex flex-col justify-center items-center">
+                        <div>
+                            <img className="h-36" src={HospitalLogo}/> 
+                        </div>
+                        <div className="text-7xl font-bold p-4">
                             Need Directions?
                         </div>
-                        <div className="text-3xl">
-                            Check out our map to find your way around the hospital.
+                        <div className="flex p-10 px-24 justify-between items-center w-full ">
+                            <Button onClick={() => { window.location.href = "/map"; }} className="w-44 p-10 text-2xl">Map</Button>
+                            <Button onClick={handleLogin} className=" w-44 p-10 text-2xl">Login</Button> 
                         </div>
+                        
                     </div>                    
-                    <img className=" h-36 ml-10" src={HospitalLogo}/> 
                 </div>
                 <div
                     className="absolute bg-gradient-to-l from-kiosk cursor-pointer"
