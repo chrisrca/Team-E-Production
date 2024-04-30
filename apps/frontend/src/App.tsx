@@ -1,5 +1,4 @@
 import "./index.css";
-import Login from "./routes/Login.tsx";
 import Welcome from "./routes/Welcome.tsx";
 import Services from "@/routes/Services";
 import FlowerService from "@/routes/FlowerServiceRequest.tsx";
@@ -85,7 +84,6 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                                 <Welcome nodes={nodes} setUser={setUserData} />
                             }
                         />
-                        <Route path="/login" element={<Login />} />
                         <Route
                             path="/map"
                             element={<MapPage nodes={nodes} />}

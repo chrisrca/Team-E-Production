@@ -232,9 +232,9 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                             setTimeout(() => {
                                 if (mapLevel == 0) {
                                     setTransform(
-                                        -400,
-                                        -400,
-                                        1.8,
+                                        -260,
+                                        -270,
+                                        1.345,
                                         600,
                                         "easeOut",
                                     );
@@ -248,9 +248,9 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                                     );
                                 } else if (mapLevel == 2) {
                                     setTransform(
-                                        -450,
-                                        -375,
-                                        1.8,
+                                        -220,
+                                        -270,
+                                        1.3,
                                         600,
                                         "easeOut",
                                     );
@@ -258,12 +258,18 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                                     setTransform(
                                         -225,
                                         -115,
-                                        1.15,
+                                        1.2,
                                         600,
                                         "easeOut",
                                     );
                                 } else if (mapLevel == 4) {
-                                    setTransform(0, -245, 1.2, 600, "easeOut");
+                                    setTransform(
+                                        -183,
+                                        -323,
+                                        1.3,
+                                        600,
+                                        "easeOut",
+                                    );
                                 }
                             }, 600);
                         };

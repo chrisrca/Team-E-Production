@@ -453,14 +453,23 @@ export default function Welcome({
             </div>
         );
     } else {
-        console.log(start, end);
         return (            
             <>
                 <ProjectWarning />
+                <div className="absolute items-center justify-center flex flex-col bg-background top-1/6 z-10 m-16 p-5 rounded-md">
+                    <div>
+                        <div className="text-7xl font-bold">
+                            Need Directions?
+                        </div>
+                        <div className="text-3xl">
+                            Check out our map to find your way around the hospital.
+                        </div>
+                    </div>                    
+                    <img className=" h-36 ml-10" src={HospitalLogo}/> 
+                </div>
                 <div
-                    className="absolute bg-gradient-to-l from-25% from-kiosk"
+                    className="absolute bg-gradient-to-l from-kiosk cursor-pointer"
                     style={{
-                        opacity: "85%",
                         width: "100vw",
                         height: "100vh",
                         display: "flex",
@@ -469,16 +478,10 @@ export default function Welcome({
                         overflow: "hidden",
                         zIndex: "1",
                     }}
+                    onClick={() => {
+                        window.location.href = "/map";
+                    }}
                 >
-                    <div
-                        style={{ overflow: "hidden" }}
-                        className="top-0 w-screen items-center align-center text-center absolute bg-accent text-sm"
-                    >
-                        This website is a term project exercise for CS 3733
-                        Software Engineering (Prof. Wong) <br /> and is not to
-                        be confused with the actual Brigham and Women's Hospital
-                        website.
-                    </div>
                 </div>
                 <div style={{ height: "100vh", overflow: "hidden" }}>
                     <CanvasMap
