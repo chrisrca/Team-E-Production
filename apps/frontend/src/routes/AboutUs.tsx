@@ -16,6 +16,7 @@ import funny from "/src/sounds/metal-pipe-falling-sound-effect-made-with-Voicemo
 import fortnite from "/src/sounds/fortnite-dance-moves-emote-music-tv9iv8cxmo0-1.mp3";
 
 import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
+import { Button } from "@/components/ui/button";
 
 export default function AboutUs() {
     const { language } = useLanguage();
@@ -139,10 +140,13 @@ export default function AboutUs() {
 
     return (
         <div>
-            <div className="flex items-center justify-center pt-10 text-4xl font-bold">
+            <div className="flex flex-col items-center justify-center pt-10 text-4xl font-bold">
                 {translate("aboutus", language)}
+                <div className="p-10">
+                    <Button className="text-3xl bg-accent" onClick={() => {window.location.href = "/meettheteam";}}>Meet The Team!</Button>
+                </div>
             </div>
-            <div className="flex items-center text-center justify-center pt-5">
+            <div className="flex items-center text-center justify-center pt-5">    
                 {translate("aboutusdes1", language)} <br/>
                 {translate("aboutusdes2", language)}<br/> {translate("aboutusdes3", language)}
             </div>

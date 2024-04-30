@@ -5,7 +5,6 @@ function BadRoutePage() {
     <div className="flex flex-col h-screen justify-center items-center font-bold">
       <div>404 Error</div>
       <div>This Page Doesn't Exist</div>
-        <div>This could also be because you are not authenticated, please route to the Welcome Page to refresh your credentials</div>
       <div className="mt-6">
         <Link
           to="/Gravity-Ball-Game-page"

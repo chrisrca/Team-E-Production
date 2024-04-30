@@ -170,8 +170,8 @@ export function TextDirectionComponent(props: TextDirectionProps) {
         <Accordion type="single" collapsible className="w-full px-3 drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg">
             {floorsUsed?.map((flr,idx) => (
                 <AccordionItem value={`${idx}`}>
-                    <AccordionTrigger>{flr}</AccordionTrigger>
-                    <AccordionContent className="overflow-x-auto overflow-y-auto h-64">
+                    <AccordionTrigger className="max-h-11 px-2">{flr}</AccordionTrigger>
+                    <AccordionContent className="overflow-y-auto h-fit max-h-60">
                         {prompts?.map((prompt, index) => (
                             (floors[index]===flr && floorBool(indexOfFloorUsed,idx,index)) ?
                             <div key={index}
