@@ -345,18 +345,16 @@ export const ServiceRequests = (
         return (
             <>
                 <div className={props.width}>
-                    <div className={"flex container:ml-0 pl-6 pt-2"}>
+                    <div className={"flex flex-row size-full"}>
                         <Checkbox
                             onChange={(e) =>
                                 (formSchema[schemaKeys[props.id]] =
                                     e.target.value.toString())
                             }
-                            className={"hover:bg-accent my-auto"}
-                        >
+                            className={"hover:bg-accent my-auto self-center size-4 ml-6 mr-5"}
+                        />
+                        <Label className="text-sm font-medium text-gray-700 dark:text-foreground size-fit self-center">
                             {props.title}
-                        </Checkbox>
-                        <Label className="ml-4 text-sm font-medium text-gray-700 dark:text-foreground my-auto">
-                            {props.placeholder}
                         </Label>
                     </div>
                 </div>
