@@ -102,7 +102,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
                 <LevelButtons levelProps={[level, setLevel]}/>
             </div>
 
-            <div className="z-10 ml-20 mt-5 max-w-72">
+            <div className="z-10 ml-20 mt-5 max-w-72 overflow-auto">
                 <TextDirectionComponent prompts={prompt} turns={turn} floors={floor}/>
             </div>
         </div>

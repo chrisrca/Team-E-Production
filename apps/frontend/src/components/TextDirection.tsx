@@ -165,8 +165,9 @@ export function TextDirectionComponent(props: TextDirectionProps) {
         arise: ArrowUpDown,
     };
 
-    return (
-        <div>
+
+      return (
+        prompts[0]!=='' ?
         <Accordion type="single" collapsible className="w-full px-3 drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg">
             {floorsUsed?.map((flr,idx) => (
                 <AccordionItem value={`${idx}`}>
@@ -185,8 +186,7 @@ export function TextDirectionComponent(props: TextDirectionProps) {
                     </AccordionContent>
                 </AccordionItem>
             ))}
-        </Accordion>
-        </div>
+        </Accordion> : <></>
     );
 }
 
