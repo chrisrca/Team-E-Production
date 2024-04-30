@@ -1,25 +1,10 @@
-// import * as React from "react";
-// import Autoplay from "embla-carousel-autoplay";
-// import MedicineStore from "@/images/medicinestore.jpg";
-// import Tylenol from "@/images/tylenol.jpg";
-// import Advil from "@/images/advil.jpg";
-// import Melatonin from "@/images/melatonin.jpg";
-// import {
-//     Carousel,
-//     type CarouselApi,
-//     CarouselContent,
-//     CarouselItem,
-//     CarouselNext,
-//     CarouselPrevious,
-// } from "@/components/ui/carousel";
-
 import { ServiceRequests } from "@/components/ServiceRequests";
-import { medForm } from "./exampleForms";
 import medicinestore from "/src/images/medicinestore.jpg";
-export default function DrugDelivery() {
-    // const [api, setApi] = React.useState<CarouselApi>();
-    // const [current, setCurrent] = React.useState(0);
-    // const [count, setCount] = React.useState(0);
+import { translate, useLanguage } from "@/components/LanguageProvider.tsx";
+
+export default function DrugDelivery(employee: string | undefined) {
+    const { language } = useLanguage(); // Using the useLanguage hook to get the language variable
+
     const defaultFormSchema = {
         patientName: "",
         drugName: "",
@@ -28,147 +13,115 @@ export default function DrugDelivery() {
         status: "",
         priority: "",
         employeeName: "",
-        patientCondition: "Fever",
+        patientCondition: translate("Fever", language), // Translating the patient condition
+        createdBy: "",
     };
 
-    //Label is necessary, ids are calculated assuming that there is a title
+    // Label is necessary, ids are calculated assuming that there is a title
 
-    // React.useEffect(() => {
-    //     if (!api) {
-    //         return;
-    //     }
-    //
-    //     setCount(api.scrollSnapList().length);
-    //     setCurrent(api.selectedScrollSnap() + 1);
-    //
-    //     api.on("select", () => {
-    //         setCurrent(api.selectedScrollSnap() + 1);
-    //     });
-    // }, [api]);
+    const drugForm = [
+        {
+            content: "label",
+            title: translate("Drug Delivery Request", language), // Translating the title
+            type: "header",
+            id: 0,
+        },
+        {
+            content: "text",
+            type: "string",
+            title: translate("Patient Name", language), // Translating the title
+            placeholder: translate("First, Last", language), // Translating the placeholder
+            required: true,
+            id: 0,
+        },
+        {
+            content: "select",
+            type: "string",
+            title: translate("Medicine Type", language), // Translating the title
+            placeholder: translate("Select Medicine", language), // Translating the placeholder
+            required: true,
+            id: 0,
+            label: translate("Options", language), // Translating the label
+            options: [
+                translate("Tylenol - $5", language), // Translating the option
+                translate("Advil - $7", language), // Translating the option
+                translate("Melatonin - $10", language), // Translating the option
+            ],
+        },
+        {
+            content: "text",
+            type: "number",
+            title: translate("Drug Quantity", language), // Translating the title
+            placeholder: translate("Enter Drug Quantity", language), // Translating the placeholder
+            required: true,
+            id: 0,
+        },
+        {
+            content: "popover",
+            type: "string",
+            title: translate("Select Location", language), // Translating the title
+            placeholder: translate("Select Placeholder 2", language), // Translating the placeholder
+            required: true,
+            id: 0,
+            label: "",
+            options: [],
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: translate("Status", language), // Translating the title
+            placeholder: "",
+            required: true,
+            id: 0,
+            label: translate("Request Status", language), // Translating the label
+            options: [
+                translate("Unassigned", language), // Translating the option
+                translate("Assigned", language), // Translating the option
+                translate("In Progress", language), // Translating the option
+                translate("Closed", language), // Translating the option
+            ],
+        },
+        {
+            content: "radio",
+            type: "string",
+            title: translate("Priority", language), // Translating the title
+            placeholder: "",
+            required: true,
+            id: 0,
+            label: translate("Request Priority", language), // Translating the label
+            options: [
+                translate("Low", language), // Translating the option
+                translate("Medium", language), // Translating the option
+                translate("High", language), // Translating the option
+                translate("Emergency", language), // Translating the option
+            ],
+        },
+        {
+            content: "employee",
+            type: "string",
+            title: translate("Assign Employee", language), // Translating the title
+            placeholder: translate("Select Employee", language), // Translating the placeholder
+            required: false,
+            id: 0,
+            label: "",
+            options: [],
+        },
+    ];
 
+    if(employee == undefined){
+        return;
+    }
+    defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(9);
     return (
         <div>
-            {/*<div className="relative z-50 mx-auto w-3/4">
-                <div className="">
-                    <Carousel
-                        className=""
-                        setApi={setApi}
-                        plugins={[
-                            Autoplay({
-                                delay: 10000,
-                            }),
-                        ]}
-                        opts={{
-                            align: "start",
-                            loop: true,
-                        }}
-                    >
-                        <CarouselContent>
-                            <CarouselItem>
-                                <div
-                                    className="mt-3 rounded-lg"
-                                    style={{
-                                        backgroundImage: `url(${MedicineStore})`,
-                                        backgroundSize: "cover",
-                                        minHeight: "300px",
-                                        backgroundPosition: "center",
-                                    }}
-                                >
-                                    <h1 className="z-1 text-white text-3xl font-bold pt-[250px] pl-8">
-                                        Request medication here!
-                                    </h1>
-                                    <div className="flex">
-                                        <div className="flex">
-                                            <h2 className="z-1 text-white text-2xl pt-2 pl-8">
-                                                Order medicine to be safely
-                                                delivered to your destination!
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </CarouselItem>
-                            <CarouselItem>
-                                <div
-                                    className="mt-3 rounded-lg"
-                                    style={{
-                                        backgroundImage: `url(${Tylenol})`,
-                                        backgroundSize: "cover",
-                                        minHeight: "300px",
-                                        backgroundPosition: "center",
-                                    }}
-                                >
-                                    <h1 className="z-1 text-white text-3xl font-bold pt-[250px] pl-8">
-                                        Tylenol
-                                    </h1>
-                                    <div className="flex">
-                                        <div className="flex">
-                                            <h2 className="z-1 text-white text-2xl pt-2 pl-8">
-                                                For those suffering with fevers
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </CarouselItem>
-                            <CarouselItem>
-                                <div
-                                    className="mt-3 rounded-lg"
-                                    style={{
-                                        backgroundImage: `url(${Advil})`,
-                                        backgroundSize: "cover",
-                                        minHeight: "300px",
-                                        backgroundPosition: "center",
-                                    }}
-                                >
-                                    <h1 className="z-1 text-white text-3xl font-bold pt-[250px] pl-8">
-                                        Advil
-                                    </h1>
-                                    <div className="flex">
-                                        <div className="flex">
-                                            <h2 className="z-1 text-white text-2xl pt-2 pl-8">
-                                                To help with body sores
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </CarouselItem>
-                            <CarouselItem>
-                                <div
-                                    className="mt-3 rounded-lg"
-                                    style={{
-                                        backgroundImage: `url(${Melatonin})`,
-                                        backgroundSize: "cover",
-                                        minHeight: "300px",
-                                        backgroundPosition: "center",
-                                    }}
-                                >
-                                    <h1 className="z-1 text-white text-3xl font-bold pt-[250px] pl-8">
-                                        Melatonin
-                                    </h1>
-                                    <div className="flex">
-                                        <div className="flex">
-                                            <h2 className="z-1 text-white text-2xl pt-2 pl-8">
-                                                For those suffering with insomnia
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </CarouselItem>
-                        </CarouselContent>
-                        <CarouselPrevious className="" />
-                        <CarouselNext className="" />
-                    </Carousel>
-                    <div className="py-2 text-center text-sm text-muted-foreground">
-                        {current} of {count}
-                    </div>
-                </div>
-            </div>*/}
             {ServiceRequests(
-                medForm,
+                drugForm,
                 defaultFormSchema,
                 "/api/medicine",
                 medicinestore,
-                "Tri and Brendan",
+                "Tri and Brendan"
             )}
         </div>
     );
 }
+

@@ -232,9 +232,9 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                             setTimeout(() => {
                                 if (mapLevel == 0) {
                                     setTransform(
-                                        -400,
-                                        -400,
-                                        1.8,
+                                        -260,
+                                        -270,
+                                        1.345,
                                         600,
                                         "easeOut",
                                     );
@@ -248,9 +248,9 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                                     );
                                 } else if (mapLevel == 2) {
                                     setTransform(
-                                        -450,
-                                        -375,
-                                        1.8,
+                                        -220,
+                                        -270,
+                                        1.3,
                                         600,
                                         "easeOut",
                                     );
@@ -258,12 +258,18 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                                     setTransform(
                                         -225,
                                         -115,
-                                        1.15,
+                                        1.2,
                                         600,
                                         "easeOut",
                                     );
                                 } else if (mapLevel == 4) {
-                                    setTransform(0, -245, 1.2, 600, "easeOut");
+                                    setTransform(
+                                        -183,
+                                        -323,
+                                        1.3,
+                                        600,
+                                        "easeOut",
+                                    );
                                 }
                             }, 600);
                         };
@@ -384,13 +390,12 @@ export default function CanvasMap(nodes: CanvasMapProps) {
     }, []);
     return (
         <div>
-            <div className=""></div>
             {hoverNode.longName && (
                 <div // ml-4 justify-items-center bg-background  absolute z-10 text-md rounded-md px-2 py-1 flex flex-col rounded-2 float-left top-0
-                    className="absolute z-10 rounded-md bg-background shadow-lg flex-col rounded-2 float-left top-1/3 left-[60px] "
+                    className="absolute z-10 rounded-md bg-background shadow-lg flex-col rounded-2 right-0 bottom-0 mr-2.5 mb-1"
                     style={{
-                        top: `300px`,
-                        left: `60px`,
+                        // top: `300px`,
+                        // left: `60px`,
                         zIndex: `9999px`,
                         whiteSpace: "nowrap",
                         minWidth: "fit-content",

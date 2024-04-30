@@ -3,6 +3,7 @@ export interface SecurityServiceRequest {
     status: string;
     priority: string;
     employeeName: string;
+    createdBy: string;
     date: string;
     requestType: string;
     alertAuthorities: boolean;

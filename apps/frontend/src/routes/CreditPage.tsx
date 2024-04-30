@@ -12,6 +12,8 @@ import LucideLogo from "/src/images/lucide-logo.png";
 import RadixLogo from "/src/images/radix-logo.png";
 import ShadCNLogo from "/src/images/shadcn.jpg";
 import Background from "/src/images/background.png";
+import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
+
 
 import {
     Card,
@@ -22,6 +24,7 @@ import {
 } from "@/components/ui/card";
 
 const CreditPage: React.FC = () => {
+    const { language } = useLanguage();
     const softwareList = [
         {
             name: "Webstorm",
@@ -86,10 +89,9 @@ const CreditPage: React.FC = () => {
             }}
         >
             <div style={styles.content}>
-                <h1 style={styles.heading}>Credits</h1>
+                <h1 style={styles.heading}>{translate("Credit", language)}</h1>
                 <p style={styles.text}>
-                    This project was made possible with the help of the
-                    following software:
+                    {translate("Creditdes", language)}
                 </p>
                 <div style={styles.cardContainer}>
                     {softwareList.map((software, index) => (
@@ -129,8 +131,7 @@ const CreditPage: React.FC = () => {
                     ))}
                 </div>
                 <p style={styles.thanks}>
-                    Special thanks to the creators of these tools for their
-                    invaluable contributions to our project.
+                    {translate("Creditthank", language)}
                 </p>
             </div>
         </div>
