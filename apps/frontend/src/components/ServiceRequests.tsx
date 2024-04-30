@@ -56,20 +56,21 @@ type FormSchemas =
     | SanitationServiceRequest
     | SecurityServiceRequest;
 
-type FormLabel = {
+export type FormLabel = {
     content: string; //Element content - (input, select, switch, button, ect)
     title: string; //Element title
     type: string; //Element type - (string, number, etc)
     required: boolean; //Required? field
     id: number;
+    width: string;
 };
 
-type FormComponent = FormLabel & {
+export type FormComponent = FormLabel & {
     placeholder: string; //Displayed placeholder text
     variant: string;
 };
 
-type FormSelect = FormComponent & {
+export type FormSelect = FormComponent & {
     label: string; // Options label
     options: string[]; //Displayed options
 };
@@ -104,6 +105,64 @@ export const ServiceRequests = (
     bgPath: string,
     devNames: string,
 ) => {
+    const [nodes, setNodes] = useState<DBNode[]>([]);
+    const [filteredNodes, setFilteredNodes] = useState(nodes);
+    const [searchTerm, setSearchTerm] = useState("");
+    const searchRef = useRef<HTMLInputElement>(null);
+    const [employees, setEmployee] = useState<Employee[]>([]);
+    const [filteredEmployees, setFilteredEmployees] = useState(employees);
+
+    useEffect(() => {
+        async function fetchNodes() {
+            try {
+                const response = await axios.get("/api/nodes");
+                const originalNodes = response.data;
+                const returnNodes = originalNodes
+                    .filter((node) => {
+                        return node.nodeType != "HALL";
+                    })
+                    .sort(function (a, b) {
+                        if (a.longName < b.longName) {
+                            return -1;
+                        }
+                        if (a.longName > b.longName) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                setNodes(returnNodes);
+            } catch (error) {
+                console.error("Failed to fetch nodes: ", error);
+            }
+        }
+        fetchNodes();
+    }, []);
+    useEffect(() => {
+        async function fetchEmployees() {
+            try {
+                const response = await axios.get("/api/employee");
+                setEmployee(response.data);
+            } catch (error) {
+                console.error("Failed to fetch Employees: ", error);
+            }
+        }
+        fetchEmployees();
+    }, []);
+    useEffect(() => {
+        setFilteredNodes(
+            nodes.filter((node) =>
+                node.longName.toLowerCase().includes(searchTerm.toLowerCase()),
+            ),
+        );
+    }, [searchTerm, nodes]);
+    useEffect(() => {
+        setFilteredEmployees(
+            employees.filter((employee) =>
+                employee.name.toLowerCase().includes(searchTerm.toLowerCase()),
+            ),
+        );
+    }, [searchTerm, employees]);
+
     const [formSchema, setFormSchema] = useState(structuredClone(blankSchema));
     const schemaKeys = [] as string[];
 
@@ -141,7 +200,7 @@ export const ServiceRequests = (
             return radioGroupComp(props as FormSelect);
         } else if (props.content.includes("checkbox")) {
             return checkboxComp(props as FormComponent);
-        } else if (props.content.includes("popover")) {
+        } else if (props.content.includes("location")) {
             return LocationComp(props as FormComponent);
         } else if (props.content.includes("employee")) {
             return EmployeeComp(props as FormComponent);
@@ -153,10 +212,14 @@ export const ServiceRequests = (
     //Beginning of Elements
 
     const labelComp = (props: FormLabel) => {
-        //console.log("making label '" + props.title + "' id: " + props.id);
+        console.log("making label '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className="col-span-full text-extrabold basis-full text-center text-3xl">
+                <div
+                    className={
+                        "col-span-full text-extrabold basis-full text-center text-3xl"
+                    }
+                >
                     <Label>{props.title}</Label>
                 </div>
             </>
@@ -164,10 +227,11 @@ export const ServiceRequests = (
     };
 
     const inputComp = (props: FormComponent) => {
-        //console.log("making input '" + props.title + "' id: " + props.id);
+        console.log("making input '" + props.title + "' id: " + props.id);
+        console.log(props);
         return (
             <>
-                <div className="col-span-full">
+                <div className={props.width}>
                     <label
                         className={
                             "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
@@ -191,10 +255,10 @@ export const ServiceRequests = (
         );
     };
     const selectComp = (props: FormSelect) => {
-        //console.log("making select '" + props.title + "' id: " + props.id);
+        console.log("making select '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className="col-auto">
+                <div className={props.width}>
                     <label className="block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1">
                         {props.title}
                     </label>
@@ -230,10 +294,10 @@ export const ServiceRequests = (
     };
 
     const radioGroupComp = (props: FormSelect) => {
-        //console.log("making radio '" + props.title + "' id: " + props.id);
+        console.log("making radio '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className={"col-auto"}>
+                <div className={props.width}>
                     <label
                         className={
                             "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
@@ -277,73 +341,33 @@ export const ServiceRequests = (
     };
 
     const checkboxComp = (props: FormComponent) => {
-        //console.log("making checkbox '" + props.title + "' id: " + props.id);
+        console.log("making checkbox '" + props.title + "' id: " + props.id);
         return (
             <>
-                <div className={"flex col-span-2 container:ml-0 pl-6 pt-2"}>
-                    <Checkbox
-                        onChange={(e) =>
-                            (formSchema[schemaKeys[props.id]] =
-                                e.target.value.toString())
-                        }
-                        className={"hover:bg-accent my-auto"}
-                    >
-                        {props.title}
-                    </Checkbox>
-                    <Label className="ml-4 text-sm font-medium text-gray-700 dark:text-foreground my-auto">
-                        {props.placeholder}
-                    </Label>
+                <div className={props.width}>
+                    <div className={"flex container:ml-0 pl-6 pt-2"}>
+                        <Checkbox
+                            onChange={(e) =>
+                                (formSchema[schemaKeys[props.id]] =
+                                    e.target.value.toString())
+                            }
+                            className={"hover:bg-accent my-auto"}
+                        >
+                            {props.title}
+                        </Checkbox>
+                        <Label className="ml-4 text-sm font-medium text-gray-700 dark:text-foreground my-auto">
+                            {props.placeholder}
+                        </Label>
+                    </div>
                 </div>
             </>
         );
     };
 
     const LocationComp = (props: FormComponent) => {
-        // console.log(
-        //     "making Popover(Location) '" + props.title + "' id: " + props.id,
-        // );
-
-        const [nodes, setNodes] = useState<DBNode[]>([]);
-
-        useEffect(() => {
-            async function fetchNodes() {
-                try {
-                    const response = await axios.get("/api/nodes");
-                    const originalNodes = response.data;
-                    const returnNodes = originalNodes
-                        .filter((node) => {
-                            return node.nodeType != "HALL";
-                        })
-                        .sort(function (a, b) {
-                            if (a.longName < b.longName) {
-                                return -1;
-                            }
-                            if (a.longName > b.longName) {
-                                return 1;
-                            }
-                            return 0;
-                        });
-                    setNodes(returnNodes);
-                } catch (error) {
-                    console.error("Failed to fetch nodes: ", error);
-                }
-            }
-            fetchNodes();
-        }, []);
-
-        const [filteredNodes, setFilteredNodes] = useState(nodes);
-        const [searchTerm, setSearchTerm] = useState("");
-        const searchRef = useRef<HTMLInputElement>(null);
-
-        useEffect(() => {
-            setFilteredNodes(
-                nodes.filter((node) =>
-                    node.longName
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()),
-                ),
-            );
-        }, [searchTerm, nodes]);
+        console.log(
+            "making Popover(Location) '" + props.title + "' id: " + props.id,
+        );
 
         const handleLocationSelect = (longName: string) => {
             setFormSchema({ ...formSchema, [schemaKeys[props.id]]: longName });
@@ -351,7 +375,7 @@ export const ServiceRequests = (
         };
 
         return (
-            <div className={"col-span-auto"}>
+            <div className={props.width}>
                 <label
                     className={
                         "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
@@ -393,34 +417,9 @@ export const ServiceRequests = (
     };
 
     const EmployeeComp = (props: FormComponent) => {
-        // console.log(
-        //     "making Popover(Employee) '" + props.title + "' id: " + props.id,
-        // );
-        const [employees, setEmployee] = useState<Employee[]>([]);
-
-        useEffect(() => {
-            async function fetchEmployees() {
-                try {
-                    const response = await axios.get("/api/employee");
-                    setEmployee(response.data);
-                } catch (error) {
-                    console.error("Failed to fetch Employees: ", error);
-                }
-            }
-            fetchEmployees();
-        }, []);
-
-        const [filteredEmployees, setFilteredEmployees] = useState(employees);
-        const [searchTerm, setSearchTerm] = useState("");
-        const searchRef = useRef<HTMLInputElement>(null);
-
-        useEffect(() => {
-            setFilteredEmployees(
-                employees.filter((employee) =>
-                    employee.displayName.includes(searchTerm.toLowerCase()),
-                ),
-            );
-        }, [searchTerm, employees]);
+        console.log(
+            "making Popover(Employee) '" + props.title + "' id: " + props.id,
+        );
         const handleLocationSelect = (name: string) => {
             setFormSchema({ ...formSchema, [schemaKeys[props.id]]: name });
             setSearchTerm("");
@@ -429,7 +428,7 @@ export const ServiceRequests = (
         // console.log(employees);
 
         return (
-            <div className={"col-span-auto"}>
+            <div className={props.width}>
                 <label
                     className={
                         "block text-sm text-bold font-medium text-gray-700 dark:text-foreground m-1"
@@ -517,7 +516,64 @@ export const ServiceRequests = (
         }
         setIsSubmitted(false);
     };
-
+    if (bgPath === "") {
+        if (layout.length < 1) {
+            return (
+                <>
+                    <div className="flex transition-all">
+                        <div className="w-full">
+                            <div className="block bg-secondary rounded-lg">
+                                <form className="px-16 py-8">
+                                    {makeForm([
+                                        {
+                                            content: "label",
+                                            title: "Form Is Blank",
+                                            type: "header",
+                                            required: false,
+                                            id: 0,
+                                        },
+                                    ])}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            );
+        }
+        return (
+            <>
+                <div className="flex transition-all">
+                    <div className="w-full">
+                        <div className="block bg-secondary rounded-lg">
+                            <form className="px-16 py-8">
+                                {makeForm(layout)}
+                                <div
+                                    className={
+                                        "pt-16 grid grid-col grid-cols-3 "
+                                    }
+                                >
+                                    <button
+                                        className="bg-accent hover:bg-destructive text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                                        type="reset"
+                                        onClick={handleClearForm}
+                                    >
+                                        Clear Form
+                                    </button>
+                                    <div></div>
+                                    <button
+                                        className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded"
+                                        onClick={handleClearForm}
+                                    >
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    }
     return (
         <>
             <section
@@ -526,8 +582,9 @@ export const ServiceRequests = (
                     backgroundImage: `url(${[bgPath]})`,
                 }}
             />
+
             {isSubmitted && <Confetti />}
-            <div className="flex justify-center container shrink-0 w-full h-dvh">
+            <div className="flex justify-center container shrink-0 w-full h-screen">
                 <div className="m-auto relative w-2/3 min-w-[35rem]">
                     <div className="block shadow-lg bg-secondary rounded-lg border-4 border-background">
                         <form className="px-16 py-8" onSubmit={handleSubmit}>

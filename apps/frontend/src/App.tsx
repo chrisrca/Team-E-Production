@@ -31,6 +31,7 @@ import AboutUs from "@/routes/AboutUs.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import { ToastProvider } from "@radix-ui/react-toast";
 import CreditPage from "@/routes/CreditPage.tsx";
+import FormMaker from "@/routes/CustomForms";
 import Mobile from "./routes/Mobile";
 import { LanguageToggle } from "@/components/ui/LanguageToggle.tsx";
 import { LanguageProvider } from "@/components/LanguageProvider.tsx";
@@ -256,6 +257,14 @@ function AuthProviderWrapper({ nodes }: { nodes: DBNode[] }) {
                                     )}
                                 </ProtectedRoute>
                             }
+                        />
+                        <Route
+                        path="/form-maker"
+                        element={
+                            <ProtectedRoute>
+                                <FormMaker />
+                            </ProtectedRoute>
+                        }
                         />
                     </Routes>
 

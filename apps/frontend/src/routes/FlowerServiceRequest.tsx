@@ -6,7 +6,6 @@ const defaultFormSchema = {
     patientName: "",
     flowerType: "",
     senderName: "",
-    cardMessage: "",
     location: "",
     status: "",
     priority: "",
