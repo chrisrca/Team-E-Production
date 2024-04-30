@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState, useRef, useMemo, RefObject } from "react";
 import {
     TransformWrapper,
     TransformComponent,
@@ -212,6 +212,74 @@ export default function CanvasMap(nodes: CanvasMapProps) {
         return () => clearInterval(intervalId);
     }, []);
 
+    const transformWrapperRef = useRef<ReactZoomPanPinchRef>(null);
+
+    useEffect(() => {
+        const zoomToRectangle = (
+            transformWrapperRef: RefObject<ReactZoomPanPinchRef>,
+        ): void => {
+            if (transformWrapperRef.current) {
+                const { setTransform } = transformWrapperRef.current;
+
+                const image = new Image();
+                image.src = MapImage[mapLevel];
+
+                if (canvasRef.current) {
+                    const canvas = canvasRef.current;
+                    const context = canvas.getContext("2d");
+                    if (context) {
+                        image.onload = () => {
+                            setTimeout(() => {
+                                if (mapLevel == 0) {
+                                    setTransform(
+                                        -260,
+                                        -270,
+                                        1.345,
+                                        600,
+                                        "easeOut",
+                                    );
+                                } else if (mapLevel == 1) {
+                                    setTransform(
+                                        -400,
+                                        -400,
+                                        1.8,
+                                        600,
+                                        "easeOut",
+                                    );
+                                } else if (mapLevel == 2) {
+                                    setTransform(
+                                        -220,
+                                        -270,
+                                        1.3,
+                                        600,
+                                        "easeOut",
+                                    );
+                                } else if (mapLevel == 3) {
+                                    setTransform(
+                                        -225,
+                                        -115,
+                                        1.2,
+                                        600,
+                                        "easeOut",
+                                    );
+                                } else if (mapLevel == 4) {
+                                    setTransform(
+                                        -183,
+                                        -323,
+                                        1.3,
+                                        600,
+                                        "easeOut",
+                                    );
+                                }
+                            }, 600);
+                        };
+                    }
+                }
+            }
+        };
+        zoomToRectangle(transformWrapperRef);
+    }, [mapLevel]);
+
     //DRAWING OF NODES AND PATH
     useEffect(() => {
         const xMult = imageSize.width / 5000;
@@ -240,7 +308,15 @@ export default function CanvasMap(nodes: CanvasMapProps) {
                 };
             }
         }
-    }, [nodeData, pathData, imageSize, mapLevel, mousePosition, dashOffset]);
+    }, [
+        nodeData,
+        pathData,
+        imageSize,
+        mapLevel,
+        mousePosition,
+        dashOffset,
+        containerSize,
+    ]);
 
     function calculateDistance(point1: { x: number; y: number }, node: DBNode) {
         return Math.sqrt(
@@ -312,16 +388,14 @@ export default function CanvasMap(nodes: CanvasMapProps) {
             window.removeEventListener("resize", adjustCanvasSize);
         };
     }, []);
-
     return (
         <div>
-            <div className=""></div>
             {hoverNode.longName && (
                 <div // ml-4 justify-items-center bg-background  absolute z-10 text-md rounded-md px-2 py-1 flex flex-col rounded-2 float-left top-0
-                    className="absolute z-10 rounded-md bg-background shadow-lg flex-col rounded-2 float-left top-1/3 left-[60px] "
+                    className="absolute z-10 rounded-md bg-background shadow-lg flex-col rounded-2 right-0 bottom-0 mr-2.5 mb-1"
                     style={{
-                        top: `300px`,
-                        left: `60px`,
+                        // top: `300px`,
+                        // left: `60px`,
                         zIndex: `9999px`,
                         whiteSpace: "nowrap",
                         minWidth: "fit-content",
@@ -367,6 +441,7 @@ export default function CanvasMap(nodes: CanvasMapProps) {
             )}
 
             <TransformWrapper
+                ref={transformWrapperRef}
                 initialScale={1.5}
                 centerOnInit={true}
                 limitToBounds={true}

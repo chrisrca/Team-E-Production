@@ -15,115 +15,117 @@ import colin from "/src/images/colin.png";
 import funny from "/src/sounds/metal-pipe-falling-sound-effect-made-with-Voicemod.mp3";
 import fortnite from "/src/sounds/fortnite-dance-moves-emote-music-tv9iv8cxmo0-1.mp3";
 
+import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
 
 export default function AboutUs() {
-    //click on team member to display quote
+    const { language } = useLanguage();
     const[selectedMember, setSelectedMember] = useState<string | null>(null);
+
     // Array of objects representing each team member
     const teamMembers = [
         {
-            name: "Yan Acevedo",
-            role: "Project Manager",
-            major: "Robotics Engineering",
+            name: translate("Yan Acevedo", language),
+            role: translate("Project Manager", language),
+            major: translate("Robotics", language),
             class: "2025",
             quote: "La vida es un carnaval. - Celia Cruz",
             image: yan,
             audio: funny,
         },
         {
-            name: "Kai Davidson",
-            role: "Lead Developer",
-            major: "Computer Science and Bioinformatics",
+            name: translate("Kai Davidson", language),
+            role: translate("Lead Developer", language),
+            major: translate("ComputerBioinformatics", language),
             class: "2026",
-            quote: "Bang!",
+            quote: "Only one man ever understood me, and even he didn’t understand me. - Georg Wilhelm Hegel",
             image: kai,
             audio: funny,
         },
         {
-            name: "Aksel Jensen",
-            role: "Assistant Lead Developer",
-            major: "Computer Science / Bioinformatics and Computational Biology",
+            name: translate("Aksel Jensen", language),
+            role: translate("Assistant Lead Developer", language),
+            major: translate("ComputerBioinformatics", language),
             class: "2026",
             quote: "How fleeting are all human passions when compared with the massive continuity of ducks. - Dorothy L. Sayers",
             image: aksel,
             audio: funny,
         },
         {
-            name: "Tri Vien Le",
-            role: "Scrum Master",
-            major: "Computer Science",
+            name: translate("Tri Vien Le", language),
+            role: translate("Scrum Master", language),
+            major: translate("Computer", language),
             class: "2025",
             quote: "On my momma, I did not rebase the repo.",
             image: tri,
             audio: funny,
         },
         {
-            name: "Lorenzo Manfredi Segato",
-            role: "Assistant Lead Software Engineer",
-            major: "Robotics Engineering and Computer Science",
+            name: translate("Lorenzo Manfredi Segato", language),
+            role: translate("Assistant Lead Software Engineer", language),
+            major: translate("ComputerRobotics", language),
             class: "2025",
             quote: "The fire of extravagance can never burn simplicity",
             image: lorenzo,
             audio: funny,
         },
         {
-            name: "Devin Mihaichuk",
-            role: "Algorithms",
-            major: "Computer Science",
+            name: translate("Devin Mihaichuk", language),
+            role: translate("Algorithms", language),
+            major: translate("Computer", language),
             class: "2026",
             quote: "I want to be the best like no one ever was, I guess.",
             image: devin,
             audio: funny,
         },
         {
-            name: "Brendan Reilly",
-            role: "Backend Database Engineer",
-            major: "Computer Science",
+            name: translate("Brendan Reilly", language),
+            role: translate("Backend Database Engineer", language),
+            major: translate("Computer", language),
             class: "2026",
             quote: "To do anything to a high level, it has to be total obsession - Conor McGregor",
             image: brendan,
             audio: funny,
         },
         {
-            name: "Christian Reynolds",
-            role: "Algorithms",
-            major: "Computer Science",
+            name: translate("Christian Reynolds", language),
+            role: translate("Algorithms", language),
+            major: translate("Computer", language),
             class: "2026",
             quote: "You miss 100% of the shots you don't take - Wayne Gretzky",
             image: christian,
             audio: fortnite,
         },
         {
-            name: "Marc Wehbe",
-            role: "Frontend",
-            major: "Electrical Computer and Robotics Engineering",
+            name: translate("Marc Wehbe", language),
+            role: translate("Frontend", language),
+            major: translate("Electrical", language),
             class: "2025",
             quote: "At the end of the day, it's the end of the day",
             image: marc,
             audio: funny,
         },
         {
-            name: "Colin Williams",
-            role: "Frontend",
-            major: "Computer Science",
+            name: translate("Colin Williams", language),
+            role: translate("Frontend", language),
+            major: translate("Computer", language),
             class: "2026",
             quote: "Ooohh... I like that",
             image: colin,
             audio: funny,
         },
         {
-            name: "Brandon Yeu",
-            role: "Product Owner",
-            major: "Computer Science / Data Science",
+            name: translate("Brandon Yeu", language),
+            role: translate("Product Owner", language),
+            major: translate("Data Science", language),
             class: "2026",
             quote: "Do the best you can until you know better. Then when you know better, do better. — Maya Angelou",
             image: brandon,
             audio: funny,
         },
         {
-            name: "Tao Zou",
-            role: "Documentation Analyst",
-            major: "Robotic Engineering",
+            name: translate("Tao Zou", language),
+            role: translate("Documentation Analyst", language),
+            major: translate("Robotics", language),
             class: "2024",
             quote: "宽以律己 严以待人",
             image: tao,
@@ -138,7 +140,11 @@ export default function AboutUs() {
     return (
         <div>
             <div className="flex items-center justify-center pt-10 text-4xl font-bold">
-                <h1>About Us</h1>
+                {translate("aboutus", language)}
+            </div>
+            <div className="flex items-center text-center justify-center pt-5">
+                {translate("aboutusdes1", language)} <br/>
+                {translate("aboutusdes2", language)}<br/> {translate("aboutusdes3", language)}
             </div>
             <div className="grid gap-x-3 gap-y-3 grid-cols-3 auto-rows-auto pt-10 p-10" style={{ display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
                 {teamMembers.map((member, index) => (
@@ -166,9 +172,9 @@ export default function AboutUs() {
                     </div>
                 ))}
             </div>
-            {/* Thank you message */}
-            <div className="text-center mt-10 mb-20 text-lg text-white-600">
-                <p>Special thanks to the Women's Hospital and Andrew Shinn-Senior Planner, for their time and input.</p>
+            {/* Thank you message */}            
+            <div className="p-10 flex text-center items-center justify-center font-bold">
+                {translate("aboutusthank1", language)}<br/> {translate("aboutusthank2", language)}
             </div>
         </div>
     );

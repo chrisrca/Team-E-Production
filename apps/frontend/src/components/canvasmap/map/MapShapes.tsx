@@ -3,6 +3,7 @@ import { DBNode } from "common/src/types";
 export default function drawNodes(
     ctx: CanvasRenderingContext2D,
     nodeData: DBNode[],
+    pathData: DBNode[],
     xMult: number,
     yMult: number,
     mapLevel: number,
@@ -10,6 +11,13 @@ export default function drawNodes(
 ) {
     const floor = ["L2", "L1", "1", "2", "3"];
     nodeData.forEach((node) => {
+        let drawNode: boolean = true;
+        for (let i = 1; i < pathData.length - 1; i++) {
+            if (node.nodeID == pathData[i].nodeID) {
+                drawNode = false;
+            }
+        }
+        if (!drawNode) return;
         if (node.floor !== floor[mapLevel]) return;
         ctx.lineWidth = 2;
         switch (node.nodeType) {

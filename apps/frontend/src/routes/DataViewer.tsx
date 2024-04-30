@@ -22,6 +22,7 @@ import {
     SanitationServiceRequest,
     RoomSchedulingForm,
     MedicalDeviceServiceRequest,
+    Employee
 } from "common/src/types";
 import { Input } from "@/components/ui/input";
 
@@ -36,12 +37,12 @@ type DataViewerProps =
     | SanitationServiceRequest[]
     | RoomSchedulingForm[]
     | MedicalDeviceServiceRequest[]
+    | Employee[]
     | [];
 
 function DataViewer() {
     const [nodeData, setNodeData] = useState<DBNode[]>([]);
     const [edgeData, setEdgeData] = useState<Edge[]>([]);
-    const [currData, setCurrData] = useState<DataViewerProps>(nodeData);
     const [flowerData, setFlowerData] = useState<FlowerServiceRequest[]>([]);
     const [giftData, setGiftData] = useState<GiftServiceRequest[]>([]);
     const [interpreterData, setInterpreterData] = useState<
@@ -58,8 +59,9 @@ function DataViewer() {
     const [medicalDeviceData, setMedicalDeviceData] = useState<
         MedicalDeviceServiceRequest[]
     >([]);
-
+    const [employeeData, setEmployeeData] = useState<Employee[]>([]);
     const [uploadData, setUploadData] = useState<File | null | undefined>();
+    const [currData, setCurrData] = useState<DataViewerProps>(nodeData);
 
     const uploadCSV = async (file: File | null | undefined) => {
         if (file === null || file === undefined) {
@@ -151,7 +153,8 @@ function DataViewer() {
             | DrugDeliveryData[]
             | SanitationServiceRequest[]
             | RoomSchedulingForm[]
-            | MedicalDeviceServiceRequest[],
+            | MedicalDeviceServiceRequest[]
+            | Employee[],
     ) => {
         const headers = Object.keys(data[0]).join(",");
         const csv = data.map((row) => Object.values(row).join(","));
@@ -255,14 +258,23 @@ function DataViewer() {
             }
         }
         fetchMedicalDeviceData().then();
+
+        async function fetchEmployeeData() {
+            try {
+                const res = await axios.get("/api/employee");
+                setEmployeeData(res.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchEmployeeData().then();
     }, []);
 
     return (
         <div className="p-10 flex flex-auto flex-col items-center align-center">
-            <div className="flex flex-row items-center">
-                <div>
+            <div className="flex flex-row">
                     <Select onValueChange={(value) => setCurrData(value)}>
-                        <SelectTrigger className="flex w-60 bg-secondary hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                        <SelectTrigger className="flex h-30 w-60 bg-secondary hover:ring-2 ring-accent text-xl text-bold font-medium text-gray-700 dark:text-foreground">
                             <SelectValue placeholder={"Select a Data Type"} />
                         </SelectTrigger>
                         <SelectContent>
@@ -271,7 +283,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={nodeData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        " text-sm text-bold font-medium text-gray-700 dark:text-foreground"
                                     }
                                 >
                                     {"Node Data"}
@@ -348,11 +360,19 @@ function DataViewer() {
                                 >
                                     {"Medical Device Data"}
                                 </SelectItem>
+                                <SelectItem
+                                    value={employeeData}
+                                    className={
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                    }
+                                >
+                                    {"Employee Data"}
+                                </SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                </div>
-                <div className=" px-10 flex flex-col space-y-2">
+
+                <div className="flex flex-col space-y-2">
                     <div className="flex flex-row px-2 space-x-2">
                         <Input
                             className="text-foreground bg-secondary"
