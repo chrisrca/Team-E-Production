@@ -177,7 +177,7 @@ export function TextDirectionComponent(props: TextDirectionProps) {
                             <div key={index}
                                  className="flex-row p-2 border z-10 bg-secondary text-foreground rounded-lg flex items-center">
                                 <div className="border-black rounded-lg p-1">
-                                    {componentMapping[turns [index]] ? React.createElement(componentMapping[turns[index]]) : `?`}
+                                    {componentMapping[turns [index]] ? React.createElement(componentMapping[turns[index]]) : "Please Select Path"}
                                 </div>
                                 <div className="px-3">{prompt}</div>
                             </div> : <></>
