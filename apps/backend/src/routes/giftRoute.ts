@@ -4,37 +4,60 @@ import { GiftServiceRequest } from "common/src/types";
 
 const router = express.Router();
 
-let gift: string;
-
-async function getGiftsFromDB(): Promise<string> {
-    gift = await client.$queryRaw`SELECT * FROM gift`;
-    return gift;
+async function getGiftServicesFromDB(): Promise<string> {
+    const services = await client.service.findMany({
+        where: {
+            serviceType: "GIFT",
+        },
+        include: {
+            gift: true,
+        },
+    });
+    return JSON.stringify(services);
 }
 
 router.post("/", async (req: Request, res: Response) => {
-    const giftRequest: GiftServiceRequest = req.body;
+    const serviceRequest: GiftServiceRequest = req.body;
     try {
-        await client.gift.create({
+        const createdService = await client.service.create({
             data: {
-                recipientName: giftRequest.recipientName,
-                location: giftRequest.location,
-                message: giftRequest.message,
-                giftSize: giftRequest.giftSize,
-                status: giftRequest.status,
-                priority: giftRequest.priority,
-                wrapping: giftRequest.wrapping,
+                location: serviceRequest.location,
+                status: serviceRequest.status,
+                priority: serviceRequest.priority,
+                employeeName: serviceRequest.employeeName,
+                createdBy: serviceRequest.createdBy,
+                serviceType: "GIFT",
+                gift: {
+                    create: {
+                        recipientName: serviceRequest.recipientName,
+                        message: serviceRequest.message,
+                        giftSize: serviceRequest.giftSize,
+                        wrapping: serviceRequest.wrapping,
+                    },
+                },
+            },
+            include: {
+                flower: true,
             },
         });
+
+        res.send(
+            `Gift Service added to database: ${JSON.stringify(createdService)}`,
+        );
     } catch (e) {
-        console.log(e);
-        res.send("Failed to add Gifts to database");
+        console.error(e);
+        res.status(500).send("Failed to add service to database");
     }
-    res.send("Gifts added to database");
 });
 
 router.get("/", async (req: Request, res: Response) => {
-    const msg = await getGiftsFromDB();
-    res.send(msg);
+    try {
+        const services = await getGiftServicesFromDB();
+        res.send(services);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send("Failed to retrieve services from database");
+    }
 });
 
 export default router;

@@ -16,25 +16,24 @@ import Language from "/src/images/Language.webp";
 import Sanitation from "/src/images/Sanitation.png";
 import Scheduling from "/src/images/scheduling.jpg";
 import Device from "/src/images/MedicalDevice.png";
-import Symptoms from "/src/images/Symptoms.jpg";
+import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
 
 export default function Services() {
+    const { language } = useLanguage();
     return (
         <div className={"px-10"}>
             <div className={"px-16 py-8 rounded-xl"}>
-                <h1 className="text-3xl font-bold">Service Requests</h1>
+                <h1 className="text-3xl font-bold"><p>{translate("services", language)}</p></h1>
                 <h2 className="text-xl pb-4">
-                    Choose from a selection of services to enrich your stay with
-                    us.
+                    <p>{translate("chooseservice", language)}</p>
                 </h2>
                 <div className="grid lg:grid-cols-4 gap-5">
                     <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 1*/}
                         <CardHeader>
-                            <CardTitle>Flower Request</CardTitle>
+                            <CardTitle><h1><p>{translate("Flowertitle", language)}</p></h1></CardTitle>
                             <CardDescription>
-                                Order some flowers directly to a loved one's
-                                room.
+                                <p>{translate("Flowerdes", language)}</p>
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -46,19 +45,18 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/flower-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary transition-all"
                             >
-                                Order
+                                {translate("Order", language)}
                             </Link>
                         </CardFooter>
                     </Card>
                     <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 2*/}
                         <CardHeader>
-                            <CardTitle>Security Request</CardTitle>
+                            <CardTitle>{translate("Securitytitle", language)}</CardTitle>
                             <CardDescription>
-                                Feeling threatened? Order security to your
-                                location.
+                                {translate("Securitydes", language)}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -70,18 +68,18 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/security"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4 transition-all"
                             >
-                                Request
+                                {translate("Request", language)}
                             </Link>
                         </CardFooter>
                     </Card>
                     <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 3*/}
                         <CardHeader>
-                            <CardTitle>Medicine Request</CardTitle>
+                            <CardTitle>{translate("Medicinetitle", language)}</CardTitle>
                             <CardDescription>
-                                Order your prescribed medications to your room.
+                                {translate("Medicinedes", language)}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -93,32 +91,9 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/drug-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4 transition-all"
                             >
-                                Order
-                            </Link>
-                        </CardFooter>
-                    </Card>
-                    <Card className="bg-secondary shadow-md hover:shadow-lg">
-                        {/*card 3*/}
-                        <CardHeader>
-                            <CardTitle>Symptoms Submission</CardTitle>
-                            <CardDescription>
-                                Submit your symptoms into this form for doctors to see.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <img
-                                src={Symptoms}
-                                className={"rounded-sm aspect-[16/9]"}
-                            ></img>
-                        </CardContent>
-                        <CardFooter className="flex justify-end items-center">
-                            <Link
-                                to="/symptoms-service-request"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 ml-4"
-                            >
-                                Order
+                                {translate("Order", language)}
                             </Link>
                         </CardFooter>
                     </Card>
@@ -148,10 +123,9 @@ export default function Services() {
                     <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 4*/}
                         <CardHeader>
-                            <CardTitle>Gift Request</CardTitle>
+                            <CardTitle>{translate("Gifttitle", language)}</CardTitle>
                             <CardDescription>
-                                Get your friend a gift, you can even have it
-                                wrapped!
+                                {translate("GiftDes", language)}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -163,9 +137,9 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/gift-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 transition-all"
                             >
-                                Order
+                                {translate("Order", language)}
                             </Link>
                         </CardFooter>
                     </Card>
@@ -173,9 +147,9 @@ export default function Services() {
                         {" "}
                         {/*card 5*/}
                         <CardHeader>
-                            <CardTitle>Interpreter Request</CardTitle>
+                            <CardTitle>{translate("Interprettitle", language)}</CardTitle>
                             <CardDescription>
-                                Interpretation Language Needs Bonjour
+                                {translate("Interpretdes", language)}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -187,18 +161,18 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/language-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 transition-all"
                             >
-                                Request
+                                {translate("Request", language)}
                             </Link>
                         </CardFooter>
                     </Card>
                     <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 6*/}
                         <CardHeader>
-                            <CardTitle>Sanitation Request</CardTitle>
+                            <CardTitle>{translate("Sanitationtitle", language)}</CardTitle>
                             <CardDescription>
-                                For all your cleaning needs
+                                {translate("Sanitationdes", language)}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -210,18 +184,18 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/sanitation"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 transition-all"
                             >
-                                Request
+                                {translate("Request", language)}
                             </Link>
                         </CardFooter>
                     </Card>
                     <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 7*/}
                         <CardHeader>
-                            <CardTitle>Room Scheduling</CardTitle>
+                            <CardTitle>{translate("Roomtitle", language)}</CardTitle>
                             <CardDescription>
-                                Schedule a room for your needs
+                                {translate("Roomdes", language)}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -233,18 +207,18 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/room-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 transition-all"
                             >
-                                Take me there
+                                {translate("Take me there", language)}
                             </Link>
                         </CardFooter>
                     </Card>
                     <Card className="bg-secondary shadow-md hover:shadow-lg">
                         {/*card 8*/}
                         <CardHeader>
-                            <CardTitle>Medical Device Request</CardTitle>
+                            <CardTitle>{translate("Devicetitle", language)}</CardTitle>
                             <CardDescription>
-                                Request a device for your patient
+                                {translate("Devicedes", language)}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -256,9 +230,9 @@ export default function Services() {
                         <CardFooter className="flex justify-end items-center">
                             <Link
                                 to="/medical-device-service"
-                                className="inline-block bg-accent text-white text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1"
+                                className="inline-block bg-accent font-semibold text-foreground hover:text-background text-md py-2 px-4 rounded hover:bg-primary align-middle mt-1 transition-all"
                             >
-                                Request
+                                {translate("Request", language)}
                             </Link>
                         </CardFooter>
                     </Card>

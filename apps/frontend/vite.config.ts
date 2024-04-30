@@ -26,4 +26,7 @@ export default defineConfig({
         outDir: "build",
     },
     plugins: [react(), eslint()],
+    optimizeDeps: {
+        exclude: ["@radix-ui/react-accordian"],
+    },
 });

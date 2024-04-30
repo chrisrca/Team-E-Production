@@ -4,37 +4,59 @@ import { MedicalDeviceServiceRequest } from "common/src/types";
 
 const router = express.Router();
 
-let medicalDevice: string;
-
-async function getMedicalDeviceFromDB(): Promise<string> {
-    medicalDevice = await client.$queryRaw`SELECT * FROM medicaldevice`;
-    return medicalDevice;
+async function getMedDeviceServicesFromDB(): Promise<string> {
+    const services = await client.service.findMany({
+        where: {
+            serviceType: "MEDICALDEVICE",
+        },
+        include: {
+            medicaldevice: true,
+        },
+    });
+    return JSON.stringify(services);
 }
 
 router.post("/", async (req: Request, res: Response) => {
-    const MedicalService: MedicalDeviceServiceRequest = req.body;
-    const boolCheck: boolean = /^true$/i.test(MedicalService.withBalloons);
+    const serviceRequest: MedicalDeviceServiceRequest = req.body;
+    const boolCheck: boolean = serviceRequest.withBalloons === "true";
     try {
-        await client.medicaldevice.create({
+        const createdService = await client.service.create({
             data: {
-                employeeName: MedicalService.employeeName,
-                priority: MedicalService.priority,
-                location: MedicalService.location,
-                selectedDevice: MedicalService.selectedDevice,
-                status: MedicalService.status,
-                withBalloons: boolCheck,
+                location: serviceRequest.location,
+                status: serviceRequest.status,
+                priority: serviceRequest.priority,
+                employeeName: serviceRequest.employeeName,
+                createdBy: serviceRequest.createdBy,
+                serviceType: "MEDICALDEVICE",
+                medicaldevice: {
+                    create: {
+                        selectedDevice: serviceRequest.selectedDevice,
+                        withBalloons: boolCheck,
+                    },
+                },
+            },
+            include: {
+                medicaldevice: true,
             },
         });
+
+        res.send(
+            `MedicalDevice Service added to database: ${JSON.stringify(createdService)}`,
+        );
     } catch (e) {
-        console.log(e);
-        res.send("Failed to add medicalDeviceService to database");
+        console.error(e);
+        res.status(500).send("Failed to add service to database");
     }
-    res.send("MedicalDeviceService added to database");
 });
 
 router.get("/", async (req: Request, res: Response) => {
-    const msg = await getMedicalDeviceFromDB();
-    res.send(msg);
+    try {
+        const services = await getMedDeviceServicesFromDB();
+        res.send(services);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send("Failed to retrieve services from database");
+    }
 });
 
 export default router;

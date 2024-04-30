@@ -7,6 +7,7 @@ export default function drawNodes(
     yMult: number,
     mapLevel: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     const floor = ["L2", "L1", "1", "2", "3"];
     nodeData.forEach((node) => {
@@ -14,40 +15,47 @@ export default function drawNodes(
         ctx.lineWidth = 2;
         switch (node.nodeType) {
             case "HALL":
-                drawSquare(ctx, node, xMult, yMult, mousePosition);
+                drawSquare(ctx, node, xMult, yMult, mousePosition, dragNode);
                 break;
             case "CONF":
-                drawRectangle(ctx, node, xMult, yMult, mousePosition);
+                drawRectangle(ctx, node, xMult, yMult, mousePosition, dragNode);
                 break;
             case "DEPT":
-                drawCircle(ctx, node, xMult, yMult, mousePosition);
+                drawCircle(ctx, node, xMult, yMult, mousePosition, dragNode);
                 break;
             case "ELEV":
-                drawOval(ctx, node, xMult, yMult, mousePosition);
+                drawOval(ctx, node, xMult, yMult, mousePosition, dragNode);
                 break;
             case "EXIT":
-                drawHexagon(ctx, node, xMult, yMult, mousePosition);
+                drawHexagon(ctx, node, xMult, yMult, mousePosition, dragNode);
                 break;
             case "INFO":
-                drawTriangle(ctx, node, xMult, yMult, mousePosition);
+                drawTriangle(ctx, node, xMult, yMult, mousePosition, dragNode);
                 break;
             case "LABS":
-                drawRhombus(ctx, node, xMult, yMult, mousePosition);
+                drawRhombus(ctx, node, xMult, yMult, mousePosition, dragNode);
                 break;
             case "REST":
-                drawParallelogram(ctx, node, xMult, yMult, mousePosition);
+                drawParallelogram(
+                    ctx,
+                    node,
+                    xMult,
+                    yMult,
+                    mousePosition,
+                    dragNode,
+                );
                 break;
             case "BATH":
-                drawTrapezoid(ctx, node, xMult, yMult, mousePosition);
+                drawTrapezoid(ctx, node, xMult, yMult, mousePosition, dragNode);
                 break;
             case "RETL":
-                drawOctagon(ctx, node, xMult, yMult, mousePosition);
+                drawOctagon(ctx, node, xMult, yMult, mousePosition, dragNode);
                 break;
             case "STAI":
-                drawPentagon(ctx, node, xMult, yMult, mousePosition);
+                drawPentagon(ctx, node, xMult, yMult, mousePosition, dragNode);
                 break;
             case "SERV":
-                drawSeptagon(ctx, node, xMult, yMult, mousePosition);
+                drawSeptagon(ctx, node, xMult, yMult, mousePosition, dragNode);
                 break;
         }
     });
@@ -65,9 +73,13 @@ function drawHexagon(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     let size = 7;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         size *= 2;
     }
 
@@ -97,9 +109,13 @@ function drawCircle(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     let size = 6;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         size *= 2;
     }
     ctx.beginPath();
@@ -117,10 +133,14 @@ function drawSquare(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     ctx.beginPath();
     let size: number = 10;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         size *= 2;
     }
     const halfSize = size / 2;
@@ -139,10 +159,14 @@ function drawRectangle(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     ctx.beginPath();
     let size = 10;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         size *= 2;
     }
     const halfSize = size / 2;
@@ -166,10 +190,14 @@ function drawTriangle(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     ctx.beginPath();
     let size = 14;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         size *= 2;
     }
     const height = size * (Math.sqrt(3) / 2);
@@ -192,13 +220,17 @@ function drawOval(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
     let radiusX = 8;
     let radiusY = 6;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         radiusX *= 2;
         radiusY *= 2;
     }
@@ -215,12 +247,16 @@ function drawRhombus(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
     let diag = 14;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         diag *= 2;
     }
     ctx.moveTo(centerX, centerY - diag / 2);
@@ -240,6 +276,7 @@ function drawParallelogram(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
@@ -247,7 +284,10 @@ function drawParallelogram(
     let base = 14;
     let height = 9;
     let skew = 4;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         base *= 2;
         height *= 2;
         skew *= 2;
@@ -269,6 +309,7 @@ function drawTrapezoid(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
@@ -276,7 +317,10 @@ function drawTrapezoid(
     let base = 16;
     let top = 9;
     let height = 9;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         base *= 2;
         top *= 2;
         height *= 2;
@@ -299,12 +343,16 @@ function drawOctagon(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
     let side = 5;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         side *= 2;
     }
 
@@ -334,12 +382,16 @@ function drawPentagon(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
     let side = 8;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         side *= 2;
     }
 
@@ -369,12 +421,16 @@ function drawSeptagon(
     xMult: number,
     yMult: number,
     mousePosition: { x: number; y: number },
+    dragNode: DBNode | null,
 ) {
     ctx.beginPath();
     const centerX = node.xcoord * xMult;
     const centerY = node.ycoord * yMult;
     let side = 6;
-    if (calculateDistance(mousePosition, node) < 9) {
+    if (
+        calculateDistance(mousePosition, node) < 9 ||
+        (dragNode != null && dragNode!.nodeID == node.nodeID)
+    ) {
         side *= 2;
     }
 

@@ -25,6 +25,7 @@ module.exports = {
                 ring: "var(--ring)",
                 background: "var(--background)",
                 foreground: "var(--foreground)",
+                kiosk: "var(--kiosk)",
                 primary: {
                     DEFAULT: "var(--primary)",
                     foreground: "var(--primary-foreground)",
@@ -73,7 +74,15 @@ module.exports = {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
             },
+            maxHeight: {
+              'custom': '425px', // Define your custom max height value
+            },
         },
     },
-    plugins: [require("tailwindcss-animate")],
+    plugins: [
+        require("tailwindcss-animate"),
+        require("tailwind-scrollbar")({ nocompatible: true }),
+    ],
 };
+
+

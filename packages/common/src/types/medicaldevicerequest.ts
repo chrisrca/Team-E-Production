@@ -1,8 +1,10 @@
 export interface MedicalDeviceServiceRequest {
-    employeeName: string;
-    priority: string;
     location: string;
-    selectedDevice: string;
     status: string;
+    priority: string;
+    employeeName: string;
+    createdBy: string;
+    date: string;
+    selectedDevice: string;
     withBalloons: string;
 }

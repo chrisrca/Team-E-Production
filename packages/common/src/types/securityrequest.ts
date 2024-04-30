@@ -1,9 +1,10 @@
 export interface SecurityServiceRequest {
-    employeeName: string;
-    employeeID: number;
-    reqPriority: string;
     location: string;
+    status: string;
+    priority: string;
+    employeeName: string;
+    createdBy: string;
+    date: string;
     requestType: string;
-    reqStatus: string;
     alertAuthorities: boolean;
 }
