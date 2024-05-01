@@ -35,14 +35,19 @@ export default function MapEditor() {
     }, [triggerFetch]);
     return (
         <div className="z-0 relative">
-            <div className="mr-5 mb-10 absolute bottom-0 right-0 z-10">
-                <Legend></Legend>
+            <div className="mr-2 mb-6 absolute bottom-0 right-0 z-10">
+                <Legend/>
             </div>
-            <LevelButtons levelProps={[level, setLevel]} />
-            <div style={{
-                height:"100vh",
-                overflow: "hidden",
-            }}>
+            <div className="flex absolute top-0 right-0 z-10 mt-14">
+                <LevelButtons levelProps={[level, setLevel]} />
+            </div>
+
+            <div
+                style={{
+                    height: "100vh",
+                    overflow: "hidden",
+                }}
+            >
                 <EditorMap
                     level={level}
                     path={pathNodes}

@@ -1,89 +1,35 @@
 import { ServiceRequests } from "@/components/ServiceRequests";
 import security from "/src/images/security.avif";
+import { secForm } from "./exampleForms";
 
-const defaultFormSchema = {
-    requestType: "",
-    alertAuthorities: "false",
-    location: "",
-    status: "",
-    priority: "",
-    employeeName: "",
-};
+export default function SecurityForm(employee: string | undefined) {
 
-//Label is necessary, ids are calculated assuming that there is a title
+    const defaultFormSchema = {
+        requestType: "",
+        employeeName: "",
+        location: "",
+        status: "",
+        priority: "",
+        alertAuthorities: "false",
+        createdBy: "",
+    };
 
-const defaultForm = [
-    {
-        content: "label",
-        title: "Security Request",
-        type: "header",
-        id: 0,
-    },
-    {
-        content: "select",
-        type: "string",
-        title: "Type",
-        placeholder: "Request Type",
-        required: true,
-        id: 0,
-        label: "Options",
-        options: ["Patient Threat", "Staff Threat"],
-    },
-    {
-        content: "checkbox",
-        type: "string",
-        title: "Authorities",
-        placeholder: "Alert Authorities?",
-        required: false,
-        id: 0,
-    },
-    {
-        content: "popover",
-        type: "string",
-        title: "Select Location",
-        placeholder: "Select Placeholder 2",
-        required: true,
-        id: 0,
-        label: "",
-        options: [],
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Status",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Status",
-        options: ["Unassigned", "Assigned", "In Progress", "Closed"],
-    },
-    {
-        content: "radio",
-        type: "string",
-        title: "Priority",
-        placeholder: "",
-        required: true,
-        id: 0,
-        label: "Request Priority",
-        options: ["Low", "Medium", "High", "Emergency"],
-    },
-    {
-        content: "employee",
-        type: "string",
-        title: "Assign Employee",
-        placeholder: "Select Employee",
-        required: false,
-        id: 0,
-        label: "",
-        options: [],
-    },
-];
-export default function SecurityForm() {
-    return ServiceRequests(
-        defaultForm,
-        defaultFormSchema,
-        "/api/security",
-        security,
-        "Lorenzo and Kai",
+    // Label is necessary, ids are calculated assuming that there is a title
+    
+    if(employee == undefined){
+        return;
+    }
+    defaultFormSchema.createdBy = JSON.stringify(employee).replace(/\s+/g, '').replace(/[^\w.@]+/g, '').substring(8);
+  
+    return (
+        <div>
+            {ServiceRequests(
+                secForm,
+                defaultFormSchema,
+                "/api/security",
+                security,
+                "Lorenzo and Kai"
+            )}
+        </div>
     );
 }

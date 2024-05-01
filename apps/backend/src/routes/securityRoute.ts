@@ -29,6 +29,7 @@ router.post("/", async (req: Request, res: Response) => {
                 status: serviceRequest.status,
                 priority: serviceRequest.priority,
                 employeeName: serviceRequest.employeeName,
+                createdBy: serviceRequest.createdBy,
                 serviceType: "SECURITY",
                 security: {
                     create: {
