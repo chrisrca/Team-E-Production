@@ -59,11 +59,13 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                         value={startPath}
                     >
                         <SelectTrigger
-                            className={"dark:text-foreground dark:ring-0 dark:border-0 dark:bg-primary-element dark:ring-0 dark:hover:ring-2 dark:ring-accent transition-all"}>
+                            className={
+                                "dark:text-foreground dark:ring-0 dark:border-0 dark:bg-primary-element dark:ring-0 dark:hover:ring-2 dark:ring-accent transition-all"
+                            }
+                        >
                             <SelectValue placeholder="Start Node" />
                         </SelectTrigger>
-                        <SelectContent
-                            className={"bg-secondary-element"}>
+                        <SelectContent className={"bg-secondary-element"}>
                             {choices.map((node, index) => (
                                 <SelectItem key={index} value={node.nodeID}>
                                     {node.longName}
@@ -82,11 +84,13 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                         value={endPath}
                     >
                         <SelectTrigger
-                            className={"dark:text-foreground dark:ring-0 dark:border-0 dark:bg-primary-element dark:ring-0 dark:hover:ring-2 dark:ring-accent transition-all"}>
+                            className={
+                                "dark:text-foreground dark:ring-0 dark:border-0 dark:bg-primary-element dark:ring-0 dark:hover:ring-2 dark:ring-accent transition-all"
+                            }
+                        >
                             <SelectValue placeholder="End Node" />
                         </SelectTrigger>
-                        <SelectContent
-                            className={"bg-secondary-element"}>
+                        <SelectContent className={"bg-secondary-element"}>
                             {choices.map((node, index) => (
                                 <SelectItem key={index} value={node.nodeID}>
                                     {node.longName}
@@ -101,12 +105,16 @@ export default function SearchBar(PathFunctions: PathSetFunctionProps) {
                         onValueChange={(value) => algorithmFunction(value)}
                     >
                         <SelectTrigger
-                            className={"dark:text-foreground dark:ring-0 dark:border-0 dark:bg-primary-element dark:ring-0 dark:hover:ring-2 dark:ring-accent transition-all"}>
+                            className={
+                                "dark:text-foreground dark:ring-0 dark:border-0 dark:bg-primary-element dark:ring-0 dark:hover:ring-2 dark:ring-accent transition-all"
+                            }
+                        >
                             <SelectValue placeholder="A* (A-Star)" />
                         </SelectTrigger>
-                        <SelectContent 
+                        <SelectContent
                             className={"bg-secondary-element"}
-                            defaultValue="ASTAR">
+                            defaultValue="ASTAR"
+                        >
                             <SelectItem value="BFS">
                                 Breadth-First Search (BFS)
                             </SelectItem>

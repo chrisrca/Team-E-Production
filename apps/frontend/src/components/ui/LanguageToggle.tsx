@@ -19,7 +19,8 @@ export function LanguageToggle() {
                     <span className="sr-only">Toggle language</span>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent 
+                className={"dark:bg-secondary-element dark:border-tertiary-element"} align="end">
                 <DropdownMenuItem onClick={() => setLanguage("en")}>
                     English
                 </DropdownMenuItem>
