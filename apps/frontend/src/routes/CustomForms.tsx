@@ -86,7 +86,7 @@ export default function FormMaker() {
                             })
                         }
                     >
-                        <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-inherit">
+                        <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-inherit dark:bg-primary-element">
                             <SelectValue placeholder={"Select Type"} />
                         </SelectTrigger>
                         <SelectContent className={"dark:bg-primary-element"}>
@@ -135,7 +135,7 @@ export default function FormMaker() {
                     <>
                     <div
                         className={
-                            "p-2 w-full bg-background border-input border shadow-md rounded pt-3"
+                            "p-2 w-full bg-background border-input border shadow-md rounded pt-3 dark:bg-primary-element"
                         }
                     >
                     <RadioGroup
@@ -181,7 +181,7 @@ export default function FormMaker() {
                     <FormInput
                         placeholder={props[field]}
                         className={
-                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent dark:hover:bg-inherit ring-0"
+                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent dark:hover:bg-inherit ring-0 dark:bg-primary-element"
                         }
                         onChange={(e) => {
                             setNewObject(
@@ -215,7 +215,7 @@ export default function FormMaker() {
                         placeholder={"Input Number"}
                         type={"number"}
                         className={
-                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 dark:bg-primary-element"
                         }
                         onChange={(e) => {
                             setNewObject({
