@@ -54,8 +54,8 @@ const DiagnosisBot: React.FC = () => {
                     onChange={(e) => handleInputChange(e)}
                     value={userResponse}
                 ></input>
-                <button>
-                    <i className="far fa-paper-plane"></i>
+                <button className="bg-blue-900 hover:bg-accent text-white font-semibold hover:text-blue-900 py-2.5 px-4 border hover:border-blue-900 rounded">
+                    <i>Send</i>
                 </button>
             </form>
         </div>

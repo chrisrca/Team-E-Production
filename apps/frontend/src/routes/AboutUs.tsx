@@ -14,6 +14,7 @@ import marc from "/src/images/marc.png";
 import colin from "/src/images/colin.png";
 import funny from "/src/sounds/metal-pipe-falling-sound-effect-made-with-Voicemod.mp3";
 import fortnite from "/src/sounds/fortnite-dance-moves-emote-music-tv9iv8cxmo0-1.mp3";
+import logo from "/src/images/Emerald_Ewok_Logo.png";
 
 import {translate, useLanguage} from "@/components/LanguageProvider.tsx";
 import { Button } from "@/components/ui/button";
@@ -145,6 +146,7 @@ export default function AboutUs() {
                 <div className="p-10">
                     <Button className="text-3xl bg-accent" onClick={() => {window.location.href = "/meettheteam";}}>Meet The Team!</Button>
                 </div>
+                <img className="rounded-lg" src={logo} alt="logo" width="250" height="auto"/>
             </div>
             <div className="flex items-center text-center justify-center pt-5">    
                 {translate("aboutusdes1", language)} <br/>
