@@ -247,7 +247,7 @@ export const ServiceRequests = (
                                 e.target.value.toString())
                         }
                         className={
-                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 dark:hover:bg-primary-element"
                         }
                     />
                 </div>
@@ -268,10 +268,12 @@ export const ServiceRequests = (
                                 value.toString())
                         }
                     >
-                        <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground">
-                            <SelectValue placeholder={props.placeholder} />
+                        <SelectTrigger className="flex max-w-full min-w-fit shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-primary-element">
+                            <SelectValue 
+                            className={"dark:bg-background"} 
+                            placeholder={props.placeholder}/>
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className={"dark:bg-secondary-element"}>
                             <SelectGroup>
                                 <SelectLabel>{props.label}</SelectLabel>
                                 {/* Map options to select */}
@@ -279,7 +281,7 @@ export const ServiceRequests = (
                                     <SelectItem
                                         value={option.toString()}
                                         className={
-                                            "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                            "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                         }
                                     >
                                         {option}
@@ -384,12 +386,12 @@ export const ServiceRequests = (
 
                 <Popover>
                     <PopoverTrigger asChild>
-                        <Button className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                        <Button className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-primary-element">
                             {formSchema[schemaKeys[props.id]] ||
                                 "Select Location"}
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="origin-top-right absolute max-h-60 overflow-y-auto rounded-md shadow-lg">
+                    <PopoverContent className="origin-top-right absolute max-h-60 overflow-y-auto rounded-md shadow-lg dark:bg-secondary-element">
                         <Input
                             ref={searchRef}
                             className="w-full mb-2"
@@ -400,7 +402,7 @@ export const ServiceRequests = (
                         {filteredNodes.map((node) => (
                             <div
                                 key={node.nodeID}
-                                className="p-2 hover:bg-accent hover-text cursor-pointer rounded-md hover:text-accent-foreground"
+                                className="p-2 hover:bg-accent hover-text cursor-pointer rounded-md hover:text-accent-foreground dark:hover:bg-tertiary-element"
                                 onClick={() =>
                                     handleLocationSelect(node.longName)
                                 }
@@ -437,12 +439,12 @@ export const ServiceRequests = (
 
                 <Popover>
                     <PopoverTrigger asChild>
-                        <Button className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                        <Button className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-primary-element">
                             {formSchema[schemaKeys[props.id]] ||
                                 "Select Employee"}
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="origin-top-right absolute max-h-60 overflow-y-auto rounded-md shadow-lg">
+                    <PopoverContent className="origin-top-right absolute max-h-60 overflow-y-auto rounded-md shadow-lg dark:bg-secondary-element">
                         <Input
                             ref={searchRef}
                             className="w-full mb-2"
@@ -453,7 +455,7 @@ export const ServiceRequests = (
                         {filteredEmployees.map((employee) => (
                             <div
                                 key={employee.id}
-                                className="p-2 hover:bg-accent hover-text cursor-pointer rounded-md hover:text-accent-foreground"
+                                className="p-2 hover:bg-accent hover-text cursor-pointer rounded-md hover:text-accent-foreground dark:hover:bg-tertiary-element"
                                 onClick={() =>
                                     handleLocationSelect(employee.name)
                                 }
@@ -520,7 +522,7 @@ export const ServiceRequests = (
                 <>
                     <div className="flex transition-all">
                         <div className="w-full">
-                            <div className="block bg-secondary rounded-lg">
+                            <div className="block dark:bg-primary-element bg-secondary rounded-lg">
                                 <form className="px-16 py-8">
                                     {makeForm([
                                         {
@@ -541,8 +543,8 @@ export const ServiceRequests = (
         return (
             <>
                 <div className="flex transition-all">
-                    <div className="w-full">
-                        <div className="block bg-secondary rounded-lg">
+                    <div className="w-full rounded-lg">
+                        <div className="bg-secondary rounded-lg dark:bg-primary-element">
                             <form className="px-16 py-8">
                                 {makeForm(layout)}
                                 <div
@@ -584,7 +586,7 @@ export const ServiceRequests = (
             {isSubmitted && <Confetti />}
             <div className="flex justify-center container shrink-0 w-full h-dvh py-8">
                 <div className="m-auto relative w-2/3 min-w-[35rem]">
-                    <div className="block shadow-lg bg-secondary rounded-lg border-4 border-background">
+                    <div className="block shadow-lg dark:bg-primary-element rounded-lg border-4 border-background">
                         <form className="px-16 py-8" onSubmit={handleSubmit}>
                             {makeForm(layout)}
                             <div className={"pt-16 grid grid-col grid-cols-3 "}>

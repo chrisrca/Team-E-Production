@@ -77,7 +77,7 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
 
     return (
         <>
-            <div className="fixed z-50 bottom-[6.5rem] pl-2">
+            <div className="fixed z-50 bottom-[6.5rem] pl-2 transition-all">
                 <Button variant="outline" size="icon" onClick={() => { window.location.href = "/map3d"; }}>
                     <Box/>
                 </Button>
@@ -93,7 +93,9 @@ export default function MapPage({ nodes }: { nodes: DBNode[] }) {
             </div>
 
             <div className="flex z-10 ml-20">
-                <Button onClick={handleRandomize}>
+                <Button 
+                    className={"dark:hover:bg-background dark:bg-accent dark:hover:text-foreground dark:text-background dark:hover:ring-2 dark:ring-accent"}
+                    onClick={handleRandomize}>
                     I'm Feeling Lucky
                 </Button>
             </div>

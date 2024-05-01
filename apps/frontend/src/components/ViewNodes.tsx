@@ -208,11 +208,11 @@ export function DataTableDemo(data, columns) {
                                 "Select Field to Filter"}
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md">
+                    <PopoverContent className="origin-top-left absolute max-h-80 w-fit overflow-y-auto rounded-md dark:bg-secondary-element">
                         {Object.keys(data[0]).map((option, index) => (
                             <div
                                 key={index}
-                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize"
+                                className="p-1 hover:bg-accent dark:hover:bg-tertiary-element cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize"
                                 onClick={() => {
                                     //console.log(option);
                                     setValueFilter(index);
@@ -255,7 +255,7 @@ export function DataTableDemo(data, columns) {
                             
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
+                    <DropdownMenuContent align="end" className={"dark:bg-secondary-element"}>
                         {table
                             .getAllColumns()
                             .filter((column) => column.getCanHide())
@@ -263,7 +263,7 @@ export function DataTableDemo(data, columns) {
                                 return (
                                     <DropdownMenuCheckboxItem
                                         key={column.id}
-                                        className="capitalize"
+                                        className="capitalize dark:hover:bg-tertiary-element"
                                         checked={column.getIsVisible()}
                                         onCheckedChange={(value) =>
                                             column.toggleVisibility(!!value)

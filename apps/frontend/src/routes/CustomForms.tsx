@@ -86,18 +86,18 @@ export default function FormMaker() {
                             })
                         }
                     >
-                        <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground">
+                        <SelectTrigger className="flex max-w-full min-w-fit hover:bg-secondary shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-inherit">
                             <SelectValue placeholder={"Select Type"} />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className={"dark:bg-primary-element"}>
                             <SelectGroup>
-                                <SelectLabel className={"bg-card rounded-sm"}>
+                                <SelectLabel className={"bg-card dark:bg-secondary-element rounded-sm"}>
                                     {"Select Type"}
                                 </SelectLabel>
                                 <SelectItem
                                     value={"string"}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"String"}
@@ -105,7 +105,7 @@ export default function FormMaker() {
                                 <SelectItem
                                     value={"number"}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Number"}
@@ -113,7 +113,7 @@ export default function FormMaker() {
                                 <SelectItem
                                     value={"time"}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Time"}
@@ -121,7 +121,7 @@ export default function FormMaker() {
                                 <SelectItem
                                     value={"datetime-local"}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Time-Date"}
@@ -181,7 +181,7 @@ export default function FormMaker() {
                     <FormInput
                         placeholder={props[field]}
                         className={
-                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0"
+                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent dark:hover:bg-inherit ring-0"
                         }
                         onChange={(e) => {
                             setNewObject(
@@ -321,7 +321,7 @@ export default function FormMaker() {
                     <>
                         <div
                             className={
-                                "size-full px-5 pb-5 bg-popover rounded-xl flex flex-col capitalize"
+                                "size-full px-5 pb-5 bg-popover rounded-xl flex flex-col capitalize dark:bg-card "
                             }
                         >
                             {Object.keys(props).map((field) => {
@@ -429,7 +429,7 @@ export default function FormMaker() {
                     <>
                         <div
                             className={
-                                "size-full px-5 pb-5 bg-popover rounded-xl flex flex-col capitalize"
+                                "size-full px-5 pb-5 bg-popover dark:bg-card rounded-xl flex flex-col capitalize"
                             }
                         >
                             {Object.keys(props).map((field) => {
@@ -623,12 +623,12 @@ export default function FormMaker() {
         <>
             <div
                 className={
-                    "bg-card flex items-center w-full mx-auto rounded-lg min-h-screen grid grid-cols-3"
+                    "bg-card flex items-center w-full mx-auto rounded-lg min-h-screen grid grid-cols-3 dark:bg-primary-element"
                 }
             >
                 <div className={"relative pt-20 pr-4 pl-14 col-span flex flex-col self-start w-full h-screen relative overflow-auto"}>
                     <div className={"bg-card w-full rounded-lg"}>
-                        <div className={"flex flex-col space-y-10 place-content-evenly pb-20"}>
+                        <div className={"flex flex-col space-y-10 place-content-evenly pb-20 dark:bg-primary-element"}>
                             <Popover>
                                 <PopoverTrigger>
                                     <Button className="flex h-11 w-56 rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring shadow-none hover:shadow-md text-sm font-bold text-gray-700 hover:text-foreground bg-accent hover:bg-inherit border-2 border-notcolor hover:border-accent transition-all">
@@ -636,13 +636,13 @@ export default function FormMaker() {
                                         <FileInput className={"size-5 mr-0 ml-auto"}/>
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-md">
+                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-md dark:bg-secondary-element">
                                     {Object.keys(importedForms).map(
                                         (option, index) => {
                                             return(
                                                 <div
                                                     key={index}
-                                                    className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap"
+                                                    className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap dark:hover:text-background"
                                                     onClick={() => {
                                                         //console.log(importedForms[option]["form"]);
                                                         setCustomForm(importedForms[option]["form"]);
@@ -666,12 +666,12 @@ export default function FormMaker() {
                                             <Plus className={"size-5 mr-0 ml-auto"}/> 
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-m">
+                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-md dark:bg-secondary-element">
                                     {Object.keys(components).map(
                                         (option, index) => (
                                             <div
                                                 key={index}
-                                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize w-full"
+                                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize w-full dark:hover:text-background"
                                                 onClick={() => {
                                                     //console.log(option);
                                                     setCurrComponent(
@@ -706,12 +706,12 @@ export default function FormMaker() {
                                         <MoreHorizontal className={"size-5 mr-0 ml-auto"}/>
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-md">
+                                <PopoverContent className="origin-top-left max-h-60 w-48 overflow-y-auto rounded-md dark:bg-secondary-element">
                                     {customForm.map((option, index) => {
                                         return (
                                             <div
                                                 key={index}
-                                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap"
+                                                className="p-2 hover:bg-accent cursor-pointer rounded-md hover-text hover:text-accent-foreground capitalize text-nowrap dark:hover:text-background"
                                                 onClick={() => {
                                                     // console.log(
                                                     //     customForm[index],
@@ -754,7 +754,7 @@ export default function FormMaker() {
                     >
                         Form Preview
                     </div>
-                    <div className={"mx-auto mb-6"}>
+                    <div className={"mx-auto mb-6 dark:bg-primary-element rounded-lg"}>
                         {ServiceRequests(customForm, {}, "", "", "")}
                     </div>
                 </div>

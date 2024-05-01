@@ -153,7 +153,7 @@ export default function AboutUs() {
             <div className="grid gap-x-3 gap-y-3 grid-cols-3 auto-rows-auto pt-10 p-10" style={{ display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
                 {teamMembers.map((member, index) => (
                     <div key={index} style={{flex: '0 0 calc(33.33% - 2rem)'}}>
-                        <PortraitCard className="bg-secondary shadow-md hover:cursor-pointer hover:outline" onClick={() => toggleQuote(member)}>
+                        <PortraitCard className="bg-secondary dark:bg-primary-element shadow-md hover:cursor-pointer hover:outline" onClick={() => toggleQuote(member)}>
                             <CardContent style={{height: selectedMember === member.quote ? 'auto' : '475px' }}>
                                 <div className="flex flex-col justify-between h-full">
                                     <div>

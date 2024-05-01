@@ -303,16 +303,16 @@ function DataViewer() {
                             setCurrData(aggregateArr);
                         }
                     }}>
-                        <SelectTrigger className="flex h-30 w-60 bg-secondary hover:ring-2 ring-accent text-xl text-bold font-medium text-gray-700 dark:text-foreground">
+                        <SelectTrigger className="flex h-30 w-60 bg-secondary ring-accent text-xl text-bold font-medium text-gray-700 dark:text-foreground dark:ring-0 dark:border-0 dark:bg-primary-element dark:ring-0 dark:hover:ring-2 dark:ring-accent transition-all">
                             <SelectValue placeholder={"Select a Data Type"} />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className={"dark:bg-secondary-element"}>
                             <SelectGroup>
                                 <SelectLabel>{"Select Data Type"}</SelectLabel>
                                 <SelectItem
                                     value={nodeData}
                                     className={
-                                        " text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Node Data"}
@@ -320,7 +320,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={edgeData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Edge Data"}
@@ -328,7 +328,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={"Services Data"}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Services Data"}
@@ -336,7 +336,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={flowerData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Flower Data"}
@@ -344,7 +344,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={giftData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Gift Data"}
@@ -352,7 +352,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={interpreterData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Interpreter Data"}
@@ -360,7 +360,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={securityData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Security Data"}
@@ -368,7 +368,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={drugData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Drug Data"}
@@ -376,7 +376,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={sanitationData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Sanitation Data"}
@@ -384,7 +384,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={roomData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Room Data"}
@@ -392,7 +392,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={medicalDeviceData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Medical Device Data"}
@@ -400,7 +400,7 @@ function DataViewer() {
                                 <SelectItem
                                     value={employeeData}
                                     className={
-                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground"
+                                        "text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-tertiary-element"
                                     }
                                 >
                                     {"Employee Data"}
@@ -411,7 +411,7 @@ function DataViewer() {
                 <div className="flex flex-col space-y-2">
                     <div className="flex flex-row px-2 space-x-2">
                         <Input
-                            className="text-foreground bg-secondary"
+                            className="text-foreground bg-secondary dark:bg-secondary-element"
                             type="file"
                             onChange={(e) => {
                                 if (e.target.files !== null) {
@@ -419,12 +419,14 @@ function DataViewer() {
                                 }
                             }}
                         />
-                        <Button onClick={() => uploadCSV(uploadData)}>
+                        <Button 
+                        className={"dark:bg-accent dark:hover:bg-inherit dark:ring-0 dark:hover:ring-2 dark:ring-accent dark:text-background dark:hover:text-foreground transition-all"}
+                        onClick={() => uploadCSV(uploadData)}>
                             Upload
                         </Button>
                     </div>
-                    <div className="flex flex-row px-2">
-                        <Button className="w-full" onClick={downloadCSV}>
+                    <div className="flex flex-row px-2 ">
+                        <Button className="w-full dark:bg-accent dark:hover:bg-inherit dark:ring-0 dark:hover:ring-2 dark:ring-accent dark:text-background dark:hover:text-foreground transition-all" onClick={downloadCSV}>
                             Download
                         </Button>
                     </div>

@@ -168,7 +168,7 @@ export function TextDirectionComponent(props: TextDirectionProps) {
 
       return (
         prompts[0]!=='' ?
-        <Accordion type="single" collapsible className="w-full px-3 drop-shadow-xl z-10 bg-secondary shadow-md text-foreground rounded-lg">
+        <Accordion type="single" collapsible className="w-full px-3 drop-shadow-xl z-10 bg-secondary dark:bg-primary-element dark:border-accent shadow-md text-foreground rounded-lg">
             {floorsUsed?.map((flr,idx) => (
                 <AccordionItem value={`${idx}`}>
                     <AccordionTrigger className="max-h-11 px-2">{flr}</AccordionTrigger>
@@ -176,7 +176,7 @@ export function TextDirectionComponent(props: TextDirectionProps) {
                         {prompts?.map((prompt, index) => (
                             (floors[index]===flr && floorBool(indexOfFloorUsed,idx,index)) ?
                             <div key={index}
-                                 className="flex-row p-2 border z-10 bg-secondary text-foreground rounded-lg flex items-center">
+                                 className="flex-row p-2 border z-10 bg-secondary dark:bg-secondary-element text-foreground rounded-lg flex items-center mt-1">
                                 <div className="border-black rounded-lg p-1">
                                     {componentMapping[turns [index]] ? React.createElement(componentMapping[turns[index]]) : "Please Select Path"}
                                 </div>

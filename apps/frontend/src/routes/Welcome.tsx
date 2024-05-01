@@ -229,7 +229,7 @@ export default function Welcome({
                 <div className="pr-20 pl-20 bg-background flex flex-col pb-8">
                     <div className="flex flex-basis flex-col justify-start items-start">
                       <div className="pt-2">
-                        <img className="h-32 dark:bg-foreground rounded-md inline-block pl-2 pr-2" src={HospitalLogo}/>
+                        <img className="h-32 rounded-md inline-block pl-2 pr-2" src={HospitalLogo}/>
                       </div>
                         <h2 className="text-lg">
                             {translate("Helping our patients and their families get back to what matters most.", language)}
