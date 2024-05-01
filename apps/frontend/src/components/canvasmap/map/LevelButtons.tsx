@@ -26,20 +26,50 @@ function LevelButtons(levelProps: LevelButtonProps) {
     }
 
     return (
-        <div className="flex flex-col space-y-2">
-            <Button onClick={() => handleLevel(4)} style={getButtonStyle(4)}>
+        <div className="flex flex-col space-y-2 transition-all">
+            <Button
+                className={
+                    "dark:hover:bg-accent dark:bg-secondary-element dark:hover:text-background dark:text-foreground"
+                }
+                onClick={() => handleLevel(4)}
+                style={getButtonStyle(4)}
+            >
                 3
             </Button>
-            <Button onClick={() => handleLevel(3)} style={getButtonStyle(3)}>
+            <Button
+                className={
+                    "dark:hover:bg-accent dark:bg-secondary-element dark:hover:text-background dark:text-foreground"
+                }
+                onClick={() => handleLevel(3)}
+                style={getButtonStyle(3)}
+            >
                 2
             </Button>
-            <Button onClick={() => handleLevel(2)} style={getButtonStyle(2)}>
+            <Button
+                className={
+                    "dark:hover:bg-accent dark:bg-secondary-element dark:hover:text-background dark:text-foreground"
+                }
+                onClick={() => handleLevel(2)}
+                style={getButtonStyle(2)}
+            >
                 1
             </Button>
-            <Button onClick={() => handleLevel(1)} style={getButtonStyle(1)}>
+            <Button
+                className={
+                    "dark:hover:bg-accent dark:bg-secondary-element dark:hover:text-background dark:text-foreground"
+                }
+                onClick={() => handleLevel(1)}
+                style={getButtonStyle(1)}
+            >
                 L1
             </Button>
-            <Button onClick={() => handleLevel(0)} style={getButtonStyle(0)}>
+            <Button
+                className={
+                    "dark:hover:bg-accent dark:bg-secondary-element dark:hover:text-background dark:text-foreground"
+                }
+                onClick={() => handleLevel(0)}
+                style={getButtonStyle(0)}
+            >
                 L2
             </Button>
         </div>

@@ -62,7 +62,7 @@ export default function Legend() {
 
     return (
         <div className="rounded-2 border-white drop-shadow-xl z-10 hidden md:block">
-            <div className="bg-secondary p-3 rounded-lg shadow-md text-foreground">
+            <div className="bg-secondary dark:bg-secondary-element p-3 rounded-lg shadow-md text-foreground">
                 <h2 className="text-xl font-bold text-center">Legend</h2>
                 <ul>
                     <li className="flex items-center">

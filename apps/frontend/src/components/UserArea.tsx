@@ -71,23 +71,23 @@ export default function UserArea() {
                 (isAuthenticated ? (
                     <DropdownMenuContent
                         side="right"
-                        className="w-56 mt-2 z-50"
+                        className="w-56 mt-2 z-50 dark:bg-primary-element"
                     >
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className={"dark:hover:text-background"}>
                                 <User className="mr-2 h-4 w-4" />
                                 <Link to="/dashboard">Dashboard</Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className={"dark:hover:text-background"}>
                                 <Settings className="mr-2 h-4 w-4" />
                                 <Link to="/settings">Settings</Link>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
                                 onClick={handleLogout}
-                                className="hover:bg-destructive"
+                                className="hover:bg-destructive dark:hover:text-background"
                             >
                                 <LogOut className="mr-2 h-4 w-4" />
                                 <span className="hover:underline">Log out</span>

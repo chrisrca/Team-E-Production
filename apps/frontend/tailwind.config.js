@@ -28,14 +28,27 @@ module.exports = {
                 kiosk: "var(--kiosk)",
                 primary: {
                     DEFAULT: "var(--primary)",
+                    element: "var(--primary-element)",
                     foreground: "var(--primary-foreground)",
+                },
+                button: {
+                    DEFAULT: "var(--button)",
+                    hover: "var(--button-hover)",
+                    secondary: "var(--button-secondary)",
+                    secondaryHover: "var(--button-secondary-hover)",
                 },
                 secondary: {
                     DEFAULT: "var(--secondary)",
+                    element: "var(--secondary-element)",
                     foreground: "var(--secondary-foreground)",
+                },
+                tertiary: {
+                    DEFAULT: "var(--tertiary)",
+                    element: "var(--tertiary-element)",
                 },
                 destructive: {
                     DEFAULT: "var(--destructive)",
+                    highlight: "var(--destructive-hover)",
                     foreground: "var(--destructive-foreground)",
                 },
                 muted: {
