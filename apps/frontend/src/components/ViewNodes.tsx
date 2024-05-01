@@ -546,7 +546,7 @@ export default function ViewNodes(inputData: {
                                 <MoreHorizontal className="h-4"/>
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
+                        <DropdownMenuContent className={"dark:bg-tertiary-element"} align="end">
                             <DropdownMenuLabel>Order Details</DropdownMenuLabel>
                             {Object.keys(
                                 details[details["serviceType"].toLowerCase()],
