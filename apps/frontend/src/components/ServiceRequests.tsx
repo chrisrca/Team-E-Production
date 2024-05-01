@@ -247,7 +247,7 @@ export const ServiceRequests = (
                                 e.target.value.toString())
                         }
                         className={
-                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 dark:hover:bg-primary-element"
+                            "w-full shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 dark:hover:bg-primary-element dark:bg-secondary-element"
                         }
                     />
                 </div>
@@ -268,7 +268,7 @@ export const ServiceRequests = (
                                 value.toString())
                         }
                     >
-                        <SelectTrigger className="flex max-w-full min-w-fit shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-primary-element">
+                        <SelectTrigger className="flex max-w-full min-w-fit shadow-md hover:ring-2 ring-accent text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-primary-element dark:bg-secondary-element dark:ring-accent transition-all">
                             <SelectValue 
                             className={"dark:bg-background"} 
                             placeholder={props.placeholder}/>
@@ -309,7 +309,7 @@ export const ServiceRequests = (
                     </label>
                     <div
                         className={
-                            "p-2 w-full bg-background border-input border shadow-md rounded"
+                            "p-2 w-full bg-background dark:bg-secondary-element border-input border shadow-md rounded"
                         }
                     >
                         <RadioGroup
@@ -319,7 +319,7 @@ export const ServiceRequests = (
                             }
                         >
                             {/* Map options to select */}
-                            <div className="flex grid grid-flow-dense grid-cols-auto grid-rows-auto px-4">
+                            <div className="flex grid grid-flow-dense grid-cols-auto grid-rows-auto px-4 dark:bg-secondary-element">
                                 {props.options.map((option) => (
                                     <div
                                         key={option}
@@ -386,7 +386,7 @@ export const ServiceRequests = (
 
                 <Popover>
                     <PopoverTrigger asChild>
-                        <Button className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-primary-element">
+                        <Button className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-primary-element dark:bg-secondary-element">
                             {formSchema[schemaKeys[props.id]] ||
                                 "Select Location"}
                         </Button>
@@ -439,7 +439,7 @@ export const ServiceRequests = (
 
                 <Popover>
                     <PopoverTrigger asChild>
-                        <Button className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-primary-element">
+                        <Button className="flex h-10 w-full rounded-md border border-input focus-visible:ring-2 focus-visible:ring-ring bg-background text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 shadow-md hover:ring-2 hover:bg-secondary hover:ring-accent ring-0 text-sm text-bold font-medium text-gray-700 dark:text-foreground dark:hover:bg-primary-element dark:bg-secondary-element">
                             {formSchema[schemaKeys[props.id]] ||
                                 "Select Employee"}
                         </Button>
